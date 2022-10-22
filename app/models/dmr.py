@@ -6,6 +6,7 @@ class DMR(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     # Todo: reformat for multiple messages
     # message_id = db.Column(db.Integer)
+    dmr_name: db.Column(db.String(255))
     created_at = db.Column(db.DATE)
     updated_at = db.Column(db.DATE)
     
