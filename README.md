@@ -8,6 +8,9 @@ To-dos/future features: TBD
 Technical implementation details: TBD
 
 • Feature list document
+
 • Database Schema
+
 • API routes document
+
 • Redux store
