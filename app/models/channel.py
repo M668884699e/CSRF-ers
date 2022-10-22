@@ -1,28 +1,32 @@
 from .db import db
-from .message import Messages
-from .user import User
+from .message import Message
+# from .user import User
 
 # Join Table Imports
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy.schema import Column, ForeignKey, Table
-from sqlalchemy.types import Integer, String
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.orm import relationship
+# from sqlalchemy.schema import Column, ForeignKey, Table
+# from sqlalchemy.types import Integer, String
 
-Base = declarative_base()
+# Base = declarative_base()
 
-channel_users = Table(
-    "channel_users",
-    Base.metadata,
-    Column("channel_id", ForeignKey("channels.id"), primary_key=True),
-    Column("user_id", ForeignKey("users.id"), primary_key=True)
-)
-
-# channel_messages = Table(
-#     "channel_messages",
-#     Base.metadata,
-#     Column("channel_id", ForeignKey("channels.id"), primary_key=True),
-#     Column("message_id", ForeignKey("messages.id"), primary_key=True)
+# channel_users = db.Table(
+#     "channel_users",
+#     # Base.metadata,
+#     db.Column("channel_id", db.ForeignKey("channels.id"), primary_key=True),
+#     db.Column("user_id", db.ForeignKey("users.id"), primary_key=True)
 # )
+
+class ChannelUser(db.Model):
+    __tablename__ = "channel_users"
+
+    channel_id = db.Column("channel_id", db.ForeignKey("channels.id"), primary_key=True)
+    user_id = db.Column("user_id", db.ForeignKey("users.id"), primary_key=True)
+
+    # channels = db.relationship("Channel", back_populates="channels")
+    # users = db.relationship("User", back_populates="users")
+
+
 
 class Channel(db.Model):
     __tablename__ = 'channels'
@@ -33,18 +37,14 @@ class Channel(db.Model):
     created_at = db.Column(db.Date)
     updated_at = db.Column(db.Date)
 
-    # user = relationship("User", back_populates="users")
-    users = relationship("Users",
-                        secondary=channel_users,
-                        back_populates="channels")
+    # users = db.relationship("User",
+    #                     secondary=channel_users,
+    #                     back_populates="channels")
 
+    # users = db.relationship("channel_users", back_populates="users")
+    # channels = db.relationship("channel_users", back_populates="channels")
+    channel_member = db.relationship("ChannelUser", backref="channel")
 
-    # message = relationship("Message", back_populates="messages")
-
-
-    @property
-    def password(self):
-        return self.hashed_password
 
     def to_dict(self):
         return {

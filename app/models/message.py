@@ -16,7 +16,7 @@ class Message(db.Model):
         return {
             'id': self.id,
             'message': self.message,
-            'channelId': self.channel_id,
-            'directMessageRoomId': self.direct_message_room_id,
-            'senderId': self.sender_id
+            'channel_id': self.channel_id,
+            'direct_message_room_id': self.direct_message_room_id,
+            'sender_id': self.sender_id
         }

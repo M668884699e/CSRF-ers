@@ -12,7 +12,9 @@ seed_commands = AppGroup('seed')
 # Creates the `flask seed all` command
 @seed_commands.command('all')
 def seed():
+    print("hello 3")
     seed_users()
+    print("hello 4")
 
     seed_channels()
     seed_dmrs()
