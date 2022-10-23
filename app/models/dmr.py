@@ -1,4 +1,6 @@
 from .db import db
+from .dmr_user import DMRUser
+import datetime
 
 class DMR(db.Model):
     __tablename__ = 'direct_message_rooms'
@@ -7,8 +9,11 @@ class DMR(db.Model):
     # Todo: reformat for multiple messages
     # message_id = db.Column(db.Integer)
     dmr_name = db.Column(db.String(255), nullable=False)
-    created_at = db.Column(db.DATE)
-    updated_at = db.Column(db.DATE)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    
+    dmr_member = db.relationship("DMRUser", backref="channel", cascade="all,delete")
+
 
     # dmr_users = db.join()
 

@@ -26,5 +26,5 @@ def seed_dmrs():
 # dependent entities
 def undo_dmrs():
     # db.session.execute('TRUNCATE direct_message_rooms RESTART IDENTITY CASCADE;')
-    db.session.execute("DROP TABLE IF EXISTS direct_message_rooms;")
+    db.session.execute("DELETE FROM direct_message_rooms;")
     db.session.commit()

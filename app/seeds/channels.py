@@ -29,5 +29,5 @@ def seed_channels():
 # dependent entities
 def undo_channels():
     # db.session.execute('TRUNCATE channels RESTART IDENTITY CASCADE;')
-    db.session.execute("DROP TABLE IF EXISTS channels;")
+    db.session.execute("DELETE FROM channels;")
     db.session.commit()

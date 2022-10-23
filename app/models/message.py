@@ -1,4 +1,5 @@
 from .db import db
+import datetime
 
 
 class Message(db.Model):
@@ -9,8 +10,8 @@ class Message(db.Model):
     channel_id = db.Column(db.Integer, nullable=True)
     direct_message_room_id = db.Column(db.Integer, nullable=True)
     sender_id = db.Column(db.Integer, nullable=True)
-    created_at = db.Column(db.Date)
-    updated_at = db.Column(db.Date)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     def to_dict(self):
         return {

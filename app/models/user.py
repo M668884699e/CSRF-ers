@@ -1,6 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+import datetime
 # from .channel import ChannelUser
 
 
@@ -13,15 +14,13 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # channels = db.relationship("Channel",
-    #                         secondary=channel_users,
-    #                         back_populates="users")
-    print("hello 1")
-    channel_member = db.relationship("ChannelUser", backref="member", cascade="all, delete")
-    # channel = db.relationship("ChannelUser", back_populates="orders")
-    # users = db.relationship("ChannelUser", back_populates="users")
-    print("hello 2")
+    # join memberships
+    channel_member = db.relationship("ChannelUser", backref="channel_member", cascade="all, delete")
+    dmr_member = db.relationship("DMRUser", backref="dmr_member", cascade="all,delete")
+
 
     @property
     def password(self):

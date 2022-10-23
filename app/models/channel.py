@@ -1,30 +1,7 @@
 from .db import db
 from .message import Message
+import datetime
 # from .user import User
-
-# Join Table Imports
-# from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.orm import relationship
-# from sqlalchemy.schema import Column, ForeignKey, Table
-# from sqlalchemy.types import Integer, String
-
-# Base = declarative_base()
-
-# channel_users = db.Table(
-#     "channel_users",
-#     # Base.metadata,
-#     db.Column("channel_id", db.ForeignKey("channels.id"), primary_key=True),
-#     db.Column("user_id", db.ForeignKey("users.id"), primary_key=True)
-# )
-
-class ChannelUser(db.Model):
-    __tablename__ = "channel_users"
-
-    channel_id = db.Column("channel_id", db.ForeignKey("channels.id"), primary_key=True)
-    user_id = db.Column("user_id", db.ForeignKey("users.id"), primary_key=True)
-
-    # channels = db.relationship("Channel", back_populates="channels")
-    # users = db.relationship("User", back_populates="users")
 
 
 
@@ -34,8 +11,8 @@ class Channel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, nullable=False)
     channel_name = db.Column(db.String(40), nullable=False)
-    created_at = db.Column(db.Date)
-    updated_at = db.Column(db.Date)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # users = db.relationship("User",
     #                     secondary=channel_users,
