@@ -40,5 +40,6 @@ def seed_users():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_users():
-    db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    # db.session.execute('TRUNCATE users RESTART IDENTITY CASCADE;')
+    db.session.execute("DROP TABLE IF EXISTS users;")
     db.session.commit()

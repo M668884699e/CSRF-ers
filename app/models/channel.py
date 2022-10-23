@@ -43,7 +43,7 @@ class Channel(db.Model):
 
     # users = db.relationship("channel_users", back_populates="users")
     # channels = db.relationship("channel_users", back_populates="channels")
-    channel_member = db.relationship("ChannelUser", backref="channel")
+    channel_member = db.relationship("ChannelUser", backref="channel", cascade="all,delete")
 
 
     def to_dict(self):
