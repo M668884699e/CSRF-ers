@@ -35,13 +35,13 @@ def get_channel_messages():
 @channel_routes.route("/", methods = ["POST"])
 def create_channel():
     # Needs work
-
+    pass
 
 # Add a user to the channel, requires authentication if user has permission to add others
 @channel_routes.route("/:channelId/users/:userId", methods = ["POST"])
 def add_user_to_channel():
     # Needs work
-
+    pass
 
 # Update channel settings, requires authentication if user has permission to change channel settings
 # different from the personalization settings like display name and notification settings for specific
@@ -49,7 +49,7 @@ def add_user_to_channel():
 @channel_routes.route("/:channelId")
 def change_channel_settings():
     # Needs work
-
+    pass
 
 # Delete channel, requires authentication if user has permission to delete channel
 @channel_routes.route("/:channelId", methods = ["DELETE"])
