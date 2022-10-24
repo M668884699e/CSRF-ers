@@ -10,7 +10,6 @@ def get_all_channels():
     channels = Channel.query.all()
     return {"channels": [channel.to_dict() for channel in channels]}
 
-
 # Get specfic channel, requires authentication if current user is member of channel
 @channel_routes.route("/<int:channel_id>")
 def get_one_channel(channel_id):
@@ -53,6 +52,6 @@ def change_channel_settings():
 
 # Delete channel, requires authentication if user has permission to delete channel
 @channel_routes.route("/:channelId", methods = ["DELETE"])
+def delete_channel():
     channel_id = req.args
-
     return "Channel successfully deleted"
