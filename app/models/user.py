@@ -21,6 +21,10 @@ class User(db.Model, UserMixin):
     # channel_member = db.relationship("ChannelUser", backref="channel_member", cascade="all, delete")
     # dmr_member = db.relationship("DMRUser", backref="dmr_member", cascade="all,delete")
 
+    __mapper_args__ = {
+        'polymorphic_identity' : 'user',
+        'with_polymorphic' : '*'
+    }
 
     @property
     def password(self):
