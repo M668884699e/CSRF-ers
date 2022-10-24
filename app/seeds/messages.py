@@ -2,29 +2,29 @@ from app.models import db, Message
 
 def seed_messages():
     message_one = Message(
-        message='Message One', channel_id=1)
+        message='Message One', messageable_id=1, messageable_type = "Message")
     message_two = Message(
-        message='Message Two', channel_id=1)
+        message='Message Two', messageable_id=2, messageable_type = "Message")
     message_three = Message(
-        message='Message Three', channel_id=1)
+        message='Message Three', messageable_id=3, messageable_type = "Message")
     message_four = Message(
-        message='Message Four', channel_id=2)
+        message='Message Four', messageable_id=4, messageable_type = "Message")
     message_five = Message(
-        message='Message Five', channel_id=2)
+        message='Message Five', messageable_id=5, messageable_type = "Message")
     message_six = Message(
-        message='Message Six', channel_id=3)
+        message='Message Six', messageable_id=6, messageable_type = "Message")
     message_seven = Message(
-        message='Message Seven', channel_id=3)
+        message='Message Seven', messageable_id=7, messageable_type = "Message")
     
     # dmr_messages
     message_eight = Message(
-        message='Message Eight', direct_message_room_id=1, sender_id=1)
+        message='Message Eight', sender_id=1, messageable_id=8, messageable_type = "DMR")
     message_nine = Message(
-        message='Message Nine', direct_message_room_id=1,  sender_id=2)
+        message='Message Nine', sender_id=2, messageable_id=9, messageable_type = "DMR")
     message_ten = Message(
-        message='Message Ten', direct_message_room_id=2,  sender_id=2)
+        message='Message Ten', sender_id=2, messageable_id=10, messageable_type = "DMR")
     message_eleven = Message(
-        message='Message Eleven', direct_message_room_id=3,  sender_id=3)
+        message='Message Eleven', sender_id=3, messageable_id=11, messageable_type = "DMR")
     
 
     db.session.add(message_one)
