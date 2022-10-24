@@ -14,7 +14,7 @@ const removeUser = () => ({
 const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
-  const response = await fetch('/api/auth/', {
+  const response = await fetch('/api/users/authenticate', {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -30,7 +30,7 @@ export const authenticate = () => async (dispatch) => {
 }
 
 export const login = (email, password) => async (dispatch) => {
-  const response = await fetch('/api/auth/login', {
+  const response = await fetch('/api/users/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ export const login = (email, password) => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch) => {
-  const response = await fetch('/api/auth/logout', {
+  const response = await fetch('/api/users/logout', {
     headers: {
       'Content-Type': 'application/json',
     }
@@ -70,19 +70,22 @@ export const logout = () => async (dispatch) => {
 };
 
 
-export const signUp = (username, email, password) => async (dispatch) => {
-  const response = await fetch('/api/auth/signup', {
+export const signUp = (first_name, last_name, username, email, password) => async (dispatch) => {
+  
+  const response = await fetch('/api/users/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      first_name,
+      last_name,
       username,
       email,
       password,
     }),
   });
-  
+
   if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data))

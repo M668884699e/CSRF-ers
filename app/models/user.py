@@ -9,18 +9,17 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(40), nullable=False)
-    last_name = db.Column(db.String(40), nullable=False)
-    username = db.Column(db.String(40), nullable=False, unique=True)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    hashed_password = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(40))
+    last_name = db.Column(db.String(40))
+    username = db.Column(db.String(40), nullable=True)
+    email = db.Column(db.String(255), unique=True)
+    hashed_password = db.Column(db.String(255))
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # join memberships
     # channel_member = db.relationship("ChannelUser", backref="channel_member", cascade="all, delete")
     # dmr_member = db.relationship("DMRUser", backref="dmr_member", cascade="all,delete")
-
 
     @property
     def password(self):
@@ -38,7 +37,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'first_name':self.first_name,
             'last_name':self.last_name,
-            'username': self.username,
+            'display_name': self.username,
             'email': self.email,
             'hashed_password': self.hashed_password
         }

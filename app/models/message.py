@@ -24,7 +24,6 @@ class Message(db.Model):
         'with_polymorphic': '*'
     }
 
-
     def to_dict(self):
         return {
             'id': self.id,
