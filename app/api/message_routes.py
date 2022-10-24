@@ -2,7 +2,7 @@ from crypt import methods
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.models import User, Message, DMR, db
-from app.forms import MessageForm
+# from app.forms import MessageForm
 
 message_routes = Blueprint('messages', __name__)
 
