@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, User, Message
+from app.models import db, User, Message, DMRUser, ChannelUser
 from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -68,6 +68,38 @@ def logout():
     logout_user()
     return {'message': 'User logged out'}
 
+
+#* GET - /users/dmr
+# Get all user DMR room
+@user_routes.route('/dmr')
+@login_required
+def get_user_dmrs():
+    # query DMR and find any dmr that current user belongs to 
+    belongs_dmrs = DMRUser.query.filter(DMRUser.user_id == current_user.get_id())
+    
+    return {"dmrs": [belongs_dmr.to_dict() for belongs_dmr in belongs_dmrs]}
+
+
+#* GET - /users/messages
+# Get all user messages
+@user_routes.route('/messages')
+@login_required
+def get_user_messages():
+    # query Message and find any that current user have access to
+    belongs_messages = Message.query.filter(Message.sender_id == current_user.get_id())
+    
+    return {"messages": [belongs_message.to_dict() for belongs_message in belongs_messages]}
+
+#* GET - /users/channels
+# Get all channels
+@user_routes.route('/channels')
+@login_required
+def get_user_channels():
+    # query Channel and find any that current user belongs to
+    belongs_channels = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id())
+    
+    return {"channels": [belongs_channel.to_dict() for belongs_channel in belongs_channels]}
+
 #* POST - /users/login
 # Log into the existing user account
 @user_routes.route('/login', methods=['POST'])
@@ -96,10 +128,18 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        # if username does not exist... 
+        display_name = form.data['username']
+        
+        if(form.data['username'].strip() == ""):
+            # combine first and last name to make user name
+            display_name = f"{form.data['first_name']} {form.data['last_name']}"
+        
         user = User(
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
-            username=form.data['username'],
+            # username=form.data['username'],
+            username=display_name,
             email=form.data['email'],
             password=form.data['password']
         )

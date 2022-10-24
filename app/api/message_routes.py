@@ -10,6 +10,9 @@ message_routes = Blueprint('messages', __name__)
 @message_routes.route('/', methods=["GET"])
 @login_required
 def get_messages():
+    """
+    Get all existing messages
+    """
     # query all messages
     messages = Message.query.all()
 
@@ -21,6 +24,9 @@ def get_messages():
 @message_routes.route('/', methods=['POST'])
 @login_required
 def new_message():
+    """
+    Create new message
+    """
     # create message form
     form = MessageForm()
 
@@ -48,6 +54,9 @@ def new_message():
 @message_routes.route('/<int:message_id>', methods=['PUT'])
 @login_required
 def edit_message(message_id):
+    """
+    Edit existing message
+    """
     # get current message
     current_message = Message.query.get(message_id)
 
@@ -68,6 +77,9 @@ def edit_message(message_id):
 @message_routes.route('/<int:message_id>', methods=['DELETE'])
 @login_required
 def delete_message(message_id):
+    """
+    Delete existing message
+    """
     # get message by message id
     message = Message.query.get(message_id)
 
@@ -79,4 +91,4 @@ def delete_message(message_id):
     db.session.delete(message)
     db.session.commit()
 
-    return f"Successfully deleted message {message_id}"
+    return {"message": f"Successfully deleted message {message_id}"}
