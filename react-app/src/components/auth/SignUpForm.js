@@ -17,7 +17,9 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password));
+      console.log("first_name here: ", first_name);
+      console.log("last_name here:", last_name);
+      const data = await dispatch(signUp(first_name, last_name, username, email, password));
       if (data) {
         setErrors(data)
       }
@@ -32,19 +34,19 @@ const SignUpForm = () => {
     setLastName(e.target.value);
   }
 
-  const updateUsername = (e) => {
+  const updateUsername = e => {
     setUsername(e.target.value);
   };
 
-  const updateEmail = (e) => {
+  const updateEmail = e => {
     setEmail(e.target.value);
   };
 
-  const updatePassword = (e) => {
+  const updatePassword = e => {
     setPassword(e.target.value);
   };
 
-  const updateRepeatPassword = (e) => {
+  const updateRepeatPassword = e => {
     setRepeatPassword(e.target.value);
   };
 

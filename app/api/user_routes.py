@@ -16,7 +16,9 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-@user_routes.route('/authorized')
+#* GET - /authenticate
+# Verify user authentication
+@user_routes.route('/authenticate')
 def authenticate():
     """
     Authenticates a user.
@@ -25,6 +27,50 @@ def authenticate():
         return current_user.to_dict()
     return {'errors': ['Unauthorized']}
 
+#* GET - /unauthorized
+# Respond user as unauthorized
+@user_routes.route('/unauthorized')
+def unauthorized():
+    """
+    Returns unauthorized JSON when flask-login authentication fails
+    """
+    return {'errors': ['Unauthorized']}, 401
+
+#* GET - /users
+# Get all users
+@user_routes.route('/')
+@login_required
+def users():
+    """
+    get all available users
+    """
+    users = User.query.all()
+    return {'users': [user.to_dict() for user in users]}
+
+#* GET - /users/current
+# Get user by id
+@user_routes.route('/current')
+# @login_required
+def get_current_user():
+    """
+    get current user
+    """
+    user = User.query.get(current_user.get_id())
+    return user.to_dict()
+
+#* GET - /users/logout
+# Log out of the current user
+@user_routes.route('/logout')
+def logout():
+    """
+    Logs a user out
+    """
+    # log out current user and send successful response
+    logout_user()
+    return {'message': 'User logged out'}
+
+#* POST - /users/login
+# Log into the existing user account
 @user_routes.route('/login', methods=['POST'])
 def login():
     """
@@ -41,16 +87,8 @@ def login():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
-@user_routes.route('/logout')
-def logout():
-    """
-    Logs a user out
-    """
-    logout_user()
-    return {'message': 'User logged out'}
-
-
+#* POST - /users/signup
+# Create a new user
 @user_routes.route('/signup', methods=['POST'])
 def sign_up():
     """
@@ -60,8 +98,8 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
-            firstname=form.data['firstname'],
-            lastname=form.data['lastname'],
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name'],
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password']
@@ -72,41 +110,62 @@ def sign_up():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-
-@user_routes.route('/unauthorized')
-def unauthorized():
-    """
-    Returns unauthorized JSON when flask-login authentication fails
-    """
-    return {'errors': ['Unauthorized']}, 401
-
-#* GET - /users
-# Get all users
-@user_routes.route('/')
-@login_required
-def users():
-    users = User.query.all()
-    return {'users': [user.to_dict() for user in users]}
-
-#* GET - /users/current
-# Get user by id
-@user_routes.route('/current')
-@login_required
-def user(id):
-    user = User.query.get(id)
-    return user.to_dict()
-
 #* PUT/PATCH - /users
 # Update user information (username, first/last name, email, etc.)
 @user_routes.route('/', methods=['PUT'])
 @login_required
 def update_user():
-    pass
+    """
+    update current user information
+    """
+    # get current user
+    current_user_update = User.query.get(current_user.get_id())
     
+    # get user data from form
+    form = SignUpForm()
+    
+    #* update user
+    # if first name exist
+    if(form.data['first_name']): 
+        current_user_update.first_name = form.data['first_name'] 
+    
+    # if last name exist
+    if(form.data['last_name']):
+        current_user_update.last_name = form.data['last_name']
+
+    # if user name exist
+    if(form.data['username']):
+        current_user_update.username = form.data['username']
+    
+    # if email exist
+    if(form.data['email']):
+        current_user_update.email = form.data['email']
+    
+    # if password exist
+    if(form.data['password']):
+        current_user_update.password = form.data['password']
+    
+    # commit update
+    db.session.commit()
+    
+    # return current user
+    return current_user_update.to_dict()
 
 #* DELETE - /users
 # Delete user
 @user_routes.route('/', methods=['DELETE'])
 @login_required
 def delete_user():
-    pass
+    # get current user
+    destroy_user = User.query.get(current_user.get_id())
+    
+    # if no current user to delete, throw error
+    if(destroy_user == None):
+        return {'errors': [f"User {current_user.get_id()} does not exist"]}, 404
+    
+    # delete current user
+    db.session.delete(destroy_user)
+    db.session.commit()
+    
+    # return successful response with delete message
+    return f"Successfully deleted user {destroy_user.id}"
