@@ -8,14 +8,15 @@ message_routes = Blueprint('messages', __name__)
 #* GET - /messages
 # Get all available messages
 @message_routes.route('/', methods=["GET"])
+@message_routes.route('/search', methods=["GET"])
 @login_required
 def get_messages():
     """
     Get all existing messages
     """
     # query all messages
-    messages = Message.query.all()
-
+    messages = Message.query.all() if request.args.get('search') is None else Message.query.filter(Message.message.ilike(f"%{request.args.get('search')}%")).all()
+    
     # return successful response
     return {'messages':[message.to_dict() for message in messages]}
 

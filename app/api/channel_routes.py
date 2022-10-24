@@ -170,7 +170,7 @@ def add_user_to_channel(channel_id, user_id):
         'new_channel_user': new_channel_user.to_dict()
     }
 
-#*! PUT - /channels/:channelId
+#TODO: PUT - /channels/:channelId
 # Update channel settings, requires authentication if user has permission to change channel settings
 # different from the personalization settings like display name and notification settings for specific
 # user,
