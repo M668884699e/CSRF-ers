@@ -29,7 +29,6 @@ def get_channel_messages():
     channel_messages = Message.query.filter_by(messgeable_id == channel_id).all
     return {"channel_messages": [message.to_dict() for message in channel_messages]}
 
-
 # Create a new channel
 @channel_routes.route("/", methods = ["POST"])
 def create_channel():

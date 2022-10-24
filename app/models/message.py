@@ -9,7 +9,7 @@ class Message(db.Model):
     message = db.Column(db.String(3000), nullable=False)
     # channel_id = db.Column(db.Integer, nullable=True)
     # direct_message_room_id = db.Column(db.Integer, nullable=True)
-    sender_id = db.Column(db.Integer, nullable=True)
+    sender_id = db.Column(db.Integer, nullable=True) #! Do we want to make this nullable false?
     
     # polymorphic association between message to channel and dmr
     messageable_id = db.Column(db.Integer, nullable=False)

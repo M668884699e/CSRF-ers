@@ -20,13 +20,12 @@ class DMR(db.Model):
         'with_polymorphic': '*'
     }
 
-
     # dmr_users = db.join()
 
     def to_dict(self):
         return {
             'id': self.id,
-            # 'message_id': self.message_id
+            'dmr_name': self.dmr_name,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

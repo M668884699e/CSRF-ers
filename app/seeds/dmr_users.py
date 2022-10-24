@@ -23,7 +23,6 @@ def seed_dmr_users():
     db.session.add(dmr_user_three)
     
     db.session.commit()
- 
 
 # Unseed dmr_users   
 def undo_dmr_users():

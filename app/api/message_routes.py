@@ -1,12 +1,12 @@
-# from crypt import methods
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from app.models import User, Message, DMR, db
+from app.models import Message, db
 from app.forms import MessageForm
 
-# form = MessageForm()
 message_routes = Blueprint('messages', __name__)
 
+#* GET - /messages
+# Get all available messages
 @message_routes.route('/', methods=["GET"])
 @login_required
 def get_messages():
@@ -16,6 +16,8 @@ def get_messages():
     # return successful response
     return {'messages':[message.to_dict() for message in messages]}
 
+#* POST - /messages
+# Create new message
 @message_routes.route('/', methods=['POST'])
 @login_required
 def new_message():
@@ -41,6 +43,8 @@ def new_message():
     # return successful message response
     return message.to_dict()
 
+#* PUT - /messages/:messageId
+# Update sent message
 @message_routes.route('/<int:message_id>', methods=['PUT'])
 @login_required
 def edit_message(message_id):
@@ -59,6 +63,8 @@ def edit_message(message_id):
     # return current message
     return current_message.to_dict()
 
+#* DELETE - /messages/:messageId
+# Delete message
 @message_routes.route('/<int:message_id>', methods=['DELETE'])
 @login_required
 def delete_message(message_id):
