@@ -2,20 +2,20 @@ from app.models import db, Message
 
 def seed_messages():
     message_one = Message(
-        message='Message One', messageable_id=1, messageable_type = "Message")
+        message='Message One', sender_id=1, messageable_id=1, messageable_type = "Message")
     message_two = Message(
-        message='Message Two', messageable_id=2, messageable_type = "Message")
+        message='Message Two',  sender_id=1,messageable_id=2, messageable_type = "Message")
     message_three = Message(
-        message='Message Three', messageable_id=3, messageable_type = "Message")
+        message='Message Three',  sender_id=1,messageable_id=3, messageable_type = "Message")
     message_four = Message(
-        message='Message Four', messageable_id=4, messageable_type = "Message")
+        message='Message Four',  sender_id=1,messageable_id=1, messageable_type = "Message")
     message_five = Message(
-        message='Message Five', messageable_id=5, messageable_type = "Message")
+        message='Message Five',  sender_id=1,messageable_id=2, messageable_type = "Message")
     message_six = Message(
-        message='Message Six', messageable_id=6, messageable_type = "Message")
+        message='Message Six',  sender_id=1,messageable_id=1, messageable_type = "Message")
     message_seven = Message(
-        message='Message Seven', messageable_id=7, messageable_type = "Message")
-    
+        message='Message Seven',  sender_id=1,messageable_id=3, messageable_type = "Message")
+
     # dmr_messages
     message_eight = Message(
         message='Message Eight', sender_id=1, messageable_id=8, messageable_type = "DMR")
@@ -25,7 +25,7 @@ def seed_messages():
         message='Message Ten', sender_id=2, messageable_id=10, messageable_type = "DMR")
     message_eleven = Message(
         message='Message Eleven', sender_id=3, messageable_id=11, messageable_type = "DMR")
-    
+
 
     db.session.add(message_one)
     db.session.add(message_two)
