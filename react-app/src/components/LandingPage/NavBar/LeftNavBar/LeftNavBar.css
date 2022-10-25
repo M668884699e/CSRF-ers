@@ -1,0 +1,16 @@
+#lnb-ul{
+  list-style-type: none;
+}
+
+#nav-logo-container {
+	width: 125px;
+	height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#nav-logo {
+	object-fit: fit;
+  height: 80%;
+  width: 80%
+}

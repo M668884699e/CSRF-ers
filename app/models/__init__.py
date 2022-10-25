@@ -5,3 +5,4 @@ from .message import Message
 from .dmr import DMR
 from .dmr_user import DMRUser
 from .channel_user import ChannelUser
+from .notification import Notification

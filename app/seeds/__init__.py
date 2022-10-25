@@ -5,11 +5,11 @@ from .messages import seed_messages, undo_messages
 from .dmrs import seed_dmrs, undo_dmrs
 from .dmr_users import seed_dmr_users, undo_dmr_users
 from .channel_users import seed_channel_users, undo_channel_users
+from .notifications import seed_notifications, undo_notifications
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
 seed_commands = AppGroup('seed')
-
 
 # Creates the `flask seed all` command
 @seed_commands.command('all')
@@ -21,6 +21,7 @@ def seed():
     seed_messages()
     seed_dmr_users()
     seed_channel_users()
+    seed_notifications()
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
@@ -32,3 +33,4 @@ def undo():
     undo_messages()
     undo_dmr_users()
     undo_channel_users()
+    undo_notifications()

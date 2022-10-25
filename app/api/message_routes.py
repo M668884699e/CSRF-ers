@@ -7,8 +7,8 @@ message_routes = Blueprint('messages', __name__)
 
 #* GET - /messages
 # Get all available messages
-@message_routes.route('/', methods=["GET"])
-@message_routes.route('/search', methods=["GET"])
+@message_routes.route('/')
+@message_routes.route('/search')
 @login_required
 def get_messages():
     """

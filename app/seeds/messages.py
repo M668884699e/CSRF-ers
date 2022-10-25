@@ -4,17 +4,17 @@ def seed_messages():
     message_one = Message(
         message='Message One', sender_id=1, messageable_id=1, messageable_type = "Channel")
     message_two = Message(
-        message='Message Two',  sender_id=1,messageable_id=1, messageable_type = "Channel")
+        message='Message Two', sender_id=1,messageable_id=1, messageable_type = "Channel")
     message_three = Message(
-        message='Message Three',  sender_id=1,messageable_id=2, messageable_type = "Channel")
+        message='Message Three', sender_id=1,messageable_id=2, messageable_type = "Channel")
     message_four = Message(
-        message='Message Four',  sender_id=1,messageable_id=2, messageable_type = "Channel")
+        message='Message Four', sender_id=1,messageable_id=2, messageable_type = "Channel")
     message_five = Message(
-        message='Message Five',  sender_id=1,messageable_id=3, messageable_type = "Channel")
+        message='Message Five', sender_id=1,messageable_id=3, messageable_type = "Channel")
     message_six = Message(
-        message='Message Six',  sender_id=1,messageable_id=3, messageable_type = "Channel")
+        message='Message Six', sender_id=1,messageable_id=3, messageable_type = "Channel")
     message_seven = Message(
-        message='Message Seven',  sender_id=1,messageable_id=3, messageable_type = "Channel")
+        message='Message Seven', sender_id=1,messageable_id=3, messageable_type = "Channel")
 
     # dmr_messages
     message_eight = Message(
@@ -48,6 +48,5 @@ def seed_messages():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_messages():
-    # db.session.execute('TRUNCATE messages RESTART IDENTITY CASCADE;')
     db.session.execute("DELETE FROM messages;")
     db.session.commit()

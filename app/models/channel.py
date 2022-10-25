@@ -1,9 +1,6 @@
 from .db import db
 from .message import Message
 import datetime
-# from .user import User
-
-
 
 class Channel(db.Model):
     __tablename__ = 'channels'
@@ -14,14 +11,8 @@ class Channel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
-    # users = db.relationship("User",
-    #                     secondary=channel_users,
-    #                     back_populates="channels")
-
-    # users = db.relationship("channel_users", back_populates="users")
-    # channels = db.relationship("channel_users", back_populates="channels")
     channel_member = db.relationship("ChannelUser", backref="channel", cascade="all,delete")
-    
+
     # connect polymorphic relationship
     __mapper_args__ = {
         'polymorphic_identity': 'channel',

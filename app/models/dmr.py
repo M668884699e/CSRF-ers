@@ -1,5 +1,4 @@
 from .db import db
-# from .dmr_user import DMRUser
 import datetime
 
 class DMR(db.Model):
@@ -13,7 +12,7 @@ class DMR(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     
     dmr_member = db.relationship("DMRUser", backref="channel", cascade="all,delete")
-    
+ 
     # connect polymorphic relationship
     __mapper_args__ = {
         'polymorphic_identity': 'dmr',
