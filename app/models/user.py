@@ -43,6 +43,5 @@ class User(db.Model, UserMixin):
             'first_name':self.first_name,
             'last_name':self.last_name,
             'display_name': self.username,
-            'email': self.email,
-            'hashed_password': self.hashed_password
+            'email': self.email
         }
