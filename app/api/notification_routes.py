@@ -10,14 +10,14 @@ notification_routes = Blueprint('notifications', __name__)
 @login_required
 @notification_routes.route('/')
 def get_all_notifications():
-    """
-    Get all notifications
-    """
-    # query all notifications
-    notifications = Notification.query.all()
+  """
+  Get all notifications
+  """
+  # query all notifications
+  notifications = Notification.query.all()
   
-    # return successful response
-    return {'notifications': [notification.to_dict() for notification in notifications]}
+  # return successful response
+  return {'notifications': [notification.to_dict() for notification in notifications]}
 
 #* GET - /notifications/:notificationId
 # Get specific notification

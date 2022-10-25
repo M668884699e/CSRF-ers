@@ -1,0 +1,11 @@
+#landing-page-container{
+  background-color: #4A154B;
+  grid-template-rows: 10rem 60rem 30rem 30rem;
+
+  height: 100%;
+  width: 100vw;
+
+  display: grid;
+  position: fixed;
+  overflow-y: auto;
+}

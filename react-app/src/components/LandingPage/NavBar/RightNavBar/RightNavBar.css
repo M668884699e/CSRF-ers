@@ -1,0 +1,52 @@
+/* src/components/LandingPage/NavBar/RightNavBar/RightNavBar.css */
+
+/**********************
+      Container 
+*********************/
+#rnb-container{
+  /* background-color: aqua; */
+  min-width: fit-content;
+  display: flex;
+  align-items: center;
+  /* margin-right: 2rem; */
+}
+
+#rnb-container > *{
+  margin-right: .5rem;
+}
+
+/**********************
+        Icon
+*********************/
+.rnb-mg-icon-container{
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+.rnb-mg-icon{
+  color: white;
+  margin-right: 1rem;
+}
+
+/**********************
+      Buttons
+*********************/
+#live-chat-talk-button{
+  background-color: #4A154B;
+  color: white;
+  padding: .5rem 1rem;
+  margin-right: .5rem;
+}
+
+#create-workspace-button{
+  padding: .5rem 1rem;
+  color: #4A154B;
+}
+
+#live-chat-talk-button, #create-workspace-button{
+  text-transform: uppercase;
+  font-weight: bold;
+  border: 1px solid white;
+  letter-spacing: 1.5px;
+  border-radius: .2rem;
+}

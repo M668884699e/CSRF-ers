@@ -22,11 +22,9 @@ app = Flask(__name__)
 login = LoginManager(app)
 login.login_view = 'users.unauthorized'
 
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)

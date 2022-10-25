@@ -1,0 +1,10 @@
+/* src/components/LandingPage/NavBar/Top/Top.css */
+
+#tnb-container{
+  width: 100%;
+  height: fit-content;
+  margin-top: .5rem;
+
+  display: inline-flex;
+  justify-content: space-between;
+}
