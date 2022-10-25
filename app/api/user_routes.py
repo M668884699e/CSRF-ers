@@ -47,7 +47,7 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 #* GET - /users/current
-# Get user by id
+# Get current logged in user
 @user_routes.route('/current')
 # @login_required
 def get_current_user():
@@ -56,6 +56,17 @@ def get_current_user():
     """
     user = User.query.get(current_user.get_id())
     return user.to_dict()
+
+#* GET - /users/<int:id>
+@user_routes.route('/<int:id>')
+@login_required
+def get_user_by_id(id):
+    user = User.query.get(id)
+    
+    if user == None:
+        return {'errors': [f"User {id} does not exist"]}, 404
+    return user.to_dict()
+        
 
 #* GET - /users/logout
 # Log out of the current user
