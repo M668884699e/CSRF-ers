@@ -60,6 +60,10 @@ def edit_message(message_id):
     """
     # get current message
     current_message = Message.query.get(message_id)
+    
+    # if message does not exist, then throw an error
+    if(current_message == None):
+        return {'errors': [f"Message {message_id} does not exist"]}, 404
 
     # get message data from form
     form = MessageForm()

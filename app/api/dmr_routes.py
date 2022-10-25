@@ -8,8 +8,8 @@ dmr_routes = Blueprint('dmr', __name__)
 
 #* GET - /dmr
 # Get all DirectMessageRooms
-@login_required
 @dmr_routes.route('/')
+@login_required
 def get_dmrs():
   """
   Get all Direct Message Rooms
@@ -19,8 +19,8 @@ def get_dmrs():
 
 #* GET - /dmr/:dmrId
 # Get DMR by id
-@login_required
 @dmr_routes.route('/<int:dmr_id>')
+@login_required
 def get_dmr(dmr_id):
   """
   Get all DMR by id
@@ -30,8 +30,8 @@ def get_dmr(dmr_id):
 
 #* GET - /dmr/:dmrId/users
 # Get all users in DirectMessageRooms
-@login_required
 @dmr_routes.route('/<int:dmr_id>/users')
+@login_required
 def get_dmr_users(dmr_id):
   """
   Get all users of dmr_users by dmr id
@@ -52,8 +52,8 @@ def get_dmr_users(dmr_id):
 
 #* GET - /dmr/:dmrId/messages
 # Get all messages in a DirectMessageRoom
-@login_required
 @dmr_routes.route('/<int:dmr_id>/messages')
+@login_required
 def get_dmr_messages(dmr_id):
   """
   Get all messages of dmr_users by dmr id
@@ -72,8 +72,8 @@ def get_dmr_messages(dmr_id):
   
 #* POST - /dmr
 # Create new DirectMessageRoom
-@login_required
 @dmr_routes.route('/', methods=['POST'])
+@login_required
 def create_dmr():
   """
   Create new Direct Message Room
@@ -141,8 +141,8 @@ def create_dmr():
 
 #* DELETE - /dmr/:dmrId
 # Delete DirectMessageRoom
-@login_required
 @dmr_routes.route('/<int:dmr_id>', methods=['DELETE'])
+@login_required
 def delete_dmr(dmr_id):
   """
   Delete existing DMR
