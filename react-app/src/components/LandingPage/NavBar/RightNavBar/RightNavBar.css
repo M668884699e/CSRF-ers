@@ -4,11 +4,11 @@
       Container 
 *********************/
 #rnb-container{
-  /* background-color: aqua; */
   min-width: fit-content;
   display: flex;
   align-items: center;
-  /* margin-right: 2rem; */
+  justify-content: flex-end;
+  width: 100%;
 }
 
 #rnb-container > *{
@@ -34,19 +34,20 @@
 #live-chat-talk-button{
   background-color: #4A154B;
   color: white;
-  padding: .5rem 1rem;
   margin-right: .5rem;
 }
 
 #create-workspace-button{
-  padding: .5rem 1rem;
   color: #4A154B;
+  margin-right: 17vw;
 }
 
 #live-chat-talk-button, #create-workspace-button{
   text-transform: uppercase;
   font-weight: bold;
+  font-size: small;
   border: 1px solid white;
   letter-spacing: 1.5px;
   border-radius: .2rem;
+  padding: .75rem 1rem;
 }

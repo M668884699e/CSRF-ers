@@ -9,7 +9,7 @@ const RightNavBar = () => {
     <section id="rnb-container">
       {/* search icon */}
       <span id="rnb-mg-icon-container">
-        <i className="fa-solid fa-magnifying-glass rnb-mg-icon"></i>
+        <i className="fa-solid fa-magnifying-glass rnb-mg-icon fa-lg"></i>
       </span>
       {/* talk to live chat */}
       <span>
