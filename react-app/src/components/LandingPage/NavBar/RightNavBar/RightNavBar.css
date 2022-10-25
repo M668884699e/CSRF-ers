@@ -3,66 +3,70 @@
 /**********************
       Container 
 *********************/
-#rnb-container{
-  min-width: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 100%;
+#rnb-container {
+	min-width: fit-content;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	width: 100%;
 }
 
-#rnb-container > *{
-  margin-right: .5rem;
+#rnb-container > * {
+	margin-right: 0.5rem;
 }
 
 /**********************
         Icon
 *********************/
-.rnb-mg-icon-container{
-  margin-left: .5rem;
-  margin-right: .5rem;
+.rnb-mg-icon-container {
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 }
 
-.rnb-mg-icon{
-  color: white;
-  margin-right: 1rem;
+.rnb-mg-icon {
+	color: white;
+	margin-right: 1rem;
 }
 
 /**********************
       Buttons
 *********************/
-#live-chat-talk-button{
-  background-color: #4A154B;
-  color: white;
-  margin-right: .5rem;
-  border: 1.5px solid white;
+#live-chat-talk-button {
+	background-color: #4a154b;
+	color: white;
+	margin-right: 0.5rem;
+	border: 1.5px solid white;
 }
 
-#live-chat-talk-button:hover{
-  box-shadow: 0 0 1px 1px white;
+#live-chat-talk-button:hover {
+	box-shadow: 0 0 1px 1px white;
 }
 
-#create-workspace-button{
-  color: #4A154B;
-  border-style: none;
-  margin-right: 17vw;
+#create-workspace-button {
+	color: #4a154b;
+	border-style: none;
+	margin-right: 17vw;
+	font-weight: bold;
 }
 
-#create-workspace-button:hover{
-  box-shadow: 0 0 5px 5px #6a216d;
+#create-workspace-button:hover {
+	box-shadow: 0 0 5px 5px #6a216d;
 }
 
-#live-chat-talk-button, #create-workspace-button{
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: small;
-  box-sizing: border-box;
-  letter-spacing: 1.5px;
-  border-radius: .2rem;
-  padding: .75rem 1rem;
-  transition: box-shadow 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+#live-chat-talk-button,
+#create-workspace-button {
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: small;
+	box-sizing: border-box;
+	letter-spacing: 1.5px;
+	border-radius: 0.2rem;
+	padding: 0.75rem 1rem;
+	transition: box-shadow 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
 }
 
-.rnb-mg-icon:hover, #live-chat-talk-button:hover, #create-workspace-button:hover{
-  cursor: pointer;
+.rnb-mg-icon:hover,
+#live-chat-talk-button:hover,
+#create-workspace-button:hover {
+	cursor: pointer;
 }
