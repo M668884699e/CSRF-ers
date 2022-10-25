@@ -3,8 +3,22 @@
 #tnb-container{
   width: 100%;
   height: fit-content;
-  margin-top: .5rem;
+  margin-top: .6rem;
 
-  display: inline-flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas: "left right";
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+
+  align-self: center;
+}
+
+/* left nav bar container */
+#lnb-container{
+  grid-area: left;
+}
+
+/* right nav bar container */
+#rnb-container{
+  grid-area: right;
 }

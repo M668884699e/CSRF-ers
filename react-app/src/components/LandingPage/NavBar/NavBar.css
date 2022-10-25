@@ -1,1 +1,6 @@
+/* src/components/LandingPage/NavBar/NavBar.css */
 
+#nav-bar-container {
+	min-height: fit-content;
+	height: 5rem;
+}

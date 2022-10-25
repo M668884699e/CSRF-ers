@@ -1,0 +1,28 @@
+/* src/components/LandingPage/Gallery/Header/Header.css */
+/* container */
+#header-container {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 10%;
+	width: 55%;
+}
+
+/* Span 1 */
+#hc-span-1{
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  min-width: fit-content;
+}
+
+#hc-span-1 > img {
+  margin-right: 1rem;
+}
+
+#hc-span-1 > h1 {
+	color: white;
+	font-size: calc(1rem + (18 * (100vw - 400px) / 624));
+	font-family: Slack-Larsseit, 'Helvetica Neue', Helvetica, 'Segoe UI', Tahoma,
+		Arial, sans-serif;
+}
