@@ -59,6 +59,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   const response = await fetch('/api/users/logout', {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     }
