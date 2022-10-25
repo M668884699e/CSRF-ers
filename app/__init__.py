@@ -10,6 +10,7 @@ from .api.user_routes import user_routes
 from .api.message_routes import message_routes
 from .api.channel_routes import channel_routes
 from .api.dmr_routes import dmr_routes
+from .api.notification_routes import notification_routes
 
 from .seeds import seed_commands
 
@@ -35,6 +36,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
 app.register_blueprint(channel_routes, url_prefix='/api/channels')
 app.register_blueprint(dmr_routes, url_prefix='/api/dmr')
+app.register_blueprint(notification_routes, url_prefix='/api/notifications')
 db.init_app(app)
 Migrate(app, db)
 

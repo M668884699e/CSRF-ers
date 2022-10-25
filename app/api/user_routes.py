@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, User, Message, DMRUser, ChannelUser
+from app.models import db, User, Message, DMRUser, ChannelUser, Notification
 from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -99,6 +99,16 @@ def get_user_channels():
     belongs_channels = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id())
     
     return {"channels": [belongs_channel.to_dict() for belongs_channel in belongs_channels]}
+
+#* GET - /users/notifications
+# Get all notifications of current logged in user
+@user_routes.route('/notifications')
+@login_required
+def get_user_notifications():
+    # query Notification and find any that current user have access to
+    belongs_notifications = Notification.query.filter(Notification.user_id == current_user.get_id())
+    
+    return {"notifications": [belongs_notification.to_dict() for belongs_notification in belongs_notifications]}
 
 #* POST - /users/login
 # Log into the existing user account

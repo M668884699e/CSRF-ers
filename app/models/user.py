@@ -18,8 +18,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
     # join memberships
-    # channel_member = db.relationship("ChannelUser", backref="channel_member", cascade="all, delete")
-    # dmr_member = db.relationship("DMRUser", backref="dmr_member", cascade="all,delete")
+    channel_member = db.relationship("ChannelUser", backref="channel_member", cascade="all, delete")
+    dmr_member = db.relationship("DMRUser", backref="dmr_member", cascade="all,delete")
 
     __mapper_args__ = {
         'polymorphic_identity' : 'user',
