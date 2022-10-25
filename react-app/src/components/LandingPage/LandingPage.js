@@ -17,11 +17,11 @@ const LandingPage = ({ loaded }) => {
       {/* //? NavBar Component */}
       <NavBar/>
 
-      {/* //? Content Component */}
-      <Content/>
-      
       {/* //? Gallery Component */}
       <Gallery/>
+      
+      {/* //? Content Component */}
+      <Content/>
       
       {/* //? Footer Component */}
       <Footer/>
