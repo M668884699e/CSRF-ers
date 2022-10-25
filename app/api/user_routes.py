@@ -59,7 +59,7 @@ def get_current_user():
 
 #* GET - /users/logout
 # Log out of the current user
-@user_routes.route('/logout')
+@user_routes.route('/logout', methods=["POST"])
 def logout():
     """
     Logs a user out
@@ -74,9 +74,9 @@ def logout():
 @user_routes.route('/dmr')
 @login_required
 def get_user_dmrs():
-    # query DMR and find any dmr that current user belongs to 
+    # query DMR and find any dmr that current user belongs to
     belongs_dmrs = DMRUser.query.filter(DMRUser.user_id == current_user.get_id())
-    
+
     return {"dmrs": [belongs_dmr.to_dict() for belongs_dmr in belongs_dmrs]}
 
 
@@ -87,7 +87,7 @@ def get_user_dmrs():
 def get_user_messages():
     # query Message and find any that current user have access to
     belongs_messages = Message.query.filter(Message.sender_id == current_user.get_id())
-    
+
     return {"messages": [belongs_message.to_dict() for belongs_message in belongs_messages]}
 
 #* GET - /users/channels
@@ -97,7 +97,7 @@ def get_user_messages():
 def get_user_channels():
     # query Channel and find any that current user belongs to
     belongs_channels = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id())
-    
+
     return {"channels": [belongs_channel.to_dict() for belongs_channel in belongs_channels]}
 
 #* GET - /users/notifications
@@ -107,7 +107,7 @@ def get_user_channels():
 def get_user_notifications():
     # query Notification and find any that current user have access to
     belongs_notifications = Notification.query.filter(Notification.user_id == current_user.get_id())
-    
+
     return {"notifications": [belongs_notification.to_dict() for belongs_notification in belongs_notifications]}
 
 #* POST - /users/login
@@ -138,13 +138,13 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        # if username does not exist... 
+        # if username does not exist...
         display_name = form.data['username']
-        
+
         if(form.data['username'].strip() == ""):
             # combine first and last name to make user name
             display_name = f"{form.data['first_name']} {form.data['last_name']}"
-        
+
         user = User(
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
@@ -169,15 +169,15 @@ def update_user():
     """
     # get current user
     current_user_update = User.query.get(current_user.get_id())
-    
+
     # get user data from form
     form = SignUpForm()
-    
+
     #* update user
     # if first name exist
-    if(form.data['first_name']): 
-        current_user_update.first_name = form.data['first_name'] 
-    
+    if(form.data['first_name']):
+        current_user_update.first_name = form.data['first_name']
+
     # if last name exist
     if(form.data['last_name']):
         current_user_update.last_name = form.data['last_name']
@@ -185,18 +185,18 @@ def update_user():
     # if user name exist
     if(form.data['username']):
         current_user_update.username = form.data['username']
-    
+
     # if email exist
     if(form.data['email']):
         current_user_update.email = form.data['email']
-    
+
     # if password exist
     if(form.data['password']):
         current_user_update.password = form.data['password']
-    
+
     # commit update
     db.session.commit()
-    
+
     # return current user
     return current_user_update.to_dict()
 
@@ -207,14 +207,14 @@ def update_user():
 def delete_user():
     # get current user
     destroy_user = User.query.get(current_user.get_id())
-    
+
     # if no current user to delete, throw error
     if(destroy_user == None):
         return {'errors': [f"User {current_user.get_id()} does not exist"]}, 404
-    
+
     # delete current user
     db.session.delete(destroy_user)
     db.session.commit()
-    
+
     # return successful response with delete message
     return f"Successfully deleted user {destroy_user.id}"
