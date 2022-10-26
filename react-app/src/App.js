@@ -8,7 +8,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import LandingPage from './components/LandingPage/'
-import MessagePage from "./components/MessagePage/"
+import MessagePage from './components/MessagePage/';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -46,7 +46,7 @@ function App() {
           <LandingPage loaded={loaded} />
         </ProtectedRoute>
 
-        <Route path="/test" exact={true}>
+        <Route path ="/test" exact={true}>
           <MessagePage />
         </Route>
       </Switch>

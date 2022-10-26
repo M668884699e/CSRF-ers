@@ -10,7 +10,6 @@ const PUT_CHANNEL_USER = 'channel/SET_CHANNEL_USER';
 const PUT_CHANNEL = 'channel/PUT_CHANNEL';
 const DELETE_CHANNEL = 'channel/DELETE_CHANNEL';
 
-
 // action creator: get channels
 export const loadChannels = channels => {
   return {

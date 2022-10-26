@@ -1,10 +1,6 @@
 // import css
 import "./LeftBar.css"
 
-const test = () => {
-    return "this is a test"
-}
-
 const LeftBar = () => {
     return (
         <aside id="left-bar-main">
@@ -14,18 +10,19 @@ const LeftBar = () => {
                     <button id="new-message-button">New Message</button>
                 </section>
             </section>
-            <section id = "section-two">
-                <section class = "section-two-options">Threads</section>
-                <section class = "section-two-options">Direct messages</section>
-                <section class = "section-two-options">Mentions & reactions</section>
-                <section class = "section-two-options">Drafts & sent</section>
-                <section class = "section-two-options">Slack Connect</section>
-                <section class = "section-two-options">More</section>
+            <section id="section-two">
+                <section class="section-two-options">Threads</section>
+                <section class="section-two-options">Direct messages</section>
+                <section class="section-two-options">Mentions & reactions</section>
+                <section class="section-two-options">Drafts & sent</section>
+                <section class="section-two-options">Slack Connect</section>
+                <section class="section-two-options">More</section>
             </section>
-            <section id = "section-three">
+            <section id="section-three">
                 <section id="channel-section">
-                    <p>Channels</p>
-                    <ul>
+                    <p id="channel-header">Channels</p>
+                    {/* for loop here to list current user's channels */}
+                    <ul id="channel-list">
                         <li>Channel 1</li>
                         <li>Channel 2</li>
                         <li>Channel 3</li>
@@ -35,10 +32,11 @@ const LeftBar = () => {
                     </section>
                 </section>
             </section>
-            <section id = "section-four">
+            <section id="section-four">
                 <section id="dmr-section">
-                    <p>Direct messages</p>
-                    <ul>
+                    <p id="dmr-header">Direct messages</p>
+                    {/* for loop here to list current user's dmrs */}
+                    <ul id="dmr-list">
                         <li>DMR 1</li>
                         <li>DMR 2</li>
                         <li>DMR 3</li>
