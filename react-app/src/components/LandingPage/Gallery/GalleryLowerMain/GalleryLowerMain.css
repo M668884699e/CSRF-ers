@@ -1,0 +1,56 @@
+/* src/components/LandingPage/Gallery/GalleryLowerMain/GalleryLowerMain.css */
+/* Gallery Lower Main */
+#glm-section{
+  background-color: white;
+  display: flex;
+  justify-content: flex-end;
+  height: 5.5rem;
+  box-shadow: 0 0 2px 5px #ebe2eb;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+#slack-user-img{
+  height: auto;
+  width: 200px;
+  max-width: 100%;
+  position: absolute;
+  left: 19.75vw;
+  object-fit: cover;
+  margin-top: 2rem;
+}
+
+#glm-section > h2{
+  margin-left: 15rem;
+  width: fit-content;
+  position: absolute;
+  left: 19vw;
+  font-size: 1.25vw;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+#glm-section-figure{
+  margin: 0;
+  margin-right: 1rem;
+  border: 1px solid #611f69;
+  color: #611f69;
+  transition: box-shadow 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+#glm-section-figure:hover{
+  box-shadow: 0 0 1px 1px #6a216d;
+}
+
+#glm-section-nl{
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: calc(.875rem + (0 * (100vw - 400px)/ 624));
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+#glm-section-figure:hover, #glm-section-nl:hover{
+  cursor: pointer;
+}

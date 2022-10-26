@@ -2,6 +2,8 @@
 
 // import css
 import './Gallery.css';
+import GalleryFooter from './GalleryFooter';
+import GalleryLowerMain from './GalleryLowerMain';
 import GalleryMain from './GalleryMain';
 import Header from './Header';
 
@@ -14,8 +16,14 @@ const Gallery = () => {
       {/* Header Component */}
       <Header/>
 
-      {/* GalleryMain Component */}
-      <GalleryMain/>
+      {/* Gallery Main Component */}
+      <GalleryMain />
+      
+      {/* Gallery Lower Main Component */}
+      <GalleryLowerMain />
+      
+      {/* Gallery Footer */}
+      <GalleryFooter/>
     </section>
   )
 }

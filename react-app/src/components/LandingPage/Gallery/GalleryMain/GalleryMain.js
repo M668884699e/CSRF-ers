@@ -55,6 +55,7 @@ const GalleryMain = () => {
               {
                 channelState.map((channel, index) => 
                 (
+                  index <= 1 &&
                   <li key={index} className="workspace-li">
                     <section className="workspace-li-s1">
                       <figure className="workspace-li-figure">

@@ -1,0 +1,30 @@
+/* src/components/LandingPage/Gallery/GalleryFooter/GalleryFooter.css */
+
+/* Gallery Footer Section (Container) */
+#gf-section{
+  /* background-color: red; */
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* Gallery Footer Span */
+#gf-section-h2{
+  width: 100%;
+  text-align: center;
+  font-size: 1.125rem;
+  letter-spacing: normal;
+  line-height: 1.4444;
+  font-weight: 400;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+#gf-section-h2-span-1{
+  color: white;
+  margin-right: 1rem;
+}
+
+#gf-section-h2-span-2{
+  color: #36c5f0;
+  text-decoration: none;
+}
