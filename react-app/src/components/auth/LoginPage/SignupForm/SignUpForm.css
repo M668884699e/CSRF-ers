@@ -1,0 +1,124 @@
+/* src/components/auth/LoginPage/SignUpForm/SignUpForm.css */
+/* src/components/auth/LoginPage/LoginForm/LoginForm.css */
+
+#signup-form {
+	background-color: white;
+	width: 30%;
+	height: 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  margin-bottom: 5rem;
+}
+
+#signup-form > * {
+	width: 100%;
+}
+
+#su-fn-ln-container{
+  display: flex;
+}
+
+#su-ln-container{
+  padding-left: 1.5rem;
+}
+
+#signup-form > div > label, #su-fn-ln-container > div > label {
+	font-size: 15px;
+	font-weight: 700;
+	font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
+	margin-bottom: 0.5rem;
+}
+
+#su-fn-ln-container,
+#su-un-container,
+#su-em-container,
+#su-pw-container,
+#su-cpw-container {
+	margin-bottom: 1rem;
+}
+
+#su-un-container,
+#su-em-container,
+#su-pw-container,
+#su-cpw-container {
+	display: flex;
+	flex-direction: column;
+}
+
+#su-fn-container > input,
+#su-ln-container > input{
+  width: 92%;
+  margin-top: .5rem;
+  padding-left: 1rem;
+}
+
+#su-fn-container > input,
+#su-ln-container > input,
+#su-un-container > input,
+#su-em-container > input,
+#su-pw-container > input,
+#su-cpw-container > input{
+	height: 44px;
+}
+
+.su-demo-user-button{
+  margin-top: 1rem;
+}
+
+#su-un-container > input,
+#su-em-container > input,
+#su-pw-container > input,
+#su-cpw-container > input,
+#su-sm-button,
+.su-demo-user-button{
+  padding: 0 16px 3px;
+  min-width: 96px;
+}
+
+#su-fn-container > input,
+#su-ln-container > input,
+#su-un-container > input,
+#su-em-container > input,
+#su-pw-container > input,
+#su-cpw-container > input,
+#su-sm-button, 
+.su-demo-user-button{
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#su-sm-button, .su-demo-user-button{
+  color: white;
+  background-color: #4a154b;
+  transition: background-color .1s ease-in;
+  padding-top: .8rem;
+  padding-bottom: .8rem;
+}
+
+#su-sm-button:hover,
+.su-demo-user-button:hover{
+  cursor: pointer;
+  background-color: #502e51;
+}
+
+#su-login-p{
+	margin-top: 1rem;
+	text-decoration: none;
+	color: #616061;
+	font-size: 13px;
+	margin-bottom: 8px;
+}
+
+#su-login-p-link{
+	color: cadetblue;
+	text-decoration: none;
+	margin-left: 0.25rem;
+	transition: color 0.1s ease;
+}
+
+#su-login-p-link:hover {
+	text-decoration: underline;
+	color: rgb(0, 0, 194);
+}

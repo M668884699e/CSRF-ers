@@ -23,29 +23,40 @@ const LoginForm = () => {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
 
-  const onLogin = async (e) => {
+  // function to handle login
+  const onLogin = async (e, demo) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
+    // if demo is selected, use demo log in
+    // otherwise, use the given email and password to log in
+    const data = demo ?
+      await dispatch(login("demo@aa.io", "password"))  
+      :
+      await dispatch(login(email, password));
+    
+    // catch any error from data
     if (data) {
       setErrors(data);
     }
   };
 
+  // function to update email
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
 
+  // function to update password 
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
 
+  // if user is already log in, navigate directly to home page
   if (user) {
     return <Redirect to='/' />;
   }
 
   return (
     <form onSubmit={onLogin} id="login-form">
-      <div>
+      <div className="login-error-container">
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
@@ -71,6 +82,12 @@ const LoginForm = () => {
         />
       </div>
       <button id="login-button" type='submit'>Sign In</button>
+      <button
+        className="demo-user-button"
+        onClick={e => onLogin(e, true)}
+      >
+        Demo User
+      </button>
       <p id="login-signup-p">
         Don't have an account?
         <NavLink to="/sign-up" id="login-signup-p-link">

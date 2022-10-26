@@ -20,7 +20,7 @@ const ContactUsContent = () => {
       </aside>
       <aside id="cuc-aside-r">
         <span>
-          CSRF-ers
+          CSRF-ers: Slackers
         </span>
         <h2>
           Get more out of slack

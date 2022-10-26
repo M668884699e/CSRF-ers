@@ -8,6 +8,8 @@
 	grid-template-columns: 1fr;
 	grid-template-rows: 5vh 10vh auto;
 	justify-content: center;
+
+  overflow-y: auto;
 }
 
 /* Top Login Page section */
@@ -75,4 +77,8 @@
   max-width: 700px;
   text-align: center;
   font-weight: lighter;
+}
+
+#lp-main-section > h2 > span{
+  font-weight: bold;
 }
