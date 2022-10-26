@@ -1,3 +1,4 @@
+/* --------- ACTIONS -------- */
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
@@ -11,7 +12,7 @@ const removeUser = () => ({
   type: REMOVE_USER,
 })
 
-const initialState = { user: null };
+/* --------- THUNKS -------- */
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch('/api/users/authenticate', {
@@ -106,6 +107,12 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
     return ['An error occurred. Please try again.']
   }
 }
+
+/* --------- SELECTOR FUNCTIONS -------- */
+export const getUserEmail = state => state.session.user.email;
+
+/* --------- REDUCERS -------- */
+const initialState = { user: null };
 
 export default function sessionReducer(state = initialState, action) {
   switch (action.type) {
