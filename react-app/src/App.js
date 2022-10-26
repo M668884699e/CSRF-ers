@@ -8,7 +8,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import LandingPage from './components/LandingPage/'
-import MessagePage from './components/MessagePage/MessagePage';
+import MessagePage from './components/MessagePage/';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
