@@ -9,6 +9,7 @@ import User from './components/User';
 import { authenticate } from './store/session';
 import LandingPage from './components/LandingPage/'
 import MessagePage from './components/MessagePage/';
+import LandingProvider, { LandingContext } from './context/LandingContext';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -43,7 +44,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
           {/* <h1>My Home Page</h1> */}
-          <LandingPage loaded={loaded} />
+          <LandingProvider>
+            <LandingPage loaded={loaded} />
+          </LandingProvider>
         </ProtectedRoute>
 
         <Route path ="/test" exact={true}>

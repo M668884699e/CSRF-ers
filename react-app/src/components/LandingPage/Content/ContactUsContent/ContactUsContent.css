@@ -9,8 +9,15 @@
   display: grid;
   grid-template-columns: 60% auto;
   position: absolute;
-  top: 52rem;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.cuc-aside-false{
+  top: 52rem;
+}
+
+.cuc-aside-true{
+  top: 65rem;
 }
 
 /** Contact Us Content Inner Aside Left */

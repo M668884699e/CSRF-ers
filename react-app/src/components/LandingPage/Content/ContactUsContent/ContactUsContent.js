@@ -1,5 +1,11 @@
 // src/components/LandingPage/Content/ContactUsContent/ContactUsContent.js
 
+// import context
+import { LandingContext } from '../../../../context/LandingContext';
+
+// import react
+import { useContext } from 'react';
+
 // import react-router-dom
 import { NavLink } from 'react-router-dom';
 
@@ -8,8 +14,11 @@ import './ContactUsContent.css';
 
 //? ContactUsContent component
 const ContactUsContent = () => {
+  
+  const { mainOpen, setMainOpen } = useContext(LandingContext);
+  
   return (
-    <aside id="cuc-aside">
+    <aside id="cuc-aside" className={`cuc-aside-${mainOpen}`}>
       <aside id="cuc-aside-l">
         <img
           className="c-card--customer__image"

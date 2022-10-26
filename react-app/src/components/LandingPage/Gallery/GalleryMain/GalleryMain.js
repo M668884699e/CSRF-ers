@@ -2,12 +2,13 @@
 
 // import context
 import { ChannelContext } from '../../../../context/ChannelContext';
+import { LandingContext } from '../../../../context/LandingContext';
 
 // import css
 import './GalleryMain.css';
 
 // import react
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,7 +23,8 @@ const GalleryMain = () => {
   * Controlled Inputs:
   */
   const {channels, setChannels} = useContext(ChannelContext);
-  
+  const {mainOpen, setMainOpen} = useContext(LandingContext);
+
   // invoke dispatch
   const dispatch = useDispatch();
 
@@ -42,7 +44,7 @@ const GalleryMain = () => {
 
   return (
     <section id="gm-container">
-      <figure id="gm-figure-1">
+      <figure id="gm-figure-1" className={`gm-figure-1-${mainOpen}`}>
         <summary>
           {/* Workspaces for user-email */}
           <h2>              
@@ -51,11 +53,12 @@ const GalleryMain = () => {
         </summary>
         <main>
           {/* Workspace */}
-          <ul>
+          <ul id="gm-figure-1-ul" className={`gm-figure-1-ul-${mainOpen}`}>
               {
                 channelState.map((channel, index) => 
                 (
-                  index <= 1 &&
+                  (mainOpen ?
+                  index <= 100 : index <= 1) &&
                   <li key={index} className="workspace-li">
                     <section className="workspace-li-s1">
                       <figure className="workspace-li-figure">
@@ -85,14 +88,27 @@ const GalleryMain = () => {
           </ul>
         </main>
         <footer>
-          <button>
-            See more
-            <i className="fa-solid fa-angle-down"></i>
+          <button
+            onClick={e => {
+              //* toggle mainOpen
+              // if main open is off (false), get gm-container otherwise get gm-container-on
+              setMainOpen(!mainOpen)
+            }}
+          >
+            {
+              mainOpen ? 
+                <>
+                  Show fewer workspaces
+                  <i className="fa-solid fa-angle-up"></i>
+                </>
+                :
+                <>
+                  Show more workspaces
+                  <i className="fa-solid fa-angle-down"></i>
+                </>
+            }
           </button>
         </footer>
-      </figure>
-      <figure id="gm-figure-2">
-        
       </figure>
     </section>
   )

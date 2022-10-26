@@ -9,6 +9,7 @@ import PartnerContent from './PartnerContent';
 
 //? Content component
 const Content = () => {
+  
   return (
     <section id="content-container">
       {/* Contact Us Aside */}

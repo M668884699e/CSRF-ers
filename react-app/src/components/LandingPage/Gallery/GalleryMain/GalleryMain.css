@@ -13,8 +13,15 @@
 #gm-figure-1{
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 3rem 13rem 3rem;
   margin: 0 auto;
+}
+
+.gm-figure-1-false{
+  grid-template-rows: 3rem 13rem 3rem;
+}
+
+.gm-figure-1-true{
+  grid-template-rows: 3rem 26rem 3rem;
 }
 
 /* Gallery Main Summary */
@@ -36,11 +43,17 @@
 
 /* Gallery Main Main */
 
-#gm-figure-1 > main > ul{
+#gm-figure-1-ul{
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
+
+.gm-figure-1-ul-true{
+  overflow-y: scroll;
+  height: 100%;
+}
+
 .workspace-li{
   display: flex;
   justify-content: space-between;

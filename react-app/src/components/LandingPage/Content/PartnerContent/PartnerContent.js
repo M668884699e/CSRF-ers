@@ -3,10 +3,19 @@
 // import css
 import './PartnerContent.css';
 
+// import react
+import { useContext } from 'react';
+
+// import context
+import { LandingContext } from '../../../../context/LandingContext';
+
 //? PartnerContent component
 const PartnerContent = () => {
+  
+  const { mainOpen, setMainOpen } = useContext(LandingContext);
+  
   return (
-    <section id="pc-section">
+    <section id="pc-section" className={`pc-section-${mainOpen}`}>
       {/* Ameritrade */}
       <img
         id="pc-img-ameritrade"

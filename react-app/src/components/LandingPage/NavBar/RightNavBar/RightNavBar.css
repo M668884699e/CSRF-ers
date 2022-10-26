@@ -47,6 +47,7 @@
 	border-style: none;
 	margin-right: 12vw;
 	font-weight: bold;
+	background-color: white;
 }
 
 #create-workspace-button:hover {

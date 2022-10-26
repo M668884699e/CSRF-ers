@@ -1,5 +1,4 @@
 // src/components/LandingPage/LandingPage.js
-import React from 'react';
 
 // import component
 import NavBar from './NavBar'
@@ -10,10 +9,18 @@ import Footer from './Footer'
 // import css
 import './LandingPage.css';
 
+// import context
+import { LandingContext } from '../../context/LandingContext';
+
+// import react
+import { useContext, useEffect } from 'react';
+
 //? LandingPage Component
 const LandingPage = ({ loaded }) => {
+  const {mainOpen, setMainOpen} = useContext(LandingContext);
+
   return (
-    <section id="landing-page-container">
+    <section id="landing-page-container" className={`landing-page-container-${mainOpen}`}>
       {/* //? NavBar Component */}
       <NavBar/>
 
