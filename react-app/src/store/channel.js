@@ -1,4 +1,3 @@
-import user from './user'
 
 /* --------- ACTIONS -------- */
 //? Action: set channel
@@ -11,7 +10,6 @@ const SET_CHANNEL = 'channel/SET_CHANNEL';
 const PUT_CHANNEL_USER = 'channel/SET_CHANNEL_USER';
 const PUT_CHANNEL = 'channel/PUT_CHANNEL';
 const DELETE_CHANNEL = 'channel/DELETE_CHANNEL';
-
 
 // action creator: get channels
 export const loadChannels = channels => {
@@ -181,7 +179,7 @@ export const thunkPutUserChannel = (channel, user) => async(dispatch) => {
 }
 
 // thunk put channel
-export const thunkPutChannel = id => async dispatch => {
+export const thunkPutChannel = (id, channel) => async dispatch => {
 
   // fetch the put data
   const res = await fetch(`/api/channels/${id}`, {
