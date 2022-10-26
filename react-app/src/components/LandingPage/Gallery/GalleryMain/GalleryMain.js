@@ -51,15 +51,33 @@ const GalleryMain = () => {
           <ul>
               {
                 channelState.map((channel, index) => 
-                  (
-                    <li key={index}>
-                      {channel.channel_name}
-                    </li>
-                  )
-                )
+                (
+                  <li key={index} className="workspace-li">
+                    <img
+                      src={channel.channel_image}
+                      alt={channel.channel_name}
+                      className="workspace-li-img"
+                    />
+                    <figure className="">
+                      <p>
+                        {channel.channel_name}
+                      </p>
+                      <p>
+                        {/* query for members count */}
+                      </p>
+                    </figure>
+                    <button>
+                      Launch Slack
+                    </button>
+                  </li>
+                ))
               }    
           </ul>
-        </main>
+          </main>
+          <button>
+            See more
+            <i className="fa-regular fa-angle-down"></i>
+          </button>
       </figure>
       <figure id="gm-figure-2">
         

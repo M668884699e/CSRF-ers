@@ -17,7 +17,7 @@ export const loadChannels = channels => {
 //? Thunk action to get all channels
 export const thunkGetChannels = () => async dispatch => {
   // fetch all channels
-  const res = await fetch('/api/channels');
+  const res = await fetch('/api/channels/');
 
   if (res.ok) {
     
