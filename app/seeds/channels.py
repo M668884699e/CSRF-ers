@@ -5,14 +5,20 @@ def seed_channels():
     channel_1 = Channel(
         owner_id = 1,
         channel_name = "Channel 1",
+        # channel_image = "",
+        public = True
     )
     channel_2 = Channel(
         owner_id = 2,
         channel_name = "Channel 2",
+        # channel_image = "",
+        public = True
     )
     channel_3 = Channel(
         owner_id = 3,
         channel_name = "Channel 3",
+        # channel_image = "",
+        public = False
     )
 
     db.session.add(channel_1)
