@@ -7,6 +7,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	margin-bottom: 5rem;
 }
 
 #pc-section > img {
@@ -39,7 +40,7 @@
 }
 
 #pc-img-time{
-  height: 10vh;
+  height: 3vh;
 }
 
 #pc-img-intuit{

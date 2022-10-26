@@ -1,4 +1,4 @@
 // src/components/auth/LoginPage/index.js
-import LoginForm from "./LoginForm";
+import LoginPage from "./LoginPage";
 
-export default LoginForm
+export default LoginPage

@@ -8,8 +8,8 @@ const RightNavBar = () => {
   return (
     <section id="rnb-container">
       {/* search icon */}
-      <span id="rnb-mg-icon-container">
-        <i className="fa-solid fa-magnifying-glass rnb-mg-icon fa-lg"></i>
+      <span id="rnb-user-icon-container">
+        <i className="fa-solid fa-circle-user rnb-user-icon fa-2xl"></i>
       </span>
       {/* talk to live chat */}
       <span>

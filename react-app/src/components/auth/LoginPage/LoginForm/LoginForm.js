@@ -1,9 +1,21 @@
-// src/components/auth/LoginPage/LoginForm.js
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { login } from '../../../store/session';
+// src/components/auth/LoginPage/LoginForm/LoginForm.js
 
+// import css
+import './LoginForm.css';
+
+// import react
+import React, { useState } from 'react';
+
+// import react-redux
+import { useSelector, useDispatch } from 'react-redux';
+
+// import react-router-dom
+import { NavLink, Redirect } from 'react-router-dom';
+
+// import store
+import { login } from '../../../../store/session';
+
+//? LoginForm component
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
@@ -32,33 +44,39 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={onLogin}>
+    <form onSubmit={onLogin} id="login-form">
       <div>
         {errors.map((error, ind) => (
           <div key={ind}>{error}</div>
         ))}
       </div>
-      <div>
-        <label htmlFor='email'>Email</label>
+      <div id="login-email-container">
+        <label htmlFor='email'>Email address</label>
         <input
           name='email'
           type='text'
-          placeholder='Email'
+          placeholder='name@work-email.com'
           value={email}
           onChange={updateEmail}
         />
       </div>
-      <div>
+      <div id="login-password-container">
         <label htmlFor='password'>Password</label>
         <input
           name='password'
           type='password'
-          placeholder='Password'
+          placeholder='Your password'
           value={password}
           onChange={updatePassword}
         />
-        <button type='submit'>Login</button>
       </div>
+      <button id="login-button" type='submit'>Sign In</button>
+      <p id="login-signup-p">
+        Don't have an account?
+        <NavLink to="/sign-up" id="login-signup-p-link">
+          Sign up here
+        </NavLink>
+      </p>
     </form>
   );
 };

@@ -18,12 +18,12 @@
 /**********************
         Icon
 *********************/
-.rnb-mg-icon-container {
+.rnb-user-icon-container {
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
 }
 
-.rnb-mg-icon {
+.rnb-user-icon {
 	color: white;
 	margin-right: 1rem;
 }
@@ -65,7 +65,7 @@
 	transition: box-shadow 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
 }
 
-.rnb-mg-icon:hover,
+.rnb-user-icon:hover,
 #live-chat-talk-button:hover,
 #create-workspace-button:hover {
 	cursor: pointer;

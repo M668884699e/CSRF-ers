@@ -29,8 +29,14 @@ const ContactUsContent = () => {
           Work moves faster with unlimited messages in search, external partners in channels and more
         </p>
         {/* // TODO: to insert path to contact page */}
-        <NavLink to="/" id="cuc-aside-r-a">
-          Contact Us →
+        <NavLink
+          to="/"
+          id="cuc-aside-r-a"
+          onClick={_ => {
+            return window.open('https://github.com/pchawin40/CSRF-ers/', '_blank')
+          }}
+        >
+          Visit our Github →
         </NavLink>
       </aside>
     </aside>

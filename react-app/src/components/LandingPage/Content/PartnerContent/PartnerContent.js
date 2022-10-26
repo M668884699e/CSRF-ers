@@ -35,7 +35,7 @@ const PartnerContent = () => {
       <img
         id="pc-img-time"
         alt="Time"
-        src="https://assets.stickpng.com/thumbs/58483210cef1014c0b5e4aa9.png"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Time_Magazine_logo.svg/1280px-Time_Magazine_logo.svg.png"
       />
       {/* Intuit */}
       <img

@@ -1,0 +1,76 @@
+/* src/components/auth/LoginPage/LoginForm/LoginForm.css */
+
+#login-form {
+	background-color: white;
+	width: 30%;
+	height: 60%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#login-form > * {
+	width: 100%;
+}
+
+#login-form > div > label {
+	font-size: 15px;
+	font-weight: 700;
+	font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
+	margin-bottom: 0.5rem;
+}
+
+#login-email-container {
+	margin-top: 3rem;
+}
+
+#login-password-container {
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+#login-password-container,
+#login-email-container {
+	display: flex;
+	flex-direction: column;
+}
+
+#login-password-container > input,
+#login-email-container > input,
+#login-button {
+	height: 44px;
+	padding: 0 16px 3px;
+	border-radius: 4px;
+	font-size: 18px;
+	font-weight: 600;
+	min-width: 96px;
+}
+
+#login-button {
+	background-color: #4a154b;
+	color: white;
+}
+
+#login-button:hover {
+	cursor: pointer;
+}
+
+#login-signup-p {
+	margin-top: 1rem;
+	text-decoration: none;
+	color: #616061;
+	font-size: 13px;
+	margin-bottom: 8px;
+}
+
+#login-signup-p-link {
+	color: cadetblue;
+	text-decoration: none;
+	margin-left: 0.25rem;
+	transition: color 0.1s ease;
+}
+
+#login-signup-p-link:hover {
+	text-decoration: underline;
+	color: rgb(0, 0, 194);
+}
