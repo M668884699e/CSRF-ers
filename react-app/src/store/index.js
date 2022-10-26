@@ -5,9 +5,9 @@ import channelReducer from './channel';
 import dmrReducer from './dmr'
 
 const rootReducer = combineReducers({
-  sessionReducer,
-  channelReducer,
-  
+  session: sessionReducer,
+  channels: channelReducer,
+  dmrs: dmrReducer
 });
 
 
