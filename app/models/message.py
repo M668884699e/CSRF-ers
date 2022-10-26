@@ -32,5 +32,7 @@ class Message(db.Model):
             # 'direct_message_room_id': self.direct_message_room_id,
             'sender_id': self.sender_id,
             'messageable_id': self.messageable_id,
-            'messageable_type': self.messageable_type
+            'messageable_type': self.messageable_type,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }

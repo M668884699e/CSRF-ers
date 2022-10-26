@@ -1,5 +1,6 @@
 from app.models import db, ChannelUser
 
+# seed channel users
 def seed_channel_users():
     channel_one_user_one = ChannelUser(
         channel_id = 1,
@@ -45,6 +46,7 @@ def seed_channel_users():
 
     db.session.commit()
 
+# undo channel users
 def undo_channel_users():
     db.session.execute("DELETE FROM channel_users;")
     db.session.commit()

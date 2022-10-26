@@ -25,6 +25,7 @@ class DMR(db.Model):
         return {
             'id': self.id,
             'dmr_name': self.dmr_name,
+            'dmr_member': self.dmr_member,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

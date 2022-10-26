@@ -22,11 +22,7 @@ def seed_channels():
     db.session.commit()
 
 
-# Uses a raw SQL query to TRUNCATE the channels table.
-# SQLAlchemy doesn't have a built in function to do this
-# TRUNCATE Removes all the data from the table, and RESET IDENTITY
-# resets the auto incrementing primary key, CASCADE deletes any
-# dependent entities
+# undo seed channel
 def undo_channels():
     # db.session.execute('TRUNCATE channels RESTART IDENTITY CASCADE;')
     db.session.execute("DELETE FROM channels;")

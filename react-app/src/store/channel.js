@@ -33,7 +33,7 @@ export const thunkGetChannels = () => async dispatch => {
 }
 
 /* --------- SELECTOR FUNCTIONS -------- */
-export const getAllChannels = state => state.channels;
+export const getAllChannels = state => Object.values(state.channels);
 
 /* --------- REDUCERS -------- */
 

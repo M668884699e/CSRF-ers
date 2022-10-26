@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: eed2ab42c673
+Revision ID: 92538311c2d7
 Revises: 
-Create Date: 2022-10-24 19:10:30.153260
+Create Date: 2022-10-25 17:29:08.976427
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'eed2ab42c673'
+revision = '92538311c2d7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,6 +22,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('channel_name', sa.String(length=40), nullable=False),
+    sa.Column('channel_image', sa.String(length=255), nullable=True),
+    sa.Column('public', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
@@ -50,6 +52,7 @@ def upgrade():
     sa.Column('username', sa.String(length=40), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=True),
     sa.Column('hashed_password', sa.String(length=255), nullable=True),
+    sa.Column('profile_image', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),

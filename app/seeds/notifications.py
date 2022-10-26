@@ -1,5 +1,6 @@
 from app.models import db, Notification
 
+# seed all notifications
 def seed_notifications():
   """
   Seed all notifications
@@ -40,6 +41,7 @@ def seed_notifications():
   # commit seeding
   db.session.commit()
 
+# undo notification seeding
 def undo_notifications():
   """
   Unseed all notifications by deleting data

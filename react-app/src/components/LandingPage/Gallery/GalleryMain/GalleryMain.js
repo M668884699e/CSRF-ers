@@ -27,12 +27,19 @@ const GalleryMain = () => {
 
   const channelState = useSelector(channelActions.getAllChannels);
 
-  // set channels
+  // load channels
   useEffect(() => {
     dispatch(channelActions.thunkGetChannels());
   }, [dispatch]);
+  
+  // per channelState
+  useEffect(() => {
+    // set channels
+    setChannels(channelState);
+  }, [channelState]);
 
   return (
+    channelState && 
     <section id="gm-container">
       <figure id="gm-figure-1">
         <summary>
@@ -41,11 +48,21 @@ const GalleryMain = () => {
         </summary>
         <main>
           {/* Workspace */}
-
+          <ul>
+              {
+                channelState.map((channel, index) => 
+                  (
+                    <li key={index}>
+                      {channel.channel_name}
+                    </li>
+                  )
+                )
+              }    
+          </ul>
         </main>
       </figure>
       <figure id="gm-figure-2">
-
+        
       </figure>
     </section>
   )

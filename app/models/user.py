@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=True)
     email = db.Column(db.String(255), unique=True)
     hashed_password = db.Column(db.String(255))
+    profile_image = db.Column(db.String(255), default="https://ca.slack-edge.com/T0266FRGM-U015ZPLDZKQ-gf3696467c28-512")
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 
@@ -43,5 +44,8 @@ class User(db.Model, UserMixin):
             'first_name':self.first_name,
             'last_name':self.last_name,
             'display_name': self.username,
-            'email': self.email
+            'email': self.email,
+            'profile_image': self.profile_image,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at
         }

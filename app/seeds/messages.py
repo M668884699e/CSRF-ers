@@ -1,5 +1,6 @@
 from app.models import db, Message
 
+# add message seeders
 def seed_messages():
     message_one = Message(
         message='Message One', sender_id=1, messageable_id=1, messageable_type = "Channel")
@@ -42,11 +43,7 @@ def seed_messages():
     db.session.commit()
 
 
-# Uses a raw SQL query to TRUNCATE the messages table.
-# SQLAlchemy doesn't have a built in function to do this
-# TRUNCATE Removes all the data from the table, and RESET IDENTITY
-# resets the auto incrementing primary key, CASCADE deletes any
-# dependent entities
+# undo message seeders
 def undo_messages():
     db.session.execute("DELETE FROM messages;")
     db.session.commit()

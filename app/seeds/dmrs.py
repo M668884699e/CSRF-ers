@@ -1,6 +1,6 @@
 from app.models import db, DMR
 
-# Add seeders
+# Add dmr seeders
 def seed_dmrs():
     
     demo_dmr = DMR(
@@ -19,11 +19,7 @@ def seed_dmrs():
     
     db.session.commit()
     
-# Uses a raw SQL query to TRUNCATE the users table.
-# SQLAlchemy doesn't have a built in function to do this
-# TRUNCATE Removes all the data from the table, and RESET IDENTITY
-# resets the auto incrementing primary key, CASCADE deletes any
-# dependent entities
+# undo dmr seeds
 def undo_dmrs():
     # db.session.execute('TRUNCATE direct_message_rooms RESTART IDENTITY CASCADE;')
     db.session.execute("DELETE FROM direct_message_rooms;")
