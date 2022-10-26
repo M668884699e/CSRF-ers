@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import channelReducer from './channel';
+import dmrReducer from './dmr'
 
 const rootReducer = combineReducers({
-  sessions: sessionReducer,
+  session: sessionReducer,
   channels: channelReducer,
+  dmrs: dmrReducer
 });
 
 
