@@ -3,6 +3,9 @@
 // import css
 import './RightNavBar.css';
 
+// import react-router-dom
+import { NavLink } from 'react-router-dom';
+
 //? RightNavBar component
 const RightNavBar = () => {
   return (
@@ -13,9 +16,16 @@ const RightNavBar = () => {
       </span>
       {/* talk to live chat */}
       <span>
-        <button id="live-chat-talk-button">
-          Talk to Sales
-        </button>
+        <NavLink
+          to="/"
+          onClick={_ => {
+            return window.open('https://github.com/pchawin40/CSRF-ers/', '_blank')
+          }}
+        >
+          <button id="live-chat-talk-button">
+            Read Documentation
+          </button>
+        </NavLink>
       </span>
 
       {/* create a new workspace */}
