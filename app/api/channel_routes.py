@@ -112,11 +112,13 @@ def create_channel():
     """
     Create a channel
     """
-    # get data from channel form
     form = ChannelForm()
 
     user_ids = list(form.data["user_ids"])
-    user_ids.append(current_user.get_id())
+
+    if str(current_user.get_id()) not in user_ids:
+        user_ids.append(str(current_user.get_id()))
+
     channel_name = form.data["channel_name"]
 
     new_channel = Channel(
@@ -134,11 +136,13 @@ def create_channel():
         if check_user is None:
             return {'errors': [f"User {user_id} does not exist"]}, 404
 
+        if user_id in new_channel_users:
+            continue
+
         new_channel_user = ChannelUser(
             channel_id = new_channel.id,
             user_id = user_id
         )
-        
         # add new channel_user to db session
         db.session.add(new_channel_user)
 
@@ -148,6 +152,53 @@ def create_channel():
 
     # return successful message response
     return {'new_channel': new_channel.to_dict(), 'new_channel_user': [new_channel_user.to_dict() for new_channel_user in new_channel_users]}
+
+    # """
+    # Create a channel
+    # """
+    # # get data from channel form
+    # form = ChannelForm()
+
+    # # get a list of user ids, channel name
+    # user_ids, channel_name = form.data['user_ids'].split(', '), form.data['channel_name']
+
+    # #* (1) Create Channel
+    # new_channel = Channel(
+    #     owner_id = current_user.get_id(),
+    #     channel_name = channel_name
+    # )
+
+    # # add channel to db and commit
+    # db.session.add(new_channel)
+    # db.session.commit()
+
+    # #* (2) Create Channel_Users
+    # new_channel_users = []
+
+    # # for every user id
+    # for user_id in user_ids:
+    #     # check if user exist and throw error if necessary
+    #     check_user = User.query.get(user_id)
+
+    #     if(check_user is None):
+    #         return {'errors': [f"User {user_id} does not exist"]}, 404
+
+    #     # create new channel_user
+    #     new_channel_user = ChannelUser(
+    #         channel_id = new_channel.id,
+    #         user_id = user_id
+    #     )
+
+    #     # add new channel_user to db session
+    #     db.session.add(new_channel_user)
+
+    #     # add new channel_user
+    #     new_channel_users.append(new_channel_user)
+
+    # db.session.commit()
+
+    # # return successful message response
+    # return {'new_channel': new_channel.to_dict(), 'new_channel_user': [new_channel_user.to_dict() for new_channel_user in new_channel_users]}
 
 
 # Add a user to the channel, requires authentication if user has permission to add others

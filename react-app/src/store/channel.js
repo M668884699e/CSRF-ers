@@ -1,4 +1,3 @@
-
 /* --------- ACTIONS -------- */
 //? Action: set channel
 // action
@@ -168,9 +167,19 @@ export const thunkPostNewChannel = channel => async dispatch => {
 }
 
 // thunk put user or users into channel
-export const thunkPutUserChannel = (channel, user) => async(dispatch) => {
-  // export id from channel
-  const { id } = channel
+export const thunkPutUserChannel = (channel, userId) => async(dispatch) => {
+
+  // fetch the put data
+  const res = await fetch(`/api/channels/${channel}/users/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify()
+  });
+
+  
+
 
   // iterate through users grab the id
   // create put for each one
@@ -179,27 +188,27 @@ export const thunkPutUserChannel = (channel, user) => async(dispatch) => {
 }
 
 // thunk put channel
-export const thunkPutChannel = (id, channel) => async dispatch => {
+// export const thunkPutChannel = id => async dispatch => {
 
-  // fetch the put data
-  const res = await fetch(`/api/channels/${id}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type' : 'application/json'
-    },
-    body: JSON.stringify(channel)
-  });
+//   // fetch the put data
+//   const res = await fetch(`/api/channels/${id}`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type' : 'application/json'
+//     },
+//     // body: JSON.stringify(channel)
+//   });
 
-  // if falsy return null
-  if(!res) return null;
+//   // if falsy return null
+//   if(!res) return null;
 
-  // if response === 200
-  if(res.ok){
-    const data = res.json();
-    dispatch(putChannel(data));
-    return data;
-  }
-}
+//   // if response === 200
+//   if(res.ok){
+//     const data = res.json();
+//     dispatch(putChannel(data));
+//     return data;
+//   }
+// }
 
 // thunk delete channel
 export const thunkDeleteChannel = id => async dispatch => {
