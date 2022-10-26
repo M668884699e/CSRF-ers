@@ -7,18 +7,21 @@
 #left-bar-main > * {
     display: flex;
     margin-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
 }
+
 
 /* Section One */
 #server-name {
     display: flex;
     flex-direction: row;
+    width: 100%;
     justify-content: space-between;
 }
 
 #server-name > * {
     display: flex;
-    justify-content: space-between;
 }
 
 #new-message-button {
@@ -28,12 +31,25 @@
     line-height: 25px;
 }
 
+
 /* Section Two */
 #section-two{
     display: flex;
     flex-direction: column;
 }
 
+#channel-list {
+    list-style: none;
+    padding-left: 0;
+}
+
 .section-two-options:hover {
     background-color: orange;
+}
+
+
+/* Section Four */
+#dmr-list {
+    list-style: none;
+    padding-left: 0;
 }
