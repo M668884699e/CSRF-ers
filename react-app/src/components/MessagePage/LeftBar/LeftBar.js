@@ -1,10 +1,6 @@
 // import css
 import "./LeftBar.css"
 
-const test = () => {
-    return "this is a test"
-}
-
 const LeftBar = () => {
     return (
         <aside id="left-bar-main">
