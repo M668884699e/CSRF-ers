@@ -57,7 +57,7 @@ def get_one_channel(channel_id):
 #* GET - /channels/:channelId/users
 # Get all users of a channel, requires authentication if current user is member of channel
 @login_required
-@channel_routes.route("/<int:channel_id>/users")
+@channel_routes.route("/<int:channel_id>/users/")
 def get_channel_users(channel_id):
     """
     Get all users of a channel
@@ -232,14 +232,6 @@ def change_channel_settings(channel_id):
 
     # return channel with update
     return current_channel.to_dict()
-
-
-@channel_routes.route("/test/<int:channel_id>")
-def test_route(channel_id):
-    current_channel = Channel.query.get(channel_id)
-    current_channel_users = ChannelUser.query.filter(channel_id == ChannelUser.channel_id).all()
-    print("asdf", current_channel, current_channel_users)
-    return "fdas"
 
 
 
