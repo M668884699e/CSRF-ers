@@ -1,0 +1,39 @@
+#left-bar-main {
+    display: flex;
+    flex-direction: column;
+    max-width: 20%;
+}
+
+#left-bar-main > * {
+    display: flex;
+    margin-left: 10px;
+}
+
+/* Section One */
+#server-name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#server-name > * {
+    display: flex;
+    justify-content: space-between;
+}
+
+#new-message-button {
+    display: flex;
+    align-self: center;
+    height: 30px;
+    line-height: 25px;
+}
+
+/* Section Two */
+#section-two{
+    display: flex;
+    flex-direction: column;
+}
+
+.section-two-options:hover {
+    background-color: orange;
+}
