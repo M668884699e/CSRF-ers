@@ -5,7 +5,8 @@
 	justify-content: flex-start;
 	align-items: center;
 	height: 10%;
-	width: 55%;
+	width: 100%;
+	margin-bottom: 1rem;
 }
 
 /* Span 1 */

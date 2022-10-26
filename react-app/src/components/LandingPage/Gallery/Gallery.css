@@ -1,6 +1,5 @@
 /* src/components/LandingPage/Gallery/Gallery.css */
 #gallery-container {
-	display: flex;
-	justify-content: center;
-  width: 100%;
+	justify-self: center;
+  width: 60%;
 }

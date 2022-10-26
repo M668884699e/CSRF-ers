@@ -1,4 +1,132 @@
 /* src/components/LandingPage/Gallery/GalleryMain/GalleryMain.css */
-#gm-figure-1{
 
+/*? Gallery Main Container */
+
+#gm-container{
+  background-color: white;
+  width: 100%;
+  border-radius: .25rem;
+  box-shadow: 0 0 2px 5px #ebe2eb;
 }
+
+/** Gallery Main Figure 1 */
+#gm-figure-1{
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 3rem 13rem 3rem;
+  margin: 0 auto;
+}
+
+/* Gallery Main Summary */
+#gm-figure-1 > summary{
+  color: black;
+  display: flex;
+  align-items: center;
+  background-color: #ECDEEC;
+  width: 100%;
+}
+
+#gm-figure-1 > summary > h2{
+  width: fit-content;
+  padding-left: 1rem;
+  font-size: 1.125rem;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  font-weight: lighter;
+}
+
+/* Gallery Main Main */
+
+#gm-figure-1 > main > ul{
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.workspace-li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 1.125rem;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  transition: background-color .1s ease-in;
+}
+
+.workspace-li:hover{
+  background-color: rgb(241, 239, 239);
+}
+
+.workspace-li:not(:last-child){
+  border-bottom: 1px solid #dddcdc;
+}
+
+.workspace-li-s1{
+  display: flex;
+  width: 100%;
+}
+
+.workspace-li-figure{
+  height: 5rem;
+  width: 5rem;
+  margin: .5rem .75rem;
+}
+
+.workspace-li-figure > img{
+  object-fit: cover;
+  height: auto;
+  width: 100%;
+  border-radius: .5rem;
+}
+
+.workspace-li-s2{
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 1rem;
+}
+
+.workspace-li-s2-button{
+  background-color: #611F69;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  font-weight: bold;
+  
+  padding: 1rem;
+  border-radius: 4px;
+  border: none;
+
+  transition: background-color .1s ease-in;
+}
+
+.workspace-li-s2-button:hover{
+  cursor: pointer;
+  background-color: #4a154b;
+}
+
+/* Gallery Main Footer */
+#gm-figure-1 > footer{
+  /* background-color: red; */
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#gm-figure-1 > footer > button{
+  color: #2671AB;
+  background-color: white;
+  border: none;
+  padding-bottom: .5rem;
+}
+
+#gm-figure-1 > footer > button:hover{
+  cursor: pointer;
+  color: #1f679e;
+}
+
+#gm-figure-1 > footer > button > i{
+  margin-left: .25rem;
+}
+
+/** Gallery Main Figure 2 */
