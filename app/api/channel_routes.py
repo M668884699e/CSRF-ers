@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, Request, jsonify
 from flask_login import login_required, current_user
 from app.models import Channel, ChannelUser, Message, User, db
 from app.forms import ChannelForm
@@ -130,7 +130,10 @@ def create_channel():
 
     #* (2) Create Channel_Users
     new_channel_users = []
-
+    user_ids.append(current_user.get_id())
+    
+    
+    
     # for every user id
     for user_id in user_ids:
         # check if user exist and throw error if necessary
@@ -138,6 +141,10 @@ def create_channel():
 
         if(check_user is None):
             return {'errors': [f"User {user_id} does not exist"]}, 404
+
+        # if user already exist in the given channel, throw an error
+        if(ChannelUser.query.filter(ChannelUser.channel_id == new_channel.id).filter_by(user_id = user_id).first() is not None):
+            return {'errors': [f"User already exist in Channel {new_channel.id}"]}, 400
 
         # create new channel_user
         new_channel_user = ChannelUser(
@@ -159,43 +166,78 @@ def create_channel():
 
 # Add a user to the channel, requires authentication if user has permission to add others
 @login_required
-@channel_routes.route("/<int:channel_id>/users/<int:user_id>", methods = ["PUT"])
-def add_user_to_channel(channel_id, user_id):
+@channel_routes.route("/<int:channel_id>/users/", methods = ["PUT"])
+def add_user_to_channel(channel_id):
     """
     Add user to channel
     """
-    # check if current user has permission to add user to channel
-    if check_channel_user(channel_id):
-        return {'errors': [f"User {current_user.get_id()} does not have permissions to add users to Channel {channel_id}"]}, 403
+    # userIds = Request.body['userIds']
+    # print(userIds)
+    
+    form = ChannelForm()
+    
+    # get list of user ids, channel name
+    user_ids = form.data['user_ids'].split(', ')
+    
+    new_channel_users = []
+    
+    for user_id in user_ids:
+        # check if user exist and throw error if necessary
+        check_user = User.query.get(user_id)
+        
+        if(check_user is None):
+            return {'errors': [f"User {user_id} does not exist"]}, 404
+        
+        new_channel_user = ChannelUser(
+            channel_id = channel_id,
+            user_id = user_id
+        )
+        
+        db.session.add(new_channel_user)
+        
+        
+        new_channel_users.append(new_channel_user)
+        
+    db.session.commit()
+    
+    # return successful response
+    return {
+        'message': f'Successfully added user(s) to channel {channel_id}',
+        'new_channel_user': [new_channel_user.to_dict() for new_channel_user in new_channel_users]
+    }
+    
+    # # check if current user has permission to add user to channel
+    # if check_channel_user(channel_id):
+    #     return {'errors': [f"User {current_user.get_id()} does not have permissions to add users to Channel {channel_id}"]}, 403
 
-    # if channel is not found, throw an error
-    specific_channel = Channel.query.get(channel_id)
+    # # if channel is not found, throw an error
+    # specific_channel = Channel.query.get(channel_id)
 
-    # if channel does not exist, throw an error
-    if(specific_channel is None):
-        return {'errors': [f"Channel {channel_id} does not exist"]}, 404
+    # # if channel does not exist, throw an error
+    # if(specific_channel is None):
+    #     return {'errors': [f"Channel {channel_id} does not exist"]}, 404
 
-    # check if user exist
-    add_user = User.query.get(user_id)
+    # # check if user exist
+    # add_user = User.query.get(user_id)
 
-    # if user does not exist, throw an error
-    if(add_user is None):
-        return {'errors': [f"User {user_id} does not exist"]}, 404
+    # # if user does not exist, throw an error
+    # if(add_user is None):
+    #     return {'errors': [f"User {user_id} does not exist"]}, 404
 
-    # if user already exist in the given channel, throw an error
-    if(ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first() is not None):
-        return {'errors': [f"User already exist in Channel {channel_id}"]}, 400
+    # # if user already exist in the given channel, throw an error
+    # if(ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first() is not None):
+    #     return {'errors': [f"User already exist in Channel {channel_id}"]}, 400
 
 
     # create new ChannelUser seed
     new_channel_user = ChannelUser(
         channel_id = channel_id,
-        user_id = user_id
+        # user_id = user_id
     )
 
     # commit and add to db session
-    db.session.add(new_channel_user)
-    db.session.commit()
+    # db.session.add(new_channel_user)
+    # db.session.commit()
 
     # return successful response
     return {
