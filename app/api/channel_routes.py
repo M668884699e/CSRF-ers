@@ -8,8 +8,7 @@ channel_routes = Blueprint("channels", __name__)
 # ______________________________________________________________________________________________
 # Validation method
 
-# check if current user is part of channel, pass in custom error message and error code
-# to return an error
+# check if current user is part of channel, return False if user is part of channel, True if not
 def check_channel_user(channel_id):
     # get all users of a channel
     channel_users = ChannelUser.query.filter(channel_id == ChannelUser.channel_id).all()
@@ -29,7 +28,7 @@ def get_all_channels():
     """
     Get all channels
     """
-    channels = Channel.query.all()
+    channels = Channel.query.filter(private_setting = True).all()
     return {"channels": [channel.to_dict() for channel in channels]}
 
 
