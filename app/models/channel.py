@@ -9,7 +9,7 @@ class Channel(db.Model):
     owner_id = db.Column(db.Integer, nullable=False)
     channel_name = db.Column(db.String(40), nullable=False)
     channel_image = db.Column(db.String(255), default="https://preview.redd.it/k0yaetfhwta21.png?auto=webp&s=dc76059060406cbbfc4b62514eb3128fe7f3a866")
-    public = db.Column(db.Boolean, default=False)
+    public = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
 

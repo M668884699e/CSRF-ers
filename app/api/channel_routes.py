@@ -28,7 +28,7 @@ def get_all_channels():
     """
     Get all channels
     """
-    channels = Channel.query.filter(private_setting = True).all()
+    channels = Channel.query.filter(Channel.public == True).all()
     return {"channels": [channel.to_dict() for channel in channels]}
 
 
