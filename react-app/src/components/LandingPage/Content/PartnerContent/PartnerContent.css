@@ -1,0 +1,51 @@
+/* src/components/LandingPage/Content/PartnerContent/PartnerContent.css */
+
+#pc-section {
+	width: 60vw;
+	height: fit-content;
+	margin-top: 12rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+#pc-section > img {
+	width: auto;
+}
+
+#pc-section > img:not(:last-child) {
+  margin-right: 1rem;
+}
+
+#pc-section > img:not(:first-child){
+  margin-left: 1rem;
+}
+
+#pc-img-ameritrade {
+	height: 15vh;
+}
+
+#pc-img-target {
+	height: 5vh;
+	object-fit: cover;
+}
+
+#pc-img-uber {
+	height: 8vh;
+}
+
+#pc-img-onemed {
+	height: 2vh;
+}
+
+#pc-img-time{
+  height: 10vh;
+}
+
+#pc-img-intuit{
+  height: 4vh;
+}
+
+#pc-img-oracle{
+  height: 10vh;
+}

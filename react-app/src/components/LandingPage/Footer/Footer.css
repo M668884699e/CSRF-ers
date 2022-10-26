@@ -1,3 +1,43 @@
-#footer-container{
-  background-color: white;
+/* Footer Container */
+#footer-container {
+	background-color: white;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+/* Lower Footer Container */
+#lower-footer-container {
+	/* background-color: red; */
+  border-top: 1px solid black;
+	width: 85%;
+	height: 100%;
+}
+
+#lower-footer-container, #lower-footer-container > section {
+  display: flex;
+  align-items: center;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  font-weight: bold;
+  line-height: 1.4444;
+  letter-spacing: normal;
+}
+
+#lower-footer-container > section > figure > a > img {
+  width: auto;
+  height: 100%;
+  margin: 1rem;
+}
+
+#ll-footer, #lm-footer, #lr-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#ll-footer > figure, #lm-footer > figure, #lr-footer > figure{
+  height: 3vh;
 }

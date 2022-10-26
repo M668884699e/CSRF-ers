@@ -1,0 +1,90 @@
+/* src/components/LandingPage/Content/ContactUsContent/ContactUsContent.js */
+
+/* Contact Us Content Aside */
+#cuc-aside{
+  background-color: white;
+  width: 60vw;
+  height: 45vh;
+  min-height: fit-content;
+  display: grid;
+  grid-template-columns: 60% auto;
+  position: absolute;
+  top: 52rem;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+/** Contact Us Content Inner Aside Left */
+#cuc-aside-l > img {
+  width: 100%;
+  margin-top: .5rem;
+  object-fit: fill;
+}
+
+/** Contact Us Content Inner Aside Right */
+#cuc-aside-r{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2rem;
+}
+
+#cuc-aside-r > span {
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.286;
+  letter-spacing: .8px;
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+}
+
+#cuc-aside-r > h2{
+  font-size: 2rem;
+  font-family: Slack-Larsseit,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  font-weight: 700;
+  line-height: 1.1875;
+  letter-spacing: -.3px;
+}
+
+#cuc-aside-r > p{
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  font-weight: 400;
+  line-height: 1.4444;
+  letter-spacing: normal;
+  font-size: 1.125rem;
+}
+
+#cuc-aside-r-a {
+  font-family: Slack-Circular-Pro,"Helvetica Neue",Helvetica,"Segoe UI",Tahoma,Arial,sans-serif;
+  font-weight: 400;
+  line-height: 1.4444;
+  letter-spacing: normal;
+  font-size: 1.125rem;
+  width: fit-content;
+  color: #1264a3;
+
+  position:relative;
+  text-decoration:none;
+  display:inline-block;
+}
+
+#cuc-aside-r-a:after{
+  display:block;
+  content: '';
+  border-bottom: solid 3px #1264a3;;  
+  transform: scaleX(0);  
+  transition: transform .5s ease;
+  transform-origin:100% 50%
+}
+
+#cuc-aside-r-a:hover:after{
+  transform: scaleX(1);
+  transform-origin:0 50%;
+}
+
+#cuc-aside-r > span, 
+#cuc-aside-r > h2,
+#cuc-aside-r > p,
+#cuc-aside-r-a{
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
