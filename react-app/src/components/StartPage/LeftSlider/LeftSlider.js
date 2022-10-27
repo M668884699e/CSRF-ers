@@ -53,13 +53,13 @@ const LeftSlider = () => {
           {
             channelInputted ?
               <p id="slsmi-true-p">
-                {channelNameInputted}
+                {channelNameInputted.slice(0, 22) + (channelNameInputted.length > 23 ? "..." : "")}
               </p>
               :  
               (
                 channelNameInputted.length > 0 ?
                   <figure className={`sp-ls-section-main-2in-${channelNameInputted.length > 0}`}>
-                    {channelNameInputted}
+                    {channelNameInputted.slice(0, 22) + (channelNameInputted.length > 23 ? "..." : "")}
                   </figure>
                   :
                   <figure className={`sp-ls-section-main-2in-${channelInputted}`} />

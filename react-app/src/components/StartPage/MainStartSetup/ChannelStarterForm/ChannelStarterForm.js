@@ -53,13 +53,31 @@ const ChannelStarterForm = () => {
       <p id="spmsf-p-description">
         This will be the name of your Slack channel — choose something that your team will recognize.
       </p>
-      <input
-        id="spmsf-input"
-        placeholder="Ex: Acme Marketing or Acme Co"
-        onInput={checkInputLength}
-        value={channelNameInputted}
-        onChange={updateChannelName}
-      />
+      <figure id="spmsf-input-container">
+        <input
+          id="spmsf-input"
+          placeholder="Ex: Acme Marketing or Acme Co"
+          onInput={checkInputLength}
+          value={channelNameInputted}
+          onChange={updateChannelName}
+        />
+        <div id="spmsf-input-label-container">
+          {
+            <label
+              id='spmsf-input-label'
+              className={`spmsf-input-label-${inputLength > 50}`}
+              htmlFor="spmsf-input">
+              {50 - inputLength}
+            </label>
+          }
+        </div>
+      </figure>
+      {
+        inputLength > 50 &&
+        <p id="spmsf-error-class-p">
+          You can't enter more than 50 characters.
+        </p>
+      }
       {/* slider for toggling whether to put as private or not */}
       <section
         id="private-switch-container"
@@ -85,7 +103,7 @@ const ChannelStarterForm = () => {
       <button
         id="spmsf-submit-button"
         type="submit"
-        className={`spmsf-submit-button-${inputLength > 0}`}
+        className={`spmsf-submit-button-${inputLength > 0 && inputLength <= 50}`}
       >
         Next
       </button>
