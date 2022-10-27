@@ -9,13 +9,17 @@ export const useUsers = () => useContext(UserContext);
 export default function UserProvider({ children }) {
   // state for context
   const [users, setUsers] = useState([]);
+  const [usersBoolean, setUsersBoolean] = useState([]);
+  const [loadedSelectUser, setLoadedSelectUser] = useState(0);
 
   // User Provider
   return (
     <>
       <UserContext.Provider
         value={{
-          users, setUsers
+          users, setUsers,
+          usersBoolean, setUsersBoolean,
+          loadedSelectUser, setLoadedSelectUser
         }}
       >
         {children}

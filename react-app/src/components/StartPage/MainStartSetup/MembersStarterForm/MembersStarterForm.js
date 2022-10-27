@@ -27,8 +27,11 @@ const MembersStarterForm = ({ privateChannel }) => {
   const { channelNameInputted, setChannelNameInputted } = useStarter();
   const { channelInputted, setChannelInputted } = useStarter();
   const { inputLength, setInputLength } = useStarter();
+  const { firstActive, setFirstActive } = useStarter();
+  const { secondActive, setSecondActive } = useStarter();
   const { users, setUsers } = useUsers();
-  const [usersBoolean, setUsersBoolean] = useState([]);
+  const { usersBoolean, setUsersBoolean} = useUsers();
+  const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 
   let usersIndexes = [];
 
@@ -54,6 +57,10 @@ const MembersStarterForm = ({ privateChannel }) => {
 
     // get users
     dispatch(userActions.thunkGetUsers());
+
+    // set secondActive as true (for Direct messages)
+    setFirstActive(false);
+    setSecondActive(true);
   }, [dispatch]);
 
   // per userState
@@ -134,6 +141,7 @@ const MembersStarterForm = ({ privateChannel }) => {
               return (
                 <li
                   key={user.id}
+                  value={user.id}
                   id={`spmsf-members-li-${index}`}
                   className={`spmsf-members-li-${index}-${usersBoolean[index]}`}
                   onClick={_ => {
@@ -142,11 +150,14 @@ const MembersStarterForm = ({ privateChannel }) => {
                     newUserBooleans[index] = !newUserBooleans[index];
                     setUsersBoolean(newUserBooleans);
 
+                    // update class name
                     document.querySelector(`#spmsf-members-li-${index}`).className = `spmsf-members-li-${index}-${usersBoolean[index]}`
 
                     // select all list that are selected
                     const allTrue = document.querySelectorAll("li[class*='spmsf-members-li-'][class$='-true']");
+                    
                     setInputLength(allTrue.length)
+                    setLoadedSelectUser(loadedSelectUser + 1);
                   }}
                 >
                   <figure className="spmsf-members-img-container">
