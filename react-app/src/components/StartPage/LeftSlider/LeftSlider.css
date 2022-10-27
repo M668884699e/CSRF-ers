@@ -32,6 +32,8 @@
 
 .slsmi-true{
 	background: #522653;
+	display: flex;
+	align-items: center;
 }
 
 #slsmi-true-p{
@@ -67,9 +69,7 @@
 	width: 50%;
 	height: 30%;
 	background-color: #643c65;
-	margin: 0;
-	margin-top: 1.25vh;
-	margin-left: 1.25vw;
+	margin-left: 20px;
 	border-radius: 3rem;
 }
 
