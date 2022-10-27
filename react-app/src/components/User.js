@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import * as sessionActions from '../store/session'
+import Editor from './Editor';
 
 function User() {
   const [user, setUser] = useState({});
@@ -47,6 +48,7 @@ function User() {
       {(Number(userId) === currentUserId) && (
         <button id='button-logout' onClick={logout}>Log Out</button>
       )}
+      {/* <Editor /> */}
     </>
   );
 }
