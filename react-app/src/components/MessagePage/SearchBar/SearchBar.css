@@ -1,0 +1,118 @@
+/* Main Search Bar CSS */
+#search-bar-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(18, 16, 22);
+    height: 45px;
+}
+
+
+/* Left Bar Section CSS */
+#left-bar-section {
+    display: flex;
+    justify-content: start;
+    min-width: 80px;
+    max-width: 31w;
+}
+
+
+/* Right Bar Section CSS */
+#right-bar-section {
+    display: flex;
+    justify-content: end;
+    min-width: 80px;
+    max-width: 31w;
+}
+
+#right-section {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+#right-section > *{
+    display: flex;
+    margin-right: 10px;
+}
+
+#help-button{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    height: 20px;
+    width: 20px;
+
+    border: none;
+    border-radius: 50%;
+    color: black;
+    background-color: #D1D2D3;
+}
+
+
+/* Center Bar Section CSS */
+#center-bar-section{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+    height: 30px;
+    width: 800px;
+}
+
+#clock-button {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+
+    padding: 5px;
+    margin-right: 20px;
+    width: 30px;
+
+    border: none;
+    border-radius: 50%;
+    color: black;
+    background-color: #D1D2D3;
+}
+
+#search-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding-left: 10px;
+    height: 25px;
+    max-width: 100%;
+    width: 100%;
+
+    border: 1px black solid;
+    border-radius: 5px;
+    background-color: #3E3D42;
+}
+
+#search-text{
+    display: flex;
+    align-items: center;
+
+    font-size: small;
+
+    border: 1px black;
+    color: #A1A2A3;
+}
+
+#search-buttons {
+    display: flex;
+}
+
+#search-buttons > * {
+    margin-right: 5px;
+
+    border: none;
+    color: #A1A2A3;
+    background-color: #3E3D42;
+}
