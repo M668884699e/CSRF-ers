@@ -6,12 +6,16 @@ import './ChannelStarterForm.css';
 // import component
 import MembersStarterForm from '../MembersStarterForm';
 
+// import react
+import { useState } from 'react';
+
 // import context
 import { useStarter } from '../../../../context/StarterContext';
+import { useChannel } from '../../../../context/ChannelContext';
 
 //? Channel Starter Form component
 const ChannelStarterForm = () => {
-  
+  const [ privateChannel, setPrivateChannel ] = useState(false);
   const { channelNameInputted, setChannelNameInputted } = useStarter();
   const { inputLength, setInputLength } = useStarter();
   const { starterForm, setStarterForm } = useStarter(); 
@@ -27,8 +31,10 @@ const ChannelStarterForm = () => {
     // prevent page from refreshing
     e.preventDefault();
 
-    // go to members starter form
-    setStarterForm(<MembersStarterForm/>)
+    if (inputLength > 0) {
+      // go to members starter form
+      setStarterForm(<MembersStarterForm privateChannel={privateChannel} />)
+    }
   }
 
   // function to update channel
@@ -39,7 +45,7 @@ const ChannelStarterForm = () => {
   return (
     <form onSubmit={submitChannel} className="sp-main-section-form">
       <p id="spmsf-p-step">
-        Step 1 of 3
+        Step 1 of 2
       </p>
       <h2 id="spmsf-h2">
         What's the name of your channel?
@@ -54,6 +60,27 @@ const ChannelStarterForm = () => {
         value={channelNameInputted}
         onChange={updateChannelName}
       />
+      {/* slider for toggling whether to put as private or not */}
+      <section
+        id="private-switch-container"
+      >
+        <aside>
+          <h2 className="private-switch-container-p">
+            Make private
+          </h2>
+          <p>
+            When a channel is set to private, it can only be viewed or joined by invitation
+          </p>
+        </aside>
+        <input
+          type="checkbox"
+          id="private-switch"
+          onClick={e => {
+            setPrivateChannel(e.target.checked)
+          }}
+        />
+      </section>
+
       {/* on click of button, take to add people component */}
       <button
         id="spmsf-submit-button"

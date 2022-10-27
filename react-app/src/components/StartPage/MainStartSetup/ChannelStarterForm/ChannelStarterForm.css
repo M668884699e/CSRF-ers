@@ -22,7 +22,7 @@
   margin-bottom: 0;
 }
 
-#spmsf-p-description{
+#spmsf-p-description, .private-switch-container-p{
   margin-top: 1rem;
   -webkit-font-smoothing: antialiased;
   color: rgba(var(--sk_primary_foreground,29,28,29),1);
@@ -71,7 +71,7 @@
   width: 15rem;
 }
 
-#spmsf-submit-button:hover{
+.spmsf-submit-button-true:hover{
   cursor: pointer;
 }
 
@@ -84,3 +84,62 @@
   background-color: purple;
   color: white;
 }
+
+/* Private Channel Toggle */
+#private-switch-container{
+  display: flex;
+  align-items: center;
+}
+
+#private-switch-container > aside{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#private-switch-container h2{
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+input[type="checkbox"]#private-switch{
+  margin-top: 1rem;
+  margin-left: 3rem;
+  font-size: 20px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 3.5em;
+  height: 1.5em;
+  background: #ddd;
+  border-radius: 3em;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+  
+  input[type="checkbox"]#private-switch:checked{
+    background: #8c4594;
+  }
+  
+  input[type="checkbox"]#private-switch:after{
+    position: absolute;
+    content: "";
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: #fff;
+    -webkit-box-shadow: 0 0 .25em rgba(0,0,0,.3);
+            box-shadow: 0 0 .25em rgba(0,0,0,.3);
+    -webkit-transform: scale(.7);
+            transform: scale(.7);
+    left: 0;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+  }
+  
+  input[type="checkbox"]#private-switch:checked:after{
+    left: calc(100% - 1.5em);
+  }

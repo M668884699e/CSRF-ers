@@ -12,10 +12,10 @@ export const useStarter = () => useContext(StarterContext);
 export default function StarterProvider({ children }) {
   // state for context
   const [channelInputted, setChannelInputted] = useState(false);
+  const [channelNameInputted, setChannelNameInputted] = useState("");
   const [firstActive, setFirstActive] = useState(true);
   const [secondActive, setSecondActive] = useState(false);
   const [thirdActive, setThirdActive] = useState(false);
-  const [channelNameInputted, setChannelNameInputted] = useState("");
   const [inputLength, setInputLength] = useState(0);
   const [starterForm, setStarterForm] = useState(<ChannelStarterForm/>);
 
@@ -25,10 +25,10 @@ export default function StarterProvider({ children }) {
       <StarterContext.Provider
         value={{
           channelInputted, setChannelInputted,
+          channelNameInputted, setChannelNameInputted,
           firstActive, setFirstActive,
           secondActive, setSecondActive,
           thirdActive, setThirdActive,
-          channelNameInputted, setChannelNameInputted,
           inputLength, setInputLength,
           starterForm, setStarterForm
         }}

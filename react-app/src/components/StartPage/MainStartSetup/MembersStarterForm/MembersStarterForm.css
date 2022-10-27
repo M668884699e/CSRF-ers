@@ -1,0 +1,80 @@
+#spmsf-members-section {
+	margin-top: 3rem;
+	width: 60%;
+	height: 50%;
+	box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+	overflow-y: auto;
+}
+
+#spmsf-members-ul {
+	list-style-type: none;
+	display: grid;
+	grid-template-columns: 1fr;
+	padding: 0;
+	margin: 0 auto;
+}
+
+#spmsf-members-section::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+#spmsf-members-section::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#spmsf-members-section::-webkit-scrollbar-thumb {
+	background-color: #8c4594;
+	outline: 1px solid #9d65a3;
+	border-radius: 1rem;
+}
+
+li[id*='spmsf-members-li-'] {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+	height: 5vh;
+	padding-bottom: 1vh;
+	border-bottom: 1px solid black;
+}
+
+li[id*='spmsf-members-li-']:hover {
+	cursor: pointer;
+}
+
+li[class*='spmsf-members-li-'][class$='-true']{
+	background-color: #dfbee3;
+}
+.spmsf-members-img-container {
+	width: auto;
+	height: 2rem;
+	margin-right: 1rem;
+}
+
+.spmsf-members-img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+	border-radius: 5px;
+}
+
+.spmsf-members-dn {
+	letter-spacing: 1px;
+}
+
+.spmsf-members-user-status,
+.spmsf-members-email {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+.spmsf-members-fn {
+	margin-right: 0.2rem;
+}
+
+.spmsf-members-dn,
+.spmsf-members-fn,
+.spmsf-members-ln,
+.spmsf-members-email {
+	font-size: 15px;
+}
+
