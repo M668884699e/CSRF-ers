@@ -1,16 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
+// import context
+import LandingProvider from './context/LandingContext';
+
+// import component
+import LandingPage from './components/LandingPage/'
+import MessagePage from './components/MessagePage/';
 import LoginPage from './components/auth/LoginPage';
-import SignUpForm from './components/auth/LoginPage/SignupForm/SignUpForm';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import { authenticate } from './store/session';
-import LandingPage from './components/LandingPage/'
-import MessagePage from './components/MessagePage/';
-import LandingProvider, { LandingContext } from './context/LandingContext';
 
+// import react-redux
+import { useDispatch } from 'react-redux';
+
+// import react
+import React, { useState, useEffect } from 'react';
+
+// import react-router-dom
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+// import store
+import { authenticate } from './store/session';
+import StartPage from './components/StartPage';
+import StarterProvider from './context/StarterContext';
+
+//? App Component
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -30,18 +44,30 @@ function App() {
     <BrowserRouter>
       {/* <NavBar /> */}
       <Switch>
+        {/* //? Login Route */}
         <Route path='/login' exact={true}>
           <LoginPage />
         </Route>
+        {/* //? Sign Up Route */}
         <Route path='/sign-up' exact={true}>
           <LoginPage />
         </Route>
+
+        {/* //?  Getting Started Page Route */}
+        <ProtectedRoute path="/start/setup">
+          <StarterProvider>
+            <StartPage/>
+          </StarterProvider>
+        </ProtectedRoute>
+
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
+
+        {/* //? Main Route */}
         <ProtectedRoute path='/' exact={true} >
           {/* <h1>My Home Page</h1> */}
           <LandingProvider>

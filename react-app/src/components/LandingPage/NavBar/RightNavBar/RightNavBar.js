@@ -30,9 +30,13 @@ const RightNavBar = () => {
 
       {/* create a new workspace */}
       <span>
-        <button id="create-workspace-button">
-          Create A New Workspace
-        </button>
+        <NavLink
+          to="/start/setup"
+        >
+          <button id="create-workspace-button">
+            Create A New Workspace
+          </button>
+        </NavLink>
       </span>
       {/*  */}
     </section>

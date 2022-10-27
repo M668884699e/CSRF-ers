@@ -5,15 +5,18 @@ import './index.css';
 import ChannelProvider from './context/ChannelContext';
 import App from './App';
 import configureStore from './store';
+import { ModalProvider } from './context/Modal';
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChannelProvider>
-        <App />
-      </ChannelProvider>
+      <ModalProvider>
+        <ChannelProvider>
+          <App />
+        </ChannelProvider>
+      </ModalProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

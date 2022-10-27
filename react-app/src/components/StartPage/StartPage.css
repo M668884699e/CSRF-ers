@@ -1,0 +1,29 @@
+/* src/components/StartPage/StartPage.css */
+
+/* Start Page Section */
+#sp-section{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 4vh auto;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Start Page Top Nav */
+#sp-section-top{
+  background-color: #350D36;
+  width: 100vw;
+  height: 3rem;
+}
+
+/** Start Page Inner Section */
+#sp-section-inner{
+  background-color: white;
+  display: grid;
+  grid-template-columns: 15vw auto;
+}
+
+/* Left Slider Section */
+#sp-ls-section{
+  background-color: #3F0E40;
+}

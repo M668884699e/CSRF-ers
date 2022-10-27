@@ -9,7 +9,6 @@ function User() {
   const currentUserId = useSelector(state => state.session.user.id);
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log('userId: ', userId, 'currentUserId: ', currentUserId)
 
   useEffect(() => {
     if (!userId) {

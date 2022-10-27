@@ -1,0 +1,12 @@
+/* src/components/StartPage/MainStartSetup/MainStartSetup.css */
+
+#sp-main-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sp-main-section-form{
+  width: 85%;
+  height: 90%;
+}

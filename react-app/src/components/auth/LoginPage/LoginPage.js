@@ -9,8 +9,6 @@ import './LoginPage.css';
 
 //? Login Page component
 const LoginPage = () => {
-  console.log("window.location", window.location);
-  console.log("window.location.pathname", window.location.pathname);
   return (
     <section id="lp-section">
       {/* Top Login Page Section */}

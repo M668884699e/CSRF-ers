@@ -1,0 +1,71 @@
+/* src/components/StartPage/LeftSlider/LeftSlider.css */
+/** Start Page Left Side Section */
+#sp-ls-section {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 95% auto;
+}
+
+/** Start Page Left Side Main Section */
+#sp-ls-section-main {
+	background-color: #3f0e40;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(3, 5vh) auto;
+}
+
+.sp-ls-section-main-in {
+  background-color: #522653;
+	width: 100%;
+	margin: 0 auto;
+	height: 100%;
+}
+
+.slsmi-false{
+	background-color: #3f0e40;
+}
+
+#slsmi-true-p{
+  margin-left: 1rem;
+  color: white;
+  font-weight: bold;
+}
+
+.sp-ls-section-main-2in-false{
+  width: 50%;
+  height: 30%;
+  background-color: #643C65;
+  margin: 0;
+  margin-top: 1.25vh;
+  margin-left: 1.25vw;
+  border-radius: 3rem;
+}
+
+/** Start Page Left Side Footer Section */
+#sp-ls-section-footer {
+	background-color: #3f0e40;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	border-top: 0.01px solid rgba(124, 122, 122, 0.6);
+	width: 98%;
+}
+
+#sp-ls-section-footer-button {
+	color: rgb(224, 219, 219);
+	letter-spacing: 1px;
+	background-color: #3f0e40;
+	border: none;
+	margin-left: 1rem;
+	font-size: 15px;
+	transition: color 0.05s ease;
+}
+
+#sp-ls-section-footer-button:hover {
+	cursor: pointer;
+	color: white;
+}
+
+#sp-ls-section-footer-button > i {
+	margin-right: 1rem;
+}
