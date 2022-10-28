@@ -78,6 +78,16 @@ def get_channel_users(channel_id):
 
     return {'channel': channel_id, 'users': [specific_channel_user[0] for specific_channel_user in specific_channel_users]}
 
+@login_required
+@channel_routes.route("/all/users")
+def get_channels_users():
+    """
+    Get all channels with users
+    """
+    # query through all channels users model and return all records
+    all_channels_users = ChannelUser.query.all()
+    
+    return {'channels_users': [all_channel_users.to_dict() for all_channel_users in all_channels_users]}
 
 #* GET - /channels/:channelId/messages
 # Get all messages of a channel, requires authentication ?
@@ -120,10 +130,12 @@ def create_channel():
         user_ids.append(str(current_user.get_id()))
 
     channel_name = form.data["channel_name"]
+    public = form.data["public"]
 
     new_channel = Channel(
         owner_id = current_user.get_id(),
-        channel_name = channel_name
+        channel_name = channel_name,
+        public = public
     )
 
     db.session.add(new_channel)
@@ -132,7 +144,11 @@ def create_channel():
     new_channel_users = []
 
     for user_id in user_ids:
+        if user_id == "," or user_id == " " or user_id == "[" or user_id == "]":
+            continue
+        
         check_user = User.query.get(user_id)
+        
         if check_user is None:
             return {'errors': [f"User {user_id} does not exist"]}, 404
 
@@ -152,54 +168,6 @@ def create_channel():
 
     # return successful message response
     return {'new_channel': new_channel.to_dict(), 'new_channel_user': [new_channel_user.to_dict() for new_channel_user in new_channel_users]}
-
-    # """
-    # Create a channel
-    # """
-    # # get data from channel form
-    # form = ChannelForm()
-
-    # # get a list of user ids, channel name
-    # user_ids, channel_name = form.data['user_ids'].split(', '), form.data['channel_name']
-
-    # #* (1) Create Channel
-    # new_channel = Channel(
-    #     owner_id = current_user.get_id(),
-    #     channel_name = channel_name
-    # )
-
-    # # add channel to db and commit
-    # db.session.add(new_channel)
-    # db.session.commit()
-
-    # #* (2) Create Channel_Users
-    # new_channel_users = []
-
-    # # for every user id
-    # for user_id in user_ids:
-    #     # check if user exist and throw error if necessary
-    #     check_user = User.query.get(user_id)
-
-    #     if(check_user is None):
-    #         return {'errors': [f"User {user_id} does not exist"]}, 404
-
-    #     # create new channel_user
-    #     new_channel_user = ChannelUser(
-    #         channel_id = new_channel.id,
-    #         user_id = user_id
-    #     )
-
-    #     # add new channel_user to db session
-    #     db.session.add(new_channel_user)
-
-    #     # add new channel_user
-    #     new_channel_users.append(new_channel_user)
-
-    # db.session.commit()
-
-    # # return successful message response
-    # return {'new_channel': new_channel.to_dict(), 'new_channel_user': [new_channel_user.to_dict() for new_channel_user in new_channel_users]}
-
 
 # Add a user to the channel, requires authentication if user has permission to add others
 @login_required
