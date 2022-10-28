@@ -1,0 +1,9 @@
+/* Line through for line through class */
+.line-through{
+    text-decoration: line-through;
+}
+
+/* Underline class */
+.underline{
+    text-decoration: underline;
+}

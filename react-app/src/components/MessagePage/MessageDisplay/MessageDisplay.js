@@ -1,11 +1,14 @@
 // import css
 import "./MessageDisplay.css"
 
+// BJM todo: set up react components
+
 const MessageDisplay = () => {
     return (
         <section id="message-display-main">
             <section id="message-main-header">
                 <section id="message-main-header-left">
+                    {/* BJM todo: Implement a button add feature maintaining css */}
                     <button id="message-main-header-name">
                         Test Message Name
                     </button>
@@ -14,6 +17,7 @@ const MessageDisplay = () => {
                     </aside>
                 </section>
                 <section id="message-main-header-right">
+                    {/* BJM: todo on click display modal of members, incorporate centralized slack modal */}
                     <button>Members</button>
                 </section>
             </section>
@@ -28,12 +32,14 @@ const MessageDisplay = () => {
                         + Add a bookmark
                     </button>
                 </aside>
-                <aside className="message-sub-header-section">
-                    <button className="message-sub-header-buttons">
+                <aside class="message-sub-header-section">
+                    {/* BJM: todo add button header feature, in depth look needed */}
+                    <button class="message-sub-header-buttons">
                         +
                     </button>
                 </aside>
             </section>
+            {/* BJM: todo create loop of messages grabbing all messages in channel */}
             <section id="message-display-container">
                 <section className="message">
                     <aside className="profile-pic">

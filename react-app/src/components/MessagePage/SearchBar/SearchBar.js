@@ -19,9 +19,11 @@ const SearchBar = () => {
                 </section>
             </section>
             <section id="center-bar-section">
+                {/* Todo: get clock font via slack and implement a channel history check: priority low */}
                 <button id="clock-button">
                     <i className="fa-regular fa-clock clock-button-icon fa-xl"/>
                 </button>
+                {/* Todo: get search button functional with req.query 'ilike' or 'like' */}
                 <section id="search-bar">
                     <input id="search-text" placeholder="Search App Academy"/>
                     <section id="search-buttons">

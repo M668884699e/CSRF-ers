@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import Editor from './Editor';
 
 function UsersList() {
   const [users, setUsers] = useState([]);
