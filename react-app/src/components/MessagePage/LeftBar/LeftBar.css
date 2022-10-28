@@ -1,17 +1,22 @@
-
 /* Left bar side menu container */
+/* Main Container */
 #left-bar-main {
     display: flex;
     flex-direction: column;
     width: 365px;
     resize: horizontal;
+
+
+    border-right: 1px solid #2B2A2F;
+    background-color: #19171D;
 }
 
 #left-bar-main > * {
     display: flex;
-    margin-left: 10px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
+
+    padding-left: 18px;
 }
 
 
@@ -21,7 +26,14 @@
     flex-direction: row;
     align-items: center;
 
-    height: 50px;
+    height: 47px;
+
+    border: 1px solid #2B2A2F;
+    border-right: none;
+}
+
+#section-one:hover {
+    background-color: #27242C;
 }
 
 #server-name {
@@ -32,6 +44,7 @@
     width: 100%;
 
     font-size: large;
+    color: #D1D2D3
 }
 
 #server-name > * {
@@ -52,15 +65,21 @@
 
     border: none;
     border-radius: 50%;
-    color: black;
 }
 
 
+/* New notifications */
 /* Section Two: New activity */
 #section-two{
     display: flex;
     flex-direction: column;
-    background-color: lightblue;
+
+    border: 1px solid #2B2A2F;
+    border-top: none;
+    border-right: none;
+
+    padding-top: 14px;
+    padding-bottom: 9px;
 }
 
 /* Section spacing */
@@ -70,20 +89,27 @@
     margin-bottom: 3px;
 }
 
-/* New notifications */
 #section-two > * {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
 
-/* New notification hover */
-.section-two-options:hover {
-    background-color: orange;
+    color: #79777C;
+    padding-bottom: 4px;
 }
-
 
 /* New notification button styling */
+.section-two-options {
+    display: flex;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.section-two-options:hover {
+    background-color: #27242C;
+}
+
+
 .new-notification {
     display: flex;
     justify-content: center;
@@ -101,44 +127,86 @@
 }
 
 
-/* Channel ul style */
-#channel-list {
-    margin: 0;
-    list-style: none;
-    padding-left: 0;
+/* Section Three (Channel List) */
+#section-three {
+    margin-bottom: 0;
 }
 
-/* Section Three */
 #channel-section {
     display: flex;
     flex-direction: column;
+
+    width: 365px;
+
+    color: #79777C;
 }
 
 
 /* Channels spacing */
 #channel-header {
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+
+#channel-header:hover {
+    background-color: #27242C;
+}
+
+#channel-list {
+    margin: 0;
+    padding: 0;
+}
+
+#channel-list > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding-bottom: 5px;
+}
+
+.channel-list-option:hover {
+    background-color: #27242C;
 }
 
 
-/* Section Four: DMR */
+/* Section Four (DMR List) */
 #dmr-section {
-    display: flex;
-    flex-direction: column;
+    width: 365px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    color: #79777C;
 }
 
 /* DMR header */
 #dmr-header {
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#dmr-header:hover {
+    background-color: #27242C;
 }
 
 /* DMR ul */
 #dmr-list {
+    display: flex;
+    flex-direction: column;
+
     margin: 0;
     list-style: none;
     padding-left: 0;
+}
+
+.dmr-list-option:hover {
+    background-color: #27242C;
+}
+
+#dmr-list > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    padding-bottom: 7px;
 }
 
 
@@ -146,7 +214,25 @@
 #footer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex-direction: row;
+
+    position: fixed;
+    bottom: 0;
+    height: 48px;
+    width: 347px;
+
+    border-top: 1px solid #2B2A2F;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    color: #79777C;
+    background-color: #19171D;
+}
+
+#footer-name > * {
+    color: #79777C;
 }
 
 #footer-button {
@@ -156,11 +242,17 @@
     align-items: center;
     justify-items: center;
 
+    margin-right: 10px;
+
     height: 20px;
-    width: 20px;
+    width: 50px;
 
     border: none;
-    border-radius: 50%;
-    color: black;
+    border-radius: 45px;
+    background-color: #D1D2D3;
+}
+
+#footer-button > * {
+    border: none;
     background-color: #D1D2D3;
 }

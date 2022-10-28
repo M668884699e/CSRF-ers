@@ -14,57 +14,55 @@ const LeftBar = () => {
             <section id="section-two">
                 <section className="section-two-options">
                     <aside>Threads</aside>
-                    <aside className="new-notification">NEW</aside>
+                    {/* <aside class="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Direct messages</aside>
-                    <aside className="new-notification">NEW</aside>
+                    {/* <aside class="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Mentions & reactions</aside>
-                    <aside className="new-notification">NEW</aside>
+                    {/* <aside class="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Drafts & sent</aside>
-                    <aside className="new-notification">NEW</aside>
+                    {/* <aside class="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Slack Connect</aside>
-                    <aside className="new-notification">NEW</aside>
+                    {/* <aside class="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>More</aside>
-                    <aside className="new-notification">NEW</aside>
+                    {/* <aside class="new-notification">NEW</aside> */}
                 </section>
             </section>
 
             <section id="section-three">
                 <section id="channel-section">
-                    <p id="channel-header">Channels</p>
-                    {/* for loop here to list current user's channels */}
-                    <ul id="channel-list">
-                        <li>Channel 1</li>
-                        <li>Channel 2</li>
-                        <li>Channel 3</li>
-                    </ul>
-                    <section>
-                        Browse channels
-                    </section>
+                    <details>
+                        <summary id="channel-header">Channels</summary>
+                        <section id="channel-list">
+                            <section class="channel-list-option">Channel 1</section>
+                            <section class="channel-list-option">Channel 2</section>
+                            <section class="channel-list-option">Channel 3</section>
+                            <section class="channel-list-option">+ Browse Channels</section>
+                        </section>
+                    </details>
                 </section>
             </section>
 
             <section id="section-four">
                 <section id="dmr-section">
-                    <p id="dmr-header">Direct messages</p>
-                    {/* for loop here to list current user's dmrs */}
-                    <ul id="dmr-list">
-                        <li>DMR 1</li>
-                        <li>DMR 2</li>
-                        <li>DMR 3</li>
-                    </ul>
-                    <section>
-                        Add teammates
-                    </section>
+                    <details>
+                        <summary id="dmr-header">Direct messages</summary>
+                        <section id="dmr-list">
+                            <section class="dmr-list-option">DMR 1</section>
+                            <section class="dmr-list-option">DMR 2</section>
+                            <section class="dmr-list-option">DMR 3</section>
+                            <section class="dmr-list-option">+ Add teammates</section>
+                        </section>
+                    </details>
                 </section>
             </section>
 
@@ -73,7 +71,7 @@ const LeftBar = () => {
                     Place Holder Name
                 </section>
                 <section id="footer-button">
-                    <button>O H</button>
+                    <button id="tests">O H</button>
                 </section>
             </footer>
         </aside>
