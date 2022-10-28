@@ -60,6 +60,7 @@ function App() {
           </StarterProvider>
         </ProtectedRoute>
 
+        {/* //? Chat Page */}
         <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
