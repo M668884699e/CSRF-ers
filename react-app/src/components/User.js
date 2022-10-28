@@ -48,7 +48,6 @@ function User() {
       {(Number(userId) === currentUserId) && (
         <button id='button-logout' onClick={logout}>Log Out</button>
       )}
-      <Editor />
     </>
   );
 }

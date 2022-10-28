@@ -1,3 +1,5 @@
+
+/* Left bar side menu container */
 #left-bar-main {
     display: flex;
     flex-direction: column;
@@ -13,7 +15,7 @@
 }
 
 
-/* Section One */
+/* Section One: Server name */
 #section-one {
     display: flex;
     flex-direction: row;
@@ -36,6 +38,7 @@
     display: flex;
 }
 
+/* Create new message button */
 #new-message-button {
     display: flex;
     justify-content: center;
@@ -53,26 +56,34 @@
 }
 
 
-/* Section Two */
+/* Section Two: New activity */
 #section-two{
     display: flex;
     flex-direction: column;
-
     background-color: lightblue;
 }
 
-#section-two > * {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
+/* Section spacing */
 .section-two-options {
     display: flex;
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
+/* New notifications */
+#section-two > * {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* New notification hover */
+.section-two-options:hover {
+    background-color: orange;
+}
+
+
+/* New notification button styling */
 .new-notification {
     display: flex;
     justify-content: center;
@@ -89,16 +100,13 @@
     background-color: #9E9EA1;
 }
 
+
+/* Channel ul style */
 #channel-list {
     margin: 0;
     list-style: none;
     padding-left: 0;
 }
-
-.section-two-options:hover {
-    background-color: orange;
-}
-
 
 /* Section Three */
 #channel-section {
@@ -106,23 +114,27 @@
     flex-direction: column;
 }
 
+
+/* Channels spacing */
 #channel-header {
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
 
-/* Section Four */
+/* Section Four: DMR */
 #dmr-section {
     display: flex;
     flex-direction: column;
 }
 
+/* DMR header */
 #dmr-header {
     margin-top: 3px;
     margin-bottom: 3px;
 }
 
+/* DMR ul */
 #dmr-list {
     margin: 0;
     list-style: none;

@@ -9,9 +9,11 @@ const SearchBar = () => {
                 </section>
             </section>
             <section id="center-bar-section">
+                {/* Todo: get clock font via slack and implement a channel history check: priority low */}
                 <button id="clock-button">
                     C
                 </button>
+                {/* Todo: get search button functional with req.query 'ilike' or 'like' */}
                 <section id="search-bar">
                     <section id="search-text">
                         Search App Academy
@@ -25,6 +27,7 @@ const SearchBar = () => {
             <section id="right-bar-section">
                 <section id="right-section">
                     <button id="help-button">?</button>
+                    {/* Todo: profile button: priority high */}
                     <button>PRF</button>
                 </section>
             </section>
