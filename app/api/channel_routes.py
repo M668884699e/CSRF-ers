@@ -78,6 +78,16 @@ def get_channel_users(channel_id):
 
     return {'channel': channel_id, 'users': [specific_channel_user[0] for specific_channel_user in specific_channel_users]}
 
+@login_required
+@channel_routes.route("/all/users")
+def get_channels_users():
+    """
+    Get all channels with users
+    """
+    # query through all channels users model and return all records
+    all_channels_users = ChannelUser.query.all()
+    
+    return {'channels_users': [all_channel_users.to_dict() for all_channel_users in all_channels_users]}
 
 #* GET - /channels/:channelId/messages
 # Get all messages of a channel, requires authentication ?

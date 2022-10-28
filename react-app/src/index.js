@@ -7,6 +7,7 @@ import App from './App';
 import configureStore from './store';
 import { ModalProvider } from './context/Modal';
 import UserProvider from './context/UserContext';
+import ChannelsUsersProvider from './context/ChannelsUsersContext';
 
 const store = configureStore();
 
@@ -16,7 +17,9 @@ ReactDOM.render(
       <ModalProvider>
         <UserProvider>
           <ChannelProvider>
-            <App />
+            <ChannelsUsersProvider>
+              <App />
+            </ChannelsUsersProvider>
           </ChannelProvider>
         </UserProvider>
       </ModalProvider>

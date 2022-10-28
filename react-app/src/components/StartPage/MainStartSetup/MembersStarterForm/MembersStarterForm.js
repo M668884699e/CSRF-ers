@@ -36,7 +36,7 @@ const MembersStarterForm = ({ privateChannel }) => {
   let usersIndexes = [];
 
   // selector functions
-  const userState = useSelector(userActions.getAllUsers);
+  const userState = useSelector(userActions.thunkGetAllUsers);
   
   // invoke dispatch
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const MembersStarterForm = ({ privateChannel }) => {
     setInputLength(0);
 
     // get users
-    dispatch(userActions.thunkGetUsers());
+    dispatch(userActions.thunkGetAllUsers());
 
     // set secondActive as true (for Direct messages)
     setFirstActive(false);

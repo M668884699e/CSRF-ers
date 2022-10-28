@@ -4,12 +4,14 @@ import sessionReducer from './session';
 import channelReducer from './channel';
 import dmrReducer from './dmr'
 import userReducer from './users';
+import channelsUsersReducer from './channels-users';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   channels: channelReducer,
   dmrs: dmrReducer,
-  users: userReducer
+  users: userReducer,
+  channelsUsers: channelsUsersReducer
 });
 
 

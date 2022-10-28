@@ -2,7 +2,7 @@
 // action
 const LOAD_USERS = 'users/LOAD_USERS';
 
-// action creator:
+// action creator: load all users
 const loadUsers = users => {
   return {
     type: LOAD_USERS,
@@ -12,7 +12,7 @@ const loadUsers = users => {
 
 /* --------- THUNKS -------- */
 //? Thunk action to get all users
-export const thunkGetUsers = () => async dispatch => {
+export const thunkGetAllUsers = () => async dispatch => {
   // fetch all users
   const res = await fetch('/api/users/');
 
@@ -26,10 +26,14 @@ export const thunkGetUsers = () => async dispatch => {
     // return users
     return userData;
   }
+
+  // return res if unsuccessful
+  return res;
 }
 
 /* --------- SELECTOR FUNCTIONS -------- */
-export const getAllUsers = state => Object.values(state.users);
+export const getAllUsers = state => state.users;
+export const getUserById = (state, userId) => state.users.find(user => user === userId);
 
 /* --------- REDUCERS -------- */
 const initialState = {};
