@@ -32,9 +32,9 @@ const MessageDisplay = () => {
                         + Add a bookmark
                     </button>
                 </aside>
-                <aside class="message-sub-header-section">
+                <aside className="message-sub-header-section">
                     {/* BJM: todo add button header feature, in depth look needed */}
-                    <button class="message-sub-header-buttons">
+                    <button className="message-sub-header-buttons">
                         +
                     </button>
                 </aside>

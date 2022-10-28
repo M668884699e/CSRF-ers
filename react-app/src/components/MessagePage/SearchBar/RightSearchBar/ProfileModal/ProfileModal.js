@@ -59,7 +59,7 @@ const ProfileModal = ({ setShowProfileModal }) => {
             {`${firstName} ${lastName}`}
           </p>
           <p id="pmhulr-p2">
-            <i class="fa-regular fa-circle fa-2xs"></i>
+            <i className="fa-regular fa-circle fa-2xs"></i>
             <span>Offline</span>
           </p>
         </aside>

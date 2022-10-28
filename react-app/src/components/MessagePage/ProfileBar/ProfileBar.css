@@ -8,14 +8,31 @@
 
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: auto 87vh;
+	grid-template-rows: auto 90vh;
 	align-items: center;
 }
 
 /* Profile Bar Header */
+#profile-bar-header {
+	padding-left: 1rem;
+	height: 100%;
+	width: 90%;
+}
+
+#profile-bar-header > h2 {
+	align-items: baseline;
+	display: flex;
+	font-size: 18px;
+	font-weight: 900;
+	line-height: 1.33334;
+}
+
+/* Profile Bar Aside Container */
 #profile-bar-aside-container {
 	display: grid;
-	grid-template-rows: 35em 11em 6.5em;
+	justify-items: center;
+	align-items: center;
+	grid-template-rows: 25em 11em 6.5em;
 	overflow: auto;
 	height: 100%;
 	width: 100%;
@@ -23,4 +40,39 @@
 	background-color: pink;
 }
 
-/* Profile Bar Aside Container */
+#pbac-a1 {
+	background-color: green;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#pbac-a1-c1 {
+	height: auto;
+	width: 15rem;
+}
+
+#pbac-a1-c1 > img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+	border-radius: 0.5rem;
+}
+
+#pbac-a1-c2 {
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
+	height: 100%;
+	margin-left: 1rem;
+}
+
+#pbac-a1-c2 > p {
+	margin: 0;
+	font-size: 22px;
+	font-weight: 900;
+	line-height: 1.36365;
+}

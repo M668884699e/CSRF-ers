@@ -1,11 +1,11 @@
 /* TODO Add site wide styles */
-body{
-  margin: 0;
-  font-family: Slack-Lato,Slack-Fractions,appleLogo,sans-serif;
-  height: 100%;
+body {
+	margin: 0;
+	font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
+	height: 100%;
 }
 
 /* solve iframe issue */
-iframe{
-  display: none !important;
+iframe {
+	display: none !important;
 }

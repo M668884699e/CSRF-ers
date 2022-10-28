@@ -14,27 +14,27 @@ const LeftBar = () => {
             <section id="section-two">
                 <section className="section-two-options">
                     <aside>Threads</aside>
-                    {/* <aside class="new-notification">NEW</aside> */}
+                    {/* <aside className="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Direct messages</aside>
-                    {/* <aside class="new-notification">NEW</aside> */}
+                    {/* <aside className="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Mentions & reactions</aside>
-                    {/* <aside class="new-notification">NEW</aside> */}
+                    {/* <aside className="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Drafts & sent</aside>
-                    {/* <aside class="new-notification">NEW</aside> */}
+                    {/* <aside className="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>Slack Connect</aside>
-                    {/* <aside class="new-notification">NEW</aside> */}
+                    {/* <aside className="new-notification">NEW</aside> */}
                 </section>
                 <section className="section-two-options">
                     <aside>More</aside>
-                    {/* <aside class="new-notification">NEW</aside> */}
+                    {/* <aside className="new-notification">NEW</aside> */}
                 </section>
             </section>
 
@@ -43,10 +43,10 @@ const LeftBar = () => {
                     <details>
                         <summary id="channel-header">Channels</summary>
                         <section id="channel-list">
-                            <section class="channel-list-option">Channel 1</section>
-                            <section class="channel-list-option">Channel 2</section>
-                            <section class="channel-list-option">Channel 3</section>
-                            <section class="channel-list-option">+ Browse Channels</section>
+                            <section className="channel-list-option">Channel 1</section>
+                            <section className="channel-list-option">Channel 2</section>
+                            <section className="channel-list-option">Channel 3</section>
+                            <section className="channel-list-option">+ Browse Channels</section>
                         </section>
                     </details>
                 </section>
@@ -54,10 +54,10 @@ const LeftBar = () => {
                     <details>
                         <summary id="dmr-header">Direct messages</summary>
                         <section id="dmr-list">
-                            <section class="dmr-list-option">DMR 1</section>
-                            <section class="dmr-list-option">DMR 2</section>
-                            <section class="dmr-list-option">DMR 3</section>
-                            <section class="dmr-list-option">+ Add teammates</section>
+                            <section className="dmr-list-option">DMR 1</section>
+                            <section className="dmr-list-option">DMR 2</section>
+                            <section className="dmr-list-option">DMR 3</section>
+                            <section className="dmr-list-option">+ Add teammates</section>
                         </section>
                     </details>
                 </section>
