@@ -1,5 +1,15 @@
+// src/components/MessagePage/SearchBar/SearchBar.js
+
+// import css
 import "./SearchBar.css"
 
+// import react-redux
+import { useSelector } from "react-redux"
+
+// import component
+import RightSearchBar from "./RightSearchBar";
+
+//? Search Bar Component
 const SearchBar = () => {
     return (
         <header id="search-bar-main">
@@ -10,26 +20,22 @@ const SearchBar = () => {
             </section>
             <section id="center-bar-section">
                 <button id="clock-button">
-                    C
+                    <i className="fa-regular fa-clock clock-button-icon fa-xl"/>
                 </button>
                 <section id="search-bar">
-                    <section id="search-text">
-                        Search App Academy
-                    </section>
+                    <input id="search-text" placeholder="Search App Academy"/>
                     <section id="search-buttons">
-                        <button>F</button>
-                        <button>S</button>
+                        <i className="fa-solid fa-sliders search-buttons-slider-icon"/>
+                        <i className="fa-solid fa-magnifying-glass search-buttons-mg-icon"/>
                     </section>
                 </section>
             </section>
-            <section id="right-bar-section">
-                <section id="right-section">
-                    <button id="help-button">?</button>
-                    <button>PRF</button>
-                </section>
-            </section>
+
+            {/* Right Bar Section component */}
+            <RightSearchBar/>
         </header>
     )
 }
 
+// export component
 export default SearchBar

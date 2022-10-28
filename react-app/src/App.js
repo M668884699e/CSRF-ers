@@ -75,7 +75,8 @@ function App() {
           </LandingProvider>
         </ProtectedRoute>
 
-        <Route path ="/test" exact={true}>
+        {/* //? Chatroom Route */}
+        <Route path ="/chat" exact={true}>
           <MessagePage />
         </Route>
       </Switch>

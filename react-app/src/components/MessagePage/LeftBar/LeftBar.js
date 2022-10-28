@@ -12,29 +12,29 @@ const LeftBar = () => {
             </section>
 
             <section id="section-two">
-                <section class="section-two-options">
+                <section className="section-two-options">
                     <aside>Threads</aside>
-                    <aside class="new-notification">NEW</aside>
+                    <aside className="new-notification">NEW</aside>
                 </section>
-                <section class="section-two-options">
+                <section className="section-two-options">
                     <aside>Direct messages</aside>
-                    <aside class="new-notification">NEW</aside>
+                    <aside className="new-notification">NEW</aside>
                 </section>
-                <section class="section-two-options">
+                <section className="section-two-options">
                     <aside>Mentions & reactions</aside>
-                    <aside class="new-notification">NEW</aside>
+                    <aside className="new-notification">NEW</aside>
                 </section>
-                <section class="section-two-options">
+                <section className="section-two-options">
                     <aside>Drafts & sent</aside>
-                    <aside class="new-notification">NEW</aside>
+                    <aside className="new-notification">NEW</aside>
                 </section>
-                <section class="section-two-options">
+                <section className="section-two-options">
                     <aside>Slack Connect</aside>
-                    <aside class="new-notification">NEW</aside>
+                    <aside className="new-notification">NEW</aside>
                 </section>
-                <section class="section-two-options">
+                <section className="section-two-options">
                     <aside>More</aside>
-                    <aside class="new-notification">NEW</aside>
+                    <aside className="new-notification">NEW</aside>
                 </section>
             </section>
 
