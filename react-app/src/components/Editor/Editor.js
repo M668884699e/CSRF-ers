@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+
+// Lexical imports
 import {
   $getRoot,
   $getSelection,
@@ -16,8 +18,10 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { mergeRegister } from '@lexical/utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './editorStyles.css';
 
+// Font awesome imports
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faBold,
@@ -32,6 +36,7 @@ import {
   faRotateRight,
 } from '@fortawesome/free-solid-svg-icons';
 
+// add fonts to library
 library.add(
   faBold,
   faStrikethrough,
@@ -45,20 +50,27 @@ library.add(
   faRotateRight
 );
 
+// Change text
 function onChange(state) {
   state.read(() => {
     const root = $getRoot();
     const selection = $getSelection();
 
-    console.log(selection);
+    // read current change
+    // console.log(selection);
   });
 }
 
+// Editor object
 export const Editor = () => {
+
+  // config object
   const initialConfig = {};
 
   return (
     <div className="bg-white relative rounded-sm shadow-sm border border-gray-200">
+
+      {/* Lexical object with populated config object */}
       <LexicalComposer
         initialConfig={{
           theme: {
@@ -74,13 +86,20 @@ export const Editor = () => {
               strikethrough: 'line-through',
             },
           },
+
+          // If error
           onError(error) {
             throw error;
           },
         }}
       >
+        {/* Toolbar with loaded Editor */}
         <Toolbar editor={Editor}/>
+
+        {/* Format of editor, rich text plugin has more functionality than plain text plugin */}
         <RichTextPlugin
+
+          // content space
           contentEditable={
             <ContentEditable className="min-h-[450px] outline-none py-[15px] px-2.5 resize-none overflow-hidden text-ellipsis" />
           }
@@ -90,7 +109,11 @@ export const Editor = () => {
             </div>
           }
         />
+
+        {/* on change set with onChange function */}
         <OnChangePlugin onChange={onChange} />
+
+        {/* Allow undo and redo */}
         <HistoryPlugin />
       </LexicalComposer>
     </div>
@@ -98,7 +121,10 @@ export const Editor = () => {
 };
 
 const Toolbar = () => {
+  // states
   const [editor] = useLexicalComposerContext();
+
+  // css states
   const [isBold, setIsBold] = React.useState(false);
   const [isItalic, setIsItalic] = React.useState(false);
   const [isStrikethrough, setIsStrikethrough] = React.useState(false);
@@ -108,6 +134,8 @@ const Toolbar = () => {
     const selection = $getSelection();
 
     if ($isRangeSelection(selection)) {
+
+      // set css states
       setIsBold(selection.hasFormat('bold'));
       setIsItalic(selection.hasFormat('italic'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
@@ -125,8 +153,11 @@ const Toolbar = () => {
     );
   }, [updateToolbar, editor]);
 
+  // buttons in rte
   return (
     <div className="fixed z-20 shadow bottom-8 left-1/2 transform -translate-x-1/2 min-w-52 h-10 px-2 py-2 bg-[#1b2733] mb-4 space-x-2 flex items-center">
+      
+      {/* bold button */}
       <button
         className={clsx(
           'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
@@ -141,6 +172,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+      
+      {/* strikethrough */}
       <button
         className={clsx(
           'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
@@ -155,6 +188,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+
+      {/* italic */}
       <button
         className={clsx(
           'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
@@ -169,6 +204,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+
+      {/* underline */}
       <button
         className={clsx(
           'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
@@ -186,6 +223,7 @@ const Toolbar = () => {
 
       <span className="w-[1px] bg-gray-600 block h-full"></span>
 
+      {/* left align */}
       <button
         className={clsx(
           'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
@@ -199,6 +237,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+
+      {/* center align */}
       <button
         className={clsx(
           'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
@@ -212,6 +252,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+
+      {/* right align */}
       <button
         className={clsx(
           'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
@@ -225,6 +267,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+
+      {/* justify content */}
       <button
         className={clsx(
           'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
@@ -241,6 +285,7 @@ const Toolbar = () => {
 
       <span className="w-[1px] bg-gray-600 block h-full"></span>
 
+      {/* undo */}
       <button
         className={clsx(
           'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
@@ -254,6 +299,8 @@ const Toolbar = () => {
           className="text-white w-3.5 h-3.5"
         />
       </button>
+
+      {/* redo */}
       <button
         className={clsx(
           'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
