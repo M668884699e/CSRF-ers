@@ -36,7 +36,7 @@ const MembersStarterForm = ({ privateChannel }) => {
   let usersIndexes = [];
 
   // selector functions
-  const userState = useSelector(userActions.thunkGetAllUsers);
+  const userState = useSelector(userActions.getAllUsers);
   
   // invoke dispatch
   const dispatch = useDispatch();
@@ -66,8 +66,10 @@ const MembersStarterForm = ({ privateChannel }) => {
   // per userState
   useEffect(() => {
     // filter for noncurrent users only
-    const filteredUsers = userState.filter(user => user.id !== getCurrentUserId);
-    setUsers(filteredUsers);
+    if (userState) {
+      const filteredUsers = Object.values(userState).filter(user => user.id !== getCurrentUserId);
+      setUsers(filteredUsers);
+    }
   }, [userState]);
   
   // per users
