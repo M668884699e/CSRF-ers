@@ -3,8 +3,19 @@ import "./ProfileBar.css"
 
 const ProfileBar = () => {
     return (
-        <section>
-            Profile bar. Hello world.
+        <section id="profile-bar">
+            <section>
+                Section 1
+            </section>
+            <section>
+                Section 2
+            </section>
+            <section>
+                Section 3
+            </section>
+            <section>
+                Section 4
+            </section>
         </section>
     )
 }

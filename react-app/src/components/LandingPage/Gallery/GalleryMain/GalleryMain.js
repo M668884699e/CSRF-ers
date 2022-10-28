@@ -15,6 +15,9 @@ import { useContext, useEffect, useState } from 'react';
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
 
+// import react-router-dom
+import { NavLink } from 'react-router-dom';
+
 // import store
 import * as channelActions from '../../../../store/channel';
 import * as sessionActions from '../../../../store/session';
@@ -130,9 +133,11 @@ const GalleryMain = () => {
                       </figure>
                     </section>
                     <section className="workspace-li-s2">
-                      <button className="workspace-li-s2-button">
-                        Launch Slack
-                      </button>
+                      <NavLink to="/chat">                          
+                        <button className="workspace-li-s2-button">
+                          Launch Slack
+                        </button>
+                      </NavLink>
                     </section>
                   </li>
                 ))

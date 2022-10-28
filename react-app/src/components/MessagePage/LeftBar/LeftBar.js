@@ -50,9 +50,6 @@ const LeftBar = () => {
                         </section>
                     </details>
                 </section>
-            </section>
-
-            <section id="section-four">
                 <section id="dmr-section">
                     <details>
                         <summary id="dmr-header">Direct messages</summary>

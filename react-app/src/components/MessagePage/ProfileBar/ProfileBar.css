@@ -1,0 +1,11 @@
+#profile-bar {
+	/* background-color: #1a1d21; */
+	background-color: red;
+	width: 100%;
+	height: 100%;
+	color: white;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  /* grid-template-rows: 5rem 40rem 10rem 10rem; */
+}

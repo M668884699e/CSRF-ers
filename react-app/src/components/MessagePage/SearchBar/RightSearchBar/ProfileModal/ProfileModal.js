@@ -3,8 +3,11 @@
 // import css
 import './ProfileModal.css';
 
+// import react-router-dom
+import { useHistory } from 'react-router';
+
 // import react-redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // import store
 import * as sessionActions from '../../../../../store/session';
@@ -15,7 +18,7 @@ const ProfileModal = ({ setShowProfileModal }) => {
   /**
    * Controlled inputs
    */
-  const [faceSmile, setFaceSmile] = useState(<i className="fa-regular fa-face-smile"/>);
+  const [faceSmile, setFaceSmile] = useState(<p><i className="fa-regular fa-face-smile pmsus-fig-smile-emote"/></p>);
 
   // get current user first and last name
   const firstName = useSelector(sessionActions.getUserFirstName);
@@ -26,6 +29,19 @@ const ProfileModal = ({ setShowProfileModal }) => {
 
   // get current user display name
   const displayName = useSelector(sessionActions.getUserDisplayName);
+
+  // invoke dispatch
+  const dispatch = useDispatch();
+
+  // invoke history
+  const history = useHistory();
+
+  // function to handle log out
+  const handleLogout = e => {
+    e.preventDefault();
+    dispatch(sessionActions.logout())
+    .then(history.push('/'));
+  }
 
   return (
     <ul id="profile-modal-ul">
@@ -94,8 +110,8 @@ const ProfileModal = ({ setShowProfileModal }) => {
 
       {/* Profile Modal Bottom UL */}
       <section id="profile-modal-bottom-ul-section">
-        <li>
-          Sign out of App Academy
+        <li onClick={handleLogout}>
+          Sign out of Slackers
         </li>
       </section>
     </ul>

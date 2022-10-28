@@ -1,42 +1,48 @@
 /* Message Page Main Container */
+#message-page-main {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 3rem auto;
 
+	height: 100vh;
+}
 
 /* Message Page Header */
 #message-page-header {
-    display: flex;
-
-    position: fixed;
-    width: 100%;
-    z-index: 100;
+	width: 100%;
 }
-
 
 /* Message Page Body */
 #message-page-body {
-    display: flex;
-    flex-direction: row;
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 20rem auto 20vw;
+	grid-template-rows: auto 13vh;
+	grid-template-areas:
+		'left message profile'
+		'left chat profile';
 }
 
 #message-page-body > * {
-    display: flex;
-    margin-top: 45px;
+	height: 100%;
+	width: 100%;
 }
 
 #left-bar {
-    position: fixed;
-    height: 100vw;
-    z-index: 99;
-}
-
-
-/* Message Display Section */
-#message-display {
-    display: flex;
-
-    width: 100%;
+	grid-area: left;
+	background-color: #19171d;
+	width: 20rem;
 }
 
 #message-display {
-    display: flex;
-    margin-left: 365px;
+	grid-area: message;
+}
+
+#message-sender {
+	grid-area: chat;
+}
+
+#message-profile {
+	grid-area: profile;
 }
