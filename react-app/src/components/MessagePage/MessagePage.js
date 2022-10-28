@@ -17,8 +17,12 @@ const MessagePage = () => {
                 <SearchBar/>
             </section>
             <section id="message-page-body">
-                <LeftBar />
-                <MessageDisplay />
+                <aside id="left-bar">
+                    <LeftBar />
+                </aside>
+                <aside id="message-display">
+                    <MessageDisplay />
+                </aside>
             </section>
 
             {/* <ProfileBar /> */}

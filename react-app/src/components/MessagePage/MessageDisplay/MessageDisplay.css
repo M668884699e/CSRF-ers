@@ -1,0 +1,140 @@
+/* Message Display Main Container */
+#message-display-main {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    width: 100%;
+
+    background-color: #1A1D21;
+}
+
+
+/* Message Main Header (Channel/DMR Name) */
+#message-main-header {
+    display: flex;
+    /* position:  fixed; */
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding-left: 20px;
+
+    height: 50px;
+    border: 1px #35373B solid;
+}
+
+#message-main-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#message-main-header-name {
+    height: 35px;
+    font-size: large;
+    font-weight: bold;
+
+    border: none;
+    color: #D1D2D3;
+    background-color: #1A1D21;
+}
+
+#message-main-header-link {
+    font-size: small;
+    padding-left: 15px;
+
+    color: #A5A6A7;
+}
+
+#message-main-header-right {
+    display: flex;
+    align-self: center;
+    margin-right: 15px;
+
+    height: 35px;
+}
+
+#message-main-header-right > * {
+    border: 1px solid #35373B;
+    border-radius: 5px;
+
+    width: 100px;
+
+    color: #D1D2D3;
+    background-color: #1A1D21;
+}
+
+
+/* Message Sub Header */
+#message-sub-header {
+    display: flex;
+    flex-direction: row;
+
+    padding-left: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+
+    border: 1px #35373B solid;
+    border-top: none;
+}
+
+#message-sub-header > * {
+    margin-right: 15px;
+}
+
+.message-sub-header-buttons {
+    padding: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    border: none;
+    border-radius: 3px;
+    color: #D1D2D3;
+    background-color: #1A1D21;
+}
+
+.message-sub-header-buttons:hover {
+    background-color: #2A2D30;
+}
+
+
+/* Message Display Container */
+#message-display-container {
+    display: flex;
+    flex-direction: column;
+
+    height: 35vw;
+
+    overflow-anchor: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    background-color: #1A1D21;
+}
+
+.message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    min-height: 100px;
+    padding-left: 20px;
+
+    color: #D1D2D3;
+}
+
+.message:hover {
+    background-color: #2A2D30;
+}
+
+.profile-pic {
+    margin-right: 5px;
+}
+
+.profile-pic > * {
+    border: none;
+    border-radius: 5px;
+
+    width: 30px;
+    height: 30px;
+}

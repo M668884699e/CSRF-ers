@@ -6,6 +6,9 @@
     align-items: center;
     background-color: rgb(18, 16, 22);
     height: 45px;
+
+    position: fixed;
+    width: 100%;
 }
 
 

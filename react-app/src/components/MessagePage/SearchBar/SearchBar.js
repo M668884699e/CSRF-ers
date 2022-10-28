@@ -5,7 +5,7 @@ const SearchBar = () => {
         <header id="search-bar-main">
             <section id="left-bar-section">
                 <section id="left-section">
-                    LEFT
+
                 </section>
             </section>
             <section id="center-bar-section">
@@ -17,7 +17,7 @@ const SearchBar = () => {
                         Search App Academy
                     </section>
                     <section id="search-buttons">
-                        <button>P</button>
+                        <button>F</button>
                         <button>S</button>
                     </section>
                 </section>
