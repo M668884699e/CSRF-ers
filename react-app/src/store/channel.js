@@ -147,14 +147,14 @@ export const thunkGetChannelMessages = (channel) => async(dispatch) => {
   }
 }
 
-export const thunkPostNewChannel = channel => async dispatch => {
+export const thunkPostNewChannel = new_channel_info => async dispatch => {
   // fetch post new channel
   const res = await fetch(`/api/channels/`, {
     method: 'POST',
     headers: {
       'Content-Type' : 'application/json'
     },
-    body: JSON.stringify(channel)
+    body: JSON.stringify(new_channel_info)
   });
 
   if(!res) return null;
@@ -162,7 +162,8 @@ export const thunkPostNewChannel = channel => async dispatch => {
   if(res.ok){
     const data = await res.json();
     dispatch(createChannel(data));
-    return res;
+
+    return data;
   }
 }
 
@@ -177,9 +178,6 @@ export const thunkPutUserChannel = (channel, userId) => async(dispatch) => {
     },
     body: JSON.stringify()
   });
-
-  
-
 
   // iterate through users grab the id
   // create put for each one

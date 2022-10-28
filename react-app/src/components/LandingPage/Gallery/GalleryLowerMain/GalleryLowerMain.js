@@ -17,7 +17,7 @@ const GalleryLowerMain = () => {
       />
       <h2>Want to use Slack with a different team?</h2>
       <figure id="glm-section-figure">
-        <NavLink to="/" id="glm-section-nl">
+        <NavLink to="/start/setup" id="glm-section-nl">
           Create A New Workspace
         </NavLink>
       </figure>

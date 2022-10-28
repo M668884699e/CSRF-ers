@@ -104,6 +104,7 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
 
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getUserEmail = state => state.session.user.email;
+export const getCurrentUserId = state => state.session.user.id;
 
 /* --------- REDUCERS -------- */
 const initialState = { user: null };

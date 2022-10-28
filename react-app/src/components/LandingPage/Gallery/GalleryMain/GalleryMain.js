@@ -1,8 +1,10 @@
 // src/components/LandingPage/Gallery/GalleryMain/GalleryMain.js
 
 // import context
-import { ChannelContext } from '../../../../context/ChannelContext';
-import { LandingContext } from '../../../../context/LandingContext';
+import { useChannel } from '../../../../context/ChannelContext';
+import { useLanding } from '../../../../context/LandingContext';
+import { useChannelsUsers } from '../../../../context/ChannelsUsersContext';
+import { useUsers } from '../../../../context/UserContext';
 
 // import css
 import './GalleryMain.css';
@@ -16,24 +18,31 @@ import { useDispatch, useSelector } from 'react-redux';
 // import store
 import * as channelActions from '../../../../store/channel';
 import * as sessionActions from '../../../../store/session';
+import * as channelsUsersActions from '../../../../store/channels-users';
+import * as userActions from '../../../../store/users';
 
 //? Main component
 const GalleryMain = () => {
   /** 
   * Controlled Inputs:
   */
-  const {channels, setChannels} = useContext(ChannelContext);
-  const {mainOpen, setMainOpen} = useContext(LandingContext);
+  const { channels, setChannels } = useChannel();
+  const { channelsUsers, setChannelsUsers } = useChannelsUsers();
+  const {mainOpen, setMainOpen} = useLanding();
 
   // invoke dispatch
   const dispatch = useDispatch();
 
+  const usersState = useSelector(userActions.getAllUsers);
+  const channelsUsersState = useSelector(channelsUsersActions.getAllUsersChannels);
   const channelState = useSelector(channelActions.getAllChannels);
   const userEmail = useSelector(sessionActions.getUserEmail);
 
   // load channels
   useEffect(() => {
     dispatch(channelActions.thunkGetChannels());
+    dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
+    dispatch(userActions.thunkGetAllUsers());
   }, [dispatch]);
   
   // per channelState
@@ -41,6 +50,13 @@ const GalleryMain = () => {
     // set channels
     setChannels(channelState);
   }, [channelState]);
+
+  // per channelsUsers state
+  useEffect(() => {
+    setChannelsUsers(channelsUsersState);
+  }, [channelsUsersState]);
+
+
 
   return (
     <section id="gm-container">
@@ -68,13 +84,49 @@ const GalleryMain = () => {
                           className="workspace-li-figure-img"
                         />
                       </figure>
-                      <figure className="">
-                        <p>
+                      <figure className="workspace-li-figure2">
+                        <p id="wlf2-p1">
                           {channel.channel_name}
                         </p>
-                        <p>
-                          {/* query for members count */}
-                        </p>
+                          <section className="wlf2-section">   
+                            <figure className="wlf2-section-figure">
+                              {
+                                channelsUsers &&
+                                channelsUsers.length > 0 && 
+                                channelsUsers
+                                  .filter(channelUsers => channel.id === channelUsers.channel_id)
+                                  .map((user, index) => {
+                                    const currentUser = Object.values(usersState).find(userState => userState.id === user.user_id);
+                                  
+                                    return (
+                                      currentUser && index < 4 && 
+                                      <figure
+                                          className="channel-user-img-container"
+                                          key={currentUser.id}
+                                      >
+                                        <img
+                                          className="channel-user-img"
+                                          src={currentUser.profile_image}
+                                          alt={currentUser.display_name}
+                                        />
+                                      </figure>
+                                    );
+                                  })
+                              }
+                            </figure>
+                            <p id="wlf2-p2">
+                              {/* query for members count */}
+                              {
+                                channelsUsers &&
+                                channelsUsers.length > 0 && 
+                                channelsUsers
+                                .filter(channelUsers => channel.id === channelUsers.channel_id).length
+                              }
+                              <span>
+                                members    
+                              </span>
+                            </p>
+                        </section>
                       </figure>
                     </section>
                     <section className="workspace-li-s2">

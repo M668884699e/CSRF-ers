@@ -1,0 +1,42 @@
+/* Message Page Main Container */
+
+
+/* Message Page Header */
+#message-page-header {
+    display: flex;
+
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+
+/* Message Page Body */
+#message-page-body {
+    display: flex;
+    flex-direction: row;
+}
+
+#message-page-body > * {
+    display: flex;
+    margin-top: 45px;
+}
+
+#left-bar {
+    position: fixed;
+    height: 100vw;
+    z-index: 99;
+}
+
+
+/* Message Display Section */
+#message-display {
+    display: flex;
+
+    width: 100%;
+}
+
+#message-display {
+    display: flex;
+    margin-left: 365px;
+}

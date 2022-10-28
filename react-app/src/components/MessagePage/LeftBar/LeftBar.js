@@ -7,17 +7,37 @@ const LeftBar = () => {
             <section id="section-one">
                 <section id="server-name">
                     <h4>Place Holder Name</h4>
-                    <button id="new-message-button">New Message</button>
+                    <button id="new-message-button">NM</button>
                 </section>
             </section>
+
             <section id="section-two">
-                <section class="section-two-options">Threads</section>
-                <section class="section-two-options">Direct messages</section>
-                <section class="section-two-options">Mentions & reactions</section>
-                <section class="section-two-options">Drafts & sent</section>
-                <section class="section-two-options">Slack Connect</section>
-                <section class="section-two-options">More</section>
+                <section class="section-two-options">
+                    <aside>Threads</aside>
+                    <aside class="new-notification">NEW</aside>
+                </section>
+                <section class="section-two-options">
+                    <aside>Direct messages</aside>
+                    <aside class="new-notification">NEW</aside>
+                </section>
+                <section class="section-two-options">
+                    <aside>Mentions & reactions</aside>
+                    <aside class="new-notification">NEW</aside>
+                </section>
+                <section class="section-two-options">
+                    <aside>Drafts & sent</aside>
+                    <aside class="new-notification">NEW</aside>
+                </section>
+                <section class="section-two-options">
+                    <aside>Slack Connect</aside>
+                    <aside class="new-notification">NEW</aside>
+                </section>
+                <section class="section-two-options">
+                    <aside>More</aside>
+                    <aside class="new-notification">NEW</aside>
+                </section>
             </section>
+
             <section id="section-three">
                 <section id="channel-section">
                     <p id="channel-header">Channels</p>
@@ -32,6 +52,7 @@ const LeftBar = () => {
                     </section>
                 </section>
             </section>
+
             <section id="section-four">
                 <section id="dmr-section">
                     <p id="dmr-header">Direct messages</p>
@@ -46,6 +67,15 @@ const LeftBar = () => {
                     </section>
                 </section>
             </section>
+
+            <footer id="footer">
+                <section id="footer-name">
+                    Place Holder Name
+                </section>
+                <section id="footer-button">
+                    <button>O H</button>
+                </section>
+            </footer>
         </aside>
     )
 }

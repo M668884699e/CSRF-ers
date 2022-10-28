@@ -1,7 +1,8 @@
 #left-bar-main {
     display: flex;
     flex-direction: column;
-    max-width: 20%;
+    width: 365px;
+    resize: horizontal;
 }
 
 #left-bar-main > * {
@@ -13,11 +14,22 @@
 
 
 /* Section One */
+#section-one {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 50px;
+}
+
 #server-name {
     display: flex;
     flex-direction: row;
-    width: 100%;
     justify-content: space-between;
+
+    width: 100%;
+
+    font-size: large;
 }
 
 #server-name > * {
@@ -26,9 +38,18 @@
 
 #new-message-button {
     display: flex;
+    justify-content: center;
+    align-content: center;
     align-self: center;
-    height: 30px;
-    line-height: 25px;
+    align-items: center;
+
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
+
+    border: none;
+    border-radius: 50%;
+    color: black;
 }
 
 
@@ -36,9 +57,40 @@
 #section-two{
     display: flex;
     flex-direction: column;
+
+    background-color: lightblue;
+}
+
+#section-two > * {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.section-two-options {
+    display: flex;
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+.new-notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+
+    font-size: xx-small;
+    font-weight: bold;
+
+    border-radius: 10px;
+    background-color: #9E9EA1;
 }
 
 #channel-list {
+    margin: 0;
     list-style: none;
     padding-left: 0;
 }
@@ -48,8 +100,55 @@
 }
 
 
+/* Section Three */
+#channel-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#channel-header {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
+
 /* Section Four */
+#dmr-section {
+    display: flex;
+    flex-direction: column;
+}
+
+#dmr-header {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+
 #dmr-list {
+    margin: 0;
     list-style: none;
     padding-left: 0;
+}
+
+
+/* Footer */
+#footer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#footer-button {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+
+    height: 20px;
+    width: 20px;
+
+    border: none;
+    border-radius: 50%;
+    color: black;
+    background-color: #D1D2D3;
 }
