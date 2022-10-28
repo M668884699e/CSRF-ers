@@ -4,3 +4,8 @@ body{
   font-family: Slack-Lato,Slack-Fractions,appleLogo,sans-serif;
   height: 100%;
 }
+
+/* solve iframe issue */
+iframe{
+  display: none !important;
+}

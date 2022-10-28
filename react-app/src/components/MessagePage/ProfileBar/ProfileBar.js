@@ -5,7 +5,7 @@ const ProfileBar = () => {
     return (
         <section id="profile-bar">
             <section id="profile-bar-header">
-                Section 1
+                Profile
             </section>
             <section id="profile-bar-aside-container">
                 <aside>
