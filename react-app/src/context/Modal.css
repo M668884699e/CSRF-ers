@@ -20,6 +20,7 @@
 	left: 0;
 	bottom: 0;
 
+	/* fixed modal bug if not showing any background color */
 	background-color: white;
 	opacity: 0;
 }
