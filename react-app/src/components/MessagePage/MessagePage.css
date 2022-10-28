@@ -17,7 +17,7 @@
 	height: 100%;
 	width: 100%;
 	display: grid;
-	grid-template-columns: 20rem auto 20vw;
+	grid-template-columns: 20rem auto 25vw;
 	grid-template-rows: auto 13vh;
 	grid-template-areas:
 		'left message profile'

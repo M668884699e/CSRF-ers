@@ -4,17 +4,19 @@ import "./ProfileBar.css"
 const ProfileBar = () => {
     return (
         <section id="profile-bar">
-            <section>
+            <section id="profile-bar-header">
                 Section 1
             </section>
-            <section>
-                Section 2
-            </section>
-            <section>
-                Section 3
-            </section>
-            <section>
-                Section 4
+            <section id="profile-bar-aside-container">
+                <aside>
+                    Section 2
+                </aside>
+                <aside>
+                    Section 3
+                </aside>
+                <aside>
+                    Section 4
+                </aside>
             </section>
         </section>
     )

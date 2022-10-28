@@ -5,7 +5,17 @@
 	height: 100%;
 	color: white;
 
-  display: grid;
-  grid-template-columns: 1fr;
-  /* grid-template-rows: 5rem 40rem 10rem 10rem; */
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 87vh;
+}
+
+#profile-bar-aside-container {
+	display: grid;
+	grid-template-rows: 35em 11em 6.5em;
+	overflow: auto;
+	height: 100%;
+	width: 100%;
+
+	background-color: pink;
 }
