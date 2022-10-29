@@ -16,7 +16,7 @@ export const loadChannels = channels => {
     type: GET_CHANNELS,
     channels
   }
-} 
+}
 
 // action creator: get channel by id
 export const loadChannel = id => {
@@ -81,7 +81,7 @@ export const thunkGetChannels = () => async dispatch => {
   const res = await fetch('/api/channels/');
 
   if (res.ok) {
-    
+
     // parse res to channels data
     const channelData = await res.json();
 
@@ -90,6 +90,19 @@ export const thunkGetChannels = () => async dispatch => {
 
     // return channels
     return channelData;
+  }
+}
+
+//? Thunk action to get all current user channels
+export const thunkGetUserChannels = () => async dispatch => {
+  const res = await fetch("/api/users/channels")
+
+  if (res.ok) {
+    const userChannelData = await res.json();
+    console.log(userChannelData, "userChannelData")
+
+    dispatch(loadChannels(userChannelData.channels));
+    return userChannelData;
   }
 }
 
@@ -103,7 +116,7 @@ export const thunkGetChannelById = (id) => async(dispatch) => {
 
     // dispatch w/ channel data
     dispatch(loadChannel(channel.id))
-  
+
     // return channel
     return channel;
   }
@@ -241,7 +254,7 @@ export default function channelReducer(state = initialState, action) {
 
   switch (action.type) {
     // get channel case
-    
+
     // default case
     default:
       return Object.assign({}, newChannels, action.channels);
