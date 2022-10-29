@@ -171,6 +171,49 @@ def sign_up():
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+@user_routes.route('/image/sample')
+def get_image_sample():
+    return "Test"
+
+#* POST - /users/image/sample
+# Retrieve a url of image for sample
+@user_routes.route('/image/sample', methods=['POST'])
+def post_image_sample():
+    """
+    Retrieve a url of image for sample
+    """
+    # get user data from form
+    form = SignUpForm()
+    
+    #? check if there are image file uploaded
+    # if "image_sample" not in request.files:
+    if "image_sample" not in request.files:
+        return {"errors": "image required"}, 400
+    
+    image = request.files["image_sample"]
+
+    # print("                       ")
+    # print("        HERE           ")
+    # print("                       ")        
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+    
+    image.filename = get_unique_filename(image.filename)
+    
+    upload = upload_file_to_s3(image)
+    
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400    
+
+    url = upload["url"]
+    
+    # return current user
+    return {"image_sample": url}
+
 #* PUT/PATCH - /users
 # Update user information (username, first/last name, email, etc.)
 @user_routes.route('/', methods=['PUT'])
@@ -185,32 +228,31 @@ def update_user():
     # get user data from form
     form = SignUpForm()
     
-    #? check if there are image file uploaded
-    if "profile_image" not in request.files:
-        return {"errors": "image required"}, 400
-
-    image = request.files["profile_image"]
-
-    if not allowed_file(image.filename):
-        return {"errors": "file type not permitted"}, 400
-
-    image.filename = get_unique_filename(image.filename)
-
-    upload = upload_file_to_s3(image)
-    
-    if "url" not in upload:
-        # if the dictionary doesn't have a url key
-        # it means that there was an error when we tried to upload
-        # so we send back that error message
-        return upload, 400    
-
-    url = upload["url"]
-
     upload_profile_image = form.data['profile_image']
     
-    # if url exist, replace profile image with url
-    if(url):
-        upload_profile_image = url
+    #? check if there are image file uploaded
+    if "profile_image" in request.files:
+
+        image = request.files["profile_image"]
+
+        if not allowed_file(image.filename):
+            return {"errors": "file type not permitted"}, 400
+
+        image.filename = get_unique_filename(image.filename)
+
+        upload = upload_file_to_s3(image)
+
+        if "url" not in upload:
+            # if the dictionary doesn't have a url key
+            # it means that there was an error when we tried to upload
+            # so we send back that error message
+            return upload, 400    
+
+        url = upload["url"]
+    
+        # if url exist, replace profile image with url
+        if(url):
+            upload_profile_image = url
 
     #* update user
     # if first name exist

@@ -121,11 +121,14 @@
 }
 
 #pbac-a1-c2 > p:last-child:hover,
-#pbac-a2-c1 > p:last-child:hover,
-#pbac-a2-c2-p > span:hover,
-#pbac-a2-c3-p > span:hover {
+#pbac-a2-c1 > p:last-child:hover{
 	text-decoration: underline;
 	cursor: pointer;
+}
+
+#pbac-a2-c2-p > span:hover,
+#pbac-a2-c3-p > span:hover{
+	cursor: default;
 }
 
 #pbac-a1-c3 {

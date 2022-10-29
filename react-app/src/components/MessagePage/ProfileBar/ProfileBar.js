@@ -49,7 +49,9 @@ const ProfileBar = () => {
         if (H > 12) H = H - 12;
         if (m < 10) m = "0" + m;
         
-        document.getElementById("profile-curr-time").textContent = `${H}:${m} ${amPm} local time`
+        if (document.getElementById("profile-curr-time")) {
+            document.getElementById("profile-curr-time").textContent = `${H}:${m} ${amPm} local time`
+        }
     }
 
     // update current time

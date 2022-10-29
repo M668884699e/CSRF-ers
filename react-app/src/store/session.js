@@ -114,11 +114,9 @@ export const thunkEditUser = userInfo => async dispatch => {
     profile_image
   } = userInfo
 
-  console.log("here");
-
   // define form data
   const formData = new FormData();
- 
+
   // put userInfo into form data
   formData.append("first_name", first_name);
   formData.append("last_name", last_name);
@@ -149,6 +147,7 @@ export const thunkEditUser = userInfo => async dispatch => {
 }
 
 /* --------- SELECTOR FUNCTIONS -------- */
+export const getCurrentUserInfo = state => state.session.user;
 export const getUserEmail = state => state.session.user.email;
 export const getCurrentUserId = state => state.session.user.id;
 export const getUserProfilePicture = state => state.session.user.profile_image;
