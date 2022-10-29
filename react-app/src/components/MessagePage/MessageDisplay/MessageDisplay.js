@@ -1,7 +1,12 @@
 // import css
-import "./MessageDisplay.css"
+import "./MessageDisplay.css";
 
-// BJM todo: set up react components
+// react imports
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import * as channelActions from '../../../store/channel';
+
+
 
 const MessageDisplay = () => {
     return (

@@ -133,6 +133,7 @@ const GalleryMain = () => {
                       </figure>
                     </section>
                     <section className="workspace-li-s2">
+                      {/* BJM: Todo, convert from static page to live channel */}
                       <NavLink to="/chat">                          
                         <button className="workspace-li-s2-button">
                           Launch Slack
