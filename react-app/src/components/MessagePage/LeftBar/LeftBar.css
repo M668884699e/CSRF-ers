@@ -161,9 +161,8 @@
 	margin-top: 1rem;
 }
 
-/* Channels spacing */
-#channel-header:hover {
-	background-color: #27242c;
+#channel-header {
+	margin-bottom: 1rem;
 }
 
 #channel-list {
@@ -183,6 +182,16 @@
 }
 
 /* Section Four (DMR List) */
+#section-four {
+	display: flex;
+	flex-direction: column;
+
+	padding: 0;
+
+	min-height: fit-content;
+	width: 100%;
+}
+
 #dmr-section {
 	width: 95%;
 
@@ -192,6 +201,7 @@
 /* DMR header */
 #dmr-header {
 	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 
 #dmr-header:hover {
@@ -200,9 +210,6 @@
 
 /* DMR ul */
 #dmr-list {
-	display: flex;
-	flex-direction: column;
-
 	margin: 0;
 	list-style: none;
 	padding-left: 0;
@@ -213,10 +220,11 @@
 }
 
 #dmr-list > * {
+	display: flex;
+
 	margin-top: 5px;
 	margin-bottom: 5px;
-
-	padding-bottom: 7px;
+	padding-bottom: 5px;
 }
 
 /* Footer */
