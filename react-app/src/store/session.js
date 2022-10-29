@@ -116,8 +116,6 @@ export const thunkEditUser = userInfo => async dispatch => {
 
   // define form data
   const formData = new FormData();
-
-  console.log("test");
   
   // put userInfo into form data
   formData.append("first_name", first_name);
@@ -128,24 +126,38 @@ export const thunkEditUser = userInfo => async dispatch => {
   formData.append("profile_image", profile_image);
 
   // hit edit user backend route w/ form data
+  console.log("click before res");
+  
   const res = await fetch('/api/users/', {
     method: 'PUT',
     body: formData
+  }).catch(() => {
+    console.log("test");
   });
 
   // if successful
   if (res.ok) {
+
     // parse res to json
     const sessionUserInfo = await res.json();
 
+    if (sessionUserInfo.errors) {
+      return null;
+    }
+
     // dispatch setting session user
     dispatch(setUser(sessionUserInfo));
-
     // return session user info data
-    return sessionUserInfo;
-  }
+    return null;
+  } else if (res.status < 500) {
+    const data = await res.json();
 
-  return res;
+    if (data['errors']) {
+      return data;
+    }
+  } 
+
+  return ['An error occurred. Please try again.']
 }
 
 /* --------- SELECTOR FUNCTIONS -------- */

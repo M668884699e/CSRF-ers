@@ -99,15 +99,21 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
         email: editEmail,
         profile_image: currentPicture
       };
+
       // call on thunk to edit user
       dispatch(sessionActions.thunkEditUser(userInfo))
-        .catch(res => {
-          errors.push("res", res);
-        });
+        .then(async res => {
+          if (res) {
+            errors.push(res.errors);
+            return setValidationErrors(errors);
+          } 
+
+          // exit out of modal
+          return setShowEditProfileModal(false);
+        }).catch(() => {
+          console.log("inside catch");
+        })
     }
-    
-    // set validation errors
-    return setValidationErrors(errors);
   }
 
   // function to update first name
@@ -310,7 +316,10 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
         <section id="epm-form-buttons-container">
           {/* Cancel Button */}
           <button
-            onClick={_ => setShowEditProfileModal(false)}
+            onClick={_ => {
+              setShowEditProfileModal(false);
+              console.log("click");
+            }}
           >
             Cancel
           </button>
@@ -318,6 +327,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
           {/* Submit Button */}
           <button
             type="submit"
+            onClick={onEditProfile}
           >
             Edit Current User
           </button>
