@@ -15,7 +15,7 @@ const LeftBar = () => {
 
             <section id="section-two">
                 <section className="section-two-options">
-                    <i class="fa-regular fa-comment"></i>
+                    <i className="fa-regular fa-comment"></i>
                     <aside>Threads</aside>
                     {/* <aside className="new-notification">NEW</aside> */}
                 </section>
@@ -52,19 +52,19 @@ const LeftBar = () => {
                         <summary id="channel-header">Channels</summary>
                         <section id="channel-list">
                             <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                <aside><i className="fa-regular fa-hashtag"></i></aside>
                                 <aside>Channel 1</aside>
                             </section>
                             <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                <aside><i className="fa-regular fa-hashtag"></i></aside>
                                 <aside>Channel 2</aside>
                             </section>
                             <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                <aside><i className="fa-regular fa-hashtag"></i></aside>
                                 <aside>Channel 3</aside>
                             </section>
                             <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-plus"></i></aside>
+                                <aside><i className="fa-regular fa-plus"></i></aside>
                                 <aside>Browse Channels</aside>
                             </section>
                         </section>
@@ -77,19 +77,19 @@ const LeftBar = () => {
                             <summary id="dmr-header">Direct messages</summary>
                             <section id="dmr-list">
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                    <aside><i className="fa-regular fa-hashtag"></i></aside>
                                     <aside>DMR 1</aside>
                                 </section>
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                    <aside><i className="fa-regular fa-hashtag"></i></aside>
                                     <aside>DMR 2</aside>
                                 </section>
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                    <aside><i className="fa-regular fa-hashtag"></i></aside>
                                     <aside>DMR 3</aside>
                                 </section>
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-plus"></i></aside>
+                                    <aside><i className="fa-regular fa-plus"></i></aside>
                                     <aside>Add teammates</aside>
                                 </section>
                             </section>
@@ -103,7 +103,7 @@ const LeftBar = () => {
                     Place Holder Name
                 </section>
                 <section id="footer-button">
-                    <button id="communication"><i class="fa-solid fa-headphones"></i></button>
+                    <button id="communication"><i className="fa-solid fa-headphones"></i></button>
                 </section>
             </footer>
         </aside>
