@@ -58,7 +58,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
   }, [editProfileImage]);
 
   // function to handle profile editing
-  const onEditProfile = async e => {
+  const onEditProfile = e => {
     // prevent page from refreshing
     e.preventDefault();
 
@@ -90,10 +90,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
         errors.push("Email cannot be less than 0 character or more than 255 characters")
     }
     
-    // set validation errors
-    setValidationErrors(errors);
-
-    if (!validationErrors) {
+    if (!validationErrors.length) {
       // form userinfo to give to edit user
       const userInfo = {
         first_name: editFirstName,
@@ -102,10 +99,15 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
         email: editEmail,
         profile_image: currentPicture
       };
-    
       // call on thunk to edit user
-      dispatch(sessionActions.thunkEditUser(userInfo));
+      dispatch(sessionActions.thunkEditUser(userInfo))
+        .catch(res => {
+          errors.push("res", res);
+        });
     }
+    
+    // set validation errors
+    return setValidationErrors(errors);
   }
 
   // function to update first name

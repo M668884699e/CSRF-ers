@@ -117,6 +117,8 @@ export const thunkEditUser = userInfo => async dispatch => {
   // define form data
   const formData = new FormData();
 
+  console.log("test");
+  
   // put userInfo into form data
   formData.append("first_name", first_name);
   formData.append("last_name", last_name);

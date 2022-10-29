@@ -99,6 +99,7 @@
 	font-size: smaller;
 	margin-left: 0.25rem;
 	opacity: 0.8;
+	width: 90%;
 }
 
 /* Pic Container */
@@ -146,8 +147,8 @@
 	border-radius: 0.15rem;
 }
 
-.epmfupc-delete-user{
-  background-color: pink;
+.epmfupc-delete-user {
+	background-color: pink;
 }
 
 .epmfupc-delete-user {
