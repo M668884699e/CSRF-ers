@@ -164,6 +164,8 @@
 #pmtus-l2 {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
+	padding-bottom: .15rem;
 }
 
 #pmtus-l2 > span {
