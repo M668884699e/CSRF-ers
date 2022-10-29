@@ -148,12 +148,12 @@ export const thunkEditUser = userInfo => async dispatch => {
 
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getCurrentUserInfo = state => state.session.user;
-export const getUserEmail = state => state.session.user.email;
-export const getCurrentUserId = state => state.session.user.id;
-export const getUserProfilePicture = state => state.session.user.profile_image;
-export const getUserFirstName = state => state.session.user.first_name;
-export const getUserLastName = state => state.session.user.last_name;
-export const getUserDisplayName = state => state.session.user.display_name;
+export const getUserEmail = state => state.session.user ? state.session.user.email : state.session.user;
+export const getCurrentUserId = state => state.session.user ? state.session.user.id : state.session.user;
+export const getUserProfilePicture = state => state.session.user ? state.session.user.profile_image : state.session.user;
+export const getUserFirstName = state => state.session.user ? state.session.user.first_name : state.session.user;
+export const getUserLastName = state => state.session.user ? state.session.user.last_name : state.session.user;
+export const getUserDisplayName = state => state.session.user ? state.session.user.display_name : state.session.user;
 
 /* --------- REDUCERS -------- */
 const initialState = { user: null };

@@ -82,6 +82,14 @@
 	margin-left: 0.25rem;
 }
 
+.epm-error-container {
+	margin-bottom: 1rem;
+}
+
+.epm-error-container * {
+	color: red;
+}
+
 #epmfui-dn {
 	margin-bottom: 0;
 }
@@ -138,10 +146,15 @@
 	border-radius: 0.15rem;
 }
 
-.epmfupc-image-input-figure{
-  margin-top: 1rem;
+.epmfupc-delete-user{
+  background-color: pink;
 }
 
+.epmfupc-delete-user {
+	margin-top: 1rem;
+}
+
+.epmfupc-delete-user,
 .epmfupc-image-input-figure,
 .epmfupc-remove-image {
 	width: 88%;
@@ -159,12 +172,12 @@
 
 .epmfupc-remove-image {
 	color: #1d8cbc;
-  margin-top: 0;
+	margin-top: 0;
 }
 
-.epmfupc-remove-image > p:hover{
-  text-decoration: underline;
-  cursor: pointer;
+.epmfupc-remove-image > p:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 /* Buttons Container */
@@ -176,7 +189,8 @@
 }
 
 #epm-form-buttons-container > button,
-.epmfupc-image-input-figure {
+.epmfupc-image-input-figure,
+.epmfupc-delete-user {
 	height: 36px;
 	font-weight: bold;
 	color: #e3e4e5;
@@ -184,7 +198,8 @@
 }
 
 #epm-form-buttons-container > button:hover,
-.epmfupc-image-input-figure:hover {
+.epmfupc-image-input-figure:hover,
+.epmfupc-delete-user:hover {
 	cursor: pointer;
 }
 
@@ -193,7 +208,8 @@
 }
 
 #epm-form-buttons-container > button:first-child,
-.epmfupc-image-input-figure {
+.epmfupc-image-input-figure,
+.epmfupc-delete-user {
 	background-color: #1a1d21;
 	border: 1px solid #505256;
 }

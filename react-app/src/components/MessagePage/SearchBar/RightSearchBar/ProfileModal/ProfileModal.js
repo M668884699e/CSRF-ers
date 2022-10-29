@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import store
 import * as sessionActions from '../../../../../store/session';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 //? Profile Modal component
 const ProfileModal = ({ setShowProfileModal }) => {
@@ -39,6 +40,11 @@ const ProfileModal = ({ setShowProfileModal }) => {
 
   // invoke history
   const history = useHistory();
+
+  // per profileBarActive
+  useEffect(() => {
+    // leaving this empty for now
+  }, [profileBarActive]);
 
   // function to handle log out
   const handleLogout = e => {

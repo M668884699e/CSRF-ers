@@ -10,6 +10,17 @@ const loadUsers = users => {
   }
 }
 
+//? Action: Delete user
+// action
+const DELETE_USER = 'users/DELETE_USER';
+
+// action creator: remove user from list of users
+export const deleteUser = () => {
+  return {
+    type: DELETE_USER
+  }
+}
+
 /* --------- THUNKS -------- */
 //? Thunk action to get all users
 export const thunkGetAllUsers = () => async dispatch => {
@@ -31,6 +42,26 @@ export const thunkGetAllUsers = () => async dispatch => {
   return res;
 }
 
+//? Thunk action to delete user by id
+export const thunkDeleteUser = () => async dispatch => {
+  // fetch to delete user
+  const res = await fetch('/api/users/', {
+    method: 'DELETE'
+  });
+
+  // if successful response
+  if (res.ok) {
+    const deletedUser = await res.json();
+
+    // dispatch deleteUser
+    dispatch(deleteUser());
+
+    console.log("here");
+    
+    return deletedUser;
+  }
+}
+
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllUsers = state => state.users;
 export const getUserById = (state, userId) => state.users.find(user => user === userId);
@@ -42,7 +73,7 @@ export default function userReducer(state = initialState, action) {
   const newUsers = { ...state };
 
   switch (action.type) {
-    // default case
+    //? default case
     default:
       return Object.assign({}, newUsers, action.users);
   }

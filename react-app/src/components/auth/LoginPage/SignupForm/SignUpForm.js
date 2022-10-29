@@ -175,7 +175,7 @@ const SignUpForm = () => {
       <p id="su-login-p">
         Already have an account?
         <NavLink to="/login" id="su-login-p-link">
-          Sign up here
+          Log in here
         </NavLink>
       </p>
     </form>

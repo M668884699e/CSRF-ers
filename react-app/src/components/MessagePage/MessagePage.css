@@ -56,3 +56,7 @@
 #message-profile-true {
 	grid-area: profile;
 }
+
+#message-profile-false {
+	display: none;
+}

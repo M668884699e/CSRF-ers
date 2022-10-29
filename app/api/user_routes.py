@@ -302,4 +302,4 @@ def delete_user():
     db.session.commit()
 
     # return successful response with delete message
-    return f"Successfully deleted user {destroy_user.id}"
+    return {'message': "Successfully deleted user {destroy_user.id}"}

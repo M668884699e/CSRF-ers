@@ -9,8 +9,12 @@ import { useState, useEffect } from "react";
 // import react-redux
 import { useDispatch, useSelector } from "react-redux";
 
+// import react-router-dom
+import { useHistory } from 'react-router-dom';
+
 // import store
 import * as sessionActions from '../../../../store/session';
+import * as userActions from '../../../../store/users';
 
 //? Edit Profile Modal component
 const EditProfileModal = ({ setShowEditProfileModal }) => {
@@ -21,16 +25,25 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
   /**
    * Controlled Inputs
    */
-  const [editFirstName, setEditFirstName] = useState(currentUserInfo.first_name);
-  const [editLastName, setEditLastName] = useState(currentUserInfo.last_name);
-  const [editUserName, setEditUserName] = useState(currentUserInfo.display_name);
-  const [editEmail, setEditEmail] = useState(currentUserInfo.email);
+  const [editFirstName, setEditFirstName] = useState(currentUserInfo ? currentUserInfo.first_name : currentUserInfo);
+  const [editLastName, setEditLastName] = useState(currentUserInfo ? currentUserInfo.last_name : currentUserInfo);
+  const [editUserName, setEditUserName] = useState(currentUserInfo ? currentUserInfo.display_name : currentUserInfo);
+  const [editEmail, setEditEmail] = useState(currentUserInfo ? currentUserInfo.email : currentUserInfo);
   const [editProfileImage, setEditProfileImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
-  const [currentPicture, setCurrentPicture] = useState(currentUserInfo.profile_image);
+  const [currentPicture, setCurrentPicture] = useState(currentUserInfo ? currentUserInfo.profile_image : currentUserInfo);
+  const [validationErrors, setValidationErrors] = useState([]);
 
   // invoke dispatch
   const dispatch = useDispatch();
+
+  // invoke history
+  const history = useHistory();
+
+  // per validation errors
+  useEffect(() => {
+    // nothing for now, just to update validation errors
+  }, [editProfileImage, editFirstName, editLastName, editUserName, editEmail, validationErrors]);
 
   // per currentPicture
   useEffect(() => {
@@ -41,7 +54,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
 
   // per edit profileImage
   useEffect(() => {
-    console.log("editProfileImage", editProfileImage);
+    //! leave this here so profile pic doesnt look glitchy when reloading
   }, [editProfileImage]);
 
   // function to handle profile editing
@@ -49,26 +62,50 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
     // prevent page from refreshing
     e.preventDefault();
 
-    // form userinfo to give to edit user
-    const userInfo = {
-      first_name: editFirstName,
-      last_name: editLastName,
-      username: editUserName,
-      email: editEmail,
-      profile_image: currentPicture
-    };
+    const errors = [];
 
-    // call on thunk to edit user
-    dispatch(sessionActions.thunkEditUser(userInfo))
-      .catch(async res => { 
-        //! TODO: Catch Errors properly
-        // parse res to data json
-        // const data = await res.json();
+    //* set errors
+    // check and reset first name
+    if (editFirstName.length > 40 || editFirstName.length === 0) {
+      errors.push("First name cannot be less than 0 character or more than 40 characters");
+      console.log("currentUserInfo.first_name", currentUserInfo.first_name);
+      setEditFirstName(currentUserInfo.first_name);
+    }
+    
+    // check and reset last name
+    if (editLastName.length > 40 || editLastName.length === 0) {
+      errors.push("Last name cannot be less than 0 character or more than 40 characters");
+      setEditLastName(currentUserInfo.last_name);  
+    }
+    
+    // check and reset display name
+    if (editUserName.length > 40 || editUserName.trim().length === 0) {
+      errors.push("Username cannot be less than 0 character or more than 40 characters");
+      setEditUserName(currentUserInfo.display_name);
+    }
+    
+    // check and reset email
+    if (editEmail.length > 255 || editEmail.length === 0) {
+        setEditEmail(currentUserInfo.email);
+        errors.push("Email cannot be less than 0 character or more than 255 characters")
+    }
+    
+    // set validation errors
+    setValidationErrors(errors);
 
-        // if(data.errors) setValidationErrors()
-
-        console.log("error", res);
-      })
+    if (!validationErrors) {
+      // form userinfo to give to edit user
+      const userInfo = {
+        first_name: editFirstName,
+        last_name: editLastName,
+        username: editUserName,
+        email: editEmail,
+        profile_image: currentPicture
+      };
+    
+      // call on thunk to edit user
+      dispatch(sessionActions.thunkEditUser(userInfo));
+    }
   }
 
   // function to update first name
@@ -122,6 +159,30 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
     }
   }
 
+  // function to handle delete user
+  const handleDeleteUser = () => {
+
+    var confirmDelete = prompt("Are you sure you want to delete your account? Type 'delete' to confirm")
+
+    // if 'delete' is the input, proceed to delete account
+    if (confirmDelete.toLowerCase().trim() === "delete") {
+      // alert to user, successful deletion
+      alert(`${editUserName}, your account have been deleted`);
+
+      // call on thunk to delete current user
+      return dispatch(userActions.thunkDeleteUser())
+        .then(() => {
+          // call on thunk to log out user
+          return dispatch(sessionActions.logout())
+            .then(() => {
+              // then go back to home page
+              return history.push('/');
+            });
+        });
+      
+    }
+  }
+
   return (
     <section id="epm-container">
       <h2>
@@ -130,6 +191,14 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
       {/* Edit Profile Modal */}
       <form onSubmit={onEditProfile} id="epm-form">
         <section id="epm-form-user-info">
+          <div className="epm-error-container">
+            {
+              validationErrors &&
+              validationErrors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+              ))
+            }
+          </div>
           {/* Edit First Name */}
           <label htmlFor="first_name">
             First Name
@@ -198,12 +267,18 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
               <img
                 id="epmfupc-figure-img"
                 src={currentPicture}
-                alt={currentUserInfo.display_name}
+                alt={currentUserInfo ? currentUserInfo.display_name : currentUserInfo}
               />
             }
           </figure>
 
           {/* Edit Profile Picture */}
+          <figure
+            className="epmfupc-delete-user"
+            onClick={handleDeleteUser}
+          >
+            Delete User
+          </figure>
           <figure
             onClick={e => {
               document.querySelector(".epmfupc-image-input").click()
