@@ -3,8 +3,8 @@
 import LandingProvider from './context/LandingContext';
 
 // import component
-import LandingPage from './components/LandingPage/'
-import MessagePage from './components/MessagePage/';
+import LandingPage from './components/LandingPage'
+import MessagePage from './components/MessagePage';
 import LoginPage from './components/auth/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
@@ -23,6 +23,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { authenticate } from './store/session';
 import StartPage from './components/StartPage';
 import StarterProvider from './context/StarterContext';
+import ProfileProvider from './context/ProfileContext';
 
 //? App Component
 function App() {
@@ -76,8 +77,10 @@ function App() {
         </ProtectedRoute>
 
         {/* //? Chatroom Route */}
-        <Route path ="/chat" exact={true}>
-          <MessagePage />
+        <Route path="/chat" exact={true}>
+          <ProfileProvider>
+            <MessagePage />
+          </ProfileProvider>
         </Route>
       </Switch>
     </BrowserRouter>

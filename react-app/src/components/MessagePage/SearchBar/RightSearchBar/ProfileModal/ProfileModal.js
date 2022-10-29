@@ -1,5 +1,8 @@
 // src/components/MessagePage/SearchBar/RightSearchBar/ProfileModal/ProfileModal.js
 
+// import context
+import { useProfile } from '../../../../../context/ProfileContext';
+
 // import css
 import './ProfileModal.css';
 
@@ -19,7 +22,8 @@ const ProfileModal = ({ setShowProfileModal }) => {
    * Controlled inputs
    */
   const [faceSmile, setFaceSmile] = useState(<p><i className="fa-regular fa-face-smile pmsus-fig-smile-emote"/></p>);
-
+  const { profileBarActive, setProfileBarActive } = useProfile();
+  
   // get current user first and last name
   const firstName = useSelector(sessionActions.getUserFirstName);
   const lastName = useSelector(sessionActions.getUserLastName);
@@ -100,7 +104,14 @@ const ProfileModal = ({ setShowProfileModal }) => {
       {/* Profile Modal Mid UL */}
       <section id="profile-modal-mid-ul-section">
         {/* on click of profile, close modal and open slider */}
-        <li>
+        <li
+          onClick={e => {
+            // prevent from clicking on parent
+            e.stopPropagation();
+            setProfileBarActive(true);
+            setShowProfileModal(false);
+          }}
+        >
           Profile
         </li>
         <li>

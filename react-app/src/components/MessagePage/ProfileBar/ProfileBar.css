@@ -1,5 +1,9 @@
 /* Profile Bar */
-#profile-bar {
+#profile-bar-false{
+	display: none;
+}
+
+#profile-bar-true {
 	background-color: #1a1d21;
 	width: 100%;
 	height: 100%;
@@ -11,8 +15,6 @@
 	align-items: center;
 	margin: 0;
 	padding: 0;
-
-	resize: horizontal;
 }
 
 /* Profile Bar Header */
@@ -38,6 +40,10 @@
 	position: absolute;
 	right: 0;
 	opacity: 0.8;
+}
+
+#profile-bar-header > h2 > i:hover{
+	cursor: pointer;
 }
 
 /* Profile Bar Aside Container */

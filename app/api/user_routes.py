@@ -2,6 +2,8 @@ from flask import Blueprint, jsonify, session, request
 from app.models import db, User, Message, DMRUser, ChannelUser, Notification
 from app.forms import LoginForm, SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from app.s3_helpers import (
+    upload_file_to_s3, allowed_file, get_unique_filename)
 
 user_routes = Blueprint('users', __name__)
 
@@ -159,7 +161,6 @@ def sign_up():
         user = User(
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
-            # username=form.data['username'],
             username=display_name,
             email=form.data['email'],
             password=form.data['password']
@@ -183,6 +184,33 @@ def update_user():
 
     # get user data from form
     form = SignUpForm()
+    
+    #? check if there are image file uploaded
+    if "profile_image" not in request.files:
+        return {"errors": "image required"}, 400
+
+    image = request.files["profile_image"]
+
+    if not allowed_file(image.filename):
+        return {"errors": "file type not permitted"}, 400
+
+    image.filename = get_unique_filename(image.filename)
+
+    upload = upload_file_to_s3(image)
+    
+    if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when we tried to upload
+        # so we send back that error message
+        return upload, 400    
+
+    url = upload["url"]
+
+    upload_profile_image = form.data['profile_image']
+    
+    # if url exist, replace profile image with url
+    if(url):
+        upload_profile_image = url
 
     #* update user
     # if first name exist
@@ -204,6 +232,10 @@ def update_user():
     # if password exist
     if(form.data['password']):
         current_user_update.password = form.data['password']
+
+    # if profile image exist
+    if(upload_profile_image):
+        current_user_update.profile_image = upload_profile_image
 
     # commit update
     db.session.commit()

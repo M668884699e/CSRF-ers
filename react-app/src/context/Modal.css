@@ -21,8 +21,16 @@
 	bottom: 0;
 
 	/* fixed modal bug if not showing any background color */
-	background-color: white;
+}
+
+.modal-background-true {
+	background-color: black;
 	opacity: 0;
+}
+
+.modal-background-false {
+	background-color: black;
+	opacity: 0.5;
 }
 
 #modal-content {

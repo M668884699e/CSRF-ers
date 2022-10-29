@@ -22,7 +22,10 @@ export const useModal = () => useContext(ModalContext);
  * @params onClose {function}
  * @params children {destructured props} 
  */
-export const Modal = ({onClose, children }) => {
+export const Modal = ({ onClose, children, currentVisible = true }) => {
+  // state for modal
+  const [visible, setVisible] = useState(currentVisible);
+
   // modalNode: reference to actual HTML DOM element of ModalProvider's div
   const modalNode = useModal();
 
@@ -33,7 +36,11 @@ export const Modal = ({onClose, children }) => {
     <div id="modal" style={{ zIndex: 11 }}>
       {/* modal-background div */}
       {/* When clicked, invoke onClose */}
-      <div id="modal-background" onClick={onClose}/>
+      <div
+        id="modal-background"
+        className={`modal-background-${visible}`}
+        onClick={onClose}
+      />
       {/* modal-content div */}
       <div id="modal-content" style={{zIndex: 10}}>
         {/* render children props */}

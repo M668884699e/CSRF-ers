@@ -1,3 +1,15 @@
+// src/components/MessagePage/ProfileBar/ProfileBar.js
+
+// import component
+import EditProfileModal from './EditProfileModal/EditProfileModal.js';
+
+// import context
+import { useProfile } from '../../../context/ProfileContext.js';
+import { Modal } from '../../../context/Modal.js';
+
+// import react
+import { useState } from 'react';
+
 // import css
 import "./ProfileBar.css"
 
@@ -5,7 +17,7 @@ import "./ProfileBar.css"
 import { useSelector } from "react-redux"
 
 // import store
-import * as sessionActions from '../../..//store/session';
+import * as sessionActions from '../../../store/session';
 
 const ProfileBar = () => {
     // get current user information
@@ -15,6 +27,15 @@ const ProfileBar = () => {
     const username = useSelector(sessionActions.getUserDisplayName);
     const emailAddress = useSelector(sessionActions.getUserEmail);
 
+    /**
+     * Controlled Input
+     */
+    const [showEditProfileModal, setShowEditProfileModal] = useState(false);
+    
+
+    // use context
+    const { profileBarActive, setProfileBarActive } = useProfile();
+    
     // get current time
     const currentTime = () => {
         let currDate = new Date();
@@ -34,14 +55,19 @@ const ProfileBar = () => {
     // update current time
     setInterval(currentTime);
 
-    
-
     return (
-        <section id="profile-bar">
+        <section id={`profile-bar-${profileBarActive}`}>
             <section id="profile-bar-header">
                 <h2>
                     Profile
-                    <i className="fa-solid fa-x pb-x-icon fa-xs"></i>
+                    <i
+                        className="fa-solid fa-x pb-x-icon fa-xs"
+                        onClick={e => {
+                            // prevent from clicking on parent
+                            e.stopPropagation();
+                            setProfileBarActive(false);
+                        }}
+                    />
                 </h2>
             </section>
             {/* Aside Containers */}
@@ -59,7 +85,11 @@ const ProfileBar = () => {
                     {/* Aside 1 Container 2 */}
                     <section id="pbac-a1-c2">
                         <p>{firstName + " " + lastName}</p>
-                        <p>Edit</p>
+                        <p
+                            onClick={_ => setShowEditProfileModal(true)}
+                        >
+                            Edit
+                        </p>
                     </section>
 
                     {/* Aside 1 Container 3 */}
@@ -85,7 +115,11 @@ const ProfileBar = () => {
                     {/* Aside 2 Container 1 */}
                     <section id="pbac-a2-c1">
                         <p>Contact Information</p>
-                        <p>Edit</p>
+                        <p
+                            onClick={_ => setShowEditProfileModal(true)}
+                        >
+                            Edit
+                        </p>
                     </section>
 
                     {/* Aside 2 Container 2 */}
@@ -111,6 +145,13 @@ const ProfileBar = () => {
                     </section>
                 </aside>
             </section>
+            {
+                showEditProfileModal
+                &&
+                <Modal onClose={_ => setShowEditProfileModal(false)} currentVisible={false}>
+                        <EditProfileModal setShowEditProfileModal={setShowEditProfileModal} />
+                </Modal>
+            }
         </section>
     )
 }

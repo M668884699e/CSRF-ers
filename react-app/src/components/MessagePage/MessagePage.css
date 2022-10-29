@@ -17,11 +17,21 @@
 	height: 100%;
 	width: 100%;
 	display: grid;
-	grid-template-columns: 20rem auto 20vw;
 	grid-template-rows: auto 13vh;
+}
+
+.message-page-body-profile-true {
+	grid-template-columns: 20rem auto 20vw;
 	grid-template-areas:
 		'left message profile'
 		'left chat profile';
+}
+
+.message-page-body-profile-false {
+	grid-template-columns: 20rem auto;
+	grid-template-areas:
+		'left message'
+		'left chat';
 }
 
 #message-page-body > * {
@@ -43,6 +53,6 @@
 	grid-area: chat;
 }
 
-#message-profile {
+#message-profile-true {
 	grid-area: profile;
 }
