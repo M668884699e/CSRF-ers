@@ -13,14 +13,13 @@
 /* Message Main Header (Channel/DMR Name) */
 #message-main-header {
     display: flex;
-    /* position:  fixed; */
     flex-direction: row;
     justify-content: space-between;
 
     padding-left: 20px;
 
-    height: 50px;
-    border: 1px #35373B solid;
+    height: 48px;
+    border: 1px #2b2a2f solid;
 }
 
 #message-main-header-left {
@@ -55,7 +54,7 @@
 }
 
 #message-main-header-right > * {
-    border: 1px solid #35373B;
+    border: 1px solid #2b2a2f;
     border-radius: 5px;
 
     width: 100px;
@@ -74,7 +73,7 @@
     padding-top: 3px;
     padding-bottom: 3px;
 
-    border: 1px #35373B solid;
+    border: 1px #2b2a2f solid;
     border-top: none;
 }
 
