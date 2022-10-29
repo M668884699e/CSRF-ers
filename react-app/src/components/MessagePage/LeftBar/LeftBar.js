@@ -1,7 +1,70 @@
 // import css
 import "./LeftBar.css"
 
+import { useState, useEffect, useContext } from "react"
+import { useSelector, useDispatch } from "react-redux"
+
+import { useChannel } from '../../../context/ChannelContext';
+
+import * as channelActions from "../../../store/channel"
+import * as dmrActions from "../../../store/channel"
+import * as sessionActions from "../../../store/session"
+import { thunkGetUserChannels } from "../../../store/channel"
+
+
 const LeftBar = () => {
+    // const { channels, setChannels } = useChannel();
+    // const allChannels = useSelector(channelActions.getAllChannels);
+    // const currentUserId = useSelector(sessionActions.getCurrentUserId);
+
+    // console.log("testsam", allChannels)
+
+    // // invoke dispatch
+    // const dispatch = useDispatch();
+
+
+    // // load channels
+    // useEffect(() => {
+    //     dispatch(channelActions.thunkGetUserChannels());
+    //     // dispatch(dmrActions.getAllDmrs())
+    // }, [dispatch]);
+
+    // // per channelState
+    // useEffect(() => {
+    //     // set channels
+    //     console.log(allChannels)
+    //     console.log(currentUserId)
+    //     setChannels(allChannels);
+    // }, [allChannels]);
+
+
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(channelActions.thunkGetUserChannels());
+    }, [dispatch])
+
+    const allChannels = useSelector(channelActions.getAllChannels);
+    const currentUserId = useSelector(sessionActions.getCurrentUserId);
+
+
+    const test = useSelector(channelActions.getAllChannels);
+    console.log("test", test)
+
+    const loadAllChannels = () => {
+        return (
+            allChannels && Object.values(allChannels).map((el, i) => {
+                console.log('el', el)
+                return (
+                    <section className="channel-list-option">
+                        <aside><i className="fa-regular fa-hashtag"></i></aside>
+                        <aside>{el.channel_name}</aside>
+                    </section>
+                )
+            })
+        )
+    }
+
     return (
         <aside id="left-bar-main">
             <section id="section-one">
@@ -15,7 +78,7 @@ const LeftBar = () => {
 
             <section id="section-two">
                 <section className="section-two-options">
-                    <i class="fa-regular fa-comment"></i>
+                    <i className="fa-regular fa-comment"></i>
                     <aside>Threads</aside>
                     {/* <aside className="new-notification">NEW</aside> */}
                 </section>
@@ -36,6 +99,7 @@ const LeftBar = () => {
                 </section>
                 <section className="section-two-options">
                     <i className="fa-regular fa-building"></i>
+
                     <aside>Slack Connect</aside>
                     {/* <aside className="new-notification">NEW</aside> */}
                 </section>
@@ -51,20 +115,9 @@ const LeftBar = () => {
                     <details>
                         <summary id="channel-header">Channels</summary>
                         <section id="channel-list">
+                            {loadAllChannels()}
                             <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-hashtag"></i></aside>
-                                <aside>Channel 1</aside>
-                            </section>
-                            <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-hashtag"></i></aside>
-                                <aside>Channel 2</aside>
-                            </section>
-                            <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-hashtag"></i></aside>
-                                <aside>Channel 3</aside>
-                            </section>
-                            <section className="channel-list-option">
-                                <aside><i class="fa-regular fa-plus"></i></aside>
+                                <aside><i className="fa-regular fa-plus"></i></aside>
                                 <aside>Browse Channels</aside>
                             </section>
                         </section>
@@ -77,19 +130,19 @@ const LeftBar = () => {
                             <summary id="dmr-header">Direct messages</summary>
                             <section id="dmr-list">
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                    <aside><i className="fa-regular fa-hashtag"></i></aside>
                                     <aside>DMR 1</aside>
                                 </section>
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                    <aside><i className="fa-regular fa-hashtag"></i></aside>
                                     <aside>DMR 2</aside>
                                 </section>
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-hashtag"></i></aside>
+                                    <aside><i className="fa-regular fa-hashtag"></i></aside>
                                     <aside>DMR 3</aside>
                                 </section>
                                 <section className="dmr-list-option">
-                                    <aside><i class="fa-regular fa-plus"></i></aside>
+                                    <aside><i className="fa-regular fa-plus"></i></aside>
                                     <aside>Add teammates</aside>
                                 </section>
                             </section>
@@ -103,7 +156,7 @@ const LeftBar = () => {
                     Place Holder Name
                 </section>
                 <section id="footer-button">
-                    <button id="communication"><i class="fa-solid fa-headphones"></i></button>
+                    <button id="communication"><i className="fa-solid fa-headphones"></i></button>
                 </section>
             </footer>
         </aside>
