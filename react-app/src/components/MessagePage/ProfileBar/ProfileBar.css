@@ -1,5 +1,5 @@
 /* Profile Bar */
-#profile-bar-false{
+#profile-bar-false {
 	display: none;
 }
 
@@ -42,7 +42,7 @@
 	opacity: 0.8;
 }
 
-#profile-bar-header > h2 > i:hover{
+#profile-bar-header > h2 > i:hover {
 	cursor: pointer;
 }
 
@@ -121,13 +121,13 @@
 }
 
 #pbac-a1-c2 > p:last-child:hover,
-#pbac-a2-c1 > p:last-child:hover{
+#pbac-a2-c1 > p:last-child:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
 
 #pbac-a2-c2-p > span:hover,
-#pbac-a2-c3-p > span:hover{
+#pbac-a2-c3-p > span:hover {
 	cursor: default;
 }
 
@@ -140,13 +140,14 @@
 	width: 90%;
 }
 
+#pbac-a1-c3-p,
 #pbac-a1-c3-p2 {
-	margin-top: 0;
+	display: flex;
+	align-items: center;
 }
 
-#pbac-a1-c3-p > span,
-#pbac-a1-c3-p2 > span {
-	margin-left: 0.5rem;
+#pbac-a1-c3-p2 {
+	margin-top: 0;
 }
 
 #pbac-lb {

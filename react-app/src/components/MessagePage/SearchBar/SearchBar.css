@@ -44,6 +44,11 @@
 	border: none;
 	background-color: #4a154b;
 	padding: 0 0.25rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: .75rem;
 }
 
 .help-button-icon {
@@ -72,7 +77,6 @@
 	margin-right: 20px;
 
 	width: 1rem;
-	height: 0.5rem;
 
 	border: none;
 	border-radius: 0.25rem;
@@ -188,7 +192,7 @@
 	position: absolute;
 	color: white;
 	opacity: 0.9;
-	bottom: 0.15rem;
-	right: 1.25rem;
+	bottom: 0rem;
+	right: .3rem;
 	-webkit-text-stroke: 1px white;
 }
