@@ -1,7 +1,3 @@
-import React from "react";
-
-import "./MessagePage.css"
-
 // import components
 import LeftBar from "./LeftBar"
 import ProfileBar from "./ProfileBar"
@@ -9,14 +5,30 @@ import MessageSender from "./MessageSender"
 import MessageDisplay from "./MessageDisplay"
 import SearchBar from "./SearchBar"
 
+// import context
+import { useProfile } from "../../context/ProfileContext"
+
+// import css
+import "./MessagePage.css"
+
+// import react
+import React from "react";
 
 const MessagePage = () => {
+    /**
+     * Controlled Input
+     */
+    const { profileBarActive, setProfileBarActive } = useProfile();
+
     return (
         <div id="message-page-main">
             <section id="message-page-header">
                 <SearchBar/>
             </section>
-            <section id="message-page-body">
+            <section
+                id="message-page-body"
+                className={`message-page-body-profile-${profileBarActive}`}
+            >
                 {/* Left Bar */}
                 <aside id="left-bar">
                     <LeftBar />
@@ -32,7 +44,7 @@ const MessagePage = () => {
                 </aside>
                 
                 {/* Message Profile Bar */}
-                <aside id="message-profile">
+                <aside id={`message-profile-${profileBarActive}`}>
                     <ProfileBar />
                 </aside>
             </section>

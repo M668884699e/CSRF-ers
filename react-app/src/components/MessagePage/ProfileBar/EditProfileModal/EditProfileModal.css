@@ -1,0 +1,205 @@
+/* src/components/MessagePage/ProfileBar/EditProfileModal/EditProfileModal.css */
+
+/* Edit Profile Modal Container */
+#epm-container {
+	background-color: #1a1d21;
+	border-radius: 0.5rem;
+	height: 90vh;
+	width: 50vw;
+	padding: 0;
+
+	display: grid;
+	grid-template-rows: 5vh auto;
+}
+
+/** Edit Profile Modal Header */
+#epm-container > h2 {
+	color: white;
+	margin: 0;
+	margin-left: 1rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+/** Edit Profile Modal Form */
+#epm-form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr) 25%;
+	grid-template-rows: auto 7vh;
+	grid-template-areas:
+		'info info pic'
+		'. . buttons';
+	margin-top: 1rem;
+}
+
+/* User Info */
+
+#epm-form-user-info {
+	grid-area: info;
+	display: flex;
+	flex-direction: column;
+	padding-left: 1rem;
+	/* background-color: yellow; */
+}
+
+#epm-form-user-info > label {
+	font-size: 14px;
+	font-weight: bold;
+	opacity: 0.95;
+}
+
+#epm-form-user-info > input {
+	--saf-0: rgba(var(--sk_primary_foreground, 29, 28, 29), 0.3);
+	border: 1px solid #505256;
+	border-radius: 4px;
+	box-sizing: border-box;
+	font-size: 15px;
+	height: 36px;
+	line-height: 1.86666667;
+	line-height: normal;
+	padding: 3px 12px 5px;
+	transition: border 80ms ease-out, box-shadow 80ms ease-out;
+	width: 95%;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+	background-color: #1a1d21;
+	margin-bottom: 1rem;
+	opacity: 0.8;
+}
+
+#epm-form-user-info > input:focus {
+	outline: 2px solid #1d8cbc;
+}
+
+#epm-form-user-info > input::placeholder {
+	color: #e3e4e5;
+	opacity: 0.8;
+}
+
+#epm-form-user-info > * {
+	width: 100%;
+	color: #e3e4e5;
+	margin-left: 0.25rem;
+}
+
+#epmfui-dn {
+	margin-bottom: 0;
+}
+
+#epmfui-dn + p {
+	margin-top: 0;
+	font-size: smaller;
+	margin-left: 0.25rem;
+	opacity: 0.8;
+}
+
+/* Pic Container */
+
+#epm-form-user-pic-container {
+	grid-area: pic;
+
+	border-bottom: 1px solid white;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+#epm-form-user-pic-container > h3 {
+	color: #e3e4e5;
+	width: 100%;
+	height: 30px;
+	margin: 0;
+
+	display: flex;
+	align-items: center;
+
+	font-size: 15px;
+	font-weight: 700;
+	line-height: 1.86666667;
+	line-height: 1.46666667;
+}
+
+#epm-form-user-info,
+#epm-form-user-pic-container {
+	border-bottom: 0.01px solid rgba(124, 122, 122, 0.6);
+}
+
+#epmfupc-figure {
+	height: auto;
+	width: 11vw;
+	margin: 0;
+}
+
+#epmfupc-figure-img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+	border-radius: 0.15rem;
+}
+
+.epmfupc-image-input-figure{
+  margin-top: 1rem;
+}
+
+.epmfupc-image-input-figure,
+.epmfupc-remove-image {
+	width: 88%;
+	margin: 0;
+	padding: 0;
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.epmfupc-image-input {
+	display: none;
+}
+
+.epmfupc-remove-image {
+	color: #1d8cbc;
+  margin-top: 0;
+}
+
+.epmfupc-remove-image > p:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Buttons Container */
+#epm-form-buttons-container {
+	grid-area: buttons;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+#epm-form-buttons-container > button,
+.epmfupc-image-input-figure {
+	height: 36px;
+	font-weight: bold;
+	color: #e3e4e5;
+	border-radius: 0.25rem;
+}
+
+#epm-form-buttons-container > button:hover,
+.epmfupc-image-input-figure:hover {
+	cursor: pointer;
+}
+
+#epm-form-buttons-container > button:first-child {
+	padding: 0 14px 1px;
+}
+
+#epm-form-buttons-container > button:first-child,
+.epmfupc-image-input-figure {
+	background-color: #1a1d21;
+	border: 1px solid #505256;
+}
+
+#epm-form-buttons-container > button:last-child {
+	background-color: #007a5a;
+	border: none;
+	padding: 0 12px 1px;
+}

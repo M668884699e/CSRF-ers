@@ -102,7 +102,52 @@ export const signUp = (first_name, last_name, username, email, password) => asyn
   }
 }
 
+// thunk to update current session user information
+export const thunkEditUser = userInfo => async dispatch => {
+  // deconstruct userInfo into data
+  const {
+    first_name,
+    last_name,
+    username,
+    email,
+    // password,
+    profile_image
+  } = userInfo
+
+  // define form data
+  const formData = new FormData();
+
+  // put userInfo into form data
+  formData.append("first_name", first_name);
+  formData.append("last_name", last_name);
+  formData.append("username", username);
+  formData.append("email", email);
+  // formData.append("password", password);
+  formData.append("profile_image", profile_image);
+
+  // hit edit user backend route w/ form data
+  const res = await fetch('/api/users/', {
+    method: 'PUT',
+    body: formData
+  });
+
+  // if successful
+  if (res.ok) {
+    // parse res to json
+    const sessionUserInfo = await res.json();
+
+    // dispatch setting session user
+    dispatch(setUser(sessionUserInfo));
+
+    // return session user info data
+    return sessionUserInfo;
+  }
+
+  return res;
+}
+
 /* --------- SELECTOR FUNCTIONS -------- */
+export const getCurrentUserInfo = state => state.session.user;
 export const getUserEmail = state => state.session.user.email;
 export const getCurrentUserId = state => state.session.user.id;
 export const getUserProfilePicture = state => state.session.user.profile_image;
