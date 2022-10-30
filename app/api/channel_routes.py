@@ -159,6 +159,7 @@ def create_channel():
             channel_id = new_channel.id,
             user_id = user_id
         )
+        
         # add new channel_user to db session
         db.session.add(new_channel_user)
 

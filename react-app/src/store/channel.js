@@ -252,6 +252,7 @@ const initialState = {};
 export default function channelReducer(state = initialState, action) {
   const newChannels = { ...state };
 
+  
   switch (action.type) {
     // get channel case
 
