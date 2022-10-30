@@ -131,15 +131,14 @@ export const thunkEditUser = userInfo => async dispatch => {
   const res = await fetch('/api/users/', {
     method: 'PUT',
     body: formData
-  }).catch(() => {
-    console.log("test");
-  });
+  })
 
   // if successful
   if (res.ok) {
 
     // parse res to json
     const sessionUserInfo = await res.json();
+
 
     if (sessionUserInfo.errors) {
       return null;

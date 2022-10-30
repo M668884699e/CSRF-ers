@@ -48,7 +48,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-bottom: .75rem;
+	margin-bottom: 0.75rem;
 }
 
 .help-button-icon {
@@ -71,12 +71,12 @@
 
 #clock-button {
 	display: flex;
-	align-content: center;
 	justify-content: center;
 
 	margin-right: 20px;
 
-	width: 1rem;
+	width: 2rem;
+	height: 2rem;
 
 	border: none;
 	border-radius: 0.25rem;
@@ -84,11 +84,16 @@
 	background-color: #4a154b;
 
 	padding: 1rem;
+	position: relative;
 }
 
 .clock-button-icon {
 	color: #cfc1cf;
 	opacity: 0.95;
+	margin: 0;
+
+	position: absolute;
+	bottom: 0.3rem;
 }
 
 #search-bar {
@@ -120,6 +125,12 @@
 	border: 1px black;
 	opacity: 0.85;
 	background-color: rgb(109, 67, 109);
+	width: 100%;
+
+	border: 0;
+	outline: 0;
+
+	color: white;
 }
 
 #search-text::placeholder {
@@ -193,6 +204,6 @@
 	color: white;
 	opacity: 0.9;
 	bottom: 0rem;
-	right: .3rem;
+	right: 0.3rem;
 	-webkit-text-stroke: 1px white;
 }

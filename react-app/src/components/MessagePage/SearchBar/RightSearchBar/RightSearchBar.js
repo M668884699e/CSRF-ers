@@ -1,5 +1,8 @@
 // src/components/MessagePage/SearchBar/RightSearchBar/RightSearchBar.js
 
+// import css
+import './RightSearchBar.css';
+
 // import component
 import ProfileModal from './ProfileModal';
 
