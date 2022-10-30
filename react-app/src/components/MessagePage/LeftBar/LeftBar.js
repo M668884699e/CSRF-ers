@@ -15,7 +15,7 @@ import { thunkGetUserChannels } from "../../../store/channel"
 const LeftBar = () => {
     // const { channels, setChannels } = useChannel();
     // const allChannels = useSelector(channelActions.getAllChannels);
-    // const currentUserId = useSelector(sessionActions.getCurrentUserId);
+    const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
     // console.log("testsam", allChannels)
 
@@ -41,22 +41,18 @@ const LeftBar = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
+        console.log("currentUserId", currentUserId);
+
         dispatch(channelActions.thunkGetUserChannels());
-    }, [dispatch])
+    }, [dispatch, currentUserId])
 
     const allChannels = useSelector(channelActions.getAllChannels);
-    const currentUserId = useSelector(sessionActions.getCurrentUserId);
-
-
-    const test = useSelector(channelActions.getAllChannels);
-    console.log("test", test)
 
     const loadAllChannels = () => {
         return (
             allChannels && Object.values(allChannels).map((el, i) => {
-                console.log('el', el)
                 return (
-                    <section className="channel-list-option">
+                    <section className="channel-list-option" key={i}>
                         <aside><i className="fa-regular fa-hashtag"></i></aside>
                         <aside>{el.channel_name}</aside>
                     </section>

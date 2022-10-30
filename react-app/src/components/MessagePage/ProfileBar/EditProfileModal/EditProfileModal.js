@@ -72,7 +72,6 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
     // check and reset first name
     if (editFirstName.length > 40 || editFirstName.length === 0) {
       errors.push("First name cannot be less than 0 character or more than 40 characters");
-      console.log("currentUserInfo.first_name", currentUserInfo.first_name);
       setEditFirstName(currentUserInfo.first_name);
     }
     
@@ -109,7 +108,6 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
     // call on thunk to edit user
     return dispatch(sessionActions.thunkEditUser(userInfo))
       .then(async res => {
-        console.log("inside then", res);
         
         if (res) {
           errors.push(res.errors);
@@ -326,7 +324,6 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
           <button
             onClick={_ => {
               setShowEditProfileModal(false);
-              console.log("click");
             }}
           >
             Cancel

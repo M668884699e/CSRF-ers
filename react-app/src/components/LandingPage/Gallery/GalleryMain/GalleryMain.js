@@ -40,6 +40,7 @@ const GalleryMain = () => {
   const channelsUsersState = useSelector(channelsUsersActions.getAllUsersChannels);
   const channelState = useSelector(channelActions.getAllChannels);
   const userEmail = useSelector(sessionActions.getUserEmail);
+  const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
   // load channels
   useEffect(() => {
@@ -59,7 +60,7 @@ const GalleryMain = () => {
     setChannelsUsers(channelsUsersState);
   }, [channelsUsersState]);
 
-
+  const uniqueChannels = [... new Set(allChannelOwned)]
 
   return (
     <section id="gm-container">
@@ -94,10 +95,39 @@ const GalleryMain = () => {
                           <section className="wlf2-section">   
                             <figure className="wlf2-section-figure">
                               {
-                                channelsUsers &&
-                                channelsUsers.length > 0 && 
-                                channelsUsers
-                                  .filter(channelUsers => channel.id === channelUsers.channel_id)
+                                uniqueChannels &&
+                                uniqueChannels.length > 0 && 
+                                uniqueChannels
+                                  .filter(channelUsers => {
+                                    // console.log("channelUsers", channelUsers);
+                                    // console.log("channel.id", channel.id);
+                                    // console.log("currentUserId", currentUserId);
+                                    // console.log("channel", channel);
+
+                                    // const allChannelOwned = channels.filter(ch => ch.owner_id === currentUserId);
+                                    // const allChannelsUserBelongTo = channelsUsers.filter(cu => cu.user_id === currentUserId);
+
+                                    // console.log("allChannelOwned", allChannelOwned);
+                                    // console.log("allChannelsUserBelongTo", allChannelsUserBelongTo);
+
+                                    // const uniqueChannels = [... new Set(channels.filter(ch => ch.owner_id === currentUserId))]
+
+                                    // console.log("uniqueChannels", uniqueChannels);
+
+                                    // const uniqueChannels = [];
+                                    
+                                    // for (let i = 0; i < allChannelOwned.length; i++){
+                                    //   for (let j = 0; j < allChannelsUserBelongTo.length; j++){
+                                    //     if (allChannelsUserBelongTo[j].user_id !== allChannelOwned[i].owner_id) uniqueChannels.push(allChannelOwned[i]);
+                                    //   }
+                                    // }
+
+                                    // console.log("uniqueChannels", uniqueChannels);
+
+                                    // console.log(channels.owner_id === currentUserId);
+
+                                    return channel.id === channelUsers.channel_id && (channelUsers.user_id === currentUserId && channels.owner_id !== channelUsers.user_id)
+                                  })
                                   .map((user, index) => {
                                     const currentUser = Object.values(usersState).find(userState => userState.id === user.user_id);
                                   

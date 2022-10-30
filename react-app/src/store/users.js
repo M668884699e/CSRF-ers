@@ -55,8 +55,6 @@ export const thunkDeleteUser = () => async dispatch => {
 
     // dispatch deleteUser
     dispatch(deleteUser());
-
-    console.log("here");
     
     return deletedUser;
   }

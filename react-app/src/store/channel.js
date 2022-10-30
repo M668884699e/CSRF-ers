@@ -1,14 +1,14 @@
 /* --------- ACTIONS -------- */
 //? Action: set channel
 // action
-const GET_CHANNELS = 'channel/GET_CHANNELS';
-const GET_CHANNEL = 'channel/GET_CHANNEL';
-const GET_CHANNEL_USERS = 'channel/GET_CHANNEL_USERS';
-const GET_CHANNEL_MESSAGES = 'channel/GET_CHANNEL_MESSAGES';
-const SET_CHANNEL = 'channel/SET_CHANNEL';
-const PUT_CHANNEL_USER = 'channel/SET_CHANNEL_USER';
-const PUT_CHANNEL = 'channel/PUT_CHANNEL';
-const DELETE_CHANNEL = 'channel/DELETE_CHANNEL';
+const GET_CHANNELS = 'channels/GET_CHANNELS';
+const GET_CHANNEL = 'channels/GET_CHANNEL';
+const GET_CHANNEL_USERS = 'channels/GET_CHANNEL_USERS';
+const GET_CHANNEL_MESSAGES = 'channels/GET_CHANNEL_MESSAGES';
+const SET_CHANNEL = 'channels/SET_CHANNEL';
+const PUT_CHANNEL_USER = 'channels/SET_CHANNEL_USER';
+const PUT_CHANNEL = 'channels/PUT_CHANNEL';
+const DELETE_CHANNEL = 'channels/DELETE_CHANNEL';
 
 // action creator: get channels
 export const loadChannels = channels => {
