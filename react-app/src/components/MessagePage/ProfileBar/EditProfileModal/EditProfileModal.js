@@ -33,6 +33,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [currentPicture, setCurrentPicture] = useState(currentUserInfo ? currentUserInfo.profile_image : currentUserInfo);
   const [validationErrors, setValidationErrors] = useState([]);
+  const [formReady, setFormReady] = useState(true);
 
   // invoke dispatch
   const dispatch = useDispatch();
@@ -43,7 +44,10 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
   // per validation errors
   useEffect(() => {
     // nothing for now, just to update validation errors
-  }, [editProfileImage, editFirstName, editLastName, editUserName, editEmail, validationErrors]);
+    if (!formReady) {
+      setFormReady(true);
+    }
+  }, [editProfileImage, editFirstName, editLastName, editUserName, editEmail, validationErrors, formReady]);
 
   // per currentPicture
   useEffect(() => {
@@ -58,7 +62,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
   }, [editProfileImage]);
 
   // function to handle profile editing
-  const onEditProfile = async e => {
+  const onEditProfile = e => {
     // prevent page from refreshing
     e.preventDefault();
 
@@ -86,26 +90,38 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
     
     // check and reset email
     if (editEmail.length > 255 || editEmail.length === 0) {
-        setEditEmail(currentUserInfo.email);
-        errors.push("Email cannot be less than 0 character or more than 255 characters")
+      setEditEmail(currentUserInfo.email);
+      errors.push("Email cannot be less than 0 character or more than 255 characters")
     }
     
-    // set validation errors
-    setValidationErrors(errors);
+    // form userinfo to give to edit user
+    const userInfo = {
+      first_name: editFirstName,
+      last_name: editLastName,
+      username: editUserName,
+      email: editEmail,
+      profile_image: currentPicture
+    };
 
-    if (!validationErrors) {
-      // form userinfo to give to edit user
-      const userInfo = {
-        first_name: editFirstName,
-        last_name: editLastName,
-        username: editUserName,
-        email: editEmail,
-        profile_image: currentPicture
-      };
-    
-      // call on thunk to edit user
-      dispatch(sessionActions.thunkEditUser(userInfo));
-    }
+    // reset validation errors
+    setValidationErrors([]);
+      
+    // call on thunk to edit user
+    return dispatch(sessionActions.thunkEditUser(userInfo))
+      .then(async res => {
+        console.log("inside then", res);
+        
+        if (res) {
+          errors.push(res.errors);
+          throw new Error();
+        } else {
+          // exit out of modal
+          return setShowEditProfileModal(false);
+        }
+      }).catch(() => {
+        setFormReady(false);
+        setValidationErrors(errors);
+      })
   }
 
   // function to update first name
@@ -308,17 +324,24 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
         <section id="epm-form-buttons-container">
           {/* Cancel Button */}
           <button
-            onClick={_ => setShowEditProfileModal(false)}
+            onClick={_ => {
+              setShowEditProfileModal(false);
+              console.log("click");
+            }}
           >
             Cancel
           </button>
 
           {/* Submit Button */}
-          <button
-            type="submit"
-          >
-            Edit Current User
-          </button>
+          {
+            formReady &&
+            <button
+              type="submit"
+              onClick={onEditProfile}
+            >
+              Edit Current User
+            </button>
+          }
         </section>
       </form>
     </section>

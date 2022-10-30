@@ -14,8 +14,8 @@
         },
         body: formData
     });
-  
-  
+
+
 
  */
 
@@ -88,6 +88,10 @@ export const getAllDmrs = () => async(dispatch) => {
         dispatch(getDmrs(data.DirectMessageRooms))
     }
 
+}
+
+export const getAllUserDmrs = () => async(dispatch) => {
+    const res = await fetch("/api/dmr")
 }
 
 export const getDmrById = (id) => async(dispatch) => {
@@ -174,17 +178,16 @@ export const deleteDmr = (id) => async(dispatch) => {
 }
 
 /* --------- REDUCERS -------- */
-
 let initialState = {}
 
 export default function dmrReducer (state = initialState, action){
     let newState = { ...state }
-    switch (action.type) {   
+    switch (action.type) {
         case GET_DMRS:
             newState = {}
             action.dmrs.forEach(dmr => {
                 newState[dmr.id] = dmr;
-            })           
+            })
             return newState;
         case GET_DMR:
             return { ...state,

@@ -8,6 +8,6 @@ class DMRUser(db.Model):
 
     def to_dict(self):
         return {
-            'user_id': self.user_id,
-            'dmr_id': self.dmr_id
+            'dmr_id': self.dmr_id,
+            'user_id': self.user_id
         }

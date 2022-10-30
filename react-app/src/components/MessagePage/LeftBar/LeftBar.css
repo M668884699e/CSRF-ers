@@ -1,8 +1,9 @@
-/* Left bar side menu container */
+/* Left bar side menu container
+
+/* ______________________________________________________________ */
 /* Main Container */
+/* overall css for the left bar */
 #left-bar-main {
-	/* display: flex;
-	flex-direction: column; */
 	display: grid;
 	grid-template-columns: 100%;
 	grid-template-rows: 5vh 12rem auto auto;
@@ -16,25 +17,50 @@
 	height: 100%;
 }
 
+/* overall css for direct children of left bar */
 #left-bar-main > * {
 	display: flex;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 0.9rem;
+
+	font-size: 15.5px;
 }
 
-/* Section One: Server name */
+.fa-regular {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20px;
+	width: 20px;
+	margin-right: 10px;
+}
+
+.fa-solid {
+	display: flex;
+	justify-content: center;
+	width: 20px;
+	margin-right: 10px;
+}
+.fa-plus {
+	border-radius: 3px;
+
+	color: #A4A3A6;
+	background-color: #39363E;
+}
+
+
+/* ______________________________________________________________ */
+/* Section One: Left Bar Header */
 #section-one {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 
-	/* border: 1px solid #2b2a2f; */
 	border-top: 1px solid #2b2a2f;
 	border-bottom: 1px solid #2b2a2f;
-
 	border-right: none;
-	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
+
+	padding-top: 10px;
+	padding-bottom: 10px;
+
 }
 
 #section-one:hover {
@@ -47,23 +73,20 @@
 	align-items: center;
 	justify-content: space-between;
 
+	padding-left: 10px;
 	width: 100%;
 	height: 100%;
 
 	font-size: large;
+	font-weight: bold;
 	color: #d1d2d3;
 }
 
-#server-name > * {
-	display: flex;
-}
 
-/* Create new message button */
+/* Create new message buttson */
 #new-message-button {
 	display: flex;
-	justify-content: center;
-	align-content: center;
-	align-self: center;
+	justify-items: center;
 	align-items: center;
 
 	height: 35px;
@@ -74,17 +97,24 @@
 	border-radius: 50%;
 }
 
-/* New notifications */
+.fa-pen-to-square {
+	display: flex;
+	align-items: center;
+
+	/* i don't know why the icon won't sit in the middle of the button - sam */
+	padding-left: 7px;
+	padding-bottom: 1px;
+}
+
+
+/* ______________________________________________________________ */
 /* Section Two: New activity */
 #section-two {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 
-	border-bottom: 1px solid #2b2a2f;
-
-	padding: 0;
-	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
+	border: 1px solid #2b2a2f;
 
 	min-height: fit-content;
 	width: 100%;
@@ -93,31 +123,24 @@
 /* Section spacing */
 .section-two-options {
 	display: flex;
-	margin-top: 3px;
-	margin-bottom: 3px;
-}
-
-#section-two > * {
-	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
 
 	color: #79777c;
-	padding-bottom: 4px;
-}
-
-/* New notification button styling */
-.section-two-options {
-	display: flex;
-	margin-top: 3px;
-	margin-bottom: 3px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
 }
 
 .section-two-options:hover {
 	background-color: #27242c;
 }
 
-.new-notification {
+.comment-lines {
+	color: #cfc1cf;
+	opacity: 0.95;
+}
+
+/* .new-notification {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -131,49 +154,44 @@
 
 	border-radius: 10px;
 	background-color: #9e9ea1;
-}
+} */
 
+
+/* ______________________________________________________________ */
 /* Section Three (Channel List) */
 #section-three {
-	/* margin-bottom: 0; */
 	display: flex;
 	flex-direction: column;
 
-	padding: 0;
-
-	min-height: fit-content;
-	width: 100%;
+	height: fit-content;
 }
 
-#section-three *{
-	width: 100%;
-	max-width: 100%;
-}
 
 #channel-section {
-	display: flex;
-	flex-direction: column;
-
-	width: 95%;
-
+	margin-top: 20px;
+	padding-left: 10px;
 	color: #79777c;
-
-	margin-top: 1rem;
 }
 
 #channel-header {
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 }
 
+/* Channel header */
 #channel-list {
+	display: flex;
+	flex-direction: column;
+
 	margin: 0;
 	padding: 0;
 }
 
-#channel-list > * {
+.channel-list-option {
+	display: flex;
+	flex-direction: row;
+
 	margin-top: 5px;
 	margin-bottom: 5px;
-
 	padding-bottom: 5px;
 }
 
@@ -181,52 +199,49 @@
 	background-color: #27242c;
 }
 
+/* ______________________________________________________________ */
 /* Section Four (DMR List) */
 #section-four {
 	display: flex;
 	flex-direction: column;
 
-	padding: 0;
-
-	min-height: fit-content;
-	width: 100%;
+	height: fit-content;
 }
 
 #dmr-section {
-	width: 95%;
-
+	margin-top: 20px;
+	padding-left: 10px;
 	color: #79777c;
 }
 
 /* DMR header */
 #dmr-header {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+	margin-bottom: 10px;
 }
 
-#dmr-header:hover {
-	background-color: #27242c;
-}
-
-/* DMR ul */
 #dmr-list {
-	margin: 0;
-	list-style: none;
-	padding-left: 0;
-}
-
-.dmr-list-option:hover {
-	background-color: #27242c;
-}
-
-#dmr-list > * {
 	display: flex;
+	flex-direction: column;
+
+	margin: 0;
+	padding: 0;
+}
+
+
+.dmr-list-option {
+	display: flex;
+	flex-direction: row;
 
 	margin-top: 5px;
 	margin-bottom: 5px;
 	padding-bottom: 5px;
 }
 
+.dmr-list-option:hover {
+	background-color: #27242c;
+}
+
+/* ______________________________________________________________ */
 /* Footer */
 #footer {
 	display: flex;
@@ -234,6 +249,7 @@
 	align-items: center;
 	flex-direction: row;
 
+	position: absolute;
 	bottom: 0;
 	height: 48px;
 	width: 100%;
@@ -245,37 +261,50 @@
 
 	color: #79777c;
 	background-color: #19171d;
-
-	position: absolute;
-	bottom: 0;
 }
 
-#left-bar-main > * > section {
-	padding-left: 1rem;
+#footer:hover > * {
+	color: #D1D2D3;
 }
 
-#footer-name > * {
+#footer:hover #communication{
+	color: #D1D2D3;
+	border: 1px solid #D1D2D3;
+}
+
+#footer-name {
+	padding-left: 10px;
 	color: #79777c;
 }
 
 #footer-button {
 	display: flex;
-	align-content: center;
-	justify-content: center;
+	justify-self: center;
 	align-items: center;
-	justify-items: center;
+	height: 20px;
 
 	margin-right: 10px;
-
-	height: 20px;
-	width: 50px;
-
-	border: none;
-	border-radius: 45px;
-	background-color: #d1d2d3;
 }
 
-#footer-button > * {
-	border: none;
-	background-color: #d1d2d3;
+#communication {
+	display: flex;
+
+	height: 25px;
+
+	border: 1px solid #79777c;
+	border-radius: 15px;
+
+	background-color: #19171d;
+}
+
+.fa-headphones {
+	display: flex;
+	justify-content: end;
+
+	padding-top: 4px;
+	color: #79777c;
+}
+
+.fa-headphones:hover {
+	color: #D1D2D3;
 }

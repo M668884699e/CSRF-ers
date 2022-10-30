@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import db, User, Message, DMRUser, ChannelUser, Notification
-from app.forms import LoginForm, SignUpForm
+from app.forms import LoginForm, SignUpForm, EditUserForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.s3_helpers import (
     upload_file_to_s3, allowed_file, get_unique_filename)
@@ -149,7 +149,7 @@ def sign_up():
     Creates a new user and logs them in
     """
     form = SignUpForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+    
     if form.validate_on_submit():
         # if username does not exist...
         display_name = form.data['username']
@@ -170,10 +170,6 @@ def sign_up():
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
-@user_routes.route('/image/sample')
-def get_image_sample():
-    return "Test"
 
 #* POST - /users/image/sample
 # Retrieve a url of image for sample
@@ -226,9 +222,17 @@ def update_user():
     current_user_update = User.query.get(current_user.get_id())
 
     # get user data from form
-    form = SignUpForm()
+    form = EditUserForm()
+    
+    form['csrf_token'].data = request.cookies['csrf_token']
     
     upload_profile_image = form.data['profile_image']
+    
+    #? For help with debugging form
+    if(len(form.errors) > 1): 
+        print("          ")
+        print(form.errors)
+        print("          ")
     
     #? check if there are image file uploaded
     if "profile_image" in request.files:
@@ -255,35 +259,40 @@ def update_user():
             upload_profile_image = url
 
     #* update user
-    # if first name exist
-    if(form.data['first_name']):
-        current_user_update.first_name = form.data['first_name']
+    if form.validate_on_submit():
+        # check for any form errors
+        # if first name exist
+        if(form.data['first_name']):
+            current_user_update.first_name = form.data['first_name']
 
-    # if last name exist
-    if(form.data['last_name']):
-        current_user_update.last_name = form.data['last_name']
+        # if last name exist
+        if(form.data['last_name']):
+            current_user_update.last_name = form.data['last_name']
 
-    # if user name exist
-    if(form.data['username']):
-        current_user_update.username = form.data['username']
+        # if user name exist
+        if(form.data['username']):
+            current_user_update.username = form.data['username']
 
-    # if email exist
-    if(form.data['email']):
-        current_user_update.email = form.data['email']
+        # if email exist
+        if(form.data['email']):
+            current_user_update.email = form.data['email']
 
-    # if password exist
-    if(form.data['password']):
-        current_user_update.password = form.data['password']
+        # if password exist
+        if(form.data['password']):
+            current_user_update.password = form.data['password']
 
-    # if profile image exist
-    if(upload_profile_image):
-        current_user_update.profile_image = upload_profile_image
+        # if profile image exist
+        if(upload_profile_image):
+            current_user_update.profile_image = upload_profile_image
 
-    # commit update
-    db.session.commit()
+        # commit update
+        db.session.commit()
 
-    # return current user
-    return current_user_update.to_dict()
+        # return current user
+        return current_user_update.to_dict()
+        
+    # return errors
+    return{"errors": [error_values for error in form.errors for error_values in form.errors[error]]}, 400
 
 #* DELETE - /users
 # Delete user
