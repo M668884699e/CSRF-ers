@@ -1,9 +1,8 @@
-
 // import context
 import LandingProvider from './context/LandingContext';
 
 // import component
-import LandingPage from './components/LandingPage'
+import LandingPage from './components/LandingPage';
 import MessagePage from './components/MessagePage';
 import LoginPage from './components/auth/LoginPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -27,64 +26,67 @@ import ProfileProvider from './context/ProfileContext';
 
 //? App Component
 function App() {
-  const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
+	const [loaded, setLoaded] = useState(false);
+	const dispatch = useDispatch();
 
-  useEffect(() => {
-    (async() => {
-      await dispatch(authenticate());
-      setLoaded(true);
-    })();
-  }, [dispatch]);
+	useEffect(() => {
+		(async () => {
+			await dispatch(authenticate());
+			setLoaded(true);
+		})();
+	}, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
+	if (!loaded) {
+		return null;
+	}
 
-  return (
-    <BrowserRouter>
-      {/* <NavBar /> */}
-      <Switch>
-        {/* //? Login Route */}
-        <Route path='/login' exact={true}>
-          <LoginPage />
-        </Route>
-        {/* //? Sign Up Route */}
-        <Route path='/sign-up' exact={true}>
-          <LoginPage />
-        </Route>
+	return (
+		<BrowserRouter>
+			{/* <NavBar /> */}
+			<Switch>
+				{/* //? Login Route */}
+				<Route path='/login' exact={true}>
+					<LoginPage />
+				</Route>
+				{/* //? Sign Up Route */}
+				<Route path='/sign-up' exact={true}>
+					<LoginPage />
+				</Route>
 
-        {/* //?  Getting Started Page Route */}
-        <ProtectedRoute path="/start/setup">
-          <StarterProvider>
-            <StartPage/>
-          </StarterProvider>
-        </ProtectedRoute>
+				{/* //?  Getting Started Page Route */}
+				<ProtectedRoute path='/start/setup'>
+					<StarterProvider>
+						<StartPage />
+					</StarterProvider>
+				</ProtectedRoute>
 
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
+				<ProtectedRoute path='/users' exact={true}>
+					<UsersList />
+				</ProtectedRoute>
+				<ProtectedRoute path='/users/:userId' exact={true}>
+					<User />
+				</ProtectedRoute>
 
-        {/* //? Main Route */}
-        <ProtectedRoute path='/' exact={true} >
-          {/* <h1>My Home Page</h1> */}
-          <LandingProvider>
-            <LandingPage loaded={loaded} />
-          </LandingProvider>
-        </ProtectedRoute>
+				{/* //? Main Route */}
+				<ProtectedRoute path='/' exact={true}>
+					{/* <h1>My Home Page</h1> */}
+					<LandingProvider>
+						<LandingPage loaded={loaded} />
+					</LandingProvider>
+				</ProtectedRoute>
 
-        {/* //? Chatroom Route */}
-        <Route path="/chat" exact={true}>
-          <ProfileProvider>
-            <MessagePage />
-          </ProfileProvider>
-        </Route>
-      </Switch>
-    </BrowserRouter>
-  );
+				{/* //? Chatroom Route */}
+				<Route path='/chat/:chatId' exact={true}>
+					<ProfileProvider>
+						<MessagePage />
+					</ProfileProvider>
+				</Route>
+
+				{/* //? 404 Route */}
+				<Route>404 Page Not Found</Route>
+			</Switch>
+		</BrowserRouter>
+	);
 }
 
 export default App;

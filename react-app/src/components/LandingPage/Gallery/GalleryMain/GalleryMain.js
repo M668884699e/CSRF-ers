@@ -149,7 +149,7 @@ const GalleryMain = () => {
 											</figure>
 										</section>
 										<section className='workspace-li-s2'>
-											<NavLink to='/chat'>
+											<NavLink to={`/chat/${channel.id}`}>
 												<button className='workspace-li-s2-button'>
 													Launch Slack
 												</button>
