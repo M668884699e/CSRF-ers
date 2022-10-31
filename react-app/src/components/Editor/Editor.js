@@ -55,9 +55,6 @@ function onChange(state) {
   state.read(() => {
     const root = $getRoot();
     const selection = $getSelection();
-
-    // read current change
-    // console.log(selection);
   });
 }
 

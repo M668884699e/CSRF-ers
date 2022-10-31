@@ -62,7 +62,7 @@ export const thunkDeleteUser = () => async dispatch => {
 
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllUsers = state => state.users;
-export const getUserById = (state, userId) => state.users.find(user => user === userId);
+// export const getUserById = (state, userId) => state.users.find(user => user === userId);
 
 /* --------- REDUCERS -------- */
 const initialState = {};

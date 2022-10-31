@@ -1,15 +1,18 @@
 // import css
 import './LeftBar.css';
 
+// import context
+import { useChannel } from '../../../context/ChannelContext';
+import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
+
 // import react
 import { useEffect } from 'react';
 
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
 
-// import context
-import { useChannel } from '../../../context/ChannelContext';
-import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
+// import react-router-dom
+import { NavLink } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../store/channel';
@@ -77,13 +80,15 @@ const LeftBar = () => {
 	const loadAllChannels = () => {
 		return (
 			Array.isArray(channels) &&
-			channels.map((el, i) => {
+			channels.map((channel, i) => {
 				return (
 					<section className='channel-list-option' key={i}>
 						<aside>
 							<i className='fa-regular fa-hashtag'></i>
 						</aside>
-						<aside>{el.channel_name}</aside>
+						<NavLink to={`/chat/${channel.id}`}>
+							<button>{channel.channel_name}</button>
+						</NavLink>
 					</section>
 				);
 			})

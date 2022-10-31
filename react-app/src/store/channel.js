@@ -4,7 +4,7 @@
 const GET_CHANNELS = 'channels/GET_CHANNELS';
 const GET_CHANNEL = 'channels/GET_CHANNEL';
 const GET_CHANNEL_USERS = 'channels/GET_CHANNEL_USERS';
-const GET_CHANNEL_MESSAGES = 'channels/GET_CHANNEL_MESSAGES';
+
 const SET_CHANNEL = 'channels/SET_CHANNEL';
 const PUT_CHANNEL_USER = 'channels/SET_CHANNEL_USER';
 const PUT_CHANNEL = 'channels/PUT_CHANNEL';
@@ -34,13 +34,7 @@ export const getChannelUsers = channel => {
   }
 }
 
-// action creator: get channel messages
-export const getChannelMessages = channel => {
-  return {
-    type: GET_CHANNEL_MESSAGES,
-    channel
-  }
-}
+
 
 // action creator: create new channel
 export const createChannel = channel => {
@@ -99,7 +93,6 @@ export const thunkGetUserChannels = () => async dispatch => {
 
   if (res.ok) {
     const userChannelData = await res.json();
-    console.log(userChannelData, "userChannelData")
 
     dispatch(loadChannels(userChannelData.channels));
     return userChannelData;
@@ -138,25 +131,6 @@ export const thunkGetChannelUsers = (channel) => async(dispatch) => {
     dispatch(getChannelUsers(channel));
 
     return channelUsers;
-  }
-}
-
-// thunk get messages in channel
-export const thunkGetChannelMessages = (channel) => async(dispatch) => {
-  // deconstruct channel and grab id
-  const { id } = channel;
-
-  // fetch messages in channel
-  const res = await fetch(`/api/channels/${id}/messages/`)
-
-  // if response ok
-  if(res.ok){
-    const channelMessages = res.json();
-
-    // dispatch user data to state
-    dispatch(getChannelMessages(channel));
-
-    return channelMessages;
   }
 }
 
@@ -252,9 +226,8 @@ const initialState = {};
 export default function channelReducer(state = initialState, action) {
   const newChannels = { ...state };
 
-  
   switch (action.type) {
-    // get channel case
+    // case: get channel message
 
     // default case
     default:
