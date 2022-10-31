@@ -4,13 +4,12 @@
 import { useChannel } from '../../../../context/ChannelContext';
 import { useLanding } from '../../../../context/LandingContext';
 import { useChannelsUsers } from '../../../../context/ChannelsUsersContext';
-import { useUsers } from '../../../../context/UserContext';
 
 // import css
 import './GalleryMain.css';
 
 // import react
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,52 +54,35 @@ const GalleryMain = () => {
 	useEffect(() => {
 		// set channels
 		setChannels(channelState);
+
+		if (channelState) {
+			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
+				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
+				: '';
+
+			const currentChannelDetail = [];
+
+			Array.isArray(channelsUsers) &&
+				currentChannelsUserBelongTo.forEach((cu) => {
+					currentChannelDetail.push(cu.channel_id);
+				});
+
+			const channelDisplay =
+				Array.isArray(channelState) &&
+				channelState.filter((channel) =>
+					currentChannelDetail.includes(channel.id)
+				);
+
+			if (Array.isArray(channelDisplay)) {
+				setChannels(channelDisplay);
+			}
+		}
 	}, [channelState]);
 
 	// per channelsUsers state
 	useEffect(() => {
 		setChannelsUsers(channelsUsersState);
 	}, [channelsUsersState]);
-
-	//? get all unique channels that user belongs to
-	if (channelsUsers && channelsUsers.length > 0) {
-		const test = channelState.map((channel) => {
-			const allChannelOwned = channels.filter(
-				(ch) => ch.owner_id === currentUserId
-			);
-			const allChannelsUserBelongTo = channelsUsers.filter(
-				(cu) => cu.user_id === currentUserId
-			);
-
-			const uniqueChannels = {};
-
-			for (let i = 0; i < allChannelsUserBelongTo.length; i++) {
-				uniqueChannels[allChannelsUserBelongTo[i].channel_id] =
-					allChannelsUserBelongTo[i].channel_id;
-			}
-
-			const values = Object.values(uniqueChannels);
-
-			for (let i = 0; i < allChannelOwned.length; i++) {
-				if (allChannelOwned[i].owner_id === currentUserId) {
-					if (!values.includes(allChannelOwned[i].id)) {
-						uniqueChannels[allChannelOwned[i].id] = allChannelOwned[i].id;
-
-						values.push(allChannelOwned[i].id);
-					}
-				}
-			}
-
-			// console.log("updated");
-			// console.log("uniqueChannels", uniqueChannels);
-
-			console.log('test boolean: ', values);
-
-			return channel.id === uniqueChannels.channel_id;
-		});
-
-		// console.log('test', test);
-	}
 
 	return (
 		<section id='gm-container'>
@@ -128,82 +110,30 @@ const GalleryMain = () => {
 												<p id='wlf2-p1'>{channel.channel_name}</p>
 												<section className='wlf2-section'>
 													<figure className='wlf2-section-figure'>
-														{channelsUsers &&
-															channelsUsers.length > 0 &&
-															channelsUsers
-																.filter((channelUsers) => {
-																	// const allChannelOwned = channels.filter(
-																	// 	(ch) => ch.owner_id === currentUserId
-																	// );
-																	// const allChannelsUserBelongTo =
-																	// 	channelsUsers.filter(
-																	// 		(cu) => cu.user_id === currentUserId
-																	// 	);
+														{Array.isArray(channels) &&
+															channels.map((user, index) => {
+																const currentUser = Object.values(
+																	usersState
+																).find(
+																	(userState) => userState.id === user.user_id
+																);
 
-																	// const uniqueChannels = {};
-
-																	// for (
-																	// 	let i = 0;
-																	// 	i < allChannelsUserBelongTo.length;
-																	// 	i++
-																	// ) {
-																	// 	uniqueChannels[
-																	// 		allChannelsUserBelongTo[i].channel_id
-																	// 	] = allChannelsUserBelongTo[i].channel_id;
-																	// }
-
-																	// const values = Object.values(uniqueChannels);
-
-																	// for (
-																	// 	let i = 0;
-																	// 	i < allChannelOwned.length;
-																	// 	i++
-																	// ) {
-																	// 	if (
-																	// 		allChannelOwned[i].owner_id ===
-																	// 		currentUserId
-																	// 	) {
-																	// 		if (
-																	// 			!values.includes(allChannelOwned[i].id)
-																	// 		) {
-																	// 			uniqueChannels[allChannelOwned[i].id] =
-																	// 				allChannelOwned[i].id;
-
-																	// 			values.push(allChannelOwned[i].id);
-																	// 		}
-																	// 	}
-																	// }
-
-																	// // console.log("")
-																	// console.log('uniqueChannels', uniqueChannels);
-																	// console.log('values', values);
-																	// query through all channels with matching channel id
-
-																	return channel.id === channelUsers.channel_id;
-																})
-																.map((user, index) => {
-																	const currentUser = Object.values(
-																		usersState
-																	).find(
-																		(userState) => userState.id === user.user_id
-																	);
-
-																	return (
-																		currentUser &&
-																		index < 4 && (
-																			<figure
-																				className='channel-user-img-container'
-																				key={currentUser.id}
-																			>
-																				<img
-																					className='channel-user-img'
-																					src={currentUser.profile_image}
-																					alt={currentUser.display_name}
-																				/>
-																			</figure>
-																		)
-																	);
-																})}
+																return (
+																	currentUser &&
+																	index < 4 && (
+																		<figure
+																			className='channel-user-img-container'
+																			key={currentUser.id}
+																		>
+																			<img
+																				className='channel-user-img'
+																				src={currentUser.profile_image}
+																				alt={currentUser.display_name}
+																			/>
+																		</figure>
+																	)
+																);
+															})}
 													</figure>
 													<p id='wlf2-p2'>
 														{/* query for members count */}
