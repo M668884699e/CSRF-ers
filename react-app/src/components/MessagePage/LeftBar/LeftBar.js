@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import react-router-dom
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../store/channel';
@@ -27,6 +27,9 @@ const LeftBar = () => {
 
 	// invoke dispatch
 	const dispatch = useDispatch();
+
+	// invoke history
+	const history = useHistory();
 
 	const usersState = useSelector(userActions.getAllUsers);
 	const channelsUsersState = useSelector(
@@ -82,13 +85,15 @@ const LeftBar = () => {
 			Array.isArray(channels) &&
 			channels.map((channel, i) => {
 				return (
-					<section className='channel-list-option' key={i}>
+					<section
+						onClick={(_) => history.push(`/chat/${channel.id}`)}
+						className='channel-list-option'
+						key={i}
+					>
 						<aside>
 							<i className='fa-regular fa-hashtag'></i>
 						</aside>
-						<NavLink to={`/chat/${channel.id}`}>
-							<button>{channel.channel_name}</button>
-						</NavLink>
+						<aside>{channel.channel_name}</aside>
 					</section>
 				);
 			})

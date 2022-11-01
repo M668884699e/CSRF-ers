@@ -43,9 +43,10 @@
 .fa-plus {
 	border-radius: 3px;
 
-	color: #a4a3a6;
-	background-color: #39363e;
+	color: #A4A3A6;
+	background-color: #39363E;
 }
+
 
 /* ______________________________________________________________ */
 /* Section One: Left Bar Header */
@@ -59,6 +60,7 @@
 
 	padding-top: 10px;
 	padding-bottom: 10px;
+
 }
 
 #section-one:hover {
@@ -79,6 +81,7 @@
 	font-weight: bold;
 	color: #d1d2d3;
 }
+
 
 /* Create new message buttson */
 #new-message-button {
@@ -102,6 +105,7 @@
 	padding-left: 7px;
 	padding-bottom: 1px;
 }
+
 
 /* ______________________________________________________________ */
 /* Section Two: New activity */
@@ -152,6 +156,7 @@
 	background-color: #9e9ea1;
 } */
 
+
 /* ______________________________________________________________ */
 /* Section Three (Channel List) */
 #section-three {
@@ -160,6 +165,7 @@
 
 	height: fit-content;
 }
+
 
 #channel-section {
 	margin-top: 20px;
@@ -183,6 +189,7 @@
 .channel-list-option {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -191,14 +198,6 @@
 
 .channel-list-option:hover {
 	background-color: #27242c;
-}
-
-.channel-list-option button {
-	background-color: #19171d;
-	font-size: medium;
-	border: none;
-	color: #79777c;
-	padding: 0;
 }
 
 /* ______________________________________________________________ */
@@ -228,6 +227,7 @@
 	margin: 0;
 	padding: 0;
 }
+
 
 .dmr-list-option {
 	display: flex;
@@ -265,12 +265,12 @@
 }
 
 #footer:hover > * {
-	color: #d1d2d3;
+	color: #D1D2D3;
 }
 
-#footer:hover #communication {
-	color: #d1d2d3;
-	border: 1px solid #d1d2d3;
+#footer:hover #communication{
+	color: #D1D2D3;
+	border: 1px solid #D1D2D3;
 }
 
 #footer-name {
@@ -307,5 +307,5 @@
 }
 
 .fa-headphones:hover {
-	color: #d1d2d3;
+	color: #D1D2D3;
 }
