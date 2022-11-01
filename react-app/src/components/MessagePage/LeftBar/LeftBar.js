@@ -99,10 +99,7 @@ const LeftBar = () => {
 			<section id='section-three'>
 				<section id='channel-section'>
 					<details>
-						<summary
-							id='channel-header'>
-							Channels
-						</summary>
+						<summary id='channel-header'>Channels</summary>
 						<section id='channel-list'>
 							{loadAllChannels()}
 							<section
@@ -172,9 +169,7 @@ const LeftBar = () => {
 				</Modal>
 			)}
 			{addPeopleModal && (
-				<Modal
-					onClose={(_) => setAddPeopleModal(false)}
-					currentVisible={false}>
+				<Modal onClose={(_) => setAddPeopleModal(false)} currentVisible={false}>
 					<AddPeopleModal setAddPeopleModal={setAddPeopleModal} />
 				</Modal>
 			)}
