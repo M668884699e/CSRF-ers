@@ -99,7 +99,10 @@ const LeftBar = () => {
 			<section id='section-three'>
 				<section id='channel-section'>
 					<details>
-						<summary id='channel-header'>Channels</summary>
+						<summary
+							id='channel-header'>
+							Channels
+						</summary>
 						<section id='channel-list'>
 							{loadAllChannels()}
 							<section

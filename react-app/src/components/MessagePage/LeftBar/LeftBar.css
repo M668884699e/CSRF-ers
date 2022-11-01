@@ -177,6 +177,10 @@
 	margin-bottom: 10px;
 }
 
+#channel-header:hover{
+	cursor: pointer;
+}
+
 /* Channel header */
 #channel-list {
 	display: flex;

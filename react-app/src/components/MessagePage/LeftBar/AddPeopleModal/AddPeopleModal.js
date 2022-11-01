@@ -108,7 +108,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		usersToAdd.map((user) => {
 			dispatch(
 				channelActions.thunkPutAddUserToChannel(createdChannelId, user)
-			);
+			).then(() => setAddPeopleModal(false));
 		});
 
 		//? After getting channel page in chat page, navigate to specific channel
