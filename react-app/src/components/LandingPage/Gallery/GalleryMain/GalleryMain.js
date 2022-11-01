@@ -87,72 +87,149 @@ const GalleryMain = () => {
 						{/* Workspace */}
 						{channels.length > 0 ? (
 							<ul id='gm-figure-1-ul' className={`gm-figure-1-ul-${mainOpen}`}>
-								{channels.map(
-									(channel, index) =>
-										(mainOpen ? index <= 100 : index <= 1) && (
-											<li key={index} className='workspace-li'>
-												<section className='workspace-li-s1'>
-													<figure className='workspace-li-figure'>
-														<img
-															src={channel.channel_image}
-															alt={channel.channel_name}
-															className='workspace-li-figure-img'
-														/>
-													</figure>
-													<figure className='workspace-li-figure2'>
-														<p id='wlf2-p1'>{channel.channel_name}</p>
-														<section className='wlf2-section'>
-															<figure className='wlf2-section-figure'>
-																{channelsUsers
-																	.filter((cu) => cu.channel_id === channel.id)
-																	.map((user, index) => {
-																		const currentUser = Object.values(
-																			usersState
-																		).find(
-																			(userState) =>
-																				userState.id === user.user_id
-																		);
+								{channels.length === 1 ? (
+									<>
+										<li className='workspace-li'>
+											<section className='workspace-li-s1'>
+												<figure className='workspace-li-figure'>
+													<img
+														src={channels[0].channel_image}
+														alt={channels[0].channel_name}
+														className='workspace-li-figure-img'
+													/>
+												</figure>
+												<figure className='workspace-li-figure2'>
+													<p id='wlf2-p1'>{channels[0].channel_name}</p>
+													<section className='wlf2-section'>
+														<figure className='wlf2-section-figure'>
+															{channelsUsers
+																.filter(
+																	(cu) => cu.channel_id === channels[0].id
+																)
+																.map((user, index) => {
+																	const currentUser = Object.values(
+																		usersState
+																	).find(
+																		(userState) => userState.id === user.user_id
+																	);
 
-																		// filter channel users with channel_id that belong to current channel
-																		return (
-																			currentUser &&
-																			index < 4 && (
-																				<figure
-																					className='channel-user-img-container'
-																					key={currentUser.id}
-																				>
-																					<img
-																						className='channel-user-img'
-																						src={currentUser.profile_image}
-																						alt={currentUser.display_name}
-																					/>
-																				</figure>
-																			)
-																		);
-																	})}
-															</figure>
-															<p id='wlf2-p2'>
-																{/* query for members count */}
-																{channelsUsers &&
-																	channelsUsers.length > 0 &&
-																	channelsUsers.filter(
-																		(channelUsers) =>
-																			channel.id === channelUsers.channel_id
-																	).length}
-																<span>members</span>
-															</p>
-														</section>
-													</figure>
-												</section>
-												<section className='workspace-li-s2'>
-													<NavLink to={`/chat/${channel.id}`}>
-														<button className='workspace-li-s2-button'>
-															Launch Slack
-														</button>
-													</NavLink>
-												</section>
-											</li>
-										)
+																	// filter channel users with channel_id that belong to current channel
+																	return (
+																		currentUser &&
+																		index < 4 && (
+																			<figure
+																				className='channel-user-img-container'
+																				key={currentUser.id}
+																			>
+																				<img
+																					className='channel-user-img'
+																					src={currentUser.profile_image}
+																					alt={currentUser.display_name}
+																				/>
+																			</figure>
+																		)
+																	);
+																})}
+														</figure>
+														<p id='wlf2-p2'>
+															{/* query for members count */}
+															{channelsUsers &&
+																channelsUsers.length > 0 &&
+																channelsUsers.filter(
+																	(channelUsers) =>
+																		channels[0].id === channelUsers.channel_id
+																).length}
+															<span>members</span>
+														</p>
+													</section>
+												</figure>
+											</section>
+											<section className='workspace-li-s2'>
+												<NavLink to={`/chat/${channels[0].id}`}>
+													<button className='workspace-li-s2-button'>
+														Launch Slack
+													</button>
+												</NavLink>
+											</section>
+										</li>
+										<li className='workspace-li-2'>
+											<NavLink to='/start/setup'>
+												<button id='gm-cw-button'>
+													Create A New Workspace
+												</button>
+											</NavLink>
+										</li>
+									</>
+								) : (
+									channels.map(
+										(channel, index) =>
+											(mainOpen ? index <= 100 : index <= 1) && (
+												<li key={index} className='workspace-li'>
+													<section className='workspace-li-s1'>
+														<figure className='workspace-li-figure'>
+															<img
+																src={channel.channel_image}
+																alt={channel.channel_name}
+																className='workspace-li-figure-img'
+															/>
+														</figure>
+														<figure className='workspace-li-figure2'>
+															<p id='wlf2-p1'>{channel.channel_name}</p>
+															<section className='wlf2-section'>
+																<figure className='wlf2-section-figure'>
+																	{channelsUsers
+																		.filter(
+																			(cu) => cu.channel_id === channel.id
+																		)
+																		.map((user, index) => {
+																			const currentUser = Object.values(
+																				usersState
+																			).find(
+																				(userState) =>
+																					userState.id === user.user_id
+																			);
+
+																			// filter channel users with channel_id that belong to current channel
+																			return (
+																				currentUser &&
+																				index < 4 && (
+																					<figure
+																						className='channel-user-img-container'
+																						key={currentUser.id}
+																					>
+																						<img
+																							className='channel-user-img'
+																							src={currentUser.profile_image}
+																							alt={currentUser.display_name}
+																						/>
+																					</figure>
+																				)
+																			);
+																		})}
+																</figure>
+																<p id='wlf2-p2'>
+																	{/* query for members count */}
+																	{channelsUsers &&
+																		channelsUsers.length > 0 &&
+																		channelsUsers.filter(
+																			(channelUsers) =>
+																				channel.id === channelUsers.channel_id
+																		).length}
+																	<span>members</span>
+																</p>
+															</section>
+														</figure>
+													</section>
+													<section className='workspace-li-s2'>
+														<NavLink to={`/chat/${channel.id}`}>
+															<button className='workspace-li-s2-button'>
+																Launch Slack
+															</button>
+														</NavLink>
+													</section>
+												</li>
+											)
+									)
 								)}
 							</ul>
 						) : (

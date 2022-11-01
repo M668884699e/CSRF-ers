@@ -117,6 +117,13 @@
 	margin-left: 0.5rem;
 }
 
+.workspace-li-2 {
+	display: flex;
+	margin-top: 3rem;
+	align-items: center;
+	justify-content: center;
+}
+
 #wlf2-p1 {
 	margin: 0;
 	margin-bottom: 0.1rem;
