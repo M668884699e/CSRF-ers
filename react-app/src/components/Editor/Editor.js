@@ -23,6 +23,8 @@ import './editorStyles.css';
 // Font awesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
+
+// solid icons
 import {
   faBold,
   faStrikethrough,
@@ -35,6 +37,20 @@ import {
   faRotateLeft,
   faRotateRight,
 } from '@fortawesome/free-solid-svg-icons';
+
+
+// import {
+//   faBold,
+//   faStrikethrough,
+//   faItalic,
+//   faUnderline,
+//   faAlignLeft,
+//   faAlignCenter,
+//   faAlignRight,
+//   faAlignJustify,
+//   faRotateLeft,
+//   faRotateRight,
+// } from '@fortawesome/free-regular-svg-icons';
 
 // add fonts to library
 library.add(
@@ -65,7 +81,7 @@ export const Editor = () => {
   const initialConfig = {};
 
   return (
-    <div className="bg-white relative rounded-sm shadow-sm border border-gray-200">
+    <div className="rte-field relative rounded-sm shadow-sm border border-gray-200">
 
       {/* Lexical object with populated config object */}
       <LexicalComposer
@@ -100,11 +116,11 @@ export const Editor = () => {
           contentEditable={
             <ContentEditable className="min-h-[450px] outline-none py-[15px] px-2.5 resize-none overflow-hidden text-ellipsis" />
           }
-          placeholder={
-            <div className="absolute top-[15px] left-[10px] pointer-events-none select-none">
-              Enter some text...
-            </div>
-          }
+          // placeholder={
+          //   <div className="absolute top-[15px] left-[10px] pointer-events-none select-none">
+          //     Enter some text...
+          //   </div>
+          // }
         />
 
         {/* on change set with onChange function */}
@@ -156,10 +172,11 @@ const Toolbar = () => {
       
       {/* bold button */}
       <button
-        className={clsx(
-          'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
-          isBold ? 'bg-gray-700' : 'bg-transparent'
-        )}
+        // className={clsx(
+        //   'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
+        //   isBold ? 'bg-gray-700' : 'bg-transparent'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
@@ -172,10 +189,11 @@ const Toolbar = () => {
       
       {/* strikethrough */}
       <button
-        className={clsx(
-          'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
-          isStrikethrough ? 'bg-gray-700' : 'bg-transparent'
-        )}
+        // className={clsx(
+        //   'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
+        //   isStrikethrough ? 'bg-gray-700' : 'bg-transparent'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
         }}
@@ -188,10 +206,11 @@ const Toolbar = () => {
 
       {/* italic */}
       <button
-        className={clsx(
-          'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
-          isItalic ? 'bg-gray-700' : 'bg-transparent'
-        )}
+        // className={clsx(
+        //   'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
+        //   isItalic ? 'bg-gray-700' : 'bg-transparent'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
@@ -204,10 +223,11 @@ const Toolbar = () => {
 
       {/* underline */}
       <button
-        className={clsx(
-          'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
-          isUnderline ? 'bg-gray-700' : 'bg-transparent'
-        )}
+        // className={clsx(
+        //   'px-1 hover:bg-gray-700 transition-colors duration-100 ease-in',
+        //   isUnderline ? 'bg-gray-700' : 'bg-transparent'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
         }}
@@ -222,9 +242,10 @@ const Toolbar = () => {
 
       {/* left align */}
       <button
-        className={clsx(
-          'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
-        )}
+        // className={clsx(
+        //   'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
         }}
@@ -237,9 +258,10 @@ const Toolbar = () => {
 
       {/* center align */}
       <button
-        className={clsx(
-          'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
-        )}
+        // className={clsx(
+        //   'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
         }}
@@ -252,9 +274,10 @@ const Toolbar = () => {
 
       {/* right align */}
       <button
-        className={clsx(
-          'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
-        )}
+        // className={clsx(
+        //   'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
         }}
@@ -267,9 +290,10 @@ const Toolbar = () => {
 
       {/* justify content */}
       <button
-        className={clsx(
-          'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
-        )}
+        // className={clsx(
+        //   'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
         }}
@@ -284,9 +308,10 @@ const Toolbar = () => {
 
       {/* undo */}
       <button
-        className={clsx(
-          'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
-        )}
+        // className={clsx(
+        //   'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(UNDO_COMMAND);
         }}
@@ -299,9 +324,10 @@ const Toolbar = () => {
 
       {/* redo */}
       <button
-        className={clsx(
-          'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
-        )}
+        // className={clsx(
+        //   'px-1 bg-transparent hover:bg-gray-700 transition-colors duration-100 ease-in'
+        // )}
+        className='rte-button'
         onClick={() => {
           editor.dispatchCommand(REDO_COMMAND);
         }}
