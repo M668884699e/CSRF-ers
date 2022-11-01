@@ -137,3 +137,14 @@
     width: 30px;
     height: 30px;
 }
+
+.profile-name {
+    margin-top: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.message-text {
+    font-weight: 300;
+    margin-top: 5px;
+}

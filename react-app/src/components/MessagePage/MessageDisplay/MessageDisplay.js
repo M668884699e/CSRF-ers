@@ -94,15 +94,15 @@ const MessageDisplay = () => {
 										).profile_image
 									}
 								/>
-								<p>
-									{
-										Object.values(usersState).find(
-											(user) => user.id === message.sender_id
-										).display_name
-									}
-								</p>
 							</aside>
-							<aside>{message.message}</aside>
+							<aside className='profile-name'>
+								{
+									Object.values(usersState).find(
+										(user) => user.id === message.sender_id
+									).display_name
+								}
+								<aside className='message-text'>{message.message}</aside>
+							</aside>
 						</section>
 					))}
 				</section>

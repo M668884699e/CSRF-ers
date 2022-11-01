@@ -4,6 +4,7 @@ import ProfileBar from "./ProfileBar"
 import MessageSender from "./MessageSender"
 import MessageDisplay from "./MessageDisplay"
 import SearchBar from "./SearchBar"
+import { Editor } from "../Editor/Editor"
 
 // import context
 import { useProfile } from "../../context/ProfileContext"
@@ -41,6 +42,7 @@ const MessagePage = () => {
                 
                 {/* <MessageSender /> */}
                 <aside id="message-sender">
+                    <Editor />
                 </aside>
                 
                 {/* Message Profile Bar */}
