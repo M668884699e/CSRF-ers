@@ -78,7 +78,6 @@ export const thunkGetChannels = () => async (dispatch) => {
 
 		// dispatch load channel w/ loaded channels
 		dispatch(loadChannels(channelData.channels));
-
 		// return channels
 		return channelData;
 	}

@@ -73,7 +73,7 @@ const removeDmr = id => {
 }
 
 /* --------- THUNKS -------- */
-export const getAllDmrs = () => async(dispatch) => {
+export const thunkGetAllDmrs = () => async(dispatch) => {
     const response = await fetch('/api/dmr/', {
         headers: {
             'Content-Type' : 'application/json'
@@ -81,20 +81,27 @@ export const getAllDmrs = () => async(dispatch) => {
     });
 
     if (response.ok) {
-        const data = await response.json();
-        if(data.errors) {
+        const dmrData = await response.json();
+        if(dmrData.errors) {
             return;
         }
-        dispatch(getDmrs(data.DirectMessageRooms))
+        dispatch(getDmrs(dmrData.dmrs))
+        return dmrData;
     }
 
 }
 
-export const getAllUserDmrs = () => async(dispatch) => {
-    const res = await fetch("/api/dmr")
+export const thunkGetAllUserDmrs = () => async(dispatch) => {
+    const res = await fetch(`/api/users/dmr/`)
+
+    if(res.ok) {
+        const userDMRData = await res.json();
+        dispatch(getDmrs(userDMRData.dmrs))
+        return userDMRData;
+    }
 }
 
-export const getDmrById = (id) => async(dispatch) => {
+export const thunkGetDmrById = (id) => async(dispatch) => {
     const response = await fetch(`/api/dmr/${id}/`, {
         headers: {
             'Content-Type' : 'application/json'
@@ -110,7 +117,7 @@ export const getDmrById = (id) => async(dispatch) => {
     }
 }
 
-export const getAllDmrUsers = (dmr) => async(dispatch) => {
+export const thunkGetAllDmrUsers = (dmr) => async(dispatch) => {
     const { id } = dmr;
 
     const response = await fetch(`/api/dmr/${id}/users/`, {
@@ -128,7 +135,7 @@ export const getAllDmrUsers = (dmr) => async(dispatch) => {
     }
 }
 
-export const getAllDmrMessages = (dmr) => async(dispatch) => {
+export const thunkGetAllDmrMessages = (dmr) => async(dispatch) => {
     const { id } = dmr;
 
     const response = await fetch(`/api/dmr/${id}/messages/`, {
@@ -146,7 +153,7 @@ export const getAllDmrMessages = (dmr) => async(dispatch) => {
     }
 }
 
-export const setNewDmr = (dmr) => async(dispatch) => {
+export const thunkSetNewDmr = (dmr) => async(dispatch) => {
     const response = await fetch(`/api/dmr/`, {
         method: 'POST',
         headers: {
@@ -165,7 +172,7 @@ export const setNewDmr = (dmr) => async(dispatch) => {
     }
 }
 
-export const deleteDmr = (id) => async(dispatch) => {
+export const thunkDeleteDmr = (id) => async(dispatch) => {
     const response = await fetch(`/api/dmr/${id}`, {
         method: 'DELETE'
     });
@@ -177,35 +184,46 @@ export const deleteDmr = (id) => async(dispatch) => {
     }
 }
 
+/* --------- SELECTOR FUNCTIONS -------- */
+export const getAllDMRs = (state) => Object.values(state.dmrs);
+
+export const getDMRById = (dmrId) => (state) =>
+	Object.values(state.dmrs).find(
+		(dmr) => dmr.id === Number(dmrId)
+	);
+
 /* --------- REDUCERS -------- */
 let initialState = {}
 
 export default function dmrReducer (state = initialState, action){
     let newState = { ...state }
     switch (action.type) {
-        case GET_DMRS:
-            newState = {}
-            action.dmrs.forEach(dmr => {
-                newState[dmr.id] = dmr;
-            })
-            return newState;
-        case GET_DMR:
-            return { ...state,
-                [action.dmr.id] : action.dmr
-            }
-        case GET_DMR_USERS:
-            return { ...state,
-                [action.dmr.id] : action.dmr
-            }
-        case GET_DMR_MESSAGES:
-            return { ...state,
-                [action.dmr.id] : action.dmr
-            }
-        case REMOVE_DMR:
-            newState = { ...state };
-            delete newState[action.id]
-            return newState;
+        // case GET_DMRS:
+        //     newState = {}
+        //     action.dmrs.forEach(dmr => {
+        //         newState[dmr.id] = dmr;
+        //     })
+        //     return newState;
+        // case GET_DMR:
+        //     return { ...state,
+        //         [action.dmr.id] : action.dmr
+        //     }
+        // case GET_DMR_USERS:
+        //     return { ...state,
+        //         [action.dmr.id] : action.dmr
+        //     }
+        // case GET_DMR_MESSAGES:
+        //     return { ...state,
+        //         [action.dmr.id] : action.dmr
+        //     }
+        // case REMOVE_DMR:
+        //     newState = { ...state };
+        //     delete newState[action.id]
+        //     return newState;
+        // default:
+        //     return state;
+
         default:
-            return state;
+            return Object.assign({}, newState, action.dmrs)
     }
 }
