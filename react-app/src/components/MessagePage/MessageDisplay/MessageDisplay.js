@@ -16,6 +16,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import * as messageActions from '../../../store/message';
 import * as userActions from '../../../store/users';
 import * as sessionActions from '../../../store/session';
+import * as channelActions from '../../../store/channel';
 
 const MessageDisplay = () => {
 	/**
@@ -23,7 +24,19 @@ const MessageDisplay = () => {
 	 */
 	// get all messages that belong to current channel
 	const [messages, setMessages] = useState([]);
+	const [currentChatName, setCurrentChatName] = useState(false);
+
+	// deconstruct channelId
+	let { channelId, dmrId } = useParams();
+
+	channelId = Number(channelId);
+	dmrId = Number(dmrId);
+
+	const chatId = channelId ? channelId : dmrId;
+
+	// use selector
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
+	const currentChat = useSelector(channelActions.getChatById(chatId));
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -32,20 +45,17 @@ const MessageDisplay = () => {
 	const messageState = useSelector(messageActions.getAllMessages);
 	const usersState = useSelector(userActions.getAllUsers);
 
-	// deconstruct channelId
-	const channelId = Number(useParams().channelId);
-
 	// per message state
 	useEffect(() => {
-		dispatch(messageActions.thunkGetChannelMessages(channelId));
+		dispatch(messageActions.thunkGetChannelMessages(chatId));
 		dispatch(userActions.thunkGetAllUsers());
-	}, [dispatch, channelId]);
+	}, [dispatch, chatId]);
 
 	// per messageState
 	useEffect(() => {
 		if (Object.values(messageState).length > 0) {
 			const currentMessages = Object.values(messageState).filter((message) => {
-				return message.messageable_id === channelId;
+				return message.messageable_id === chatId;
 			});
 
 			setMessages(currentMessages);
@@ -58,30 +68,20 @@ const MessageDisplay = () => {
 				<section id='message-main-header'>
 					<section id='message-main-header-left'>
 						{/* BJM todo: Implement a button add feature maintaining css */}
-						<button id='message-main-header-name'>Test Message Name</button>
+						<button id='message-main-header-name'>
+							{currentChat.channel_name}
+						</button>
 						<aside id='message-main-header-link'>
 							Zoom Link:{' '}
-							<a href='https://www.google.com'>https://www.google.com</a>
+							<a href='https://us02web.zoom.us/j/84596241408?pwd=Q0NUYTBLWTJxVk1rbWd3b1B3dTZVQT09#success'>
+								https://us02web.zoom.us/j/84596241408?pwd=Q0NUYTBLWTJxVk1rbWd3b1B3dTZVQT09#success
+							</a>
 						</aside>
 					</section>
 					<section id='message-main-header-right'>
 						{/* BJM: todo on click display modal of members, incorporate centralized slack modal */}
 						<button>Members</button>
 					</section>
-				</section>
-				<section id='message-sub-header'>
-					<aside className='message-sub-header-section'>
-						<button className='message-sub-header-buttons'>0 Pinned</button>
-					</aside>
-					<aside className='message-sub-header-section'>
-						<button className='message-sub-header-buttons'>
-							+ Add a bookmark
-						</button>
-					</aside>
-					<aside className='message-sub-header-section'>
-						{/* BJM: todo add button header feature, in depth look needed */}
-						<button className='message-sub-header-buttons'>+</button>
-					</aside>
 				</section>
 				{/* BJM: todo create loop of messages grabbing all messages in channel */}
 				<section id='message-display-container'>

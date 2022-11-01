@@ -151,28 +151,29 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 };
 
 // thunk put user or users into channel
-export const thunkPutAddUserToChannel = (channelId, userId) => async (dispatch) => {
-	// fetch the put data
-	const res = await fetch(`/api/channels/${channelId}/users/${userId}`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
+export const thunkPutAddUserToChannel =
+	(channelId, userId) => async (dispatch) => {
+		// fetch the put data
+		const res = await fetch(`/api/channels/${channelId}/users/${userId}`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		if (res.ok) {
+			const channelData = await res.json();
+			dispatch(createChannel(channelData));
+
+			return channelData;
+		} else {
+			return null;
 		}
-	});
+		// iterate through users grab the id
+		// create put for each one
 
-	if (res.ok) {
-		const channelData = await res.json();
-		dispatch(createChannel(channelData));
-
-		return channelData;
-	} else {
-		return null;
-	}
-	// iterate through users grab the id
-	// create put for each one
-
-	// dispatch for each id
-};
+		// dispatch for each id
+	};
 
 // thunk put channel
 // export const thunkPutChannel = id => async dispatch => {
@@ -219,10 +220,14 @@ export const thunkDeleteChannel = (id) => async (dispatch) => {
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllChannels = (state) => Object.values(state.channels);
 
-export const getChannelById = (channelId) => (state) =>
-	Object.values(state.channels).find(
-		(channel) => channel.id === Number(channelId)
-	);
+export const getChatById =
+	(chatId, type = 'channel') =>
+	(state) =>
+		type === 'channel'
+			? Object.values(state.channels).find(
+					(channel) => channel.id === Number(chatId)
+			  )
+			: Object.values(state.dmrs).find((dmr) => dmr.id === Number(chatId));
 /* --------- REDUCERS -------- */
 
 const initialState = {};

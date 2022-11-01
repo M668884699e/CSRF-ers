@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import react-router-dom
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../store/channel';
@@ -83,13 +83,11 @@ const LeftBar = () => {
 		);
 	};
 
-	const values = 'test';
-
 	return (
 		<aside id='left-bar-main'>
 			<section id='section-one'>
 				<section id='server-name'>
-					<h4>Place Holder Name</h4>
+					<h4>Slackers</h4>
 					<figure id='new-message-button'>
 						<i className='fa-brands fa-slack'></i>
 					</figure>

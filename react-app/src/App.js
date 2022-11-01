@@ -77,7 +77,12 @@ function App() {
 
 				{/* //? Chatroom Route */}
 				<Route path='/chat/channels/:channelId' exact={true}>
-						<MessagePage />
+					<MessagePage />
+				</Route>
+
+				{/* //? DMR Route */}
+				<Route path='/chat/dmr/:dmrId' exact={true}>
+					<MessagePage />
 				</Route>
 
 				{/* //? 404 Route */}
