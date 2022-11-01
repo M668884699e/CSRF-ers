@@ -8,22 +8,25 @@ import configureStore from './store';
 import { ModalProvider } from './context/Modal';
 import UserProvider from './context/UserContext';
 import ChannelsUsersProvider from './context/ChannelsUsersContext';
+import ProfileProvider from './context/ProfileContext';
 
 const store = configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ModalProvider>
-        <UserProvider>
-          <ChannelProvider>
-            <ChannelsUsersProvider>
-              <App />
-            </ChannelsUsersProvider>
-          </ChannelProvider>
-        </UserProvider>
-      </ModalProvider>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<Provider store={store}>
+			<ModalProvider>
+				<UserProvider>
+					<ChannelProvider>
+						<ChannelsUsersProvider>
+							<ProfileProvider>
+								<App />
+							</ProfileProvider>
+						</ChannelsUsersProvider>
+					</ChannelProvider>
+				</UserProvider>
+			</ModalProvider>
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById('root')
 );

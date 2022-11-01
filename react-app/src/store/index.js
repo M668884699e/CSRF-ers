@@ -5,13 +5,15 @@ import channelReducer from './channel';
 import dmrReducer from './dmr'
 import userReducer from './users';
 import channelsUsersReducer from './channels-users';
+import messageReducer from './message';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   channels: channelReducer,
   dmrs: dmrReducer,
   users: userReducer,
-  channelsUsers: channelsUsersReducer
+  channelsUsers: channelsUsersReducer,
+  messages: messageReducer
 });
 
 

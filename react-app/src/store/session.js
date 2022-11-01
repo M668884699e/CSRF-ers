@@ -126,8 +126,6 @@ export const thunkEditUser = userInfo => async dispatch => {
   formData.append("profile_image", profile_image);
 
   // hit edit user backend route w/ form data
-  console.log("click before res");
-  
   const res = await fetch('/api/users/', {
     method: 'PUT',
     body: formData

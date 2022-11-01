@@ -4,13 +4,12 @@
 import { useChannel } from '../../../../context/ChannelContext';
 import { useLanding } from '../../../../context/LandingContext';
 import { useChannelsUsers } from '../../../../context/ChannelsUsersContext';
-import { useUsers } from '../../../../context/UserContext';
 
 // import css
 import './GalleryMain.css';
 
 // import react
-import { useContext, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
