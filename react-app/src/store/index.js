@@ -6,6 +6,7 @@ import dmrReducer from './dmr'
 import userReducer from './users';
 import channelsUsersReducer from './channels-users';
 import messageReducer from './message';
+import dmrUsersReducer from './dmr-users';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   dmrs: dmrReducer,
   users: userReducer,
   channelsUsers: channelsUsersReducer,
+  dmrUsers: dmrUsersReducer,
   messages: messageReducer
 });
 
