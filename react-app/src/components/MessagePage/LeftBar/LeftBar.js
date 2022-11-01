@@ -31,26 +31,20 @@ const LeftBar = () => {
 	// invoke history
 	const history = useHistory();
 
-	const usersState = useSelector(userActions.getAllUsers);
 	const channelsUsersState = useSelector(
 		channelsUsersActions.getAllUsersChannels
 	);
 	const channelState = useSelector(channelActions.getAllChannels);
-	const userEmail = useSelector(sessionActions.getUserEmail);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
 	// load channels
 	useEffect(() => {
 		dispatch(channelActions.thunkGetChannels());
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
-		dispatch(userActions.thunkGetAllUsers());
 	}, [dispatch]);
 
 	// per channelState
 	useEffect(() => {
-		// set channels
-		setChannels(channelState);
-
 		if (channelState) {
 			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
 				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
@@ -86,7 +80,7 @@ const LeftBar = () => {
 			channels.map((channel, i) => {
 				return (
 					<section
-						onClick={(_) => history.push(`/chat/${channel.id}`)}
+						onClick={(_) => history.push(`/chat/channels/${channel.id}`)}
 						className='channel-list-option'
 						key={i}
 					>

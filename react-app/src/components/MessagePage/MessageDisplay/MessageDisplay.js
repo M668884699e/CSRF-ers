@@ -36,6 +36,7 @@ const MessageDisplay = () => {
 	// per message state
 	useEffect(() => {
 		dispatch(messageActions.thunkGetChannelMessages(chatId));
+		dispatch(userActions.thunkGetAllUsers());
 	}, [dispatch, chatId]);
 
 	// per messageState

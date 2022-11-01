@@ -76,7 +76,7 @@ function App() {
 				</ProtectedRoute>
 
 				{/* //? Chatroom Route */}
-				<Route path='/chat/:chatId' exact={true}>
+				<Route path='/chat/channels/:chatId' exact={true}>
 						<MessagePage />
 				</Route>
 
