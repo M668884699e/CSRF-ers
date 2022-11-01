@@ -99,43 +99,9 @@ const LeftBar = () => {
 			<section id='section-one'>
 				<section id='server-name'>
 					<h4>Place Holder Name</h4>
-					<button id='new-message-button'>
-						<i className='fa-regular fa-pen-to-square' />
-					</button>
-				</section>
-			</section>
-
-			<section id='section-two'>
-				<section className='section-two-options'>
-					<i className='fa-regular fa-comment'></i>
-					<aside>Threads</aside>
-					{/* <aside className="new-notification">NEW</aside> */}
-				</section>
-				<section className='section-two-options'>
-					<i className='fa-regular fa-comments'></i>
-					<aside>Direct messages</aside>
-					{/* <aside className="new-notification">NEW</aside> */}
-				</section>
-				<section className='section-two-options'>
-					<i className='fa-regular fa-at'></i>
-					<aside>Mentions & reactions</aside>
-					{/* <aside className="new-notification">NEW</aside> */}
-				</section>
-				<section className='section-two-options'>
-					<i className='fa-regular fa-paper-plane'></i>
-					<aside>Drafts & sent</aside>
-					{/* <aside className="new-notification">NEW</aside> */}
-				</section>
-				<section className='section-two-options'>
-					<i className='fa-regular fa-building'></i>
-
-					<aside>Slack Connect</aside>
-					{/* <aside className="new-notification">NEW</aside> */}
-				</section>
-				<section className='section-two-options'>
-					<i className='fa-solid fa-ellipsis-vertical'></i>
-					<aside>More</aside>
-					{/* <aside className="new-notification">NEW</aside> */}
+					<figure id='new-message-button'>
+						<i className='fa-brands fa-slack'></i>
+					</figure>
 				</section>
 			</section>
 
@@ -191,11 +157,9 @@ const LeftBar = () => {
 			</section>
 
 			<footer id='footer'>
-				<section id='footer-name'>Place Holder Name</section>
+				<section id='footer-name'>Leave Slackers</section>
 				<section id='footer-button'>
-					<button id='communication'>
-						<i className='fa-solid fa-headphones'></i>
-					</button>
+					<i className='fa-solid fa-right-from-bracket'></i>
 				</section>
 			</footer>
 		</aside>
