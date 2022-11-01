@@ -196,6 +196,34 @@
 	background-color: #4a154b;
 }
 
+#gm-cw-button-section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+#gm-cw-button {
+	background-color: #4a154b;
+	color: white;
+	margin-right: 0.5rem;
+	border: 1.5px solid white;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: small;
+	box-sizing: border-box;
+	letter-spacing: 1.5px;
+	border-radius: 0.2rem;
+	padding: 0.75rem 1rem;
+	transition: box-shadow 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+}
+
+#gm-cw-button:hover {
+	cursor: pointer;
+	box-shadow: 0 0 5px 5px rgb(0 0 0 / 0.2);
+}
+
 /* Gallery Main Footer */
 #gm-figure-1 > footer {
 	display: flex;

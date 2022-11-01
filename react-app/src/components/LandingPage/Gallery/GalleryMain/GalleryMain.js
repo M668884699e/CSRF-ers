@@ -50,139 +50,147 @@ const GalleryMain = () => {
 		dispatch(userActions.thunkGetAllUsers());
 	}, [dispatch]);
 
-	// per channelState
+	// per channelState, currentUserId, channelsUsersState
 	useEffect(() => {
-		// set channels
-		setChannels(channelState);
+		setChannelsUsers(channelsUsersState);
 
-		if (channelState) {
+		if (Array.isArray(channelState) && Array.isArray(channelsUsers)) {
 			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
 				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
 				: '';
 
 			const currentChannelDetail = [];
 
-			Array.isArray(channelsUsers) &&
-				currentChannelsUserBelongTo.forEach((cu) => {
-					currentChannelDetail.push(cu.channel_id);
-				});
+			currentChannelsUserBelongTo.forEach((cu) => {
+				currentChannelDetail.push(cu.channel_id);
+			});
 
-			const channelDisplay =
-				Array.isArray(channelState) &&
-				channelState.filter((channel) =>
-					currentChannelDetail.includes(channel.id)
-				);
+			const currentChannelDisplay = channelState.filter((channel) =>
+				currentChannelDetail.includes(channel.id)
+			);
 
-			if (Array.isArray(channelDisplay)) {
-				setChannels(channelDisplay);
+			if (currentChannelDisplay) {
+				setChannels(currentChannelDisplay);
 			}
 		}
-	}, [channelState]);
-
-	// per channelsUsers state
-	useEffect(() => {
-		setChannelsUsers(channelsUsersState);
-	}, [channelsUsersState]);
+	}, [channelState, currentUserId, channelsUsersState]);
 
 	return (
-		<section id='gm-container'>
-			<figure id='gm-figure-1' className={`gm-figure-1-${mainOpen}`}>
-				<summary>
-					{/* Workspaces for user-email */}
-					<h2>Workspaces for {userEmail}</h2>
-				</summary>
-				<main>
-					{/* Workspace */}
-					<ul id='gm-figure-1-ul' className={`gm-figure-1-ul-${mainOpen}`}>
-						{channelState.map(
-							(channel, index) =>
-								(mainOpen ? index <= 100 : index <= 1) && (
-									<li key={index} className='workspace-li'>
-										<section className='workspace-li-s1'>
-											<figure className='workspace-li-figure'>
-												<img
-													src={channel.channel_image}
-													alt={channel.channel_name}
-													className='workspace-li-figure-img'
-												/>
-											</figure>
-											<figure className='workspace-li-figure2'>
-												<p id='wlf2-p1'>{channel.channel_name}</p>
-												<section className='wlf2-section'>
-													<figure className='wlf2-section-figure'>
-														{Array.isArray(channels) &&
-															channels.map((user, index) => {
-																const currentUser = Object.values(
-																	usersState
-																).find(
-																	(userState) => userState.id === user.user_id
-																);
-
-																return (
-																	currentUser &&
-																	index < 4 && (
-																		<figure
-																			className='channel-user-img-container'
-																			key={currentUser.id}
-																		>
-																			<img
-																				className='channel-user-img'
-																				src={currentUser.profile_image}
-																				alt={currentUser.display_name}
-																			/>
-																		</figure>
-																	)
-																);
-															})}
+		Array.isArray(channels) && (
+			<section id='gm-container'>
+				<figure id='gm-figure-1' className={`gm-figure-1-${mainOpen}`}>
+					<summary>
+						{/* Workspaces for user-email */}
+						<h2>Workspaces for {userEmail}</h2>
+					</summary>
+					<main>
+						{/* Workspace */}
+						{channels.length > 0 ? (
+							<ul id='gm-figure-1-ul' className={`gm-figure-1-ul-${mainOpen}`}>
+								{channels.map(
+									(channel, index) =>
+										(mainOpen ? index <= 100 : index <= 1) && (
+											<li key={index} className='workspace-li'>
+												<section className='workspace-li-s1'>
+													<figure className='workspace-li-figure'>
+														<img
+															src={channel.channel_image}
+															alt={channel.channel_name}
+															className='workspace-li-figure-img'
+														/>
 													</figure>
-													<p id='wlf2-p2'>
-														{/* query for members count */}
-														{channelsUsers &&
-															channelsUsers.length > 0 &&
-															channelsUsers.filter(
-																(channelUsers) =>
-																	channel.id === channelUsers.channel_id
-															).length}
-														<span>members</span>
-													</p>
+													<figure className='workspace-li-figure2'>
+														<p id='wlf2-p1'>{channel.channel_name}</p>
+														<section className='wlf2-section'>
+															<figure className='wlf2-section-figure'>
+																{channelsUsers
+																	.filter((cu) => cu.channel_id === channel.id)
+																	.map((user, index) => {
+																		const currentUser = Object.values(
+																			usersState
+																		).find(
+																			(userState) =>
+																				userState.id === user.user_id
+																		);
+
+																		// filter channel users with channel_id that belong to current channel
+																		return (
+																			currentUser &&
+																			index < 4 && (
+																				<figure
+																					className='channel-user-img-container'
+																					key={currentUser.id}
+																				>
+																					<img
+																						className='channel-user-img'
+																						src={currentUser.profile_image}
+																						alt={currentUser.display_name}
+																					/>
+																				</figure>
+																			)
+																		);
+																	})}
+															</figure>
+															<p id='wlf2-p2'>
+																{/* query for members count */}
+																{channelsUsers &&
+																	channelsUsers.length > 0 &&
+																	channelsUsers.filter(
+																		(channelUsers) =>
+																			channel.id === channelUsers.channel_id
+																	).length}
+																<span>members</span>
+															</p>
+														</section>
+													</figure>
 												</section>
-											</figure>
-										</section>
-										<section className='workspace-li-s2'>
-											<NavLink to={`/chat/${channel.id}`}>
-												<button className='workspace-li-s2-button'>
-													Launch Slack
-												</button>
-											</NavLink>
-										</section>
-									</li>
-								)
-						)}
-					</ul>
-				</main>
-				<footer>
-					<button
-						onClick={(e) => {
-							//* toggle mainOpen
-							// if main open is off (false), get gm-container otherwise get gm-container-on
-							setMainOpen(!mainOpen);
-						}}
-					>
-						{mainOpen ? (
-							<>
-								Show fewer workspaces
-								<i className='fa-solid fa-angle-up'></i>
-							</>
+												<section className='workspace-li-s2'>
+													<NavLink to={`/chat/${channel.id}`}>
+														<button className='workspace-li-s2-button'>
+															Launch Slack
+														</button>
+													</NavLink>
+												</section>
+											</li>
+										)
+								)}
+							</ul>
 						) : (
-							<>
-								Show more workspaces
-								<i className='fa-solid fa-angle-down'></i>
-							</>
+							<section id='gm-cw-button-section'>
+								<p>No channels currently available.</p>
+								<NavLink to='/start/setup'>
+									<button id='gm-cw-button'>Create A New Workspace</button>
+								</NavLink>
+							</section>
 						)}
-					</button>
-				</footer>
-			</figure>
-		</section>
+					</main>
+					{channels.length > 0 && (
+						<footer>
+							<button
+								onClick={(e) => {
+									//* toggle mainOpen
+									// if main open is off (false), get gm-container otherwise get gm-container-on
+									setMainOpen(!mainOpen);
+								}}
+							>
+								{channels.length > 2 &&
+									(mainOpen ? (
+										<>
+											Show fewer workspaces
+											<i className='fa-solid fa-angle-up'></i>
+										</>
+									) : (
+										<>
+											Show more workspaces
+											<i className='fa-solid fa-angle-down'></i>
+										</>
+									))}
+							</button>
+						</footer>
+					)}
+				</figure>
+			</section>
+		)
 	);
 };
 

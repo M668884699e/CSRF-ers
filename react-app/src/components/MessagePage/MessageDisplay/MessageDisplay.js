@@ -31,16 +31,22 @@ const MessageDisplay = () => {
 	const usersState = useSelector(userActions.getAllUsers);
 
 	// deconstruct channelId
-	const { chatId } = useParams();
+	const chatId = Number(useParams().chatId);
 
 	// per message state
 	useEffect(() => {
 		dispatch(messageActions.thunkGetChannelMessages(chatId));
-	}, [dispatch]);
+	}, [dispatch, chatId]);
 
 	// per messageState
 	useEffect(() => {
-		setMessages(messageState);
+		if (Object.values(messageState).length > 0) {
+			const currentMessages = Object.values(messageState).filter((message) => {
+				return message.messageable_id === chatId;
+			});
+
+			setMessages(currentMessages);
+		}
 	}, [messageState]);
 
 	return (
@@ -77,7 +83,7 @@ const MessageDisplay = () => {
 				</section>
 				{/* BJM: todo create loop of messages grabbing all messages in channel */}
 				<section id='message-display-container'>
-					{Object.values(messageState).map((message) => (
+					{messages.map((message) => (
 						<section className='message' key={message.id}>
 							<aside className='profile-pic'>
 								<img
@@ -89,8 +95,8 @@ const MessageDisplay = () => {
 								/>
 								<p>
 									{
-										Object.values(usersState).find((user) => 
-											user.id === message.sender_id
+										Object.values(usersState).find(
+											(user) => user.id === message.sender_id
 										).display_name
 									}
 								</p>

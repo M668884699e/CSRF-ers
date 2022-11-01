@@ -77,9 +77,7 @@ function App() {
 
 				{/* //? Chatroom Route */}
 				<Route path='/chat/:chatId' exact={true}>
-					<ProfileProvider>
 						<MessagePage />
-					</ProfileProvider>
 				</Route>
 
 				{/* //? 404 Route */}

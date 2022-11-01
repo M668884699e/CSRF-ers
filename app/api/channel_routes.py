@@ -28,9 +28,19 @@ def get_all_channels():
     """
     Get all channels
     """
-    channels = Channel.query.filter(Channel.public == True).all()
+    channels = Channel.query.all()
     return {"channels": [channel.to_dict() for channel in channels]}
 
+#* GET - /channels/public
+# Get all public channels
+@login_required
+@channel_routes.route("/")
+def get_all_public_channels():
+    """
+    Get all public channels
+    """
+    channels = Channel.query.filter(Channel.public == True).all()
+    return {"channels": [channel.to_dict() for channel in channels]}
 
 #* GET - /channels/:channelId
 # Get specific channel, requires authentication if current user is member of channel
