@@ -15,6 +15,7 @@ import { NavLink, useParams } from 'react-router-dom';
 // import store
 import * as messageActions from '../../../store/message';
 import * as userActions from '../../../store/users';
+import * as sessionActions from '../../../store/session';
 
 const MessageDisplay = () => {
 	/**
@@ -22,6 +23,7 @@ const MessageDisplay = () => {
 	 */
 	// get all messages that belong to current channel
 	const [messages, setMessages] = useState([]);
+	const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -31,27 +33,26 @@ const MessageDisplay = () => {
 	const usersState = useSelector(userActions.getAllUsers);
 
 	// deconstruct channelId
-	const chatId = Number(useParams().chatId);
+	const channelId = Number(useParams().channelId);
 
 	// per message state
 	useEffect(() => {
-		dispatch(messageActions.thunkGetChannelMessages(chatId));
+		dispatch(messageActions.thunkGetChannelMessages(channelId));
 		dispatch(userActions.thunkGetAllUsers());
-	}, [dispatch, chatId]);
+	}, [dispatch, channelId]);
 
 	// per messageState
 	useEffect(() => {
 		if (Object.values(messageState).length > 0) {
 			const currentMessages = Object.values(messageState).filter((message) => {
-				return message.messageable_id === chatId;
+				return message.messageable_id === channelId;
 			});
 
 			setMessages(currentMessages);
 		}
-	}, [messageState]);
+	}, [messageState, usersState]);
 
 	return (
-		Object.values(messageState).length > 0 &&
 		Object.values(usersState).length > 0 && (
 			<section id='message-display-main'>
 				<section id='message-main-header'>
@@ -84,27 +85,28 @@ const MessageDisplay = () => {
 				</section>
 				{/* BJM: todo create loop of messages grabbing all messages in channel */}
 				<section id='message-display-container'>
-					{messages.map((message) => (
-						<section className='message' key={message.id}>
-							<aside className='profile-pic'>
-								<img
-									src={
-										Object.values(usersState).find(
-											(user) => user.id === message.sender_id
-										).profile_image
-									}
-								/>
-								<p>
-									{
-										Object.values(usersState).find(
-											(user) => user.id === message.sender_id
-										).display_name
-									}
-								</p>
-							</aside>
-							<aside>{message.message}</aside>
-						</section>
-					))}
+					{Object.values(messageState).length > 0 &&
+						messages.map((message) => (
+							<section className='message' key={message.id}>
+								<aside className='profile-pic'>
+									<img
+										src={
+											Object.values(usersState).find(
+												(user) => user.id === message.sender_id
+											).profile_image
+										}
+									/>
+									<p>
+										{
+											Object.values(usersState).find(
+												(user) => user.id === message.sender_id
+											).display_name
+										}
+									</p>
+								</aside>
+								<aside>{message.message}</aside>
+							</section>
+						))}
 				</section>
 			</section>
 		)

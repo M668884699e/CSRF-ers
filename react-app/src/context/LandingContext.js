@@ -1,5 +1,5 @@
 // src/components/context/LandingContext.js
-import { useState, useContext, createContext, useEffect } from 'react';
+import { useState, useContext, createContext } from 'react';
 
 // set up context
 export const LandingContext = createContext();

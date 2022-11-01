@@ -4,9 +4,10 @@ import './LeftBar.css';
 // import context
 import { useChannel } from '../../../context/ChannelContext';
 import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
+import { useMessage } from '../../../context/MessageContext';
 
 // import react
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,10 +21,19 @@ import * as dmrActions from '../../../store/channel';
 import * as sessionActions from '../../../store/session';
 import * as channelsUsersActions from '../../../store/channels-users';
 import * as userActions from '../../../store/users';
+import { Modal } from '../../../context/Modal';
+import CreateChannelModal from './CreateChannelModal';
+import AddPeopleModal from './AddPeopleModal';
 
 const LeftBar = () => {
+	/**
+	 * Controlled inputs
+	 */
+	const { addPeopleModal, setAddPeopleModal } = useMessage();
 	const { channels, setChannels } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
+	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
+	useState([]);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -39,34 +49,13 @@ const LeftBar = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetChannels());
+		dispatch(channelActions.thunkGetUserChannels());
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
-	}, [dispatch]);
+	}, [dispatch, currentUserId]);
 
 	// per channelState
 	useEffect(() => {
-		if (channelState) {
-			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-				: '';
-
-			const currentChannelDetail = [];
-
-			Array.isArray(channelsUsers) &&
-				currentChannelsUserBelongTo.forEach((cu) => {
-					currentChannelDetail.push(cu.channel_id);
-				});
-
-			const channelDisplay =
-				Array.isArray(channelState) &&
-				channelState.filter((channel) =>
-					currentChannelDetail.includes(channel.id)
-				);
-
-			if (Array.isArray(channelDisplay)) {
-				setChannels(channelDisplay);
-			}
-		}
+		setChannels(channelState);
 	}, [channelState]);
 
 	// per channelsUsers state
@@ -94,6 +83,8 @@ const LeftBar = () => {
 		);
 	};
 
+	const values = 'test';
+
 	return (
 		<aside id='left-bar-main'>
 			<section id='section-one'>
@@ -111,11 +102,14 @@ const LeftBar = () => {
 						<summary id='channel-header'>Channels</summary>
 						<section id='channel-list'>
 							{loadAllChannels()}
-							<section className='channel-list-option'>
+							<section
+								className='channel-list-option'
+								onClick={(_) => setCreateChannelOpenModal(true)}
+							>
 								<aside>
 									<i className='fa-regular fa-plus'></i>
 								</aside>
-								<aside>Browse Channels</aside>
+								<aside>Create A Channel</aside>
 							</section>
 						</section>
 					</details>
@@ -162,6 +156,25 @@ const LeftBar = () => {
 					<i className='fa-solid fa-right-from-bracket'></i>
 				</section>
 			</footer>
+
+			{/* Edit Profile Modal */}
+			{createChannelOpenModal && (
+				<Modal
+					onClose={(_) => setCreateChannelOpenModal(false)}
+					currentVisible={false}
+				>
+					<CreateChannelModal
+						setCreateChannelOpenModal={setCreateChannelOpenModal}
+					/>
+				</Modal>
+			)}
+			{addPeopleModal && (
+				<Modal
+					onClose={(_) => setAddPeopleModal(false)}
+					currentVisible={false}>
+					<AddPeopleModal setAddPeopleModal={setAddPeopleModal} />
+				</Modal>
+			)}
 		</aside>
 	);
 };

@@ -141,27 +141,34 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 		body: JSON.stringify(new_channel_info),
 	});
 
-	if (!res) return null;
-
 	if (res.ok) {
 		const data = await res.json();
 		dispatch(createChannel(data));
 
 		return data;
+	} else {
+		return null;
 	}
 };
 
 // thunk put user or users into channel
-export const thunkPutUserChannel = (channel, userId) => async (dispatch) => {
+export const thunkPutAddUserToChannel = (channelId, userId) => async (dispatch) => {
 	// fetch the put data
-	const res = await fetch(`/api/channels/${channel}/users/${userId}`, {
+	const res = await fetch(`/api/channels/${channelId}/users/${userId}`, {
 		method: 'PUT',
 		headers: {
 			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(),
+		}
 	});
 
+	if (res.ok) {
+		const channelData = await res.json();
+		dispatch(createChannel(channelData));
+
+		return channelData;
+	} else {
+		return null;
+	}
 	// iterate through users grab the id
 	// create put for each one
 

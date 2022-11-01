@@ -156,7 +156,7 @@ input[type='checkbox']#private-switch {
 }
 
 input[type='checkbox']#private-switch:checked {
-	background: #8c4594;
+	background: #007A5A;
 }
 
 input[type='checkbox']#private-switch:after {

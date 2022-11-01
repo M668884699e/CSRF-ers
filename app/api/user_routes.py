@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, User, Message, DMRUser, ChannelUser, Notification
+from app.models import db, User, Message, DMRUser, ChannelUser, Channel, Notification
 from app.forms import LoginForm, SignUpForm, EditUserForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.s3_helpers import (
@@ -109,8 +109,19 @@ def get_user_messages():
 @login_required
 def get_user_channels():
     # query Channel and find any that current user belongs to
-    belongs_channels = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id())
+    belongs_channels_users = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id())
 
+    # variable to store all channels details that current user belongs to
+    belongs_channels_ids = []
+
+    # get list of all channel id that user belongs to from belongs_channels_users
+    for key in [belongs_channel_users.to_dict() for belongs_channel_users in belongs_channels_users]:
+        if(key['user_id'] == int(current_user.get_id())):
+            belongs_channels_ids.append(key['channel_id'])
+    
+    belongs_channels = Channel.query.filter(Channel.id.in_(belongs_channels_ids))
+
+    # return successful response
     return {"channels": [belongs_channel.to_dict() for belongs_channel in belongs_channels]}
 
 #* GET - /users/notifications

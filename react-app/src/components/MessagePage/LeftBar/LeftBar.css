@@ -198,6 +198,7 @@
 
 .channel-list-option:hover {
 	background-color: #27242c;
+	cursor: pointer;
 }
 
 /* ______________________________________________________________ */
