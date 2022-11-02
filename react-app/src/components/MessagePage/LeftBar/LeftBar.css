@@ -229,7 +229,7 @@
 }
 
 
-.dmr-list-option {
+.dmr-list-option > * {
 	display: flex;
 	flex-direction: row;
 
