@@ -73,7 +73,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		setOnLoad(true);
 
 		if (editChannel) {
-			console.log('currentChannel', currentChannel.id);
+			console.log('currentChannel id: ', currentChannel.id);
 			setChannelName(currentChannel.channel_name);
 		}
 	}, [onLoad, editChannel]);

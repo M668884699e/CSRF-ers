@@ -53,6 +53,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 						dispatch(channelActions.thunkGetUserChannels());
 					})
 					.then(() =>
+						// () => {}
 						history.push(`/chat/channels/${channelState.length - 1}`)
 					);
 			}

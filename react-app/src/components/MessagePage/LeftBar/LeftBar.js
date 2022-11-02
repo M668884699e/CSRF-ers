@@ -115,6 +115,7 @@ const LeftBar = () => {
 							// prevent default right click
 							e.preventDefault();
 
+							
 							// turn modal on
 							setRightClickModal(true);
 							setRect(e.target.getBoundingClientRect());
