@@ -74,7 +74,7 @@ const LeftBar = () => {
 		// const test = new Set(channelState);
 		// console.log('test', test);
 
-		
+
 
 		setChannels(channelState);
 	}, [channelState]);
@@ -119,9 +119,11 @@ const LeftBar = () => {
 	}, [currentChannelId]);
 
 	const loadAllChannels = () => {
+		const channelsArray = Object.values(channels)
+
 		return (
-			Array.isArray(channels) &&
-			channels.map((channel, i) => {
+			Array.isArray(channelsArray) &&
+			channelsArray.map((channel, i) => {
 				return (
 					<section
 						onClick={(_) => history.push(`/chat/channels/${channel.id}`)}

@@ -228,28 +228,33 @@ const initialState = {};
 
 export default function channelReducer(state = initialState, action) {
 	const newChannels = { ...state };
+	console.log({...state}, "test 1")
 
 	switch (action.type) {
 		// case: remove channel
 		case DELETE_CHANNEL:
 			const deleteChannels = { ...state };
 
-			console.log('deleteChannels (before)', deleteChannels);
-			console.log('newChannels', newChannels);
+			delete deleteChannels[action.id]
 
-			Object.values(deleteChannels).forEach((channel, index) => {
-				console.log('channel.id', channel.id, '|| type of', typeof channel.id);
-				console.log('action.id', action.id, '|| type of', typeof action.id);
-				if (channel.id === action.id) delete deleteChannels[index];
-			});
+			// console.log('deleteChannels (before)', deleteChannels);
+			// console.log('newChannels', newChannels);
 
-			console.log('deleteChannels (after)', deleteChannels);
+			// Object.values(deleteChannels).forEach((channel, index) => {
+			// 	console.log('channel.id', channel.id, '|| type of', typeof channel.id);
+			// 	console.log('action.id', action.id, '|| type of', typeof action.id);
+			// 	if (channel.id === action.id) delete deleteChannels[index];
+			// });
+
+			// console.log('deleteChannels (after)', deleteChannels);
 
 			// delete Object.values(newChannels).find((channel) => {
 			// 	console.log('channel.id', channel.id, '|| type of', typeof channel.id);
 			// 	console.log('action.id', action.id, '|| type of', typeof action.id);
 			// 	return channel.id === action.id;
 			// });
+
+			// console.log({...state}, "test 1")
 
 			return deleteChannels;
 		// default case
