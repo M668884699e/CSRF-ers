@@ -127,6 +127,9 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				// exit out the modal
 				setCreateChannelOpenModal(false);
 				setAddPeopleModal(true);
+			})
+			.catch(() => {
+				console.log('catch');
 			});
 	};
 
