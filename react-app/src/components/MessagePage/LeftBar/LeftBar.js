@@ -4,12 +4,9 @@ import './LeftBar.css';
 // import context
 import { useChannel } from '../../../context/ChannelContext';
 import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
-<<<<<<< HEAD
 import { useMessage } from '../../../context/MessageContext';
-=======
 import { useDMR } from "../../../context/DMRContext"
 import { useDMRUsers } from "../../../context/DMRUsersContext"
->>>>>>> SAM-leftbar-react
 
 // import react
 import { useEffect, useState } from 'react';
@@ -41,13 +38,10 @@ const LeftBar = () => {
 	const { rightClickModal, setRightClickModal } = useMessage();
 	const { channels, setChannels } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
-<<<<<<< HEAD
 	const [rect, setRect] = useState(0);
 	const { editChannel, setEditChannel } = useChannel();
-=======
 	const { dmrs, setDMRs } = useDMR();
 	const { dmrUsers, setDMRUsers } = useDMRUsers();
->>>>>>> SAM-leftbar-react
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -55,13 +49,6 @@ const LeftBar = () => {
 	// invoke history
 	const history = useHistory();
 
-<<<<<<< HEAD
-	// use selector
-	const channelsUsersState = useSelector(
-		channelsUsersActions.getAllUsersChannels
-	);
-=======
->>>>>>> SAM-leftbar-react
 	const channelState = useSelector(channelActions.getAllChannels);
 	const channelsUsersState = useSelector(channelsUsersActions.getAllUsersChannels);
 	const dmrState = useSelector(dmrActions.getAllDMRs)
@@ -72,43 +59,13 @@ const LeftBar = () => {
 	useEffect(() => {
 		dispatch(channelActions.thunkGetUserChannels());
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
-<<<<<<< HEAD
-	}, [dispatch, currentUserId]);
-
-	// per channelState
-	useEffect(() => {
-		setChannels(channelState);
-=======
 		dispatch(dmrActions.thunkGetAllDmrs());
 		dispatch(dmrUsersActions.thunkGetAllDMRUsers());
 	}, [dispatch]);
-
+	
 	// per channelState
 	useEffect(() => {
-
-		if (channelState) {
-			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-				: '';
-
-
-			const currentChannelDetail = [];
-
-			Array.isArray(channelsUsers) &&
-				currentChannelsUserBelongTo.forEach((cu) => {
-					currentChannelDetail.push(cu.channel_id);
-				});
-
-			const channelDisplay =
-				Array.isArray(channelState) &&
-				channelState.filter((channel) =>
-					currentChannelDetail.includes(channel.id)
-				);
-			if (Array.isArray(channelDisplay)) {
-				setChannels(channelDisplay);
-			}
-		}
->>>>>>> SAM-leftbar-react
+		setChannels(channelState);
 	}, [channelState]);
 
 	// per dmrState

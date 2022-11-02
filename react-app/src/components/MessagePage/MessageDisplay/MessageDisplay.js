@@ -20,6 +20,7 @@ import * as messageActions from '../../../store/message';
 import * as userActions from '../../../store/users';
 import * as sessionActions from '../../../store/session';
 import * as channelActions from '../../../store/channel';
+import * as dmrActions from '../../../store/dmr';
 
 const MessageDisplay = () => {
 	/**
@@ -38,7 +39,11 @@ const MessageDisplay = () => {
 	const chatId = channelId ? channelId : dmrId;
 
 	// use selector
-	const currentChat = useSelector(channelActions.getChatById(chatId));
+	const currentChat = useSelector(
+		channelId
+			? channelActions.getChatById(chatId)
+			: dmrActions.getChatById(chatId)
+	);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -49,7 +54,11 @@ const MessageDisplay = () => {
 
 	// per message state
 	useEffect(() => {
-		dispatch(messageActions.thunkGetChannelMessages(chatId));
+		dispatch(
+			channelId
+				? messageActions.thunkGetChannelMessages(chatId)
+				: messageActions.thunkGetChannelMessages(chatId, 'dmr')
+		);
 		dispatch(userActions.thunkGetAllUsers());
 	}, [dispatch, chatId]);
 

@@ -35,7 +35,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		);
 
 		// if 'delete' is the input, proceed to delete account
-		if (confirmDelete.toLowerCase().trim() === 'delete') {
+		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'delete') {
 			// alert to user, successful deletion
 			alert(`Channel ${currentChannel.channel_name} have been deleted`);
 

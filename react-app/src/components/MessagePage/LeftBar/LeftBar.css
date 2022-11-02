@@ -227,12 +227,7 @@
 	padding: 0;
 }
 
-<<<<<<< HEAD
 .dmr-list-option {
-=======
-
-.dmr-list-option > * {
->>>>>>> SAM-leftbar-react
 	display: flex;
 	flex-direction: row;
 
