@@ -145,9 +145,9 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 		dispatch(createChannel(data));
 
 		return data;
-	} else {
-		return null;
 	}
+
+	return null;
 };
 
 // thunk put user or users into channel
@@ -176,30 +176,28 @@ export const thunkPutAddUserToChannel =
 	};
 
 // thunk put channel
-// export const thunkPutChannel = id => async dispatch => {
+export const thunkPutChannel = (channelInfo, channelId) => async (dispatch) => {
+	// fetch the put data
+	const res = await fetch(`/api/channels/${channelId}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(channelInfo),
+	});
 
-//   // fetch the put data
-//   const res = await fetch(`/api/channels/${id}`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type' : 'application/json'
-//     },
-//     // body: JSON.stringify(channel)
-//   });
+	if (res.ok) {
+		const data = await res.json();
+		dispatch(createChannel(data));
 
-//   // if falsy return null
-//   if(!res) return null;
+		return data;
+	}
 
-//   // if response === 200
-//   if(res.ok){
-//     const data = res.json();
-//     dispatch(putChannel(data));
-//     return data;
-//   }
-// }
+	return null;
+};
 
 // thunk delete channel
-export const thunkDeleteChannel = (id) => async (dispatch) => {
+export const thunkDeleteChannel = async (id) => async (dispatch) => {
 	// delete channel
 	const res = await fetch(`/api/channels/${id}`, {
 		method: 'DELETE',
@@ -210,7 +208,7 @@ export const thunkDeleteChannel = (id) => async (dispatch) => {
 
 	// if res === 200 dispatch delete action
 	if (res.ok) {
-		const data = res.json();
+		const data = await res.json();
 		dispatch(deleteChannel(id));
 		return data;
 	}
@@ -236,8 +234,13 @@ export default function channelReducer(state = initialState, action) {
 	const newChannels = { ...state };
 
 	switch (action.type) {
-		// case: get channel message
-
+		// case: remove channel
+		case DELETE_CHANNEL:
+			const channels = Object.assign({}, newChannels, action.channels);
+			console.log('channels', channels);
+			delete channels.reviews[action.id];
+			console.log('channels (after)', channels);
+			return channels;
 		// default case
 		default:
 			return Object.assign({}, newChannels, action.channels);

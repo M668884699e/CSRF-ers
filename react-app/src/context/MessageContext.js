@@ -10,6 +10,7 @@ export default function MessageProvider({ children }) {
 	// state for context
 	const [createChannelOpenModal, setCreateChannelOpenModal] = useState(false);
 	const [addPeopleModal, setAddPeopleModal] = useState(false);
+	const [rightClickModal, setRightClickModal] = useState(false);
 	const [channelName, setChannelName] = useState([]);
 
 	// Message Provider
@@ -22,7 +23,9 @@ export default function MessageProvider({ children }) {
 					addPeopleModal,
 					setAddPeopleModal,
 					channelName,
-					setChannelName
+					setChannelName,
+					rightClickModal,
+					setRightClickModal,
 				}}
 			>
 				{children}

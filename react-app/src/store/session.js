@@ -137,7 +137,7 @@ export const thunkEditUser = userInfo => async dispatch => {
     // parse res to json
     const sessionUserInfo = await res.json();
 
-
+    // if there's any error from res, return null
     if (sessionUserInfo.errors) {
       return null;
     }

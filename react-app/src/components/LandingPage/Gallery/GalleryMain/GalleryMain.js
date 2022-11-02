@@ -45,7 +45,7 @@ const GalleryMain = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetChannels());
+		dispatch(channelActions.thunkGetUserChannels());
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
 		dispatch(userActions.thunkGetAllUsers());
 	}, [dispatch]);
@@ -53,26 +53,7 @@ const GalleryMain = () => {
 	// per channelState, currentUserId, channelsUsersState
 	useEffect(() => {
 		setChannelsUsers(channelsUsersState);
-
-		if (Array.isArray(channelState) && Array.isArray(channelsUsers)) {
-			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-				: '';
-
-			const currentChannelDetail = [];
-
-			currentChannelsUserBelongTo.forEach((cu) => {
-				currentChannelDetail.push(cu.channel_id);
-			});
-
-			const currentChannelDisplay = channelState.filter((channel) =>
-				currentChannelDetail.includes(channel.id)
-			);
-
-			if (currentChannelDisplay) {
-				setChannels(currentChannelDisplay);
-			}
-		}
+		setChannels(channelState);
 	}, [channelState, currentUserId, channelsUsersState]);
 
 	return (
@@ -103,9 +84,6 @@ const GalleryMain = () => {
 													<section className='wlf2-section'>
 														<figure className='wlf2-section-figure'>
 															{channelsUsers
-																.filter(
-																	(cu) => cu.channel_id === channels[0].id
-																)
 																.map((user, index) => {
 																	const currentUser = Object.values(
 																		usersState

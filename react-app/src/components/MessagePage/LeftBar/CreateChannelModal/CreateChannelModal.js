@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import react-router-dom
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 // import store
 import * as sessionActions from '../../../../store/session';
@@ -29,19 +29,29 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 	const [inputLength, setInputLength] = useState(0);
 	const { channelName, setChannelName } = useMessage();
 	const { privateChannel, setPrivateChannel } = useChannel();
-	const [formReady, setFormReady] = useState(true);
 	const { addPeopleModal, setAddPeopleModal } = useMessage();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
-	
+	const { currentChannel, setCurrentChannel } = useChannel();
+	const { editChannel, setEditChannel } = useChannel();
+	const [formReady, setFormReady] = useState(true);
+	const [validationErrors, setValidationErrors] = useState([]);
+	const [onLoad, setOnLoad] = useState(false);
+
+	// deconstruct channelId
+	let { channelId, dmrId } = useParams();
+
+	channelId = Number(channelId);
+	dmrId = Number(dmrId);
+
+	const chatId = channelId ? channelId : dmrId;
+
 	// selector functions
+	const currentChat = useSelector(channelActions.getChatById(chatId));
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
 	const channelState = useSelector(channelActions.getAllChannels);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
-
-	// invoke history
-	const history = useHistory();
 
 	// useEffect to update on load
 	useEffect(() => {
@@ -55,7 +65,18 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		currentUserId,
 		formReady,
 		channelState,
+		validationErrors,
 	]);
+
+	// per editChannel
+	useEffect(() => {
+		setOnLoad(true);
+
+		if (editChannel) {
+			console.log('currentChannel', currentChannel.id);
+			setChannelName(currentChannel.channel_name);
+		}
+	}, [onLoad, editChannel]);
 
 	// function to check input length of channel name inputted
 	const checkInputLength = (e) => {
@@ -69,15 +90,25 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 
 		// channel information
 		const channelInfo = {
+			...currentChannel,
 			owner_id: currentUserId,
 			channel_name: channelName,
 			public: !privateChannel,
 		};
 
-		return dispatch(channelActions.thunkPostNewChannel(channelInfo))
-			.then(res => {
-				const newChannelId = res.new_channel.id;
-				setCreatedChannelId(newChannelId);
+		// reset validation errors
+		setValidationErrors([]);
+
+		return dispatch(
+			editChannel
+				? channelActions.thunkPutChannel(channelInfo, currentChannel.id)
+				: channelActions.thunkPostNewChannel(channelInfo)
+		)
+			.then((res) => {
+				if (!editChannel) {
+					const newChannelId = res.new_channel.id;
+					setCreatedChannelId(newChannelId);
+				}
 			})
 			.then(() => dispatch(channelActions.thunkGetUserChannels()))
 			.then(() => {
@@ -93,14 +124,23 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		setChannelName(e.target.value);
 	};
 
-	return (
+	return onLoad ? (
 		<section id='ccm-container'>
 			<form id='ccm-form' onSubmit={onCreateChannel}>
+				<div className='epm-error-container'>
+					{validationErrors &&
+						validationErrors.map((error, ind) => <div key={ind}>{error}</div>)}
+				</div>
+
 				{/* form header */}
-				{privateChannel ? (
-					<h1>Create a private channel</h1>
+				{!editChannel ? (
+					privateChannel ? (
+						<h1>Create a private channel</h1>
+					) : (
+						<h1>Create a channel</h1>
+					)
 				) : (
-					<h1>Create a channel</h1>
+					<h1>Edit channel {currentChannel.channel_name}</h1>
 				)}
 
 				{/* exit icon */}
@@ -199,6 +239,8 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 			</form>
 			{/* Edit Profile Modal */}
 		</section>
+	) : (
+		setOnLoad(true)
 	);
 };
 

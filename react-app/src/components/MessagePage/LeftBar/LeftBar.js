@@ -24,16 +24,19 @@ import * as userActions from '../../../store/users';
 import { Modal } from '../../../context/Modal';
 import CreateChannelModal from './CreateChannelModal';
 import AddPeopleModal from './AddPeopleModal';
+import RightClickModal from './RightClickModal';
 
 const LeftBar = () => {
 	/**
 	 * Controlled inputs
 	 */
 	const { addPeopleModal, setAddPeopleModal } = useMessage();
+	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
+	const { rightClickModal, setRightClickModal } = useMessage();
 	const { channels, setChannels } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
-	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
-	useState([]);
+	const [rect, setRect] = useState(0);
+	const { editChannel, setEditChannel } = useChannel();
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -41,6 +44,7 @@ const LeftBar = () => {
 	// invoke history
 	const history = useHistory();
 
+	// use selector
 	const channelsUsersState = useSelector(
 		channelsUsersActions.getAllUsersChannels
 	);
@@ -70,6 +74,16 @@ const LeftBar = () => {
 				return (
 					<section
 						onClick={(_) => history.push(`/chat/channels/${channel.id}`)}
+						onContextMenu={(e) => {
+							// prevent default right click
+							e.preventDefault();
+
+							// turn modal on
+							setRightClickModal(true);
+							setRect(e.target.getBoundingClientRect());
+
+							return false;
+						}}
 						className='channel-list-option'
 						key={i}
 					>
@@ -77,6 +91,14 @@ const LeftBar = () => {
 							<i className='fa-regular fa-hashtag'></i>
 						</aside>
 						<aside>{channel.channel_name}</aside>
+						{rightClickModal && (
+							<Modal onClose={(_) => setRightClickModal(false)}>
+								<RightClickModal
+									setRightClickModal={setRightClickModal}
+									rect={rect}
+								/>
+							</Modal>
+						)}
 					</section>
 				);
 			})
@@ -84,7 +106,15 @@ const LeftBar = () => {
 	};
 
 	return (
-		<aside id='left-bar-main'>
+		<aside
+			id='left-bar-main'
+			onContextMenu={(e) => {
+				// remove default right click menu
+				e.preventDefault();
+
+				return false;
+			}}
+		>
 			<section id='section-one'>
 				<section id='server-name'>
 					<h4>Slackers</h4>
@@ -102,7 +132,10 @@ const LeftBar = () => {
 							{loadAllChannels()}
 							<section
 								className='channel-list-option'
-								onClick={(_) => setCreateChannelOpenModal(true)}
+								onClick={(_) => {
+									setEditChannel(false);
+									setCreateChannelOpenModal(true);
+								}}
 							>
 								<aside>
 									<i className='fa-regular fa-plus'></i>
