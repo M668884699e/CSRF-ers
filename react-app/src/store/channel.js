@@ -197,20 +197,21 @@ export const thunkPutChannel = (channelInfo, channelId) => async (dispatch) => {
 };
 
 // thunk delete channel
-export const thunkDeleteChannel = async (id) => async (dispatch) => {
+export const thunkDeleteChannel = (id) => async (dispatch) => {
 	// delete channel
 	const res = await fetch(`/api/channels/${id}`, {
 		method: 'DELETE',
 	});
+
+	console.log('id', id);
 
 	// if no response return null
 	if (!res) return null;
 
 	// if res === 200 dispatch delete action
 	if (res.ok) {
-		const data = await res.json();
 		dispatch(deleteChannel(id));
-		return data;
+		return id;
 	}
 };
 
@@ -237,9 +238,13 @@ export default function channelReducer(state = initialState, action) {
 		// case: remove channel
 		case DELETE_CHANNEL:
 			const channels = Object.assign({}, newChannels, action.channels);
-			console.log('channels', channels);
-			delete channels.reviews[action.id];
-			console.log('channels (after)', channels);
+
+			Object.values(channels).forEach((channel, index) => {
+				if (channel.id === action.id) {
+					delete channels[index];
+				}
+			});
+
 			return channels;
 		// default case
 		default:

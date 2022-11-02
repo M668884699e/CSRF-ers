@@ -10,6 +10,9 @@ import './RightClickModal.css';
 // import react-redux
 import { useSelector, useDispatch } from 'react-redux';
 
+// import react-redux-dom
+import { useHistory } from 'react-router-dom';
+
 // import store
 import * as channelActions from '../../../../store/channel';
 import { useEffect } from 'react';
@@ -26,6 +29,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	// invoke dispatch
 	const dispatch = useDispatch();
 
+	// invoke history
+	const history = useHistory();
+
 	useEffect(() => {}, [channelState]);
 
 	// function to handle delete user
@@ -39,13 +45,17 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 			// alert to user, successful deletion
 			alert(`Channel ${currentChannel.channel_name} have been deleted`);
 
-			// call on thunk to delete current user
-			return dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-				.then(() => dispatch(channelActions.thunkGetUserChannels()))
-				.then(() => {
-					// call on thunk to log out user
-					setRightClickModal(false);
-				});
+			if (currentChannel.id) {
+				// call on thunk to delete current user
+				return dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
+					.then(() => {
+						setRightClickModal(false);
+						dispatch(channelActions.thunkGetUserChannels());
+					})
+					.then(() =>
+						history.push(`/chat/channels/${channelState.length - 1}`)
+					);
+			}
 		}
 	};
 
