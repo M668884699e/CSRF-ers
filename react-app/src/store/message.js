@@ -13,20 +13,22 @@ export const getChannelMessages = (messages) => {
 /* --------- THUNKS -------- */
 
 // thunk get messages in channel
-export const thunkGetChannelMessages = (channelId) => async (dispatch) => {
-	// fetch messages in channel
-	const res = await fetch(`/api/channels/${channelId}/messages`);
+export const thunkGetChannelMessages =
+	(channelId, type = 'channels') =>
+	async (dispatch) => {
+		// fetch messages in channel
+		const res = await fetch(`/api/${type}/${channelId}/messages`);
 
-	// if response ok
-	if (res.ok) {
-		const channelMessages = await res.json();
+		// if response ok
+		if (res.ok) {
+			const channelMessages = await res.json();
 
-		// dispatch user data to state
-		dispatch(getChannelMessages(channelMessages.channel_messages));
+			// dispatch user data to state
+			dispatch(getChannelMessages(channelMessages.channel_messages));
 
-		return channelMessages;
-	}
-};
+			return channelMessages;
+		}
+	};
 
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllMessages = (state) =>

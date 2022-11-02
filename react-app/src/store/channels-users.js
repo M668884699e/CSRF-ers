@@ -30,6 +30,7 @@ export const thunkGetAllChannelsUsers = () => async (dispatch) => {
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllUsersChannels = state => state.channelsUsers.channels_users;
 
+
 /* --------- REDUCERS -------- */
 const initialState = {};
 
@@ -38,7 +39,7 @@ export default function channelsUsersReducer(state = initialState, action) {
 
   switch (action.type) {
     // get channel case
-    
+
     // default case
     default:
       return Object.assign({}, newChannelsUsers, action.channelsUsers);

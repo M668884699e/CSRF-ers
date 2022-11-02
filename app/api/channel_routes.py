@@ -96,7 +96,7 @@ def get_channels_users():
     """
     # query through all channels users model and return all records
     all_channels_users = ChannelUser.query.all()
-    
+
     return {'channels_users': [all_channel_users.to_dict() for all_channel_users in all_channels_users]}
 
 #* GET - /channels/:channelId/messages
@@ -156,9 +156,9 @@ def create_channel():
     for user_id in user_ids:
         if user_id == "," or user_id == " " or user_id == "[" or user_id == "]":
             continue
-        
+
         check_user = User.query.get(user_id)
-        
+
         if check_user is None:
             return {'errors': [f"User {user_id} does not exist"]}, 404
 
@@ -169,7 +169,7 @@ def create_channel():
             channel_id = new_channel.id,
             user_id = user_id
         )
-        
+
         # add new channel_user to db session
         db.session.add(new_channel_user)
 

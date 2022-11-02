@@ -10,9 +10,9 @@ class DMR(db.Model):
     dmr_name = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    
+
     dmr_member = db.relationship("DMRUser", backref="channel", cascade="all,delete")
- 
+
     # connect polymorphic relationship
     __mapper_args__ = {
         'polymorphic_identity': 'dmr',
@@ -25,7 +25,6 @@ class DMR(db.Model):
         return {
             'id': self.id,
             'dmr_name': self.dmr_name,
-            'dmr_member': self.dmr_member,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
