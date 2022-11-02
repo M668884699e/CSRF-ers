@@ -18,11 +18,7 @@ export const thunkGetChannelMessages =
 	async (dispatch) => {
 		// fetch messages in channel
 		if (channelId) {
-			const res = await fetch(`/api/${type}/${channelId}/messages`).catch(
-				(res) => {
-					console.log(res);
-				}
-			);
+			const res = await fetch(`/api/${type}/${channelId}/messages`);
 
 			// if response ok
 			if (res.ok) {

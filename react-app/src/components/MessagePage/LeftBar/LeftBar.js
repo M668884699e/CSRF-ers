@@ -68,16 +68,8 @@ const LeftBar = () => {
 
 	// per channelState
 	useEffect(() => {
-		// filter out any duplicate
-
-		// console.log('channelState', channelState);
-		// const test = new Set(channelState);
-		// console.log('test', test);
-
-
-
 		setChannels(channelState);
-	}, [channelState]);
+	}, [channelState, currentChannelId]);
 
 	// per dmrState
 	useEffect(() => {
@@ -113,26 +105,26 @@ const LeftBar = () => {
 		setDMRUsers(dmrUsersState);
 	}, [dmrUsersState]);
 
-	// per channel id
-	useEffect(() => {
-		// nothing for now
-	}, [currentChannelId]);
-
 	const loadAllChannels = () => {
-		const channelsArray = Object.values(channels)
+		const channelsArray = Object.values(channels);
 
 		return (
 			Array.isArray(channelsArray) &&
 			channelsArray.map((channel, i) => {
 				return (
 					<section
-						onClick={(_) => Redirect(`/chat/channels/${channel.id}`)}
-						// onClick={(_) => history.push(`/chat/channels/${channel.id}`)}
+						onClick={(e) => {
+							e.stopPropagation();
+							e.preventDefault();
+							console.log('onClick');
+
+							return history.push(`/chat/channels/${channel.id}`);
+						}}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
 
-							setCurrentChannelId(channel.id);
+							history.push(`/chat/channels/${channel.id}`);
 
 							// turn modal on
 							setRightClickModal(true);
@@ -147,14 +139,6 @@ const LeftBar = () => {
 							<i className='fa-regular fa-hashtag'></i>
 						</aside>
 						<aside>{channel.channel_name}</aside>
-						{rightClickModal && (
-							<Modal onClose={(_) => setRightClickModal(false)}>
-								<RightClickModal
-									setRightClickModal={setRightClickModal}
-									rect={rect}
-								/>
-							</Modal>
-						)}
 					</section>
 				);
 			})
@@ -246,9 +230,19 @@ const LeftBar = () => {
 			</footer>
 
 			{/* Edit Profile Modal */}
+			{rightClickModal && (
+				<Modal onClose={(_) => setRightClickModal(false)}>
+					<RightClickModal
+						setRightClickModal={setRightClickModal}
+						rect={rect}
+					/>
+				</Modal>
+			)}
 			{createChannelOpenModal && (
 				<Modal
-					onClose={(_) => setCreateChannelOpenModal(false)}
+					onClose={(_) => {
+						setCreateChannelOpenModal(false);
+					}}
 					currentVisible={false}
 				>
 					<CreateChannelModal
