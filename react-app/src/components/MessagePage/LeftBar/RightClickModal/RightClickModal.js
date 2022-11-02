@@ -11,7 +11,7 @@ import './RightClickModal.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 // import react-redux-dom
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../../store/channel';
@@ -34,8 +34,12 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		history.push(`/chat/channels/${currentChannelId}`);
-	}, [channelState]);
+		// nothing for now, just to update channel state
+
+		// updating current channel id here
+		setCurrentChannelId(currentChannel.id);
+		console.log('currentChannelId', currentChannelId);
+	}, [channelState, currentChannelId]);
 
 	// function to handle delete user
 	const handleDeleteChannel = async () => {
@@ -53,18 +57,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
 				dispatch(channelActions.thunkGetUserChannels());
 				setRightClickModal(false);
-				history.push(`/chat/channels/${channelState[0]}`);
-
-				// .then(() => {
-				// 	dispatch(channelActions.thunkGetUserChannels());
-				// })
-				// .then(() =>
-				// 	// () => {}
-				// 	{
-				// 		history.push(`/chat/channels/${channelState[0]}`);
-				// 		setRightClickModal(false);
-				// 	}
-				// );
+				return history.push(
+					`/chat/channels/${channelState ? channelState[0].id : 0}`
+				);
 			}
 		}
 	};

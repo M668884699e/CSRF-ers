@@ -216,12 +216,12 @@ export const getAllChannels = (state) => Object.values(state.channels);
 
 export const getChatById =
 	(chatId, type = 'channel') =>
-		(state) =>
-			type === 'channel'
-				? Object.values(state.channels).find(
+	(state) =>
+		type === 'channel'
+			? Object.values(state.channels).find(
 					(channel) => channel.id === Number(chatId)
-				)
-				: Object.values(state.dmrs).find((dmr) => dmr.id === Number(chatId));
+			  )
+			: Object.values(state.dmrs).find((dmr) => dmr.id === Number(chatId));
 /* --------- REDUCERS -------- */
 
 const initialState = {};
@@ -234,31 +234,7 @@ export default function channelReducer(state = initialState, action) {
 		case DELETE_CHANNEL:
 			const deleteChannels = { ...state };
 
-			delete deleteChannels[action.id]
-
-
-			// Object.keys(deleteChannels).forEach(key => {
-			// 	if(deleteChannels[key][id] === action.id) delete deleteChannels[key]
-			// });
-
-			// console.log('deleteChannels (before)', deleteChannels);
-			// console.log('newChannels', newChannels);
-
-			// Object.values(deleteChannels).forEach((channel, index) => {
-			// 	console.log('channel.id', channel.id, '|| type of', typeof channel.id);
-			// 	console.log('action.id', action.id, '|| type of', typeof action.id);
-			// 	if (channel.id === action.id) delete deleteChannels[index];
-			// });
-
-			// console.log('deleteChannels (after)', deleteChannels);
-
-			// delete Object.values(newChannels).find((channel) => {
-			// 	console.log('channel.id', channel.id, '|| type of', typeof channel.id);
-			// 	console.log('action.id', action.id, '|| type of', typeof action.id);
-			// 	return channel.id === action.id;
-			// });
-
-			// console.log({...state}, "test 1")
+			delete deleteChannels[action.id];
 
 			return deleteChannels;
 		// default case
