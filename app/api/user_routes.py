@@ -124,6 +124,7 @@ def get_user_channels():
     # return successful response
     return {"channels": {belongs_channel.id: belongs_channel.to_dict() for belongs_channel in belongs_channels}}
 
+
 #* GET - /users/notifications
 # Get all notifications of current logged in user
 @user_routes.route('/notifications')

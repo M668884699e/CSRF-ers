@@ -34,7 +34,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		// redirect to current channel id
 		history.push(`/chat/channels/${currentChannelId}`);
 	}, [channelState]);
 
@@ -51,10 +50,10 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				await dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
-				await dispatch(channelActions.thunkGetUserChannels());
+				dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
+				dispatch(channelActions.thunkGetUserChannels());
 				setRightClickModal(false);
-				await history.push(`/chat/channels/${channelState[0]}`);
+				history.push(`/chat/channels/${channelState[0]}`);
 
 				// .then(() => {
 				// 	dispatch(channelActions.thunkGetUserChannels());

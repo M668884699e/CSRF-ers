@@ -216,19 +216,18 @@ export const getAllChannels = (state) => Object.values(state.channels);
 
 export const getChatById =
 	(chatId, type = 'channel') =>
-	(state) =>
-		type === 'channel'
-			? Object.values(state.channels).find(
+		(state) =>
+			type === 'channel'
+				? Object.values(state.channels).find(
 					(channel) => channel.id === Number(chatId)
-			  )
-			: Object.values(state.dmrs).find((dmr) => dmr.id === Number(chatId));
+				)
+				: Object.values(state.dmrs).find((dmr) => dmr.id === Number(chatId));
 /* --------- REDUCERS -------- */
 
 const initialState = {};
 
 export default function channelReducer(state = initialState, action) {
 	const newChannels = { ...state };
-	console.log({...state}, "test 1")
 
 	switch (action.type) {
 		// case: remove channel
@@ -236,6 +235,11 @@ export default function channelReducer(state = initialState, action) {
 			const deleteChannels = { ...state };
 
 			delete deleteChannels[action.id]
+
+
+			// Object.keys(deleteChannels).forEach(key => {
+			// 	if(deleteChannels[key][id] === action.id) delete deleteChannels[key]
+			// });
 
 			// console.log('deleteChannels (before)', deleteChannels);
 			// console.log('newChannels', newChannels);

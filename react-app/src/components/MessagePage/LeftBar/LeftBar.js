@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import react-router-dom
-import { NavLink, useHistory, useParams } from 'react-router-dom';
+import { NavLink, Redirect, useHistory, useParams } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../store/channel';
@@ -126,7 +126,8 @@ const LeftBar = () => {
 			channelsArray.map((channel, i) => {
 				return (
 					<section
-						onClick={(_) => history.push(`/chat/channels/${channel.id}`)}
+						onClick={(_) => Redirect(`/chat/channels/${channel.id}`)}
+						// onClick={(_) => history.push(`/chat/channels/${channel.id}`)}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
