@@ -15,6 +15,7 @@ export default function ChannelProvider({ children }) {
 	const [createdChannelId, setCreatedChannelId] = useState(null);
 	const [currentChannel, setCurrentChannel] = useState(null);
 	const [editChannel, setEditChannel] = useState(false);
+	const [currentChannelId, setCurrentChannelId] = useState(null);
 
 	// Channel Provider
 	return (
@@ -35,6 +36,8 @@ export default function ChannelProvider({ children }) {
 					setCurrentChannel,
 					editChannel,
 					setEditChannel,
+					currentChannelId,
+					setCurrentChannelId
 				}}
 			>
 				{children}

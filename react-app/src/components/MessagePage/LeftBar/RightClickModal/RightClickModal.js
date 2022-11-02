@@ -22,6 +22,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
 	const { editChannel, setEditChannel } = useChannel();
 	const { currentChannel, setCurrentChannel } = useChannel();
+	const { currentChannelId, setCurrentChannelId } = useChannel();
 
 	// selector function
 	const channelState = useSelector(channelActions.getAllChannels);
@@ -32,10 +33,13 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	// invoke history
 	const history = useHistory();
 
-	useEffect(() => {}, [channelState]);
+	useEffect(() => {
+		// redirect to current channel id
+		history.push(`/chat/channels/${currentChannelId}`);
+	}, [channelState]);
 
 	// function to handle delete user
-	const handleDeleteChannel = () => {
+	const handleDeleteChannel = async () => {
 		var confirmDelete = prompt(
 			`Are you sure you want to delete channel ${currentChannel.channel_name}? Type 'delete' to confirm`
 		);
@@ -47,15 +51,21 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				return dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-					.then(() => {
-						setRightClickModal(false);
-						dispatch(channelActions.thunkGetUserChannels());
-					})
-					.then(() =>
-						// () => {}
-						history.push(`/chat/channels/${channelState.length - 1}`)
-					);
+				await dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
+				await dispatch(channelActions.thunkGetUserChannels());
+				setRightClickModal(false);
+				await history.push(`/chat/channels/${channelState[0]}`);
+
+				// .then(() => {
+				// 	dispatch(channelActions.thunkGetUserChannels());
+				// })
+				// .then(() =>
+				// 	// () => {}
+				// 	{
+				// 		history.push(`/chat/channels/${channelState[0]}`);
+				// 		setRightClickModal(false);
+				// 	}
+				// );
 			}
 		}
 	};
