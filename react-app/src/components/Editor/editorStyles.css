@@ -9,6 +9,7 @@
 }
 
 .rte-button {
+    margin-top: 5px;
     background: transparent;
     border: none !important;
 }
@@ -22,4 +23,8 @@ rgba(var(--sk_primary_foreground,29,28,29),1);
 .rte-field {
     background-color: #222529;
     height: 100%;
+}
+
+.fa-solid {
+    color: rgb(209 210 211);
 }
