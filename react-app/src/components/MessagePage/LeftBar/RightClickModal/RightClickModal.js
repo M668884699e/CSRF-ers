@@ -44,13 +44,15 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// nothing for now, just to update channel state
 
 		// updating current channel id here
-		setCurrentChannelId(currentChannel.id);
-		// console.log('currentChannelId', currentChannelId);
-	}, [channelState, currentChannelId]);
+		if(currentDMR) setCurrentDMRId(currentDMR.id)
+		if(currentChannel) setCurrentChannelId(currentChannel.id)
+		console.log('currentChannelId', currentChannelId);
+		console.log("currentDMRId", currentDMRId)
+	}, [channelState, dmrState]);
 
-	useEffect(() => {
-		setCurrentDMRId(currentDMR.id)
-	}, [dmrState, currentDMRId])
+	// useEffect(() => {
+	// 	setCurrentDMRId(currentDMR.id)
+	// }, [dmrState, currentDMRId])
 
 	// function to handle delete user for channel
 	const handleDeleteChannel = async () => {
@@ -81,7 +83,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 			`Are you sure you want to delete direct message room ${currentDMR.dmr_name}? Type 'delete' to confirm`
 		)
 
-		if(confirmDelete && confirmDelete.toLowerCase().trim() === "delete") {
+		if (confirmDelete && confirmDelete.toLowerCase().trim() === "delete") {
 			alert(`Direct Message Room ${currentDMR.dmr_name} has been deleted`)
 		}
 
@@ -93,6 +95,10 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				`/chat/dmrs/${dmrState ? dmrState[0].id : 0}`
 			)
 		}
+	}
+
+	const test = () => {
+		console.log("hello?")
 	}
 
 	return (
