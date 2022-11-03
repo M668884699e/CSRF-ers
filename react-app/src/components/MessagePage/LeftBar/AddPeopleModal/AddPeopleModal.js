@@ -87,21 +87,16 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 			setUsersBoolean(newUserBooleans);
 			if (editChannel) {
 				const userIds = Object.values(userState).map((user) => user.id);
-				console.log('userIds', userIds);
-				console.log('usersChannels', usersChannels);
-				console.log('newUsersBooleans (before)', newUserBooleans);
 				usersChannels.forEach((uc, index) => {
 					if (userIds.includes(uc.user_id) && uc.user_id !== 1) {
-						console.log('index', index);
 						newUserBooleans[uc.user_id - 2] = !newUserBooleans[uc.user_id - 2];
 					}
 				});
 
-				console.log('newUsersBooleans (after)', newUserBooleans);
 				setUsersBoolean(newUserBooleans);
 			}
 		}
-	}, [users, load, usersBoolean, usersChannels]);
+	}, [users, load, usersBoolean, usersChannels, usersChannelsState]);
 
 	// per usersBoolean
 	useEffect(() => {
@@ -146,17 +141,32 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	// function to submit channel to add
 	const submitMembers = () => {
 		// get all user ids from users index
+		console.log('usersIndexes', usersIndexes);
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
 
-		//? call on thunk to edit current channel and add people
+		// reset load
+		setLoad(0);
+
+		// //? call on thunk to edit current channel and add people
 		if (inputLength > 0) {
-			usersToAdd.map((user) => {
-				dispatch(
-					channelActions.thunkPutAddUserToChannel(createdChannelId, user)
-				).then(() => {
+			return dispatch(
+				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+			)
+				.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
+				.then(() => {
+					usersToAdd.map((user) => {
+						dispatch(
+							usersChannelsActions.thunkPutAddUserToChannel(
+								createdChannelId,
+								user
+							)
+						);
+					});
+				})
+				.then(() => {
+					dispatch(usersChannelsActions.thunkGetAllChannelsUsers());
 					setAddPeopleModal(false);
 				});
-			});
 		} else {
 			setAddPeopleModal(false);
 		}
@@ -234,7 +244,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 							type='submit'
 							className={`ccmf-submit-button-true`}
 						>
-							Add
+							{editChannel ? <>Edit</> : <>Add</>}
 						</button>
 					}
 				</figure>

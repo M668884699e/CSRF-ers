@@ -63,7 +63,6 @@ def get_one_channel(channel_id):
     # otherwise, send successful response
     return {"channel": specific_channel.to_dict()}
 
-
 #* GET - /channels/:channelId/users
 # Get all users of a channel, requires authentication if current user is member of channel
 @login_required
@@ -122,7 +121,6 @@ def get_channel_messages(channel_id):
     channel_messages = Message.query.filter(Message.messageable_type == 'Channel', Message.messageable_id == int(channel_id))
 
     return {'channel': channel_id, 'channel_messages':[channel_message.to_dict() for channel_message in channel_messages]}
-
 
 #* POST - /channels
 # Create a new channel
@@ -224,13 +222,9 @@ def add_user_to_channel(channel_id, user_id):
             'message': f'Successfully added user {user_id} to channel {channel_id}',
             'new_channel_user': new_channel_user.to_dict()
         }
-    else:
-        destroy_user_from_channel = ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first()
-        # otherwise, return successful response and delete channel
-        db.session.delete(destroy_user_from_channel)
-        db.session.commit()
-        return {'message': f"User {user_id} successfully deleted"}
+    return "No user to add"
         
+    
 # TODO: PUT - /channels/:channelId
 # Update channel settings, requires authentication if user has permission to change channel settings
 # different from the personalization settings like display name and notification settings for specific
@@ -260,7 +254,6 @@ def change_channel_settings(channel_id):
     # return channel with update
     return current_channel.to_dict()
 
-
 #* DELETE - /channels/:channelId
 # Delete channel, requires authentication if user has permission to delete channel
 @login_required
@@ -285,3 +278,23 @@ def delete_channel(channel_id):
     db.session.commit()
 
     return {"channel": f"Successfully deleted channel {channel_id}"}
+
+#* DELETE - /channels/:channelId/users
+@login_required
+@channel_routes.route('/<int:channel_id>/users', methods=['DELETE'])
+def remove_user_from_channel(channel_id):
+    """
+    Remove all current users from channel except owner
+    """
+    
+    # given channel id, query through all channel_users to find current channel
+    current_channel_users = ChannelUser.query.filter(ChannelUser.user_id != current_user.get_id()).filter(ChannelUser.channel_id == channel_id)
+    
+    # delete all users that's not current owner
+    current_channel_users.delete(synchronize_session=False)
+    db.session.commit()
+    
+    # return back successful response
+    return {
+        'message': f'Successfully deleted all users from channel {channel_id}'
+    }

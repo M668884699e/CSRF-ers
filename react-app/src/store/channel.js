@@ -6,7 +6,7 @@ const GET_CHANNEL = 'channels/GET_CHANNEL';
 const GET_CHANNEL_USERS = 'channels/GET_CHANNEL_USERS';
 
 const SET_CHANNEL = 'channels/SET_CHANNEL';
-const PUT_CHANNEL_USER = 'channels/SET_CHANNEL_USER';
+
 const PUT_CHANNEL = 'channels/PUT_CHANNEL';
 const DELETE_CHANNEL = 'channels/DELETE_CHANNEL';
 
@@ -42,13 +42,7 @@ export const createChannel = (channel) => {
 	};
 };
 
-// action creator: add user to channel
-export const addChannelUser = (channel) => {
-	return {
-		type: PUT_CHANNEL_USER,
-		channel,
-	};
-};
+
 
 // action creator: put channel
 export const putChannel = (id) => {
@@ -150,30 +144,7 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 	return null;
 };
 
-// thunk put user or users into channel
-export const thunkPutAddUserToChannel =
-	(channelId, userId) => async (dispatch) => {
-		// fetch the put data
-		const res = await fetch(`/api/channels/${channelId}/users/${userId}`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
 
-		if (res.ok) {
-			const channelData = await res.json();
-			dispatch(createChannel(channelData));
-
-			return channelData;
-		} else {
-			return null;
-		}
-		// iterate through users grab the id
-		// create put for each one
-
-		// dispatch for each id
-	};
 
 // thunk put channel
 export const thunkPutChannel = (channelInfo, channelId) => async (dispatch) => {
