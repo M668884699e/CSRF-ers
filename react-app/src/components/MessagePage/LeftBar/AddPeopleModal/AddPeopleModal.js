@@ -77,11 +77,11 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 	// per users
 	useEffect(() => {
-		if (load < 2) {
+		if (load < 15) {
 			setLoad(load + 1);
 		}
 
-		if (users && load < 2 && load > 0) {
+		if (users && load < 15 && load > 0) {
 			const newUserBooleans = [];
 			users.map((_) => newUserBooleans.push(false));
 			setUsersBoolean(newUserBooleans);
@@ -141,11 +141,10 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	// function to submit channel to add
 	const submitMembers = () => {
 		// get all user ids from users index
-		console.log('usersIndexes', usersIndexes);
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
 
 		// reset load
-		setLoad(0);
+		// setLoad(0);
 
 		// //? call on thunk to edit current channel and add people
 		if (inputLength > 0) {
@@ -154,20 +153,23 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 			)
 				.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
 				.then(() => {
-					usersToAdd.map((user) => {
+					return usersToAdd.map((user) => {
 						dispatch(
 							usersChannelsActions.thunkPutAddUserToChannel(
 								createdChannelId,
 								user
 							)
+						).then(() =>
+							dispatch(usersChannelsActions.thunkGetAllChannelsUsers())
 						);
 					});
 				})
 				.then(() => {
-					dispatch(usersChannelsActions.thunkGetAllChannelsUsers());
+					setLoad(0);
 					setAddPeopleModal(false);
 				});
 		} else {
+			setLoad(0);
 			setAddPeopleModal(false);
 		}
 
