@@ -38,7 +38,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 		// updating current channel id here
 		setCurrentChannelId(currentChannel.id);
-		console.log('currentChannelId', currentChannelId);
 	}, [channelState, currentChannelId]);
 
 	// function to handle delete user

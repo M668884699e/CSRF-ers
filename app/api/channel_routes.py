@@ -205,28 +205,30 @@ def add_user_to_channel(channel_id, user_id):
     if(add_user is None):
         return {'errors': [f"User {user_id} does not exist"]}, 404
 
-    # if user already exist in the given channel, throw an error
-    if(ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first() is not None):
-        return {'errors': [f"User already exist in Channel {channel_id}"]}, 400
+    # if user does not exist in the given channel, proceed to adding 
+    if(ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first() is None):
+        # create new ChannelUser seed
+        new_channel_user = ChannelUser(
+            channel_id = channel_id,
+            user_id = user_id
+        )
 
+        # commit and add to db session
+        db.session.add(new_channel_user)
+        db.session.commit()
 
-    # create new ChannelUser seed
-    new_channel_user = ChannelUser(
-        channel_id = channel_id,
-        user_id = user_id
-    )
-
-    # commit and add to db session
-    db.session.add(new_channel_user)
-    db.session.commit()
-
-    # return successful response
-    return {
-        'message': f'Successfully added user {user_id} to channel {channel_id}',
-        'new_channel_user': new_channel_user.to_dict()
-    }
-
-
+        # return successful response
+        return {
+            'message': f'Successfully added user {user_id} to channel {channel_id}',
+            'new_channel_user': new_channel_user.to_dict()
+        }
+    else:
+        destroy_user_from_channel = ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first()
+        # otherwise, return successful response and delete channel
+        db.session.delete(destroy_user_from_channel)
+        db.session.commit()
+        return {'message': f"User {user_id} successfully deleted"}
+        
 # TODO: PUT - /channels/:channelId
 # Update channel settings, requires authentication if user has permission to change channel settings
 # different from the personalization settings like display name and notification settings for specific
@@ -255,7 +257,6 @@ def change_channel_settings(channel_id):
 
     # return channel with update
     return current_channel.to_dict()
-
 
 
 #* DELETE - /channels/:channelId
