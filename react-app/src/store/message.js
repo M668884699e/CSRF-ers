@@ -36,7 +36,6 @@ export const thunkGetChannelMessages =
 			dispatch(getChannelMessages(type === 'channels'? channelMessages.channel_messages: channelMessages.dmr_messages));
 
 				return channelMessages;
-			}
 		}
 	};
 
