@@ -1,18 +1,10 @@
 // import components
-<<<<<<< HEAD
 import LeftBar from "./LeftBar"
 import ProfileBar from "./ProfileBar"
 import MessageSender from "./MessageSender"
 import MessageDisplay from "./MessageDisplay"
 import SearchBar from "./SearchBar"
-import { Editor } from "../Editor/Editor"
-=======
-import LeftBar from './LeftBar';
-import ProfileBar from './ProfileBar';
-import MessageSender from './MessageSender';
-import MessageDisplay from './MessageDisplay';
-import SearchBar from './SearchBar';
->>>>>>> dev
+import MessageForm from "./MessageForm"
 
 // import context
 import MessageProvider from '../../context/MessageContext';
@@ -25,50 +17,6 @@ import './MessagePage.css';
 import React from 'react';
 
 const MessagePage = () => {
-<<<<<<< HEAD
-    /**
-     * Controlled Input
-     */
-    const { profileBarActive, setProfileBarActive } = useProfile();
-
-    return (
-        <div id="message-page-main">
-            <section id="message-page-header">
-                <SearchBar/>
-            </section>
-            <section
-                id="message-page-body"
-                className={`message-page-body-profile-${profileBarActive}`}
-            >
-                {/* Left Bar */}
-                <aside id="left-bar">
-                    <LeftBar />
-                </aside>
-
-                {/* Message Display */}
-                <aside id="message-display">
-                    <MessageDisplay />
-                </aside>
-                
-                {/* <MessageSender /> */}
-                <aside id="message-sender">
-                    <Editor />
-                </aside>
-                
-                {/* Message Profile Bar */}
-                <aside id={`message-profile-${profileBarActive}`}>
-                    <ProfileBar />
-                </aside>
-            </section>
-
-
-        </div>
-    )
-}
-
-
-export default MessagePage
-=======
 	/**
 	 * Controlled Input
 	 */
@@ -96,7 +44,9 @@ export default MessagePage
 				</aside>
 
 				{/* <MessageSender /> */}
-				<aside id='message-sender'></aside>
+				<aside id='message-sender'>
+                    <MessageForm />
+                </aside>
 
 				{/* Message Profile Bar */}
 				<aside id={`message-profile-${profileBarActive}`}>
@@ -108,4 +58,3 @@ export default MessagePage
 };
 
 export default MessagePage;
->>>>>>> dev

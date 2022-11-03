@@ -158,7 +158,7 @@ const Toolbar = () => {
         }}
       >
         {/* <i class="fa-solid fa-paper-plane"></i> */}
-        <i class="fa-solid fa-bold"></i>
+        <i className="fa-solid fa-bold"></i>
       </button>
       
       {/* strikethrough */}
@@ -168,7 +168,7 @@ const Toolbar = () => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
         }}
       >
-        <i class="fa-solid fa-strikethrough"></i>
+        <i className="fa-solid fa-strikethrough"></i>
       </button>
 
       {/* italic */}
@@ -178,7 +178,7 @@ const Toolbar = () => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
       >
-        <i class="fa-solid fa-italic"></i>
+        <i className="fa-solid fa-italic"></i>
       </button>
 
       {/* underline */}
@@ -188,7 +188,7 @@ const Toolbar = () => {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
         }}
       >
-        <i class="fa-solid fa-underline"></i>
+        <i className="fa-solid fa-underline"></i>
       </button>
 
       <span className="w-[1px] bg-gray-600 block h-full"></span>
@@ -202,7 +202,7 @@ const Toolbar = () => {
           editor.dispatchCommand(UNDO_COMMAND);
         }}
       >
-        <i class="fa-solid fa-rotate-left"></i>
+        <i className="fa-solid fa-rotate-left"></i>
       </button>
 
       {/* redo */}
@@ -212,7 +212,7 @@ const Toolbar = () => {
           editor.dispatchCommand(REDO_COMMAND);
         }}
       >
-        <i class="fa-solid fa-rotate-right"></i>
+        <i className="fa-solid fa-rotate-right"></i>
       </button>
     </div>
   );

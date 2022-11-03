@@ -49,10 +49,10 @@ const getDmrUsers = (dmr) => {
 	};
 };
 
-const getDmrMessages = (dmr) => {
+const getDmrMessages = (id) => {
 	return {
 		type: GET_DMR_MESSAGES,
-		dmr,
+		id,
 	};
 };
 
@@ -72,7 +72,7 @@ const removeDmr = (id) => {
 
 /* --------- THUNKS -------- */
 export const thunkGetAllDmrs = () => async (dispatch) => {
-	const response = await fetch('/api/dmr/', {
+	const response = await fetch('/api/dmrs/', {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -99,7 +99,7 @@ export const thunkGetAllUserDmrs = () => async (dispatch) => {
 };
 
 export const thunkGetDmrById = (id) => async (dispatch) => {
-	const response = await fetch(`/api/dmr/${id}/`, {
+	const response = await fetch(`/api/dmrs/${id}/`, {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -117,7 +117,7 @@ export const thunkGetDmrById = (id) => async (dispatch) => {
 export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 	const { id } = dmr;
 
-	const response = await fetch(`/api/dmr/${id}/users/`, {
+	const response = await fetch(`/api/dmrs/${id}/users/`, {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -132,10 +132,10 @@ export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 	}
 };
 
-export const thunkGetAllDmrMessages = (dmr) => async (dispatch) => {
-	const { id } = dmr;
+export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
+	// const { id } = dmr;
 
-	const response = await fetch(`/api/dmr/${id}/messages/`, {
+	const response = await fetch(`/api/dmrs/${id}/messages/`, {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -151,7 +151,7 @@ export const thunkGetAllDmrMessages = (dmr) => async (dispatch) => {
 };
 
 export const thunkSetNewDmr = (dmr) => async (dispatch) => {
-	const response = await fetch(`/api/dmr/`, {
+	const response = await fetch(`/api/dmrs/`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export const thunkSetNewDmr = (dmr) => async (dispatch) => {
 };
 
 export const thunkDeleteDmr = (id) => async (dispatch) => {
-	const response = await fetch(`/api/dmr/${id}`, {
+	const response = await fetch(`/api/dmrs/${id}`, {
 		method: 'DELETE',
 	});
 
