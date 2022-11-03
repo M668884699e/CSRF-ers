@@ -8,6 +8,9 @@ import { useMessage } from '../../../../context/MessageContext';
 // import css
 import './RightClickModal.css';
 
+// import react
+import { useState } from 'react';
+
 // import react-redux
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -17,6 +20,8 @@ import { useHistory, Redirect } from 'react-router-dom';
 // import store
 import * as channelActions from '../../../../store/channel';
 import * as dmrActions from '../../../../store/dmr';
+import * as sessionActions from '../../../../store/session';
+
 import { useEffect } from 'react';
 
 //? RightClickModal component
@@ -24,7 +29,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
 	const { createDMROpenModal, setCreateDMROpenModal } = useMessage();
 	const { editChannel, setEditChannel } = useChannel();
-	const { editDMR, setEditDMR } = useDMR();
 	const { currentChannel, setCurrentChannel } = useChannel();
 	const { currentDMR, setCurrentDMR } = useDMR();
 	const { currentChannelId, setCurrentChannelId } = useChannel();
@@ -33,6 +37,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	// selector function
 	const channelState = useSelector(channelActions.getAllChannels);
 	const dmrState = useSelector(dmrActions.getAllDMRs);
+	const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -93,6 +98,17 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		}
 	};
 
+	// if routeType is channel, check channel via channels by id,
+	// see if current channel is owned by current session user
+	// otherwise, hide it
+	// for dmr, just hide it
+	const checkRouteProperlyOwned =
+		window.location.pathname.split('/')[2] === 'channels' &&
+		channelState[window.location.pathname.split('/')[3]] &&
+		channelState[window.location.pathname.split('/')[3]].owner_id
+			? true
+			: false;
+
 	return (
 		<section
 			style={{
@@ -103,18 +119,22 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				position: 'absolute',
 			}}
 			id='rcm-section'
+			className={`rcm-section-${checkRouteProperlyOwned}`}
 		>
-			<figure id='rcm-fig-1'>
-				<p
-					onClick={(_) => {
-						setCreateChannelOpenModal(true);
-						setEditChannel(true);
-						setRightClickModal(false);
-					}}
-				>
-					Edit channel
-				</p>
-			</figure>
+			{checkRouteProperlyOwned && (
+				<figure id='rcm-fig-1'>
+					{/* check if owner of channel */}
+					<p
+						onClick={(_) => {
+							setCreateChannelOpenModal(true);
+							setEditChannel(true);
+							setRightClickModal(false);
+						}}
+					>
+						Edit channel
+					</p>
+				</figure>
+			)}
 			<figure id='rcm-fig-2'>
 				<p onClick={handleDeleteChannel}>Leave channel</p>
 			</figure>

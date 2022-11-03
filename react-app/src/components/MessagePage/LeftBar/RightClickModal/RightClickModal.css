@@ -5,7 +5,6 @@
 	margin-left: 5rem;
 	background-color: #222529;
 	color: white;
-	height: 6rem;
 	width: 12rem;
 	display: flex;
 	flex-direction: column;
@@ -13,6 +12,14 @@
 	align-items: center;
 	border: 1px solid #393b3f;
 	border-radius: 0.25rem;
+}
+
+.rcm-section-true {
+	height: 6rem;
+}
+
+.rcm-section-false {
+	height: 3rem;
 }
 
 #rcm-section > figure {

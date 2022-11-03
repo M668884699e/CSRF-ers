@@ -169,6 +169,11 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					setAddPeopleModal(false);
 				});
 		} else {
+			// if no input length, we remove all existing users except for owner
+			// as no one is currently in channel
+			dispatch(
+				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+			).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
 			setLoad(0);
 			setAddPeopleModal(false);
 		}
