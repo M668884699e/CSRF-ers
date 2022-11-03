@@ -30,7 +30,6 @@ export const thunkGetAllChannelsUsers = () => async (dispatch) => {
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllUsersChannels = state => state.channelsUsers.channels_users;
 
-
 /* --------- REDUCERS -------- */
 const initialState = {};
 

@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom';
 import * as userActions from '../../../../store/users';
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
+import * as usersChannelsActions from '../../../../store/channels-users';
 
 //? AddPeopleModal component
 const AddPeopleModal = ({ setAddPeopleModal }) => {
@@ -34,11 +35,18 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
+	const [usersChannels, setUsersChannels] = useState([]);
+	const { currentChannelId, setCurrentChannelId } = useChannel();
+	const { editChannel, setEditChannel } = useChannel();
+	const [load, setLoad] = useState(0);
 
 	let usersIndexes = [];
 
 	// selector functions
 	const userState = useSelector(userActions.getAllUsers);
+	const usersChannelsState = useSelector(
+		usersChannelsActions.getAllUsersChannels
+	);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -67,10 +75,39 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 	// per users
 	useEffect(() => {
-		const newUserBooleans = [];
-		users.map((_) => newUserBooleans.push(false));
-		setUsersBoolean(newUserBooleans);
-	}, [users]);
+		if (load < 2) {
+			setLoad(load + 1);
+		}
+		
+		if (users && load < 2 && load > 0) {
+			const newUserBooleans = [];
+			users.map((_) => newUserBooleans.push(false));
+			setUsersBoolean(newUserBooleans);
+			if (editChannel) {
+				const userIds = users.map((user) => user.id);
+				usersChannels.forEach((uc, index) => {
+					if (userIds.includes(uc.user_id)) {
+						newUserBooleans[index] = !newUserBooleans[index];
+					}
+				});
+
+				console.log('newUserBooleans', newUserBooleans);
+				setUsersBoolean(newUserBooleans);
+			}
+		}
+	}, [users, load, usersBoolean, usersChannels]);
+
+	// per usersBoolean
+	useEffect(() => {
+		// nothing for now
+	}, [usersBoolean]);
+
+	// useEffect per usersChannelsState
+	useEffect(() => {
+		setUsersChannels(
+			usersChannelsState.filter((uc) => uc.channel_id === currentChannelId)
+		);
+	}, [usersChannelsState]);
 
 	// function to handle add members
 	const addMembers = (e) => {
@@ -82,7 +119,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		// if input length is greater than 0, proceed to posting new channel
 
 		// get all users who is in current channels
-		
 
 		// reset userToAdd
 		setInputLength(0);
@@ -105,6 +141,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const submitMembers = () => {
 		// get all user ids from users index
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
+
+		console.log('usersToAdd', usersToAdd);
 
 		//? call on thunk to edit current channel and add people
 		if (inputLength > 0) {
@@ -146,12 +184,9 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 										newUserBooleans[index] = !newUserBooleans[index];
 										setUsersBoolean(newUserBooleans);
 
-										console.log('usersBoolean', usersBoolean);
-
 										// find a way to get previous usersboolean
-										
-										// could load up all the old users boolean and update it
 
+										// could load up all the old users boolean and update it
 
 										// update class name
 										document.querySelector(
