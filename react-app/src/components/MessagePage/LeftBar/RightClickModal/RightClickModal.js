@@ -11,7 +11,7 @@ import './RightClickModal.css';
 import { useSelector, useDispatch } from 'react-redux';
 
 // import react-redux-dom
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../../store/channel';
@@ -22,6 +22,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
 	const { editChannel, setEditChannel } = useChannel();
 	const { currentChannel, setCurrentChannel } = useChannel();
+	const { currentChannelId, setCurrentChannelId } = useChannel();
 
 	// selector function
 	const channelState = useSelector(channelActions.getAllChannels);
@@ -32,10 +33,15 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	// invoke history
 	const history = useHistory();
 
-	useEffect(() => {}, [channelState]);
+	useEffect(() => {
+		// nothing for now, just to update channel state
+
+		// updating current channel id here
+		setCurrentChannelId(currentChannel.id);
+	}, [channelState, currentChannelId]);
 
 	// function to handle delete user
-	const handleDeleteChannel = () => {
+	const handleDeleteChannel = async () => {
 		var confirmDelete = prompt(
 			`Are you sure you want to delete channel ${currentChannel.channel_name}? Type 'delete' to confirm`
 		);
@@ -47,15 +53,12 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				return dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-					.then(() => {
-						setRightClickModal(false);
-						dispatch(channelActions.thunkGetUserChannels());
-					})
-					.then(() =>
-						// () => {}
-						history.push(`/chat/channels/${channelState.length - 1}`)
-					);
+				dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
+				dispatch(channelActions.thunkGetUserChannels());
+				setRightClickModal(false);
+				return history.push(
+					`/chat/channels/${channelState ? channelState[0].id : 0}`
+				);
 			}
 		}
 	};

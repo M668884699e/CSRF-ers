@@ -64,11 +64,11 @@ def get_current_user():
 @login_required
 def get_user_by_id(id):
     user = User.query.get(id)
-    
+
     if user == None:
         return {'errors': [f"User {id} does not exist"]}, 404
     return user.to_dict()
-        
+
 
 #* GET - /users/logout
 # Log out of the current user
@@ -118,11 +118,12 @@ def get_user_channels():
     for key in [belongs_channel_users.to_dict() for belongs_channel_users in belongs_channels_users]:
         if(key['user_id'] == int(current_user.get_id())):
             belongs_channels_ids.append(key['channel_id'])
-    
+
     belongs_channels = Channel.query.filter(Channel.id.in_(belongs_channels_ids))
 
     # return successful response
-    return {"channels": [belongs_channel.to_dict() for belongs_channel in belongs_channels]}
+    return {"channels": {belongs_channel.id: belongs_channel.to_dict() for belongs_channel in belongs_channels}}
+
 
 #* GET - /users/notifications
 # Get all notifications of current logged in user
@@ -160,7 +161,7 @@ def sign_up():
     Creates a new user and logs them in
     """
     form = SignUpForm()
-    
+
     if form.validate_on_submit():
         # if username does not exist...
         display_name = form.data['username']
@@ -191,33 +192,33 @@ def post_image_sample():
     """
     # get user data from form
     form = SignUpForm()
-    
+
     #? check if there are image file uploaded
     # if "image_sample" not in request.files:
     if "image_sample" not in request.files:
         return {"errors": "image required"}, 400
-    
+
     image = request.files["image_sample"]
 
     # print("                       ")
     # print("        HERE           ")
-    # print("                       ")        
+    # print("                       ")
 
     if not allowed_file(image.filename):
         return {"errors": "file type not permitted"}, 400
-    
+
     image.filename = get_unique_filename(image.filename)
-    
+
     upload = upload_file_to_s3(image)
-    
+
     if "url" not in upload:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
         # so we send back that error message
-        return upload, 400    
+        return upload, 400
 
     url = upload["url"]
-    
+
     # return current user
     return {"image_sample": url}
 
@@ -234,17 +235,17 @@ def update_user():
 
     # get user data from form
     form = EditUserForm()
-    
+
     form['csrf_token'].data = request.cookies['csrf_token']
-    
+
     upload_profile_image = form.data['profile_image']
-    
+
     #? For help with debugging form
-    if(len(form.errors) > 1): 
+    if(len(form.errors) > 1):
         print("          ")
         print(form.errors)
         print("          ")
-    
+
     #? check if there are image file uploaded
     if "profile_image" in request.files:
 
@@ -261,10 +262,10 @@ def update_user():
             # if the dictionary doesn't have a url key
             # it means that there was an error when we tried to upload
             # so we send back that error message
-            return upload, 400    
+            return upload, 400
 
         url = upload["url"]
-    
+
         # if url exist, replace profile image with url
         if(url):
             upload_profile_image = url
@@ -301,7 +302,7 @@ def update_user():
 
         # return current user
         return current_user_update.to_dict()
-        
+
     # return errors
     return{"errors": [error_values for error in form.errors for error_values in form.errors[error]]}, 400
 

@@ -26,16 +26,17 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 	/**
 	 * Controlled inputs
 	 */
-	const [inputLength, setInputLength] = useState(0);
 	const { channelName, setChannelName } = useMessage();
-	const { privateChannel, setPrivateChannel } = useChannel();
 	const { addPeopleModal, setAddPeopleModal } = useMessage();
+	const { privateChannel, setPrivateChannel } = useChannel();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
 	const { currentChannel, setCurrentChannel } = useChannel();
 	const { editChannel, setEditChannel } = useChannel();
+	const [inputLength, setInputLength] = useState(0);
 	const [formReady, setFormReady] = useState(true);
 	const [validationErrors, setValidationErrors] = useState([]);
 	const [onLoad, setOnLoad] = useState(false);
+	const { currentChannelId, setCurrentChannelId } = useChannel();
 
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
@@ -53,10 +54,17 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 	// invoke dispatch
 	const dispatch = useDispatch();
 
+	// invoke history
+	const history = useHistory();
+
 	// useEffect to update on load
 	useEffect(() => {
 		if (!formReady) {
 			setFormReady(true);
+		}
+
+		if (currentChannelId) {
+			history.push(`/chat/channels/${currentChannelId}`);
 		}
 	}, [
 		channelName,
@@ -66,6 +74,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		formReady,
 		channelState,
 		validationErrors,
+		setCurrentChannelId,
 	]);
 
 	// per editChannel
@@ -73,8 +82,9 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		setOnLoad(true);
 
 		if (editChannel) {
-			console.log('currentChannel id: ', currentChannel.id);
 			setChannelName(currentChannel.channel_name);
+		} else {
+			setChannelName('');
 		}
 	}, [onLoad, editChannel]);
 
@@ -106,8 +116,10 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		)
 			.then((res) => {
 				if (!editChannel) {
-					const newChannelId = res.new_channel.id;
-					setCreatedChannelId(newChannelId);
+					const currentCreatedChannelId = res.new_channel.id;
+					setCreatedChannelId(currentCreatedChannelId);
+				} else {
+					setCreatedChannelId(res.id);
 				}
 			})
 			.then(() => dispatch(channelActions.thunkGetUserChannels()))
@@ -188,33 +200,46 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				</figure>
 
 				{/* channel privacy */}
-				<aside id='ccmf-private-aside'>
-					<section id='ccmf-private-section'>
-						<p>Make private</p>
-						{privateChannel ? (
-							<p>
-								This can’t be undone. A private channel cannot be made public
-								later on.
-							</p>
-						) : (
-							<p>
-								When a channel is set to private, it can only be viewed or
-								joined by invitation
-							</p>
-						)}
-					</section>
-					<input
-						type='checkbox'
-						id='private-switch'
-						onClick={(e) => {
-							setPrivateChannel(e.target.checked);
-						}}
-					/>
-				</aside>
+
+				{editChannel ? (
+					<aside id='ccmf-private-aside-edit' />
+				) : (
+					<aside id='ccmf-private-aside'>
+						<section id='ccmf-private-section'>
+							<p>Make private</p>
+							{privateChannel ? (
+								<p>
+									This can’t be undone. A private channel cannot be made public
+									later on.
+								</p>
+							) : (
+								<p>
+									When a channel is set to private, it can only be viewed or
+									joined by invitation
+								</p>
+							)}
+						</section>
+						<input
+							type='checkbox'
+							id='private-switch'
+							onClick={(e) => {
+								setPrivateChannel(e.target.checked);
+							}}
+						/>
+					</aside>
+				)}
 
 				{/* channel submit button */}
 				<figure id='ccm-button-container'>
-					{inputLength > 0 && inputLength <= 50 ? (
+					{editChannel ? (
+						<button
+							id='ccmf-submit-button'
+							type='submit'
+							className={`ccmf-submit-button-true`}
+						>
+							Edit
+						</button>
+					) : inputLength > 0 && inputLength <= 50 ? (
 						<button
 							id='ccmf-submit-button'
 							type='submit'

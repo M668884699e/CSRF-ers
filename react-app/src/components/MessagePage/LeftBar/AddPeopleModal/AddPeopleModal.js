@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom';
 import * as userActions from '../../../../store/users';
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
+import * as usersChannelsActions from '../../../../store/channels-users';
 
 //? AddPeopleModal component
 const AddPeopleModal = ({ setAddPeopleModal }) => {
@@ -34,11 +35,18 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
+	const [usersChannels, setUsersChannels] = useState([]);
+	const { currentChannelId, setCurrentChannelId } = useChannel();
+	const { editChannel, setEditChannel } = useChannel();
+	const [load, setLoad] = useState(0);
 
 	let usersIndexes = [];
 
 	// selector functions
 	const userState = useSelector(userActions.getAllUsers);
+	const usersChannelsState = useSelector(
+		usersChannelsActions.getAllUsersChannels
+	);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -67,10 +75,39 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 	// per users
 	useEffect(() => {
-		const newUserBooleans = [];
-		users.map((_) => newUserBooleans.push(false));
-		setUsersBoolean(newUserBooleans);
-	}, [users]);
+		if (load < 2) {
+			setLoad(load + 1);
+		}
+		
+		if (users && load < 2 && load > 0) {
+			const newUserBooleans = [];
+			users.map((_) => newUserBooleans.push(false));
+			setUsersBoolean(newUserBooleans);
+			if (editChannel) {
+				const userIds = users.map((user) => user.id);
+				usersChannels.forEach((uc, index) => {
+					if (userIds.includes(uc.user_id)) {
+						newUserBooleans[index] = !newUserBooleans[index];
+					}
+				});
+
+				console.log('newUserBooleans', newUserBooleans);
+				setUsersBoolean(newUserBooleans);
+			}
+		}
+	}, [users, load, usersBoolean, usersChannels]);
+
+	// per usersBoolean
+	useEffect(() => {
+		// nothing for now
+	}, [usersBoolean]);
+
+	// useEffect per usersChannelsState
+	useEffect(() => {
+		setUsersChannels(
+			usersChannelsState.filter((uc) => uc.channel_id === currentChannelId)
+		);
+	}, [usersChannelsState]);
 
 	// function to handle add members
 	const addMembers = (e) => {
@@ -78,25 +115,26 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		e.preventDefault();
 
 		// reset input length
-		setInputLength(0);
 
 		// if input length is greater than 0, proceed to posting new channel
-		if (inputLength > 0) {
-			// reset userToAdd
-			usersIndexes = [];
 
-			// select all list that are selected
-			const allTrue = document.querySelectorAll(
-				"li[class*='apm-members-li-'][class$='-true']"
-			);
+		// get all users who is in current channels
 
-			// push all selected list to usersIndexes
-			Object.values(allTrue).map((currMember) =>
-				usersIndexes.push(Number(currMember.className.split('-')[3]))
-			);
+		// reset userToAdd
+		setInputLength(0);
+		usersIndexes = [];
 
-			submitMembers();
-		}
+		// select all list that are selected
+		const allTrue = document.querySelectorAll(
+			"li[class*='apm-members-li-'][class$='-true']"
+		);
+
+		// push all selected list to usersIndexes
+		Object.values(allTrue).map((currMember) =>
+			usersIndexes.push(Number(currMember.className.split('-')[3]))
+		);
+
+		submitMembers();
 	};
 
 	// function to submit channel to add
@@ -104,12 +142,20 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		// get all user ids from users index
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
 
+		console.log('usersToAdd', usersToAdd);
+
 		//? call on thunk to edit current channel and add people
-		usersToAdd.map((user) => {
-			dispatch(
-				channelActions.thunkPutAddUserToChannel(createdChannelId, user)
-			).then(() => setAddPeopleModal(false));
-		});
+		if (inputLength > 0) {
+			usersToAdd.map((user) => {
+				dispatch(
+					channelActions.thunkPutAddUserToChannel(createdChannelId, user)
+				).then(() => {
+					setAddPeopleModal(false);
+				});
+			});
+		} else {
+			setAddPeopleModal(false);
+		}
 
 		//? After getting channel page in chat page, navigate to specific channel
 		// navigate to channel page
@@ -137,6 +183,10 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 										const newUserBooleans = usersBoolean;
 										newUserBooleans[index] = !newUserBooleans[index];
 										setUsersBoolean(newUserBooleans);
+
+										// find a way to get previous usersboolean
+
+										// could load up all the old users boolean and update it
 
 										// update class name
 										document.querySelector(
@@ -174,27 +224,15 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 				{/* on click of button, finish adding channel */}
 				<figure id='ccm-button-container'>
-					{inputLength > 0 && inputLength <= 50 ? (
+					{
 						<button
 							id='ccmf-submit-button'
 							type='submit'
-							className={`ccmf-submit-button-${
-								inputLength > 0 && inputLength <= 50
-							}`}
+							className={`ccmf-submit-button-true`}
 						>
-							Create
+							Add
 						</button>
-					) : (
-						<button
-							id='ccmf-submit-button'
-							type='button'
-							className={`ccmf-submit-button-${
-								inputLength > 0 && inputLength <= 50
-							}`}
-						>
-							Create
-						</button>
-					)}
+					}
 				</figure>
 			</form>
 		</section>

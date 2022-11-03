@@ -5,8 +5,8 @@ import './LeftBar.css';
 import { useChannel } from '../../../context/ChannelContext';
 import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
 import { useMessage } from '../../../context/MessageContext';
-import { useDMR } from "../../../context/DMRContext"
-import { useDMRUsers } from "../../../context/DMRUsersContext"
+import { useDMR } from '../../../context/DMRContext';
+import { useDMRUsers } from '../../../context/DMRUsersContext';
 
 // import react
 import { useEffect, useState } from 'react';
@@ -15,13 +15,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // import react-router-dom
-import { NavLink, useHistory, useParams } from 'react-router-dom';
+import { NavLink, Redirect, useHistory, useParams } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../store/channel';
 import * as channelsUsersActions from '../../../store/channels-users';
 import * as dmrActions from '../../../store/dmr';
-import * as dmrUsersActions from "../../../store/dmr-users"
+import * as dmrUsersActions from '../../../store/dmr-users';
 import * as sessionActions from '../../../store/session';
 import * as userActions from '../../../store/users';
 import { Modal } from '../../../context/Modal';
@@ -42,6 +42,7 @@ const LeftBar = () => {
 	const { editChannel, setEditChannel } = useChannel();
 	const { dmrs, setDMRs } = useDMR();
 	const { dmrUsers, setDMRUsers } = useDMRUsers();
+	const { currentChannelId, setCurrentChannelId } = useChannel();
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -50,9 +51,11 @@ const LeftBar = () => {
 	const history = useHistory();
 
 	const channelState = useSelector(channelActions.getAllChannels);
-	const channelsUsersState = useSelector(channelsUsersActions.getAllUsersChannels);
-	const dmrState = useSelector(dmrActions.getAllDMRs)
-	const dmrUsersState = useSelector(dmrUsersActions.getAllUserDMRs)
+	const channelsUsersState = useSelector(
+		channelsUsersActions.getAllUsersChannels
+	);
+	const dmrState = useSelector(dmrActions.getAllDMRs);
+	const dmrUsersState = useSelector(dmrUsersActions.getAllUserDMRs);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
 	// load channels
@@ -62,33 +65,31 @@ const LeftBar = () => {
 		dispatch(dmrActions.thunkGetAllDmrs());
 		dispatch(dmrUsersActions.thunkGetAllDMRUsers());
 	}, [dispatch]);
-	
+
 	// per channelState
 	useEffect(() => {
 		setChannels(channelState);
-	}, [channelState]);
+	}, [channelState, currentChannelId]);
 
 	// per dmrState
 	useEffect(() => {
-		if(dmrState) {
+		if (dmrState) {
 			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
-			? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
-			: "";
+				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
+				: '';
 
 			const currentDMRDetail = [];
 
 			Array.isArray(dmrUsers) &&
 				currentDMRsUserBelongTo.forEach((dmru) => {
-					currentDMRDetail.push(dmru.dmr_id)
-				})
+					currentDMRDetail.push(dmru.dmr_id);
+				});
 
 			const dmrDisplay =
 				Array.isArray(dmrState) &&
-				dmrState.filter((dmr) =>
-					currentDMRDetail.includes(dmr.id)
-				)
+				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
 
-			if(Array.isArray(dmrDisplay)) {
+			if (Array.isArray(dmrDisplay)) {
 				setDMRs(dmrDisplay);
 			}
 		}
@@ -101,21 +102,30 @@ const LeftBar = () => {
 
 	// per dmrUsers state
 	useEffect(() => {
-		setDMRUsers(dmrUsersState)
-	}, [dmrUsersState])
+		setDMRUsers(dmrUsersState);
+	}, [dmrUsersState]);
 
 	const loadAllChannels = () => {
+		const channelsArray = Object.values(channels);
+
 		return (
-			Array.isArray(channels) &&
-			channels.map((channel, i) => {
+			Array.isArray(channelsArray) &&
+			channelsArray.map((channel, i) => {
 				return (
 					<section
-						onClick={(_) => history.push(`/chat/channels/${channel.id}`)}
+						onClick={(e) => {
+							e.stopPropagation();
+							e.preventDefault();
+							console.log('onClick');
+
+							return history.push(`/chat/channels/${channel.id}`);
+						}}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
 
-							
+							history.push(`/chat/channels/${channel.id}`);
+
 							// turn modal on
 							setRightClickModal(true);
 							setRect(e.target.getBoundingClientRect());
@@ -129,14 +139,6 @@ const LeftBar = () => {
 							<i className='fa-regular fa-hashtag'></i>
 						</aside>
 						<aside>{channel.channel_name}</aside>
-						{rightClickModal && (
-							<Modal onClose={(_) => setRightClickModal(false)}>
-								<RightClickModal
-									setRightClickModal={setRightClickModal}
-									rect={rect}
-								/>
-							</Modal>
-						)}
 					</section>
 				);
 			})
@@ -150,7 +152,7 @@ const LeftBar = () => {
 				return (
 					<section
 						onClick={(_) => history.push(`/chat/dmrs/${dmr.id}`)}
-						className="dmr-list-option"
+						className='dmr-list-option'
 						key={i}
 					>
 						<aside>
@@ -158,10 +160,10 @@ const LeftBar = () => {
 						</aside>
 						<aside>{dmr.dmr_name}</aside>
 					</section>
-				)
+				);
 			})
-		)
-	}
+		);
+	};
 
 	return (
 		<aside
@@ -228,9 +230,19 @@ const LeftBar = () => {
 			</footer>
 
 			{/* Edit Profile Modal */}
+			{rightClickModal && (
+				<Modal onClose={(_) => setRightClickModal(false)}>
+					<RightClickModal
+						setRightClickModal={setRightClickModal}
+						rect={rect}
+					/>
+				</Modal>
+			)}
 			{createChannelOpenModal && (
 				<Modal
-					onClose={(_) => setCreateChannelOpenModal(false)}
+					onClose={(_) => {
+						setCreateChannelOpenModal(false);
+					}}
 					currentVisible={false}
 				>
 					<CreateChannelModal
