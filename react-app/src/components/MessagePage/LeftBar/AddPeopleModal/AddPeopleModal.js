@@ -66,10 +66,12 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	useEffect(() => {
 		// filter for noncurrent users only
 		if (userState) {
-			const filteredUsers = Object.values(userState).filter(
-				(user) => user.id !== getCurrentUserId
+			// const filteredUsers = Object.values(userState).filter(
+			// 	(user) => user.id !== getCurrentUserId
+			// );
+			setUsers(
+				Object.values(userState).filter((user) => user.id !== getCurrentUserId)
 			);
-			setUsers(filteredUsers);
 		}
 	}, [userState]);
 
@@ -78,19 +80,24 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		if (load < 2) {
 			setLoad(load + 1);
 		}
-		
+
 		if (users && load < 2 && load > 0) {
 			const newUserBooleans = [];
 			users.map((_) => newUserBooleans.push(false));
 			setUsersBoolean(newUserBooleans);
 			if (editChannel) {
-				const userIds = users.map((user) => user.id);
+				const userIds = Object.values(userState).map((user) => user.id);
+				console.log('userIds', userIds);
+				console.log('usersChannels', usersChannels);
+				console.log('newUsersBooleans (before)', newUserBooleans);
 				usersChannels.forEach((uc, index) => {
-					if (userIds.includes(uc.user_id)) {
-						newUserBooleans[index] = !newUserBooleans[index];
+					if (userIds.includes(uc.user_id) && uc.user_id !== 1) {
+						console.log('index', index);
+						newUserBooleans[uc.user_id - 2] = !newUserBooleans[uc.user_id - 2];
 					}
 				});
 
+				console.log('newUsersBooleans (after)', newUserBooleans);
 				setUsersBoolean(newUserBooleans);
 			}
 		}
