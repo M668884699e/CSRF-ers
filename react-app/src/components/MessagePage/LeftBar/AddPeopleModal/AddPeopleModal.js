@@ -91,7 +91,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					}
 				});
 
-				console.log('newUserBooleans', newUserBooleans);
 				setUsersBoolean(newUserBooleans);
 			}
 		}
@@ -141,8 +140,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const submitMembers = () => {
 		// get all user ids from users index
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
-
-		console.log('usersToAdd', usersToAdd);
 
 		//? call on thunk to edit current channel and add people
 		if (inputLength > 0) {

@@ -16,7 +16,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 
 // import store
 import * as channelActions from '../../../../store/channel';
-import * as dmrActions from "../../../../store/dmr"
+import * as dmrActions from '../../../../store/dmr';
 import { useEffect } from 'react';
 
 //? RightClickModal component
@@ -44,16 +44,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// nothing for now, just to update channel state
 
 		// updating current channel id here
-<<<<<<< HEAD
-		if(currentDMR) setCurrentDMRId(currentDMR.id)
-		if(currentChannel) setCurrentChannelId(currentChannel.id)
-		console.log('currentChannelId', currentChannelId);
-		console.log("currentDMRId", currentDMRId)
+		if (currentDMR) setCurrentDMRId(currentDMR.id);
+		if (currentChannel) setCurrentChannelId(currentChannel.id);
 	}, [channelState, dmrState]);
-=======
-		setCurrentChannelId(currentChannel.id);
-	}, [channelState, currentChannelId]);
->>>>>>> 4ada8ff0960459e843c0aae3639b1e064f24a8fe
 
 	// useEffect(() => {
 	// 	setCurrentDMRId(currentDMR.id)
@@ -86,25 +79,19 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const handleDeleteDMR = async () => {
 		var confirmDelete = prompt(
 			`Are you sure you want to delete direct message room ${currentDMR.dmr_name}? Type 'delete' to confirm`
-		)
+		);
 
-		if (confirmDelete && confirmDelete.toLowerCase().trim() === "delete") {
-			alert(`Direct Message Room ${currentDMR.dmr_name} has been deleted`)
+		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'delete') {
+			alert(`Direct Message Room ${currentDMR.dmr_name} has been deleted`);
 		}
 
 		if (currentDMR.id) {
 			dispatch(dmrActions.thunkDeleteDmr(currentDMR.id));
-			dispatch(dmrActions.thunkGetAllUserDmrs())
+			dispatch(dmrActions.thunkGetAllUserDmrs());
 			setRightClickModal(false);
-			return history.push(
-				`/chat/dmrs/${dmrState ? dmrState[0].id : 0}`
-			)
+			return history.push(`/chat/dmrs/${dmrState ? dmrState[0].id : 0}`);
 		}
-	}
-
-	const test = () => {
-		console.log("hello?")
-	}
+	};
 
 	return (
 		<section

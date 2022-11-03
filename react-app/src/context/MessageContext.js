@@ -13,7 +13,7 @@ export default function MessageProvider({ children }) {
 	const [addPeopleModal, setAddPeopleModal] = useState(false);
 	const [rightClickModal, setRightClickModal] = useState(false);
 	const [channelName, setChannelName] = useState([]);
-	const [dmrName, setDMRName] = useState([])
+	const [dmrName, setDMRName] = useState([]);
 
 	// Message Provider
 	return (

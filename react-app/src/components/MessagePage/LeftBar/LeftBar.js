@@ -125,7 +125,6 @@ const LeftBar = () => {
 						onClick={(e) => {
 							e.stopPropagation();
 							e.preventDefault();
-							console.log('onClick');
 
 							return history.push(`/chat/channels/${channel.id}`);
 						}}
