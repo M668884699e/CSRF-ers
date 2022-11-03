@@ -9,6 +9,7 @@ export const useMessage = () => useContext(MessageContext);
 export default function MessageProvider({ children }) {
 	// state for context
 	const [createChannelOpenModal, setCreateChannelOpenModal] = useState(false);
+	const [createDMROpenModal, setCreateDMROpenModal] = useState(false);
 	const [addPeopleModal, setAddPeopleModal] = useState(false);
 	const [rightClickModal, setRightClickModal] = useState(false);
 	const [channelName, setChannelName] = useState([]);
@@ -20,6 +21,8 @@ export default function MessageProvider({ children }) {
 				value={{
 					createChannelOpenModal,
 					setCreateChannelOpenModal,
+					createDMROpenModal,
+					setCreateDMROpenModal,
 					addPeopleModal,
 					setAddPeopleModal,
 					channelName,

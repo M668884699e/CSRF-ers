@@ -40,6 +40,7 @@ const LeftBar = () => {
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
 	const [rect, setRect] = useState(0);
 	const { editChannel, setEditChannel } = useChannel();
+	const { editDMR, setEditDMR } = useDMR();
 	const { dmrs, setDMRs } = useDMR();
 	const { dmrUsers, setDMRUsers } = useDMRUsers();
 	const { currentChannelId, setCurrentChannelId } = useChannel();
@@ -151,7 +152,24 @@ const LeftBar = () => {
 			dmrs.map((dmr, i) => {
 				return (
 					<section
-						onClick={(_) => history.push(`/chat/dmrs/${dmr.id}`)}
+						onClick={(e) => {
+							e.stopPropagation();
+							e.preventDefault();
+
+							return history.push(`/chat/dmrs/${dmr.id}`)
+						}}
+						onContextMenu={(e) => {
+							// prevent default right click
+							e.preventDefault();
+
+							history.push(`/chat/dmrs/${dmr.id}`)
+
+							// turn modal on
+							setRightClickModal(true);
+							setRect(e.target.getBoundingClientRect());
+
+							return false;
+						}}
 						className='dmr-list-option'
 						key={i}
 					>
@@ -212,10 +230,18 @@ const LeftBar = () => {
 							<summary id='dmr-header'>Direct messages</summary>
 							<section id='dmr-list'>
 								{loadAllDMRs()}
-								<aside>
-									<i className='fa-regular fa-plus'></i>
-								</aside>
-								<aside>Add teammates</aside>
+								<section
+									className="dmr-list-option"
+									onClick={(_) => {
+										setEditDMR(false);
+										setCreateChannelOpenModal(true);
+									}}
+								>
+									<aside>
+										<i className='fa-regular fa-plus'></i>
+									</aside>
+									<aside>Add teammates</aside>
+								</section>
 							</section>
 						</details>
 					</section>

@@ -90,7 +90,7 @@ def get_user_dmrs():
     # query DMR and find any dmr that current user belongs to
     belongs_dmrs = DMRUser.query.filter(DMRUser.user_id == current_user.get_id())
 
-    return {"dmrs": [belongs_dmr.to_dict() for belongs_dmr in belongs_dmrs]}
+    return {"dmrs": {belongs_dmr.id: belongs_dmr.to_dict() for belongs_dmr in belongs_dmrs}}
 
 
 #* GET - /users/messages
