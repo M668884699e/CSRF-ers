@@ -78,25 +78,27 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		e.preventDefault();
 
 		// reset input length
-		setInputLength(0);
 
 		// if input length is greater than 0, proceed to posting new channel
-		if (inputLength > 0) {
-			// reset userToAdd
-			usersIndexes = [];
 
-			// select all list that are selected
-			const allTrue = document.querySelectorAll(
-				"li[class*='apm-members-li-'][class$='-true']"
-			);
+		// get all users who is in current channels
+		
 
-			// push all selected list to usersIndexes
-			Object.values(allTrue).map((currMember) =>
-				usersIndexes.push(Number(currMember.className.split('-')[3]))
-			);
+		// reset userToAdd
+		setInputLength(0);
+		usersIndexes = [];
 
-			submitMembers();
-		}
+		// select all list that are selected
+		const allTrue = document.querySelectorAll(
+			"li[class*='apm-members-li-'][class$='-true']"
+		);
+
+		// push all selected list to usersIndexes
+		Object.values(allTrue).map((currMember) =>
+			usersIndexes.push(Number(currMember.className.split('-')[3]))
+		);
+
+		submitMembers();
 	};
 
 	// function to submit channel to add
@@ -105,11 +107,17 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
 
 		//? call on thunk to edit current channel and add people
-		usersToAdd.map((user) => {
-			dispatch(
-				channelActions.thunkPutAddUserToChannel(createdChannelId, user)
-			).then(() => setAddPeopleModal(false));
-		});
+		if (inputLength > 0) {
+			usersToAdd.map((user) => {
+				dispatch(
+					channelActions.thunkPutAddUserToChannel(createdChannelId, user)
+				).then(() => {
+					setAddPeopleModal(false);
+				});
+			});
+		} else {
+			setAddPeopleModal(false);
+		}
 
 		//? After getting channel page in chat page, navigate to specific channel
 		// navigate to channel page
@@ -137,6 +145,13 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 										const newUserBooleans = usersBoolean;
 										newUserBooleans[index] = !newUserBooleans[index];
 										setUsersBoolean(newUserBooleans);
+
+										console.log('usersBoolean', usersBoolean);
+
+										// find a way to get previous usersboolean
+										
+										// could load up all the old users boolean and update it
+
 
 										// update class name
 										document.querySelector(
@@ -174,27 +189,15 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 				{/* on click of button, finish adding channel */}
 				<figure id='ccm-button-container'>
-					{inputLength > 0 && inputLength <= 50 ? (
+					{
 						<button
 							id='ccmf-submit-button'
 							type='submit'
-							className={`ccmf-submit-button-${
-								inputLength > 0 && inputLength <= 50
-							}`}
+							className={`ccmf-submit-button-true`}
 						>
-							Create
+							Add
 						</button>
-					) : (
-						<button
-							id='ccmf-submit-button'
-							type='button'
-							className={`ccmf-submit-button-${
-								inputLength > 0 && inputLength <= 50
-							}`}
-						>
-							Create
-						</button>
-					)}
+					}
 				</figure>
 			</form>
 		</section>

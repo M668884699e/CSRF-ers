@@ -142,11 +142,13 @@ def create_channel():
     channel_name = form.data["channel_name"]
     public = form.data["public"]
 
+
     new_channel = Channel(
         owner_id = current_user.get_id(),
-        channel_name = channel_name,
-        public = public
+        channel_name = channel_name
     )
+
+    new_channel.public = public
 
     db.session.add(new_channel)
     db.session.commit()

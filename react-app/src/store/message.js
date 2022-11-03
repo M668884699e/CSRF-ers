@@ -35,7 +35,8 @@ export const thunkGetChannelMessages =
 			// dispatch user data to state
 			dispatch(getChannelMessages(type === 'channels'? channelMessages.channel_messages: channelMessages.dmr_messages));
 
-			return channelMessages;
+				return channelMessages;
+			}
 		}
 	};
 

@@ -19,7 +19,6 @@ export const thunkGetAllDMRUsers = () => async (dispatch) => {
   if (res.ok) {
     const allDMRUsers = await res.json();
 
-    console.log(allDMRUsers, "rtte");
     dispatch(getAllDMRUsers(allDMRUsers));
 
     return allDMRUsers;

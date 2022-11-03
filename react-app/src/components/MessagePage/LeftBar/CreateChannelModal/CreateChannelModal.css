@@ -116,11 +116,16 @@
 }
 
 /* Make Private Aside */
+#ccmf-private-aside-edit {
+	margin-top: 1rem;
+}
+
 #ccmf-private-aside {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+
 #ccmf-private-section > p:first-child {
 	margin-bottom: 0.5rem;
 }
@@ -170,13 +175,13 @@
 }
 
 .ccmf-submit-button-false {
-  background-color: #505256;
+	background-color: #505256;
 }
 
 .ccmf-submit-button-true {
-  background-color: #007a5a;
+	background-color: #007a5a;
 }
 
 .ccmf-submit-button-true:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
