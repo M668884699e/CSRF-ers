@@ -1,9 +1,10 @@
 // import components
-import LeftBar from "./LeftBar"
-import ProfileBar from "./ProfileBar"
-import MessageSender from "./MessageSender"
-import MessageDisplay from "./MessageDisplay"
-import SearchBar from "./SearchBar"
+import LeftBar from './LeftBar';
+import ProfileBar from './ProfileBar';
+import MessageSender from './MessageSender';
+import MessageDisplay from './MessageDisplay';
+import SearchBar from './SearchBar';
+import { Editor } from '../Editor/Editor';
 import MessageForm from "./MessageForm"
 
 // import context
@@ -45,8 +46,8 @@ const MessagePage = () => {
 
 				{/* <MessageSender /> */}
 				<aside id='message-sender'>
-                    <MessageForm />
-                </aside>
+					<Editor />
+				</aside>
 
 				{/* Message Profile Bar */}
 				<aside id={`message-profile-${profileBarActive}`}>

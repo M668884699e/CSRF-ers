@@ -26,6 +26,7 @@ import * as sessionActions from '../../../store/session';
 import * as userActions from '../../../store/users';
 import { Modal } from '../../../context/Modal';
 import CreateChannelModal from './CreateChannelModal';
+import CreateDMRModal from './CreateDMRModal';
 import AddPeopleModal from './AddPeopleModal';
 import RightClickModal from './RightClickModal';
 
@@ -33,17 +34,22 @@ const LeftBar = () => {
 	/**
 	 * Controlled inputs
 	 */
+	const [rect, setRect] = useState(0);
+
 	const { addPeopleModal, setAddPeopleModal } = useMessage();
 	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
+	const { createDMROpenModal, setCreateDMROpenModal } = useMessage();
 	const { rightClickModal, setRightClickModal } = useMessage();
+
 	const { channels, setChannels } = useChannel();
-	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
-	const [rect, setRect] = useState(0);
 	const { editChannel, setEditChannel } = useChannel();
-	const { editDMR, setEditDMR } = useDMR();
-	const { dmrs, setDMRs } = useDMR();
-	const { dmrUsers, setDMRUsers } = useDMRUsers();
 	const { currentChannelId, setCurrentChannelId } = useChannel();
+	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
+
+	const { dmrs, setDMRs } = useDMR();
+	const { currentDMRId, setCurrentDMRId } = useDMR();
+	const { dmrUsers, setDMRUsers } = useDMRUsers();
+
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -74,6 +80,8 @@ const LeftBar = () => {
 
 	// per dmrState
 	useEffect(() => {
+		setDMRs(dmrState);
+
 		if (dmrState) {
 			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
 				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
@@ -94,7 +102,7 @@ const LeftBar = () => {
 				setDMRs(dmrDisplay);
 			}
 		}
-	}, [dmrState]);
+	}, [dmrState, currentDMRId]);
 
 	// per channelsUsers state
 	useEffect(() => {
@@ -117,7 +125,6 @@ const LeftBar = () => {
 						onClick={(e) => {
 							e.stopPropagation();
 							e.preventDefault();
-							console.log('onClick');
 
 							return history.push(`/chat/channels/${channel.id}`);
 						}}
@@ -147,9 +154,11 @@ const LeftBar = () => {
 	};
 
 	const loadAllDMRs = () => {
+		const dmrsArray = Object.values(dmrs);
+
 		return (
-			Array.isArray(dmrs) &&
-			dmrs.map((dmr, i) => {
+			Array.isArray(dmrsArray) &&
+			dmrsArray.map((dmr, i) => {
 				return (
 					<section
 						onClick={(e) => {
@@ -233,14 +242,13 @@ const LeftBar = () => {
 								<section
 									className="dmr-list-option"
 									onClick={(_) => {
-										setEditDMR(false);
-										setCreateChannelOpenModal(true);
+										setCreateDMROpenModal(true);
 									}}
 								>
 									<aside>
 										<i className='fa-regular fa-plus'></i>
 									</aside>
-									<aside>Add teammates</aside>
+									<aside>New conversation</aside>
 								</section>
 							</section>
 						</details>
@@ -273,6 +281,18 @@ const LeftBar = () => {
 				>
 					<CreateChannelModal
 						setCreateChannelOpenModal={setCreateChannelOpenModal}
+					/>
+				</Modal>
+			)}
+			{createDMROpenModal && (
+				<Modal
+					onClose={(_) => {
+						setCreateDMROpenModal(false);
+					}}
+					currentVisible={false}
+				>
+					<CreateDMRModal
+						setCreateDMROpenModal={setCreateDMROpenModal}
 					/>
 				</Modal>
 			)}

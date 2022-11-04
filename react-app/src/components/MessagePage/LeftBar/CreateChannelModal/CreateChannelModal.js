@@ -128,9 +128,6 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				setCreateChannelOpenModal(false);
 				setAddPeopleModal(true);
 			})
-			.catch(() => {
-				console.log('catch');
-			});
 	};
 
 	// function to update channel name

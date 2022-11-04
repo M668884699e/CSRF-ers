@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom';
 import * as userActions from '../../../../store/users';
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
+import * as usersChannelsActions from '../../../../store/channels-users';
 
 //? AddPeopleModal component
 const AddPeopleModal = ({ setAddPeopleModal }) => {
@@ -34,11 +35,18 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
+	const [usersChannels, setUsersChannels] = useState([]);
+	const { currentChannelId, setCurrentChannelId } = useChannel();
+	const { editChannel, setEditChannel } = useChannel();
+	const [load, setLoad] = useState(0);
 
 	let usersIndexes = [];
 
 	// selector functions
 	const userState = useSelector(userActions.getAllUsers);
+	const usersChannelsState = useSelector(
+		usersChannelsActions.getAllUsersChannels
+	);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -58,19 +66,49 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	useEffect(() => {
 		// filter for noncurrent users only
 		if (userState) {
-			const filteredUsers = Object.values(userState).filter(
-				(user) => user.id !== getCurrentUserId
+			// const filteredUsers = Object.values(userState).filter(
+			// 	(user) => user.id !== getCurrentUserId
+			// );
+			setUsers(
+				Object.values(userState).filter((user) => user.id !== getCurrentUserId)
 			);
-			setUsers(filteredUsers);
 		}
 	}, [userState]);
 
 	// per users
 	useEffect(() => {
-		const newUserBooleans = [];
-		users.map((_) => newUserBooleans.push(false));
-		setUsersBoolean(newUserBooleans);
-	}, [users]);
+		if (load < 15) {
+			setLoad(load + 1);
+		}
+
+		if (users && load < 15 && load > 0) {
+			const newUserBooleans = [];
+			users.map((_) => newUserBooleans.push(false));
+			setUsersBoolean(newUserBooleans);
+			if (editChannel) {
+				const userIds = Object.values(userState).map((user) => user.id);
+				usersChannels.forEach((uc, index) => {
+					if (userIds.includes(uc.user_id) && uc.user_id !== 1) {
+						newUserBooleans[uc.user_id - 2] = !newUserBooleans[uc.user_id - 2];
+					}
+				});
+
+				setUsersBoolean(newUserBooleans);
+			}
+		}
+	}, [users, load, usersBoolean, usersChannels, usersChannelsState]);
+
+	// per usersBoolean
+	useEffect(() => {
+		// nothing for now
+	}, [usersBoolean]);
+
+	// useEffect per usersChannelsState
+	useEffect(() => {
+		setUsersChannels(
+			usersChannelsState.filter((uc) => uc.channel_id === currentChannelId)
+		);
+	}, [usersChannelsState]);
 
 	// function to handle add members
 	const addMembers = (e) => {
@@ -82,7 +120,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		// if input length is greater than 0, proceed to posting new channel
 
 		// get all users who is in current channels
-		
 
 		// reset userToAdd
 		setInputLength(0);
@@ -106,16 +143,38 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		// get all user ids from users index
 		const usersToAdd = usersIndexes.map((userIndex) => users[userIndex].id);
 
-		//? call on thunk to edit current channel and add people
+		// reset load
+		// setLoad(0);
+
+		// //? call on thunk to edit current channel and add people
 		if (inputLength > 0) {
-			usersToAdd.map((user) => {
-				dispatch(
-					channelActions.thunkPutAddUserToChannel(createdChannelId, user)
-				).then(() => {
+			return dispatch(
+				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+			)
+				.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
+				.then(() => {
+					return usersToAdd.map((user) => {
+						dispatch(
+							usersChannelsActions.thunkPutAddUserToChannel(
+								createdChannelId,
+								user
+							)
+						).then(() =>
+							dispatch(usersChannelsActions.thunkGetAllChannelsUsers())
+						);
+					});
+				})
+				.then(() => {
+					setLoad(0);
 					setAddPeopleModal(false);
 				});
-			});
 		} else {
+			// if no input length, we remove all existing users except for owner
+			// as no one is currently in channel
+			dispatch(
+				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+			).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
+			setLoad(0);
 			setAddPeopleModal(false);
 		}
 
@@ -146,12 +205,9 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 										newUserBooleans[index] = !newUserBooleans[index];
 										setUsersBoolean(newUserBooleans);
 
-										console.log('usersBoolean', usersBoolean);
-
 										// find a way to get previous usersboolean
-										
-										// could load up all the old users boolean and update it
 
+										// could load up all the old users boolean and update it
 
 										// update class name
 										document.querySelector(
@@ -195,7 +251,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 							type='submit'
 							className={`ccmf-submit-button-true`}
 						>
-							Add
+							{editChannel ? <>Edit</> : <>Add</>}
 						</button>
 					}
 				</figure>
