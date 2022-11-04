@@ -1,0 +1,13 @@
+#message-form{
+    background-color: #222529;
+    height: 100%;
+}
+
+#message-container{
+    background-color: #222529;
+}
+
+#message-field{
+    color: #616061;
+    width: 95%
+}

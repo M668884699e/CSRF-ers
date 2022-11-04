@@ -9,7 +9,7 @@ import { useMessage } from '../../../../context/MessageContext';
 import './RightClickModal.css';
 
 // import react
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // import react-redux
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,8 +21,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import * as channelActions from '../../../../store/channel';
 import * as dmrActions from '../../../../store/dmr';
 import * as sessionActions from '../../../../store/session';
-
-import { useEffect } from 'react';
+import * as channelsUsersActions from '../../../../store/channels-users';
 
 //? RightClickModal component
 const RightClickModal = ({ setRightClickModal, rect }) => {
@@ -33,6 +32,8 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const { currentDMR, setCurrentDMR } = useDMR();
 	const { currentChannelId, setCurrentChannelId } = useChannel();
 	const { currentDMRId, setCurrentDMRId } = useDMR();
+	const { channels, setChannels } = useChannel();
+	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] = useState(false);
 
 	// selector function
 	const channelState = useSelector(channelActions.getAllChannels);
@@ -51,7 +52,25 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// updating current channel id here
 		if (currentDMR) setCurrentDMRId(currentDMR.id);
 		if (currentChannel) setCurrentChannelId(currentChannel.id);
-	}, [channelState, dmrState]);
+	}, [dispatch, channelState, dmrState]);
+
+	// per channels
+	useEffect(() => {
+		// nothing for now
+
+		// if routeType is channel, check channel via channels by id,
+		// see if current channel is owned by current session user
+		// otherwise, hide it
+		// for dmr, just hide it
+		setCheckRouteProperlyOwned(
+			window.location.pathname.split('/')[2] === 'channels' &&
+				channelState[window.location.pathname.split('/')[3] - 1] &&
+				channelState[Number(window.location.pathname.split('/')[3] - 1)]
+					.owner_id === currentUserId
+				? true
+				: false
+		);
+	}, [channels, checkRouteProperlyOwned]);
 
 	// useEffect(() => {
 	// 	setCurrentDMRId(currentDMR.id)
@@ -80,6 +99,40 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		}
 	};
 
+	// function to handle delete user for channel
+	const handleLeaveChannel = async () => {
+		var confirmDelete = prompt(
+			`Are you sure you want to leave channel ${currentChannel.channel_name}? Type 'leave' to confirm`
+		);
+
+		// if 'delete' is the input, proceed to delete account
+		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'leave') {
+			// alert to user, successful deletion
+			alert(`You have left channel ${currentChannel.channel_name}`);
+
+			if (currentChannel.id && currentUserId) {
+				// call on thunk to delete current user from current channel
+				dispatch(
+					channelsUsersActions.thunkRemoveUserFromChannel(
+						currentChannel.id,
+						currentUserId
+					)
+				)
+					.then(() => dispatch(channelsUsersActions.thunkGetAllChannelsUsers()))
+					.then(() => {
+						dispatch(channelActions.thunkGetUserChannels()).then((res) => {
+							setChannels(res);
+						});
+
+						return history.push(
+							`/chat/channels/${channelState ? channelState[0].id : 0}`
+						);
+					});
+				setRightClickModal(false);
+			}
+		}
+	};
+
 	// similarly, a function to handle delete user for DMR
 	const handleDeleteDMR = async () => {
 		var confirmDelete = prompt(
@@ -97,17 +150,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 			return history.push(`/chat/dmrs/${dmrState ? dmrState[0].id : 0}`);
 		}
 	};
-
-	// if routeType is channel, check channel via channels by id,
-	// see if current channel is owned by current session user
-	// otherwise, hide it
-	// for dmr, just hide it
-	const checkRouteProperlyOwned =
-		window.location.pathname.split('/')[2] === 'channels' &&
-		channelState[window.location.pathname.split('/')[3]] &&
-		channelState[window.location.pathname.split('/')[3]].owner_id
-			? true
-			: false;
 
 	return (
 		<section
@@ -131,12 +173,12 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							setRightClickModal(false);
 						}}
 					>
-						Edit channel
+						Edit chat
 					</p>
 				</figure>
 			)}
 			<figure id='rcm-fig-2'>
-				<p onClick={handleDeleteChannel}>Leave channel</p>
+				<p onClick={handleLeaveChannel}>Leave chat</p>
 			</figure>
 		</section>
 	);

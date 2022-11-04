@@ -33,6 +33,18 @@ export const addChannelUser = (channelsUsers) => {
 	};
 };
 
+// action
+const REMOVE_USER_FROM_CHANNEL = 'channelsUsers/REMOVE_USER_FROM_CHANNEL';
+
+// action creator: remove given user from given channel
+export const removeUserFromChannel = (channelId, userId) => {
+	return {
+		type: REMOVE_USER_FROM_CHANNEL,
+		channelId,
+		userId,
+	};
+};
+
 /* --------- THUNKS -------- */
 // thunk to get all channels users
 export const thunkGetAllChannelsUsers = () => async (dispatch) => {
@@ -45,19 +57,6 @@ export const thunkGetAllChannelsUsers = () => async (dispatch) => {
 		dispatch(getAllChannelsUsers(allChannelsUsers));
 
 		return allChannelsUsers;
-	}
-
-	return res;
-};
-
-export const thunkDeleteChannelUsers = (channelId) => async (dispatch) => {
-	// delete users from given channel's channel id
-	const res = await fetch(`/api/channels/${channelId}/users`, {
-		method: 'DELETE',
-	});
-
-	if (res.ok) {
-		return dispatch(deleteAllChannelsUsers(channelId));
 	}
 
 	return res;
@@ -84,6 +83,33 @@ export const thunkPutAddUserToChannel =
 		}
 	};
 
+export const thunkDeleteChannelUsers = (channelId) => async (dispatch) => {
+	// delete users from given channel's channel id
+	const res = await fetch(`/api/channels/${channelId}/users`, {
+		method: 'DELETE',
+	});
+
+	if (res.ok) {
+		return dispatch(deleteAllChannelsUsers(channelId));
+	}
+
+	return res;
+};
+
+export const thunkRemoveUserFromChannel =
+	(channelId, userId) => async (dispatch) => {
+		// delete users from given channel's channel id
+		const res = await fetch(`/api/channels/${channelId}/users/${userId}`, {
+			method: 'DELETE',
+		});
+
+		if (res.ok) {
+			return dispatch(removeUserFromChannel(channelId, userId));
+		}
+
+		return res;
+	};
+
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllUsersChannels = (state) =>
 	state.channelsUsers.channels_users;
@@ -95,6 +121,16 @@ export default function channelsUsersReducer(state = initialState, action) {
 	const newChannelsUsers = { ...state };
 
 	switch (action.type) {
+		// remove given user from given channel
+		case REMOVE_USER_FROM_CHANNEL:
+			const deleteUserFromChannel = { ...state };
+
+			Object.values(deleteUserFromChannel).forEach((cu, index) => {
+				if (cu.channel_id === action.channelId && cu.user_id === action.userId)
+					delete deleteUserFromChannel[index];
+			});
+
+			return deleteUserFromChannel;
 		// delete all channel users from given channel
 		case DELETE_ALL_CHANNEL_USERS_BY_ID:
 			const deleteUsersFromChannel = { ...state };

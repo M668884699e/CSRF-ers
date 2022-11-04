@@ -46,7 +46,8 @@ const MessagePage = () => {
 
 				{/* <MessageSender /> */}
 				<aside id='message-sender'>
-					<Editor />
+					{/* <Editor /> */}
+					<MessageForm />
 				</aside>
 
 				{/* Message Profile Bar */}

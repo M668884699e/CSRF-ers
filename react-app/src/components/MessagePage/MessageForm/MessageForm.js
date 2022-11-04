@@ -91,17 +91,20 @@ const MessageForm = () => {
                     onChange={updateMessage}
                 > */}
                 <textarea
+                    id='message-field'
                     name='message'
                     type='text'
                     placeholder='enter a message'
                     value={message}
                     onChange={updateMessage}
                 >
-                    <Editor />
+                    {/* <Editor /> */}
                 </textarea>
                 {/* </input> */}
             </div>
-            <button type='submit'>
+            <button 
+                type='submit'
+                id='message-button'>
                 <i className="fa-solid fa-paper-plane"></i>
             </button>
 
