@@ -21,6 +21,8 @@ import * as userActions from '../../../store/users';
 import * as sessionActions from '../../../store/session';
 import * as channelActions from '../../../store/channel';
 import * as dmrActions from '../../../store/dmr';
+import { Modal } from '../../../context/Modal';
+import ShowMembersModal from './ShowMembersModal';
 
 const MessageDisplay = () => {
 	/**
@@ -51,6 +53,7 @@ const MessageDisplay = () => {
 	// redux state
 	const messageState = useSelector(messageActions.getAllMessages);
 	const usersState = useSelector(userActions.getAllUsers);
+	const [showMembersModal, setShowMembersModal] = useState(false);
 
 	// per message state
 	useEffect(() => {
@@ -93,7 +96,7 @@ const MessageDisplay = () => {
 				</section>
 				<section id='message-main-header-right'>
 					{/* BJM: todo on click display modal of members, incorporate centralized slack modal */}
-					<button>Members</button>
+					<button onClick={(_) => setShowMembersModal(true)}>Members</button>
 				</section>
 			</section>
 			{/* BJM: todo create loop of messages grabbing all messages in channel */}
@@ -123,9 +126,15 @@ const MessageDisplay = () => {
 						</section>
 					))}
 			</section>
+			{showMembersModal && (
+				// render profile modal
+				<Modal onClose={(_) => setShowMembersModal(false)}>
+					<ShowMembersModal setShowMembersModal={setShowMembersModal} />
+				</Modal>
+			)}
 		</section>
 	) : (
-		<></>
+		<section id='message-display-main'>Message not available. TBD</section>
 	);
 };
 

@@ -66,6 +66,10 @@
 	background-color: #222529;
 }
 
+#message-main-header-right > button{
+	
+}
+
 /* Message Sub Header */
 #message-sub-header {
 	display: flex;
