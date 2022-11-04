@@ -282,7 +282,7 @@ def delete_channel(channel_id):
 #* DELETE - /channels/:channelId/users
 @login_required
 @channel_routes.route('/<int:channel_id>/users', methods=['DELETE'])
-def remove_user_from_channel(channel_id):
+def remove_users_from_channel(channel_id):
     """
     Remove all current users from channel except owner
     """
@@ -297,4 +297,29 @@ def remove_user_from_channel(channel_id):
     # return back successful response
     return {
         'message': f'Successfully deleted all users from channel {channel_id}'
+    }
+
+#* DELETE - /channels/:channelId/users/:userId
+@login_required
+@channel_routes.route('/<int:channel_id>/users/<int:user_id>', methods=['DELETE'])
+def remove_user_from_channel(channel_id, user_id):
+    """
+    Remove current user from channel 
+    """
+    
+    # given channel id, query through all channel_users to find current channel
+    current_channel_user = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id()).filter(ChannelUser.channel_id == channel_id).first()
+    
+    # check if user is a current member of given channel, throw error if necessary
+    if current_channel_user is None:
+        return {'message': f'User {current_user.get_id()} does not exist in channel {channel_id}'}, 404
+               
+    
+    # delete user that's not current owner
+    db.session.delete(current_channel_user)
+    db.session.commit()
+    
+    # return back successful response
+    return {
+        'message': f'Successfully deleted user {current_user.get_id()} from channel {channel_id}'
     }

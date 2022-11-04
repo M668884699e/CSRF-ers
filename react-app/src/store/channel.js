@@ -42,8 +42,6 @@ export const createChannel = (channel) => {
 	};
 };
 
-
-
 // action creator: put channel
 export const putChannel = (id) => {
 	return {
@@ -144,8 +142,6 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 	return null;
 };
 
-
-
 // thunk put channel
 export const thunkPutChannel = (channelInfo, channelId) => async (dispatch) => {
 	// fetch the put data
@@ -210,6 +206,7 @@ export default function channelReducer(state = initialState, action) {
 			return deleteChannels;
 		// default case
 		default:
+
 			return Object.assign({}, newChannels, action.channels);
 	}
 }

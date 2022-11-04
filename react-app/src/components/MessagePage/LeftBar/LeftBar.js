@@ -50,7 +50,6 @@ const LeftBar = () => {
 	const { currentDMRId, setCurrentDMRId } = useDMR();
 	const { dmrUsers, setDMRUsers } = useDMRUsers();
 
-
 	// invoke dispatch
 	const dispatch = useDispatch();
 
@@ -76,7 +75,7 @@ const LeftBar = () => {
 	// per channelState
 	useEffect(() => {
 		setChannels(channelState);
-	}, [channelState, currentChannelId]);
+	}, [channelState, currentChannelId, channelsUsersState]);
 
 	// per dmrState
 	useEffect(() => {
@@ -165,13 +164,13 @@ const LeftBar = () => {
 							e.stopPropagation();
 							e.preventDefault();
 
-							return history.push(`/chat/dmrs/${dmr.id}`)
+							return history.push(`/chat/dmrs/${dmr.id}`);
 						}}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
 
-							history.push(`/chat/dmrs/${dmr.id}`)
+							history.push(`/chat/dmrs/${dmr.id}`);
 
 							// turn modal on
 							setRightClickModal(true);
@@ -240,7 +239,7 @@ const LeftBar = () => {
 							<section id='dmr-list'>
 								{loadAllDMRs()}
 								<section
-									className="dmr-list-option"
+									className='dmr-list-option'
 									onClick={(_) => {
 										setCreateDMROpenModal(true);
 									}}
@@ -291,9 +290,7 @@ const LeftBar = () => {
 					}}
 					currentVisible={false}
 				>
-					<CreateDMRModal
-						setCreateDMROpenModal={setCreateDMROpenModal}
-					/>
+					<CreateDMRModal setCreateDMROpenModal={setCreateDMROpenModal} />
 				</Modal>
 			)}
 			{addPeopleModal && (
