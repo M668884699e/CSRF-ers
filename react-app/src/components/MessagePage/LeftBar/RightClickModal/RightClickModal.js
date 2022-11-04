@@ -178,7 +178,11 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				</figure>
 			)}
 			<figure id='rcm-fig-2'>
-				<p onClick={handleLeaveChannel}>Leave chat</p>
+				{checkRouteProperlyOwned ? (
+					<p onClick={handleDeleteChannel}>Delete channel</p>
+				) : (
+					<p onClick={handleLeaveChannel}>Leave chat</p>
+				)}
 			</figure>
 		</section>
 	);
