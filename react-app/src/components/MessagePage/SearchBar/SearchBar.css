@@ -62,11 +62,15 @@
 /* Center Bar Section CSS */
 #center-bar-section {
 	display: flex;
-	justify-content: start;
+	justify-content: center;
 	align-items: center;
 
 	height: 30px;
 	width: 800px;
+}
+
+#center-bar-section > figure {
+	width: 100px;
 }
 
 #clock-button {

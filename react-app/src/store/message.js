@@ -1,6 +1,7 @@
 /* --------- ACTIONS -------- */
 //? Action: set channel
-const GET_CHANNEL_MESSAGES = 'channels/GET_CHANNEL_MESSAGES';
+const GET_CHANNEL_MESSAGES = 'messages/GET_CHANNEL_MESSAGES';
+const CREATE_MESSAGE = 'messages/CREATE_MESSAGE';
 
 // action creator: get channel messages
 export const getChannelMessages = (messages) => {
@@ -10,23 +11,53 @@ export const getChannelMessages = (messages) => {
 	};
 };
 
+// action creator: create new message
+export const createMessage = (message) => {
+	return {
+		type: CREATE_MESSAGE,
+		message
+	}
+}
 /* --------- THUNKS -------- */
 
 // thunk get messages in channel
-export const thunkGetChannelMessages = (channelId) => async (dispatch) => {
-	// fetch messages in channel
-	const res = await fetch(`/api/channels/${channelId}/messages`);
+export const thunkGetChannelMessages =
+	(channelId, type = 'channels') =>
+	async (dispatch) => {
+		// fetch messages in channel
+		const res = await fetch(`/api/${type}/${channelId}/messages`);
+		// console.log(type)
+		// if response ok
+		if (res.ok) {
+			const channelMessages = await res.json();
+			// console.log(channelMessages);
 
-	// if response ok
-	if (res.ok) {
-		const channelMessages = await res.json();
+			// dispatch user data to state
+			dispatch(getChannelMessages(type === 'channels'? channelMessages.channel_messages: channelMessages.dmr_messages));
 
-		// dispatch user data to state
-		dispatch(getChannelMessages(channelMessages.channel_messages));
+				return channelMessages;
+		}
+	};
 
-		return channelMessages;
+export const thunkCreateMessage = message => async dispatch => {
+	// fetch create message
+	const res = await fetch('/api/messages/', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(message)
+	});
+
+	if(res.ok){
+		const data = await res.json();
+		dispatch(createMessage(message));
+
+		return data;
 	}
-};
+
+	return null;
+}
 
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllMessages = (state) =>

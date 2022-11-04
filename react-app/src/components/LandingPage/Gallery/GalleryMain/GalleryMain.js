@@ -31,6 +31,7 @@ const GalleryMain = () => {
 	const { channels, setChannels } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
 	const { mainOpen, setMainOpen } = useLanding();
+	// const { onLoad, setOnLoad } =
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const GalleryMain = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetChannels());
+		dispatch(channelActions.thunkGetUserChannels());
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
 		dispatch(userActions.thunkGetAllUsers());
 	}, [dispatch]);
@@ -53,24 +54,27 @@ const GalleryMain = () => {
 	// per channelState, currentUserId, channelsUsersState
 	useEffect(() => {
 		setChannelsUsers(channelsUsersState);
-
-		if (Array.isArray(channelState) && Array.isArray(channelsUsers)) {
+		setChannels(channelState);
+		if (channelState) {
 			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
 				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
 				: '';
 
 			const currentChannelDetail = [];
 
-			currentChannelsUserBelongTo.forEach((cu) => {
-				currentChannelDetail.push(cu.channel_id);
-			});
+			Array.isArray(channelsUsers) &&
+				currentChannelsUserBelongTo.forEach((cu) => {
+					currentChannelDetail.push(cu.channel_id);
+				});
 
-			const currentChannelDisplay = channelState.filter((channel) =>
-				currentChannelDetail.includes(channel.id)
-			);
+			const channelDisplay =
+				Array.isArray(channelState) &&
+				channelState.filter((channel) =>
+					currentChannelDetail.includes(channel.id)
+				);
 
-			if (currentChannelDisplay) {
-				setChannels(currentChannelDisplay);
+			if (Array.isArray(channelDisplay)) {
+				setChannels(channelDisplay);
 			}
 		}
 	}, [channelState, currentUserId, channelsUsersState]);
@@ -102,34 +106,30 @@ const GalleryMain = () => {
 													<p id='wlf2-p1'>{channels[0].channel_name}</p>
 													<section className='wlf2-section'>
 														<figure className='wlf2-section-figure'>
-															{channelsUsers
-																.filter(
-																	(cu) => cu.channel_id === channels[0].id
-																)
-																.map((user, index) => {
-																	const currentUser = Object.values(
-																		usersState
-																	).find(
-																		(userState) => userState.id === user.user_id
-																	);
+															{channelsUsers.map((user, index) => {
+																const currentUser = Object.values(
+																	usersState
+																).find(
+																	(userState) => userState.id === user.user_id
+																);
 
-																	// filter channel users with channel_id that belong to current channel
-																	return (
-																		currentUser &&
-																		index < 4 && (
-																			<figure
-																				className='channel-user-img-container'
-																				key={currentUser.id}
-																			>
-																				<img
-																					className='channel-user-img'
-																					src={currentUser.profile_image}
-																					alt={currentUser.display_name}
-																				/>
-																			</figure>
-																		)
-																	);
-																})}
+																// filter channel users with channel_id that belong to current channel
+																return (
+																	currentUser &&
+																	index < 4 && (
+																		<figure
+																			className='channel-user-img-container'
+																			key={currentUser.id}
+																		>
+																			<img
+																				className='channel-user-img'
+																				src={currentUser.profile_image}
+																				alt={currentUser.display_name}
+																			/>
+																		</figure>
+																	)
+																);
+															})}
 														</figure>
 														<p id='wlf2-p2'>
 															{/* query for members count */}
@@ -177,39 +177,40 @@ const GalleryMain = () => {
 															<p id='wlf2-p1'>{channel.channel_name}</p>
 															<section className='wlf2-section'>
 																<figure className='wlf2-section-figure'>
-																	{channelsUsers
-																		.filter(
-																			(cu) => cu.channel_id === channel.id
-																		)
-																		.map((user, index) => {
-																			const currentUser = Object.values(
-																				usersState
-																			).find(
-																				(userState) =>
-																					userState.id === user.user_id
-																			);
+																	{Array.isArray(channelsUsers) &&
+																		channelsUsers
+																			.filter(
+																				(cu) => cu.channel_id === channel.id
+																			)
+																			.map((user, index) => {
+																				const currentUser = Object.values(
+																					usersState
+																				).find(
+																					(userState) =>
+																						userState.id === user.user_id
+																				);
 
-																			// filter channel users with channel_id that belong to current channel
-																			return (
-																				currentUser &&
-																				index < 4 && (
-																					<figure
-																						className='channel-user-img-container'
-																						key={currentUser.id}
-																					>
-																						<img
-																							className='channel-user-img'
-																							src={currentUser.profile_image}
-																							alt={currentUser.display_name}
-																						/>
-																					</figure>
-																				)
-																			);
-																		})}
+																				// filter channel users with channel_id that belong to current channel
+																				return (
+																					currentUser &&
+																					index < 4 && (
+																						<figure
+																							className='channel-user-img-container'
+																							key={currentUser.id}
+																						>
+																							<img
+																								className='channel-user-img'
+																								src={currentUser.profile_image}
+																								alt={currentUser.display_name}
+																							/>
+																						</figure>
+																					)
+																				);
+																			})}
 																</figure>
 																<p id='wlf2-p2'>
 																	{/* query for members count */}
-																	{channelsUsers &&
+																	{Array.isArray(channelsUsers) &&
 																		channelsUsers.length > 0 &&
 																		channelsUsers.filter(
 																			(channelUsers) =>

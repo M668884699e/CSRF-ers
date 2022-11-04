@@ -6,7 +6,7 @@ const GET_CHANNEL = 'channels/GET_CHANNEL';
 const GET_CHANNEL_USERS = 'channels/GET_CHANNEL_USERS';
 
 const SET_CHANNEL = 'channels/SET_CHANNEL';
-const PUT_CHANNEL_USER = 'channels/SET_CHANNEL_USER';
+
 const PUT_CHANNEL = 'channels/PUT_CHANNEL';
 const DELETE_CHANNEL = 'channels/DELETE_CHANNEL';
 
@@ -42,14 +42,6 @@ export const createChannel = (channel) => {
 	};
 };
 
-// action creator: add user to channel
-export const addChannelUser = (channel) => {
-	return {
-		type: PUT_CHANNEL_USER,
-		channel,
-	};
-};
-
 // action creator: put channel
 export const putChannel = (id) => {
 	return {
@@ -78,7 +70,6 @@ export const thunkGetChannels = () => async (dispatch) => {
 
 		// dispatch load channel w/ loaded channels
 		dispatch(loadChannels(channelData.channels));
-
 		// return channels
 		return channelData;
 	}
@@ -141,7 +132,30 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 		body: JSON.stringify(new_channel_info),
 	});
 
-	if (!res) return null;
+	if (res.ok) {
+		const data = await res.json();
+		console.log("", "booba")
+		console.log(data)
+		console.log("")
+
+		dispatch(createChannel(data));
+
+		return data;
+	}
+
+	return null;
+};
+
+// thunk put channel
+export const thunkPutChannel = (channelInfo, channelId) => async (dispatch) => {
+	// fetch the put data
+	const res = await fetch(`/api/channels/${channelId}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(channelInfo),
+	});
 
 	if (res.ok) {
 		const data = await res.json();
@@ -149,47 +163,9 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 
 		return data;
 	}
+
+	return null;
 };
-
-// thunk put user or users into channel
-export const thunkPutUserChannel = (channel, userId) => async (dispatch) => {
-	// fetch the put data
-	const res = await fetch(`/api/channels/${channel}/users/${userId}`, {
-		method: 'PUT',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(),
-	});
-
-	// iterate through users grab the id
-	// create put for each one
-
-	// dispatch for each id
-};
-
-// thunk put channel
-// export const thunkPutChannel = id => async dispatch => {
-
-//   // fetch the put data
-//   const res = await fetch(`/api/channels/${id}`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type' : 'application/json'
-//     },
-//     // body: JSON.stringify(channel)
-//   });
-
-//   // if falsy return null
-//   if(!res) return null;
-
-//   // if response === 200
-//   if(res.ok){
-//     const data = res.json();
-//     dispatch(putChannel(data));
-//     return data;
-//   }
-// }
 
 // thunk delete channel
 export const thunkDeleteChannel = (id) => async (dispatch) => {
@@ -198,25 +174,24 @@ export const thunkDeleteChannel = (id) => async (dispatch) => {
 		method: 'DELETE',
 	});
 
-	// if no response return null
-	if (!res) return null;
-
 	// if res === 200 dispatch delete action
 	if (res.ok) {
-		const data = res.json();
 		dispatch(deleteChannel(id));
-		return data;
+		return null;
 	}
 };
 
-//
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllChannels = (state) => Object.values(state.channels);
 
-export const getChannelById = (channelId) => (state) =>
-	Object.values(state.channels).find(
-		(channel) => channel.id === Number(channelId)
-	);
+export const getChatById =
+	(chatId, type = 'channel') =>
+	(state) =>
+		type === 'channel'
+			? Object.values(state.channels).find(
+					(channel) => channel.id === Number(chatId)
+			  )
+			: Object.values(state.dmrs).find((dmr) => dmr.id === Number(chatId));
 /* --------- REDUCERS -------- */
 
 const initialState = {};
@@ -225,8 +200,13 @@ export default function channelReducer(state = initialState, action) {
 	const newChannels = { ...state };
 
 	switch (action.type) {
-		// case: get channel message
+		// case: remove channel
+		case DELETE_CHANNEL:
+			const deleteChannels = { ...state };
 
+			delete deleteChannels[action.id];
+
+			return deleteChannels;
 		// default case
 		default:
 			return Object.assign({}, newChannels, action.channels);

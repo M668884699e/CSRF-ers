@@ -93,6 +93,7 @@ const ChannelStarterForm = () => {
         <input
           type="checkbox"
           id="private-switch"
+          className="private-switch-csf"
           onClick={e => {
             setPrivateChannel(e.target.checked)
           }}

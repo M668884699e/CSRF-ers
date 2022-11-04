@@ -1,0 +1,187 @@
+/* src/components/MessagePage/LeftBar/CreateChannelModal/CreateChannelModal.css */
+
+#ccm-container {
+}
+
+#ccm-form {
+	color: white;
+
+	margin: 1rem;
+
+	opacity: 0.95;
+	position: relative;
+}
+
+#ccm-form-exit-container {
+	top: 0;
+	right: 0;
+	height: 2rem;
+	width: 2rem;
+	position: absolute;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	border-radius: 0.25rem;
+	margin: 0;
+	padding: 0;
+}
+
+#ccm-form-exit-container:hover {
+	background-color: #333537;
+	cursor: pointer;
+}
+
+.ccm-form-exit {
+	margin-left: 0.5rem;
+}
+
+#ccm-form > p {
+	font-size: small;
+	opacity: 0.85;
+	flex-wrap: wrap;
+}
+
+/* Channel Name */
+#ccm-form > label,
+#ccmf-private-section > p:last-child {
+	font-size: small;
+}
+
+#ccm-form > label {
+	font-weight: bold;
+}
+
+#ccmf-label-span {
+	color: orange;
+	margin-left: 0.25rem;
+}
+
+.ccmf-input-figure {
+	width: 100%;
+	height: 3rem;
+	margin: 0;
+	padding: 0;
+	margin-top: 0.5rem;
+
+	display: flex;
+	align-items: center;
+
+	border: 1px solid #505256;
+	border-radius: 0.25rem;
+}
+
+.ccmf-input-figure > i {
+	margin-left: 0.5rem;
+	opacity: 0.6;
+
+	position: absolute;
+}
+
+#ccmf-input-span {
+	margin-right: 1rem;
+	opacity: 0.65;
+	position: absolute;
+	right: 0;
+}
+
+.ccmf-input-span-true {
+	color: red;
+}
+
+#ccmf-cn-input {
+	height: 100%;
+	width: 100%;
+	color: white;
+
+	font-size: larger;
+
+	background-color: #242629;
+	border: none;
+
+	padding-left: 2rem;
+	padding-right: 2.5rem;
+	border-radius: 0.25rem;
+	box-sizing: border-box;
+	opacity: 0.5;
+}
+
+.ccmf-cn-input-false:focus {
+	outline: 2px solid #1d8cbc;
+}
+
+.ccmf-cn-input-true:focus {
+	outline: 2px solid red;
+}
+
+/* Make Private Aside */
+#ccmf-private-aside-edit {
+	margin-top: 1rem;
+}
+
+#ccmf-private-aside {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#ccmf-private-section > p:first-child {
+	margin-bottom: 0.5rem;
+}
+
+#ccmf-private-section > p:last-child {
+	margin-top: 0;
+}
+
+/* Image Upload Figure */
+#ccm-figure {
+	height: auto;
+	width: 2rem;
+}
+
+#ccm-figure-img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+/* Submit */
+#ccm-button-container {
+	width: 100%;
+	height: 3rem;
+	margin: 0;
+	padding: 0;
+
+	position: relative;
+}
+
+#ccmf-submit-button {
+	color: white;
+	border: 1.5px solid white;
+	border: none;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: small;
+	box-sizing: border-box;
+	letter-spacing: 1.5px;
+	border-radius: 0.2rem;
+	padding: 0.75rem 1rem;
+	transition: box-shadow 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0s;
+
+	margin-top: 0.5rem;
+	position: absolute;
+	right: 0;
+}
+
+.ccmf-submit-button-false {
+	background-color: #505256;
+}
+
+.ccmf-submit-button-true {
+	background-color: #007a5a;
+}
+
+.ccmf-submit-button-true:hover {
+	cursor: pointer;
+}

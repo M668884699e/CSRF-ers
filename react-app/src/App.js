@@ -76,8 +76,13 @@ function App() {
 				</ProtectedRoute>
 
 				{/* //? Chatroom Route */}
-				<Route path='/chat/channels/:chatId' exact={true}>
-						<MessagePage />
+				<Route path='/chat/channels/:channelId' exact={true}>
+					<MessagePage />
+				</Route>
+
+				{/* //? DMR Route */}
+				<Route path='/chat/dmr/:dmrId' exact={true}>
+					<MessagePage />
 				</Route>
 
 				{/* //? 404 Route */}
