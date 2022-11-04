@@ -34,12 +34,14 @@ const SignUpForm = () => {
 	// function for handling sign up
 	const onSignUp = async (e) => {
 		e.preventDefault();
+
 		if (password === repeatPassword) {
-			await dispatch(
+			const data = await dispatch(
 				signUp(first_name, last_name, username, email, password)
-			).catch((res) => {
-				setErrors(res);
-			});
+			);
+			if (data) {
+				setErrors(data);
+			}
 		}
 	};
 
@@ -94,9 +96,13 @@ const SignUpForm = () => {
 	return (
 		<form onSubmit={onSignUp} id='signup-form'>
 			<div className='login-error-container'>
-				{errors.map((error, ind) => (
-					<div key={ind}>{error}</div>
-				))}
+				{!password.length > 0 ||
+				!repeatPassword.length > 0 ||
+				password === repeatPassword ? (
+					errors.map((error, ind) => <div key={ind}>{error}</div>)
+				) : (
+					<div>{'Password : password does not match'}</div>
+				)}
 			</div>
 			<div id='su-fn-ln-container'>
 				<div id='su-fn-container'>

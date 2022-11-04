@@ -17,7 +17,7 @@
 	height: 100%;
 	width: 100%;
 	display: grid;
-	grid-template-rows: auto 13vh;
+	grid-template-rows: auto 8rem;
 }
 
 .message-page-body-profile-true {

@@ -6,7 +6,7 @@
 #left-bar-main {
 	display: grid;
 	grid-template-columns: 100%;
-	grid-template-rows: 5vh 12rem auto auto;
+	grid-template-rows: 3.1rem 12rem auto auto;
 	width: 100%;
 	resize: horizontal;
 
@@ -262,7 +262,7 @@
 	background-color: #19171d;
 }
 
-#footer:hover{
+#footer:hover {
 	cursor: pointer;
 }
 

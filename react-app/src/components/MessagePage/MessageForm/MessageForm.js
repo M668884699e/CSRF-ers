@@ -1,5 +1,5 @@
 // css
-import './MessageForm.css'
+import './MessageForm.css';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -13,103 +13,140 @@ import { getChatById } from '../../../store/channel';
 import { thunkGetChannelMessages } from '../../../store/message';
 import { thunkGetAllDmrMessages } from '../../../store/dmr';
 
+// import context
+import { useChannel } from '../../../context/ChannelContext';
+
 const MessageForm = () => {
-    const dispatch = useDispatch();
-    const messages = useSelector(state => state.messages)
-    // message post details
-    const [message, setMessage] = useState('');
-    const [messageable_type, setMesseageble_type] = useState('channels')
-    const [messageableUrl, setMessageableUrl] = useState(window.location.href.split('/')[4]);
+	const dispatch = useDispatch();
+	const messages = useSelector((state) => state.messages);
+	const { currentChannel, setCurrentChannel } = useChannel();
+	const [inputLength, setInputLength] = useState(0);
 
-    // grab type of message from url then convert it into proper value
-    // let messageableUrl = window.location.href.split('/')[4];
+	// message post details
+	const [message, setMessage] = useState('');
+	const [messageable_type, setMesseageble_type] = useState('channels');
+	const [messageableUrl, setMessageableUrl] = useState(
+		window.location.href.split('/')[4]
+	);
 
-    // convert messageableUrl val into messeagable_type val
-    // let messageable_type
-    useEffect( () => {
-        if(messageableUrl === 'channels'){
-            setMesseageble_type(messageableUrl[0].toUpperCase() + messageableUrl.slice(1, -1));
-        }else if(messageableUrl === 'dmrs'){
-            setMesseageble_type(messageableUrl.slice(0, -1).toUpperCase());
-        }
-    }, [dispatch, messageableUrl])
+	// grab type of message from url then convert it into proper value
+	// let messageableUrl = window.location.href.split('/')[4];
 
-    useEffect( () => {
+	// convert messageableUrl val into messeagable_type val
+	// let messageable_type
+	useEffect(() => {
+		if (messageableUrl === 'channels') {
+			setMesseageble_type(
+				messageableUrl[0].toUpperCase() + messageableUrl.slice(1, -1)
+			);
+		} else if (messageableUrl === 'dmrs') {
+			setMesseageble_type(messageableUrl.slice(0, -1).toUpperCase());
+		}
+	}, [dispatch, messageableUrl]);
 
-    }, [messageable_type])
+	useEffect(() => {
+		// nothing for now, just to update variables
+	}, [messageable_type, inputLength]);
 
+	// function to check input length of channel name inputted
+	const checkInputLength = (e) => {
+		setInputLength(e.target.value.trim().length);
+	};
 
-    // userId
-    const userId = useSelector(state => state.session.user.id)
+	// userId
+	const userId = useSelector((state) => state.session.user.id);
 
-    // deconstruct channelId
-    let { channelId, dmrId } = useParams();
+	// deconstruct channelId
+	let { channelId, dmrId } = useParams();
 
-    channelId = Number(channelId);
-    dmrId = Number(dmrId);
+	channelId = Number(channelId);
+	dmrId = Number(dmrId);
 
-    
-    const chatId = channelId ? channelId : dmrId;
-    
+	const chatId = channelId ? channelId : dmrId;
 
-    const messagePost = async (e) => {
-        e.preventDefault();
+	const messagePost = async (e) => {
+		e.preventDefault();
 
-        const newMessage = {
-            message,
-            messageable_id: chatId,
-            messageable_type,
-            sender_id: userId
-        }
+		const newMessage = {
+			message,
+			messageable_id: chatId,
+			messageable_type,
+			sender_id: userId,
+		};
 
-        return await dispatch(messageActions.thunkCreateMessage(newMessage))
-            .then( () => {
-                setMessage('');
-                dispatch(thunkGetChannelMessages(chatId, messageableUrl))
-            } 
-            
-        )
-    }
+		setInputLength(0);
 
-    const updateMessage = e => {
-        setMessage(e.target.value);
-    };
+		return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
+			() => {
+				setMessage('');
+				dispatch(thunkGetChannelMessages(chatId, messageableUrl));
+			}
+		);
+	};
 
+	// function to handle updating message
+	const updateMessage = (e) => {
+		setMessage(e.target.value);
+	};
 
+	// function to handle enter key for textareafield
+	const onEnterPress = (e) => {
+		console.log('here');
+		if (e.keyCode === 13 && e.shiftKey == false) {
+			e.preventDefault();
+			return messagePost(e);
+		}
+	};
 
-    return (
-        <form onSubmit={messagePost} id="message-form">
-            <div className='message-error-container'>
+	return (
+		<section id='message-form-container'>
+			<form onSubmit={messagePost} id='message-form'>
+				{/* <Editor /> */}
+				<figure id='message-textarea-figure'>
+					<textarea
+						id='message-field'
+						name='message'
+						type='text'
+						placeholder={`Message #${
+							currentChannel && currentChannel.channel_name
+						}`}
+						onKeyDown={onEnterPress}
+						onInput={checkInputLength}
+						value={message}
+						onChange={updateMessage}
+					/>
+				</figure>
 
-            </div>
-            <div id='message-container'>
-                {/* <input
-                    name='message'
-                    type='text'
-                    placeholder='enter a message'
-                    value={message}
-                    onChange={updateMessage}
-                > */}
-                <input
-                    id='message-field'
-                    name='message'
-                    type='text'
-                    placeholder='enter a message'
-                    value={message}
-                    onChange={updateMessage}
-                >
-                    {/* <Editor /> */}
-                </input>
-                {/* </input> */}
-            </div>
-            <button 
-                type='submit'
-                id='message-button'>
-                <i className="fa-solid fa-paper-plane"></i>
-            </button>
-
-        </form>
-    );
-}
+				{inputLength > 0 ? (
+					<figure
+						id='message-button-figure'
+						className='message-button-figure-true'
+					>
+						<button
+							type='submit'
+							id='message-button'
+							className='message-button-true'
+						>
+							<i className='fa-solid fa-paper-plane'></i>
+						</button>
+					</figure>
+				) : (
+					<figure
+						id='message-button-figure'
+						className='message-button-figure-false'
+					>
+						<button
+							type='button'
+							id='message-button'
+							className='message-button-false'
+						>
+							<i className='fa-solid fa-paper-plane'></i>
+						</button>
+					</figure>
+				)}
+			</form>
+		</section>
+	);
+};
 
 export default MessageForm;
