@@ -84,11 +84,6 @@ const CreateDMRModal = ({ setCreateDMROpenModal }) => {
                 </div>
 
                 {/* form header */}
-                <h1>Start a conversation with:</h1>
-                <p>Conversations are direct messages with other Slack users. These messages cannot be seen by people
-                    outside of the conversation. If you would like to add a new person to an existing conversation, a
-                    new conversation must be created.
-                </p>
 
                 {/* exit icon */}
                 <figure

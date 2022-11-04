@@ -66,8 +66,8 @@
 	background-color: #222529;
 }
 
-#message-main-header-right > button{
-	
+#message-main-header-right > button:hover {
+	cursor: pointer;
 }
 
 /* Message Sub Header */
@@ -144,12 +144,12 @@
 }
 
 .profile-name {
-    margin-top: 5px;
-    margin-left: 5px;
-    font-weight: bold;
+	margin-top: 5px;
+	margin-left: 5px;
+	font-weight: bold;
 }
 
 .message-text {
-    font-weight: 300;
-    margin-top: 5px;
+	font-weight: 300;
+	margin-top: 5px;
 }

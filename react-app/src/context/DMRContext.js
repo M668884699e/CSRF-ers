@@ -9,6 +9,8 @@ export const useDMR = () => useContext(DMRContext);
 export default function DMRProvider({ children }) {
 	// state for context
 	const [dmrs, setDMRs] = useState({});
+	const [createdDMRId, setCreatedDMRId] = useState(null);
+	const [currentDMRId, setCurrentDMRId] = useState(null);
 
 	// DMR Provider
 	return (
@@ -16,7 +18,11 @@ export default function DMRProvider({ children }) {
 			<DMRContext.Provider
 				value={{
 					dmrs,
-					setDMRs
+					setDMRs,
+					createdDMRId,
+					setCreatedDMRId,
+					currentDMRId,
+					setCurrentDMRId,
 				}}
 			>
 				{children}

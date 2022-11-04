@@ -40,6 +40,7 @@ const LeftBar = () => {
 	const { createChannelOpenModal, setCreateChannelOpenModal } = useMessage();
 	const { createDMROpenModal, setCreateDMROpenModal } = useMessage();
 	const { rightClickModal, setRightClickModal } = useMessage();
+	const { routeType, setRouteType } = useMessage();
 
 	const { channels, setChannels } = useChannel();
 	const { editChannel, setEditChannel } = useChannel();
@@ -74,12 +75,37 @@ const LeftBar = () => {
 
 	// per channelState
 	useEffect(() => {
+		// filter
 		setChannels(channelState);
-	}, [channelState, currentChannelId, channelsUsersState]);
+		// if (channelState) {
+		// 	const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
+		// 		? channelsUsers.filter((cu) => currentUserId === cu.user_id)
+		// 		: '';
+
+		// 	const currentChannelDetail = [];
+
+		// 	Array.isArray(channelsUsers) &&
+		// 		currentChannelsUserBelongTo.forEach((cu) => {
+		// 			currentChannelDetail.push(cu.channel_id);
+		// 		});
+
+		// 	const channelDisplay =
+		// 		Array.isArray(channelState) &&
+		// 		channelState.filter((channel) =>
+		// 			currentChannelDetail.includes(channel.id)
+		// 		);
+
+		// 	if (Array.isArray(channelDisplay)) {
+		// 		setChannels(channelDisplay);
+		// 	}
+		// }
+	}, [channelState, currentChannelId, channelsUsersState, routeType]);
 
 	// per dmrState
 	useEffect(() => {
 		setDMRs(dmrState);
+
+		console.log('dmrState', dmrState);
 
 		if (dmrState) {
 			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
@@ -101,7 +127,7 @@ const LeftBar = () => {
 				setDMRs(dmrDisplay);
 			}
 		}
-	}, [dmrState, currentDMRId]);
+	}, [dmrState, currentDMRId, dmrUsersState, routeType]);
 
 	// per channelsUsers state
 	useEffect(() => {
@@ -218,7 +244,9 @@ const LeftBar = () => {
 							{loadAllChannels()}
 							<section
 								className='channel-list-option'
-								onClick={(_) => {
+								onClick={(e) => {
+									e.stopPropagation();
+									setRouteType('dmrs');
 									setEditChannel(false);
 									setCreateChannelOpenModal(true);
 								}}
@@ -240,8 +268,10 @@ const LeftBar = () => {
 								{loadAllDMRs()}
 								<section
 									className='dmr-list-option'
-									onClick={(_) => {
-										setCreateDMROpenModal(true);
+									onClick={(e) => {
+										e.stopPropagation();
+										setAddPeopleModal(true);
+										setRouteType('dmrs');
 									}}
 								>
 									<aside>
@@ -281,16 +311,6 @@ const LeftBar = () => {
 					<CreateChannelModal
 						setCreateChannelOpenModal={setCreateChannelOpenModal}
 					/>
-				</Modal>
-			)}
-			{createDMROpenModal && (
-				<Modal
-					onClose={(_) => {
-						setCreateDMROpenModal(false);
-					}}
-					currentVisible={false}
-				>
-					<CreateDMRModal setCreateDMROpenModal={setCreateDMROpenModal} />
 				</Modal>
 			)}
 			{addPeopleModal && (
