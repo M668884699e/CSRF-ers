@@ -120,15 +120,14 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				)
 					.then(() => dispatch(channelsUsersActions.thunkGetAllChannelsUsers()))
 					.then(() => {
-						dispatch(channelActions.thunkGetUserChannels()).then((res) => {
-							setChannels(res);
-						});
+						dispatch(channelActions.thunkGetUserChannels());
 
+						setRightClickModal(false);
+						
 						return history.push(
 							`/chat/channels/${channelState ? channelState[0].id : 0}`
 						);
 					});
-				setRightClickModal(false);
 			}
 		}
 	};
