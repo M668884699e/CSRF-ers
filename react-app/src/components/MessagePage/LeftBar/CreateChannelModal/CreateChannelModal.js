@@ -91,7 +91,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 	// function to check input length of channel name inputted
 	const checkInputLength = (e) => {
 		// check if input have value
-		setInputLength(e.target.value.length);
+		setInputLength(e.target.value.trim().length);
 	};
 
 	const onCreateChannel = async (e) => {
@@ -115,7 +115,6 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				: channelActions.thunkPostNewChannel(channelInfo)
 		)
 			.then((res) => {
-				console.log('res', res);
 				if (!editChannel && res) {
 					const currentCreatedChannelId = res.new_channel.id;
 					setCreatedChannelId(currentCreatedChannelId);
@@ -233,13 +232,24 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				{/* channel submit button */}
 				<figure id='ccm-button-container'>
 					{editChannel ? (
-						<button
-							id='ccmf-submit-button'
-							type='submit'
-							className={`ccmf-submit-button-true`}
-						>
-							Edit
-						</button>
+						(inputLength > 0 && inputLength <= 50) ||
+						channelName === currentChannel.channel_name ? (
+							<button
+								id='ccmf-submit-button'
+								type='submit'
+								className={`ccmf-submit-button-true`}
+							>
+								Edit
+							</button>
+						) : (
+							<button
+								id='ccmf-submit-button'
+								type='button'
+								className={`ccmf-submit-button-false`}
+							>
+								Edit
+							</button>
+						)
 					) : inputLength > 0 && inputLength <= 50 ? (
 						<button
 							id='ccmf-submit-button'

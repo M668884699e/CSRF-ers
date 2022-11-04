@@ -46,11 +46,12 @@ const LeftBar = () => {
 	const { editChannel, setEditChannel } = useChannel();
 	const { currentChannelId, setCurrentChannelId } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
-	console.log(channelsUsers, "channelsUsers")
 
 	const { dmrs, setDMRs } = useDMR();
 	const { currentDMRId, setCurrentDMRId } = useDMR();
 	const { dmrUsers, setDMRUsers } = useDMRUsers();
+
+	const { checkRouteProperlyOwned, setCheckRouteProperlyOwned } = useMessage();
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -59,7 +60,9 @@ const LeftBar = () => {
 	const history = useHistory();
 
 	const channelState = useSelector(channelActions.getAllChannels);
-	const channelsUsersState = useSelector(channelsUsersActions.getAllUsersChannels);
+	const channelsUsersState = useSelector(
+		channelsUsersActions.getAllUsersChannels
+	);
 	const dmrState = useSelector(dmrActions.getAllDMRs);
 	const dmrUsersState = useSelector(dmrUsersActions.getAllUserDMRs);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
@@ -79,29 +82,23 @@ const LeftBar = () => {
 		if (channelState) {
 			let currentChannelDetail = [];
 
-			console.log(channelsUsers, "channelsUsers")
-			console.log(currentUserId, "currentUserId")
-			if(Array.isArray(channelsUsers)) {
-				channelsUsers.forEach(el => {
-					if(currentUserId === el.user_id) {
-						currentChannelDetail.push(el.channel_id)
+			if (Array.isArray(channelsUsers)) {
+				channelsUsers.forEach((el) => {
+					if (currentUserId === el.user_id) {
+						currentChannelDetail.push(el.channel_id);
 					}
-				})
+				});
 			}
 
-			console.log(currentChannelDetail, "currentChannelDetail")
-			console.log(channelState, "channelState")
-
 			let channelDisplay = [];
-			channelState.forEach(el => {
+			channelState.forEach((el) => {
 				if (currentChannelDetail.includes(el.id)) {
-					channelDisplay.push(el)
+					channelDisplay.push(el);
 				}
-			})
+			});
 
-			if(channelDisplay) {
-				console.log(channelDisplay, 'channelDisplay')
-				setChannels(channelDisplay)
+			if (channelDisplay) {
+				setChannels(channelDisplay);
 			}
 		}
 
@@ -133,8 +130,6 @@ const LeftBar = () => {
 	useEffect(() => {
 		setDMRs(dmrState);
 
-		// console.log('dmrState', dmrState);
-
 		if (dmrState) {
 			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
 				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
@@ -152,7 +147,6 @@ const LeftBar = () => {
 				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
 
 			if (Array.isArray(dmrDisplay)) {
-				console.log(dmrDisplay, "dmrDisplay")
 				setDMRs(dmrDisplay);
 			}
 		}
@@ -191,6 +185,8 @@ const LeftBar = () => {
 							// turn modal on
 							setRightClickModal(true);
 							setRect(e.target.getBoundingClientRect());
+
+							setCheckRouteProperlyOwned(channel.owner_id == currentUserId);
 
 							return false;
 						}}
@@ -231,6 +227,8 @@ const LeftBar = () => {
 							setRightClickModal(true);
 							setRect(e.target.getBoundingClientRect());
 
+							setCheckRouteProperlyOwned(false);
+
 							return false;
 						}}
 						className='dmr-list-option'
@@ -244,6 +242,12 @@ const LeftBar = () => {
 				);
 			})
 		);
+	};
+
+	// function to handle log out
+	const handleLogout = (e) => {
+		e.preventDefault();
+		dispatch(sessionActions.logout()).then(history.push('/'));
 	};
 
 	return (
@@ -314,7 +318,7 @@ const LeftBar = () => {
 				</section>
 			</section>
 
-			<footer id='footer'>
+			<footer id='footer' onClick={handleLogout}>
 				<section id='footer-name'>Leave Slackers</section>
 				<section id='footer-button'>
 					<i className='fa-solid fa-right-from-bracket'></i>

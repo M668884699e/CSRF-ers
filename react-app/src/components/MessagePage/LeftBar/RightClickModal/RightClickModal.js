@@ -33,7 +33,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const { currentChannelId, setCurrentChannelId } = useChannel();
 	const { currentDMRId, setCurrentDMRId } = useDMR();
 	const { channels, setChannels } = useChannel();
-	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] = useState(false);
+	const { checkRouteProperlyOwned, setCheckRouteProperlyOwned } = useMessage();
 
 	// selector function
 	const channelState = useSelector(channelActions.getAllChannels);
@@ -62,15 +62,8 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// see if current channel is owned by current session user
 		// otherwise, hide it
 		// for dmr, just hide it
-		setCheckRouteProperlyOwned(
-			window.location.pathname.split('/')[2] === 'channels' &&
-				channelState[window.location.pathname.split('/')[3] - 1] &&
-				channelState[Number(window.location.pathname.split('/')[3] - 1)]
-					.owner_id === currentUserId
-				? true
-				: false
-		);
-	}, [channels, checkRouteProperlyOwned]);
+		// console.log('checkRouteProperlyOwned', checkRouteProperlyOwned);
+	}, [channels, checkRouteProperlyOwned, channelState]);
 
 	// useEffect(() => {
 	// 	setCurrentDMRId(currentDMR.id)
@@ -123,7 +116,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 						dispatch(channelActions.thunkGetUserChannels());
 
 						setRightClickModal(false);
-						
+
 						return history.push(
 							`/chat/channels/${channelState ? channelState[0].id : 0}`
 						);

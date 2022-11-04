@@ -262,6 +262,10 @@
 	background-color: #19171d;
 }
 
+#footer:hover{
+	cursor: pointer;
+}
+
 #footer:hover > * {
 	color: #d1d2d3;
 }

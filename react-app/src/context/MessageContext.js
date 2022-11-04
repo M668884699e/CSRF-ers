@@ -14,7 +14,9 @@ export default function MessageProvider({ children }) {
 	const [rightClickModal, setRightClickModal] = useState(false);
 	const [channelName, setChannelName] = useState([]);
 	const [dmrName, setDMRName] = useState([]);
-	const [routeType, setRouteType] = useState('channels');
+	const [routeType, setRouteType] = useState('dmrs');
+	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] =
+		useState(false);
 
 	// Message Provider
 	return (
@@ -35,6 +37,8 @@ export default function MessageProvider({ children }) {
 					setRightClickModal,
 					routeType,
 					setRouteType,
+					checkRouteProperlyOwned,
+					setCheckRouteProperlyOwned,
 				}}
 			>
 				{children}
