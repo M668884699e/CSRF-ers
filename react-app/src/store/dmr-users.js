@@ -24,7 +24,7 @@ export const addDmrUser = (dmrsUsers) => {
 /* --------- THUNKS -------- */
 // thunk to get all channels users
 export const thunkGetAllDMRUsers = () => async (dispatch) => {
-  const res = await fetch('/api/dmrs/all/users');
+	const res = await fetch('/api/dmrs/all/users');
 
 	// if response is ok
 	if (res.ok) {
@@ -44,7 +44,7 @@ export const thunkPutAddUserToDMR = (userIds) => async (dispatch) => {
 	// "user_ids":"1,2,3"
 	const usersToAdd = { user_ids: userIds.toString() };
 	// fetch the put data
-	const res = await fetch(`/api/dmr/`, {
+	const res = await fetch(`/api/dmrs/`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

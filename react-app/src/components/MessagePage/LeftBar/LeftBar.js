@@ -77,56 +77,56 @@ const LeftBar = () => {
 	useEffect(() => {
 		// filter
 		setChannels(channelState);
-		// if (channelState) {
-		// 	const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-		// 		? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-		// 		: '';
+		if (channelState) {
+			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
+				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
+				: '';
 
-		// 	const currentChannelDetail = [];
+			const currentChannelDetail = [];
 
-		// 	Array.isArray(channelsUsers) &&
-		// 		currentChannelsUserBelongTo.forEach((cu) => {
-		// 			currentChannelDetail.push(cu.channel_id);
-		// 		});
+			Array.isArray(channelsUsers) &&
+				currentChannelsUserBelongTo.forEach((cu) => {
+					currentChannelDetail.push(cu.channel_id);
+				});
 
-		// 	const channelDisplay =
-		// 		Array.isArray(channelState) &&
-		// 		channelState.filter((channel) =>
-		// 			currentChannelDetail.includes(channel.id)
-		// 		);
+			const channelDisplay =
+				Array.isArray(channelState) &&
+				channelState.filter((channel) =>
+					currentChannelDetail.includes(channel.id)
+				);
 
-		// 	if (Array.isArray(channelDisplay)) {
-		// 		setChannels(channelDisplay);
-		// 	}
-		// }
+			if (Array.isArray(channelDisplay)) {
+				setChannels(channelDisplay);
+			}
+		}
 	}, [channelState, currentChannelId, channelsUsersState, routeType]);
 
 	// per dmrState
 	useEffect(() => {
 		setDMRs(dmrState);
 
-		console.log('dmrState', dmrState);
+		// console.log('dmrState', dmrState);
 
-		if (dmrState) {
-			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
-				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
-				: '';
+		// if (dmrState) {
+		// 	const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
+		// 		? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
+		// 		: '';
 
-			const currentDMRDetail = [];
+		// 	const currentDMRDetail = [];
 
-			Array.isArray(dmrUsers) &&
-				currentDMRsUserBelongTo.forEach((dmru) => {
-					currentDMRDetail.push(dmru.dmr_id);
-				});
+		// 	Array.isArray(dmrUsers) &&
+		// 		currentDMRsUserBelongTo.forEach((dmru) => {
+		// 			currentDMRDetail.push(dmru.dmr_id);
+		// 		});
 
-			const dmrDisplay =
-				Array.isArray(dmrState) &&
-				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
+		// 	const dmrDisplay =
+		// 		Array.isArray(dmrState) &&
+		// 		dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
 
-			if (Array.isArray(dmrDisplay)) {
-				setDMRs(dmrDisplay);
-			}
-		}
+		// 	if (Array.isArray(dmrDisplay)) {
+		// 		setDMRs(dmrDisplay);
+		// 	}
+		// }
 	}, [dmrState, currentDMRId, dmrUsersState, routeType]);
 
 	// per channelsUsers state

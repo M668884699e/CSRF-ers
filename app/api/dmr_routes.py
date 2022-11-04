@@ -4,7 +4,7 @@ from app.models import DMR, DMRUser, Message, User, db
 from app.forms import DMRForm
 
 # blueprint for dmr
-dmr_routes = Blueprint('dmr', __name__)
+dmr_routes = Blueprint('dmrs', __name__)
 
 #* GET - /dmr
 # Get all DirectMessageRooms
