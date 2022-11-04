@@ -5,6 +5,7 @@ import MessageSender from './MessageSender';
 import MessageDisplay from './MessageDisplay';
 import SearchBar from './SearchBar';
 import { Editor } from '../Editor/Editor';
+import MessageForm from "./MessageForm"
 
 // import context
 import MessageProvider from '../../context/MessageContext';
@@ -45,7 +46,8 @@ const MessagePage = () => {
 
 				{/* <MessageSender /> */}
 				<aside id='message-sender'>
-					<Editor />
+					{/* <Editor /> */}
+					<MessageForm />
 				</aside>
 
 				{/* Message Profile Bar */}

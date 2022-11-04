@@ -8,8 +8,6 @@ import './MessageDisplay.css';
 import { useChannel } from '../../../context/ChannelContext';
 import { Modal } from '../../../context/Modal';
 
-//! BJM todo: set up react components
-
 // import react
 import { useEffect, useState } from 'react';
 
@@ -30,22 +28,19 @@ const MessageDisplay = () => {
 	/**
 	 *  Controlled Inputs
 	 */
+
+	const [stateChannelId, setStateChannelId] = useState(null);
+	const [stateDmrId, setStateDmrId] = useState(null);
+
 	// get all messages that belong to current channel
 	const [messages, setMessages] = useState([]);
+	const [chatId, setChatId] = useState(null);
 	const { currentChannel, setCurrentChannel } = useChannel();
 	const [showMembersModal, setShowMembersModal] = useState(false);
 
-	// deconstruct channelId
-	let { channelId, dmrId } = useParams();
-
-	channelId = Number(channelId);
-	dmrId = Number(dmrId);
-
-	const chatId = channelId ? channelId : dmrId;
-
 	// use selector
 	const currentChat = useSelector(
-		channelId
+		stateChannelId
 			? channelActions.getChatById(chatId)
 			: dmrActions.getChatById(chatId)
 	);
@@ -59,13 +54,24 @@ const MessageDisplay = () => {
 
 	// per message state
 	useEffect(() => {
-		dispatch(
-			channelId
-				? messageActions.thunkGetChannelMessages(chatId)
-				: messageActions.thunkGetChannelMessages(chatId, 'dmr')
-		);
-		dispatch(userActions.thunkGetAllUsers());
+		if(chatId){		
+			dispatch(
+					stateChannelId
+						? messageActions.thunkGetChannelMessages(chatId)
+						: messageActions.thunkGetChannelMessages(chatId, 'dmrs')
+				);
+				dispatch(userActions.thunkGetAllUsers());
+			}
 	}, [dispatch, chatId]);
+	// deconstruct channelId
+	let { channelId, dmrId } = useParams();
+
+	useEffect(() => {
+
+		setStateChannelId(Number(channelId));
+		setStateDmrId(Number(dmrId));
+		setChatId(channelId ? channelId : dmrId)
+	}, [stateChannelId, stateDmrId])
 
 	// per messageState
 	useEffect(() => {

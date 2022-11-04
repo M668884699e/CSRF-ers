@@ -50,7 +50,7 @@ def get_dmr_users(dmr_id):
   return {'dmr_users':[dmr_user.to_dict() for dmr_user in dmr_users]}
 
 #* GET - /dmr/all/users
-# Get all channels with user
+# Get all dmr with user
 @login_required
 @dmr_routes.route("/all/users")
 def get_dmrs_users():
@@ -82,7 +82,7 @@ def get_dmr_messages(dmr_id):
 
   return {'dmr': dmr_id, 'dmr_messages':[dmr_message.to_dict() for dmr_message in dmr_messages]}
 
-#* POST - /dmr
+#* POST - /dmrs
 # Create new DirectMessageRoom
 @login_required
 @dmr_routes.route('/', methods=['POST'])
@@ -94,7 +94,7 @@ def create_dmr():
   form = DMRForm()
 
   # get a list of user names from user_ids
-  user_ids = form.data['user_ids'].split(', ')
+  user_ids = form.data['user_ids'].split(',')
 
   # make an empty string to later store user name
   user_names = ""
@@ -150,6 +150,48 @@ def create_dmr():
   db.session.commit()
   # return successful message response
   return {'new_dmr': new_dmr.to_dict(), 'new_dmr_user': [new_dmr_user.to_dict() for new_dmr_user in new_dmr_users]}
+
+# Add a user to the dmr, requires authentication if user has permission to add others
+@login_required
+@dmr_routes.route("/<int:dmr_id>/users/<int:user_id>", methods = ["PUT"])
+def add_user_to_dmr(dmr_id, user_id):
+    """
+    Add user to dmr
+    """
+    
+    # if dmr is not found, throw an error
+    specific_dmr = DMR.query.get(dmr_id)
+
+    # if dmr does not exist, throw an error
+    if(specific_dmr is None):
+        return {'errors': [f"DMR {dmr_id} does not exist"]}, 404
+
+    # check if user exist
+    add_user = User.query.get(user_id)
+
+    # if user does not exist, throw an error
+    if(add_user is None):
+        return {'errors': [f"User {user_id} does not exist"]}, 404
+
+    # if user does not exist in the given dmr, proceed to adding 
+    if(DMRUser.query.filter(DMRUser.dmr_id == dmr_id).filter_by(user_id = user_id).first() is None):
+        # create new DmrUser seed
+        new_dmr_user = DmrUser(
+            dmr_id = dmr_id,
+            user_id = user_id
+        )
+
+        # commit and add to db session
+        db.session.add(new_dmr_user)
+        db.session.commit()
+
+        # return successful response
+        return {
+            'message': f'Successfully added user {user_id} to dmr {dmr_id}',
+            'new_dmr_user': new_dmr_user.to_dict()
+        }
+        
+    return "No user to add"
 
 #* DELETE - /dmr/:dmrId
 # Delete DirectMessageRoom

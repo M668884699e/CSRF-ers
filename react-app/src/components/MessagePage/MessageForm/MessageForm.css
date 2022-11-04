@@ -1,0 +1,29 @@
+#message-form{
+    /* display: flex;
+    flex-direction: column; */
+    background-color: #222529;
+    height: 100%;
+    align-items: center;
+    border: solid #565856 1px;
+}
+
+#message-container{
+    background-color: #222529;
+}
+
+#message-field{
+    padding: 5px;
+    margin-top: 7px;
+    color: #616061;
+    width: 95%;
+    margin-bottom: 7px;
+    float: center;
+}
+
+#message-button{
+    background-color: #007a5a;
+    border: 3px solid #007a5a;
+    border-radius: 5px;
+    float: right;
+    margin-right: 8px;
+}

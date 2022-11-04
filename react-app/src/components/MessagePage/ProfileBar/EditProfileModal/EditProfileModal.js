@@ -336,7 +336,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
               type="submit"
               onClick={onEditProfile}
             >
-              Edit Current User
+              Edit User
             </button>
           }
         </section>
