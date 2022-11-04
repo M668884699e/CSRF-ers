@@ -19,14 +19,39 @@ ___
 
 ## Description:
 This is a repository of a Slack clone by Chawin (Ham) Pathompornvivat, Brian Moore, and Kihong (Samuel) Bae.
+<br>
 This project implements 4 features. Two features, Channels and Channel Messages, are full CRUD features. The two other features, Direct Message Rooms and Direct Message Room Messages are CRD features (without an Update functionality).
+<br>
 This clone project also implements a feature to allow users to create a new account, sign in with a Demo User account, and log out.
 
 ___
 
 ## Landing Page:
-Depending on whether the user is logged in, the first screen with direct to either a ![Login Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LoginPage.png) or the ![Slack Landing Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LandingPage.png).
+Depending on whether the user is logged in, the first screen with direct to either a Login Page:
+![Login Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LoginPage.png)
+Or the Landing Page:
+![Slack Landing Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LandingPage.png).
 
+___
+
+## Main Page:
+After logging in, the user will be redirected to the Slack main page: the chat rooms, where the main functionality of the service takes place.
+![Chat Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/ChatPage.png)
+
+___
+
+## Channels and Direct Message Rooms:
+
+### Create a Channel or a Direct Message Room
+Users are able to create a new Channel or Direct Message Room (DMR). This will lead them through one or more modal pages that allows them to customize specific details of the newly created Channel/DMR.
+<br>
+For example, a user may customize a newly created Channel by customizing the name, public setting, and members.
+<br>
+Note that unlike Channels, Direct Message Rooms do not have a function of customizing the name or the public setting. This is because DMRs have a default name of all the conversation members and existing DMRs cannot be seen by users that are not a part of them.
+<br>
+<br>
+### Switch Between Channels and Direct Message Rooms:
+___
 
 
 ## Getting started
