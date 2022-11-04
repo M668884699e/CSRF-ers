@@ -90,7 +90,7 @@ const MessageForm = () => {
                     value={message}
                     onChange={updateMessage}
                 > */}
-                <textarea
+                <input
                     id='message-field'
                     name='message'
                     type='text'
@@ -99,7 +99,7 @@ const MessageForm = () => {
                     onChange={updateMessage}
                 >
                     {/* <Editor /> */}
-                </textarea>
+                </input>
                 {/* </input> */}
             </div>
             <button 
