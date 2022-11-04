@@ -219,13 +219,13 @@ const LeftBar = () => {
 							e.stopPropagation();
 							e.preventDefault();
 
-							return history.push(`/chat/dmrs/${dmr.id}`);
+							return history.push(`/chat/dmr/${dmr.id}`);
 						}}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
 
-							history.push(`/chat/dmrs/${dmr.id}`);
+							history.push(`/chat/dmr/${dmr.id}`);
 
 							// turn modal on
 							setRightClickModal(true);

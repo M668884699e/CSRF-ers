@@ -81,7 +81,7 @@ function App() {
 				</Route>
 
 				{/* //? DMR Route */}
-				<Route path='/chat/dmrs/:dmrId' exact={true}>
+				<Route path='/chat/dmr/:dmrId' exact={true}>
 					<MessagePage />
 				</Route>
 

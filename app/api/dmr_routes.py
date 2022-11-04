@@ -4,7 +4,7 @@ from app.models import DMR, DMRUser, Message, User, db
 from app.forms import DMRForm
 
 # blueprint for dmr
-dmr_routes = Blueprint('dmrs', __name__)
+dmr_routes = Blueprint('dmr', __name__)
 
 #* GET - /dmr
 # Get all DirectMessageRooms
@@ -158,7 +158,7 @@ def add_user_to_dmr(dmr_id, user_id):
     """
     Add user to dmr
     """
-    
+
     # if dmr is not found, throw an error
     specific_dmr = DMR.query.get(dmr_id)
 
@@ -173,7 +173,7 @@ def add_user_to_dmr(dmr_id, user_id):
     if(add_user is None):
         return {'errors': [f"User {user_id} does not exist"]}, 404
 
-    # if user does not exist in the given dmr, proceed to adding 
+    # if user does not exist in the given dmr, proceed to adding
     if(DMRUser.query.filter(DMRUser.dmr_id == dmr_id).filter_by(user_id = user_id).first() is None):
         # create new DmrUser seed
         new_dmr_user = DmrUser(
@@ -190,7 +190,7 @@ def add_user_to_dmr(dmr_id, user_id):
             'message': f'Successfully added user {user_id} to dmr {dmr_id}',
             'new_dmr_user': new_dmr_user.to_dict()
         }
-        
+
     return "No user to add"
 
 #* DELETE - /dmr/:dmrId

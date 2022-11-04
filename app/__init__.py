@@ -45,7 +45,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
 app.register_blueprint(channel_routes, url_prefix='/api/channels')
-app.register_blueprint(dmr_routes, url_prefix='/api/dmrs')
+app.register_blueprint(dmr_routes, url_prefix='/api/dmr')
 app.register_blueprint(notification_routes, url_prefix='/api/notifications')
 db.init_app(app)
 Migrate(app, db)
@@ -55,12 +55,12 @@ socketio.init_app(app)
 
 # Application Security
 CORS(app)
-    
+
 @socketio.on("connect")
 def test():
     print('test connection',)
     emit('Success', {'data', 'Connected'})
-    
+
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
 # Therefore, we need to make sure that in production any

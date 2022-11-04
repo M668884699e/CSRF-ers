@@ -72,7 +72,7 @@ const removeDmr = (id) => {
 
 /* --------- THUNKS -------- */
 export const thunkGetAllDmrs = () => async (dispatch) => {
-	const response = await fetch('/api/dmrs/', {
+	const response = await fetch('/api/dmr/', {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -99,7 +99,7 @@ export const thunkGetAllUserDmrs = () => async (dispatch) => {
 };
 
 export const thunkGetDmrById = (id) => async (dispatch) => {
-	const response = await fetch(`/api/dmrs/${id}/`, {
+	const response = await fetch(`/api/dmr/${id}/`, {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -117,7 +117,7 @@ export const thunkGetDmrById = (id) => async (dispatch) => {
 export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 	const { id } = dmr;
 
-	const response = await fetch(`/api/dmrs/${id}/users/`, {
+	const response = await fetch(`/api/dmr/${id}/users/`, {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -135,7 +135,7 @@ export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
 	// const { id } = dmr;
 
-	const response = await fetch(`/api/dmrs/${id}/messages/`, {
+	const response = await fetch(`/api/dmr/${id}/messages/`, {
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -151,7 +151,7 @@ export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
 };
 
 export const thunkSetNewDmr = (dmr) => async (dispatch) => {
-	const response = await fetch(`/api/dmrs/`, {
+	const response = await fetch(`/api/dmr/`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -170,7 +170,7 @@ export const thunkSetNewDmr = (dmr) => async (dispatch) => {
 };
 
 export const thunkDeleteDmr = (id) => async (dispatch) => {
-	const response = await fetch(`/api/dmrs/${id}`, {
+	const response = await fetch(`/api/dmr/${id}`, {
 		method: 'DELETE',
 	});
 
