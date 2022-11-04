@@ -191,6 +191,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					.then(() => {
 						setLoad(0);
 						setAddPeopleModal(false);
+						window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
 					});
 			} else {
 				usersToAdd.unshift(getCurrentUserId);
@@ -200,7 +201,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					() => {
 						return dispatch(usersDMRsActions.thunkGetAllDMRUsers()).then(() => {
 							setLoad(0);
-							return setAddPeopleModal(false);
+							// return setAddPeopleModal(false);
+							window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
 						});
 					}
 				);

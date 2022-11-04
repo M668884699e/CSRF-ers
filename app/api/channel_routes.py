@@ -205,7 +205,7 @@ def add_user_to_channel(channel_id, user_id):
     if(add_user is None):
         return {'errors': [f"User {user_id} does not exist"]}, 404
 
-    # if user does not exist in the given channel, proceed to adding 
+    # if user does not exist in the given channel, proceed to adding
     if(ChannelUser.query.filter(ChannelUser.channel_id == channel_id).filter_by(user_id = user_id).first() is None):
         # create new ChannelUser seed
         new_channel_user = ChannelUser(
@@ -223,8 +223,8 @@ def add_user_to_channel(channel_id, user_id):
             'new_channel_user': new_channel_user.to_dict()
         }
     return "No user to add"
-        
-    
+
+
 # TODO: PUT - /channels/:channelId
 # Update channel settings, requires authentication if user has permission to change channel settings
 # different from the personalization settings like display name and notification settings for specific
@@ -286,14 +286,14 @@ def remove_users_from_channel(channel_id):
     """
     Remove all current users from channel except owner
     """
-    
+
     # given channel id, query through all channel_users to find current channel
     current_channel_users = ChannelUser.query.filter(ChannelUser.user_id != current_user.get_id()).filter(ChannelUser.channel_id == channel_id)
-    
+
     # delete all users that's not current owner
     current_channel_users.delete(synchronize_session=False)
     db.session.commit()
-    
+
     # return back successful response
     return {
         'message': f'Successfully deleted all users from channel {channel_id}'
@@ -304,21 +304,21 @@ def remove_users_from_channel(channel_id):
 @channel_routes.route('/<int:channel_id>/users/<int:user_id>', methods=['DELETE'])
 def remove_user_from_channel(channel_id, user_id):
     """
-    Remove current user from channel 
+    Remove current user from channel
     """
-    
+
     # given channel id, query through all channel_users to find current channel
     current_channel_user = ChannelUser.query.filter(ChannelUser.user_id == current_user.get_id()).filter(ChannelUser.channel_id == channel_id).first()
-    
+
     # check if user is a current member of given channel, throw error if necessary
     if current_channel_user is None:
         return {'message': f'User {current_user.get_id()} does not exist in channel {channel_id}'}, 404
-               
-    
+
+
     # delete user that's not current owner
     db.session.delete(current_channel_user)
     db.session.commit()
-    
+
     # return back successful response
     return {
         'message': f'Successfully deleted user {current_user.get_id()} from channel {channel_id}'

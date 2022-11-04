@@ -134,6 +134,10 @@ export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 
 	if (res.ok) {
 		const data = await res.json();
+		console.log("", "booba")
+		console.log(data)
+		console.log("")
+
 		dispatch(createChannel(data));
 
 		return data;

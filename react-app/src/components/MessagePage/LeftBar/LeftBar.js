@@ -46,6 +46,7 @@ const LeftBar = () => {
 	const { editChannel, setEditChannel } = useChannel();
 	const { currentChannelId, setCurrentChannelId } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
+	console.log(channelsUsers, "channelsUsers")
 
 	const { dmrs, setDMRs } = useDMR();
 	const { currentDMRId, setCurrentDMRId } = useDMR();
@@ -58,9 +59,7 @@ const LeftBar = () => {
 	const history = useHistory();
 
 	const channelState = useSelector(channelActions.getAllChannels);
-	const channelsUsersState = useSelector(
-		channelsUsersActions.getAllUsersChannels
-	);
+	const channelsUsersState = useSelector(channelsUsersActions.getAllUsersChannels);
 	const dmrState = useSelector(dmrActions.getAllDMRs);
 	const dmrUsersState = useSelector(dmrUsersActions.getAllUserDMRs);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
@@ -75,33 +74,60 @@ const LeftBar = () => {
 
 	// per channelState
 	useEffect(() => {
-		// filter
 		setChannels(channelState);
-		console.log(channelState, "channelState")
+
 		if (channelState) {
-			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-				: '';
+			let currentChannelDetail = [];
 
-			const currentChannelDetail = [];
+			console.log(channelsUsers, "channelsUsers")
+			console.log(currentUserId, "currentUserId")
+			if(Array.isArray(channelsUsers)) {
+				channelsUsers.forEach(el => {
+					if(currentUserId === el.user_id) {
+						currentChannelDetail.push(el.channel_id)
+					}
+				})
+			}
 
-			Array.isArray(channelsUsers) &&
-				currentChannelsUserBelongTo.forEach((cu) => {
-					currentChannelDetail.push(cu.channel_id);
-				});
+			console.log(currentChannelDetail, "currentChannelDetail")
+			console.log(channelState, "channelState")
 
-			const channelDisplay =
-				Array.isArray(channelState) &&
-				channelState.filter((channel) =>
-					currentChannelDetail.includes(channel.id)
-				);
+			let channelDisplay = [];
+			channelState.forEach(el => {
+				if (currentChannelDetail.includes(el.id)) {
+					channelDisplay.push(el)
+				}
+			})
 
-			if (Array.isArray(channelDisplay)) {
-				console.log(channelDisplay, "channelDisplay")
-				setChannels(channelDisplay);
+			if(channelDisplay) {
+				console.log(channelDisplay, 'channelDisplay')
+				setChannels(channelDisplay)
 			}
 		}
-	}, [channelState, currentChannelId, channelsUsersState]);
+
+		// _________________________
+
+		// if (channelState) {
+		// 	const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
+		// 		? channelsUsers.filter((cu) => currentUserId === cu.user_id)
+		// 		: '';
+
+		// 	const currentChannelDetail = [];
+
+		// 	Array.isArray(channelsUsers) &&
+		// 		currentChannelsUserBelongTo.forEach((cu) => {
+		// 			currentChannelDetail.push(cu.channel_id);
+		// 		});
+
+		// 	const channelDisplay =
+		// 		Array.isArray(channelState) &&
+		// 		channelState.filter((channel) => currentChannelDetail.includes(channel.id));
+
+		// 	if (Array.isArray(channelDisplay)) {
+		// 		setChannels(channelDisplay);
+		// 	}
+		// }
+	}, [channelState, currentChannelId]);
 
 	// per dmrState
 	useEffect(() => {
@@ -130,7 +156,7 @@ const LeftBar = () => {
 				setDMRs(dmrDisplay);
 			}
 		}
-	}, [dmrState, currentDMRId, dmrUsersState, routeType]);
+	}, [dmrState, currentDMRId]);
 
 	// per channelsUsers state
 	useEffect(() => {
