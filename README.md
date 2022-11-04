@@ -25,7 +25,7 @@ This clone project also implements a feature to allow users to create a new acco
 ___
 
 ## Landing Page:
-Depending on whether the user is logged in, the first screen with direct to either a [!Login Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LoginPage.png) or the [!Slack Landing Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LandingPage.png).
+Depending on whether the user is logged in, the first screen with direct to either a ![Login Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LoginPage.png) or the ![Slack Landing Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LandingPage.png).
 
 
 
