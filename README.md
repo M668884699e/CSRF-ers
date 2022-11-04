@@ -1,6 +1,33 @@
-# Flask React Project
+# Slack Clone Project
 
-This is the starter for the Flask React project.
+Heroku Link: https://csrf-ers.herokuapp.com/
+
+GitHub Link: https://github.com/pchawin40/CSRF-ers
+
+## Setup Directions:
+1. Clone from GitHub repository
+   1. Run `pipenv install` in the  `CSRF-ers` directory
+   2. Switch to the `react-app` directory and run `npm install`
+   3. Run `pipenv shell` to start the virtual environment
+2. Run the following command in your terminal to run the migration and seeder files within the `CSRF-ers` directory
+   1. `flask db init && flask db migrate && flask db upgrade && flask seed all`
+3. Run the following commands to create start a local session
+   1. In the `CSRF-ers` directory, run `flask run`
+   2. In the `react-app` directory, run `npm start`
+
+___
+
+## Description:
+This is a repository of a Slack clone by Chawin (Ham) Pathompornvivat, Brian Moore, and Kihong (Samuel) Bae.
+This project implements 4 features. Two features, Channels and Channel Messages, are full CRUD features. The two other features, Direct Message Rooms and Direct Message Room Messages are CRD features (without an Update functionality).
+This clone project also implements a feature to allow users to create a new account, sign in with a Demo User account, and log out.
+
+___
+
+## Landing Page:
+Depending on whether the user is logged in, the first screen with direct to either a [!Login Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LoginPage.png) or the [!Slack Landing Page](https://github.com/pchawin40/CSRF-ers/blob/dev/assets/LandingPage.png).
+
+
 
 ## Getting started
 1. Clone this repository (only this branch)
@@ -43,7 +70,7 @@ This is the starter for the Flask React project.
 <br>
 
 ## Deploy to Heroku
-This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations. 
+This repo comes configured with Github Actions. When you push to your main branch, Github will automatically pull your code, package and push it to Heroku, and then release the new image and run db migrations.
 
 1. Write your Dockerfile. In order for the Github action to work effectively, it must have a configured Dockerfile. Follow the comments found in this [Dockerfile](./Dockerfile) to write your own!
 
@@ -83,5 +110,3 @@ each of the following variables:
 | `heroku login -i`      | Authenticate your heroku-cli using the command line. Drop the -i to authenticate via the browser |
 | `heroku authorizations:create` | Once authenticated, use this to generate an Oauth token |
 | `heroku run -a <app name>` | Run a command from within the deployed container on Heroku |
-
-
