@@ -1,8 +1,12 @@
 // import css
 import './MessageDisplay.css';
 
+// import component
+// import ShowMembersModal from './ShowMembersModal';
+
 // import context
 import { useChannel } from '../../../context/ChannelContext';
+import { Modal } from '../../../context/Modal';
 
 //! BJM todo: set up react components
 
@@ -21,8 +25,6 @@ import * as userActions from '../../../store/users';
 import * as sessionActions from '../../../store/session';
 import * as channelActions from '../../../store/channel';
 import * as dmrActions from '../../../store/dmr';
-import { Modal } from '../../../context/Modal';
-import ShowMembersModal from './ShowMembersModal';
 
 const MessageDisplay = () => {
 	/**
@@ -31,6 +33,7 @@ const MessageDisplay = () => {
 	// get all messages that belong to current channel
 	const [messages, setMessages] = useState([]);
 	const { currentChannel, setCurrentChannel } = useChannel();
+	const [showMembersModal, setShowMembersModal] = useState(false);
 
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
@@ -53,7 +56,6 @@ const MessageDisplay = () => {
 	// redux state
 	const messageState = useSelector(messageActions.getAllMessages);
 	const usersState = useSelector(userActions.getAllUsers);
-	const [showMembersModal, setShowMembersModal] = useState(false);
 
 	// per message state
 	useEffect(() => {
@@ -126,12 +128,11 @@ const MessageDisplay = () => {
 						</section>
 					))}
 			</section>
-			{showMembersModal && (
-				// render profile modal
+			{/* {showMembersModal && (
 				<Modal onClose={(_) => setShowMembersModal(false)}>
 					<ShowMembersModal setShowMembersModal={setShowMembersModal} />
 				</Modal>
-			)}
+			)} */}
 		</section>
 	) : (
 		<section id='message-display-main'>Message not available. TBD</section>
