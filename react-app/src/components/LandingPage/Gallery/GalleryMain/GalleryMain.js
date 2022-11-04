@@ -31,6 +31,7 @@ const GalleryMain = () => {
 	const { channels, setChannels } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
 	const { mainOpen, setMainOpen } = useLanding();
+	// const { onLoad, setOnLoad } =
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -54,6 +55,28 @@ const GalleryMain = () => {
 	useEffect(() => {
 		setChannelsUsers(channelsUsersState);
 		setChannels(channelState);
+		if (channelState) {
+			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
+				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
+				: '';
+
+			const currentChannelDetail = [];
+
+			Array.isArray(channelsUsers) &&
+				currentChannelsUserBelongTo.forEach((cu) => {
+					currentChannelDetail.push(cu.channel_id);
+				});
+
+			const channelDisplay =
+				Array.isArray(channelState) &&
+				channelState.filter((channel) =>
+					currentChannelDetail.includes(channel.id)
+				);
+
+			if (Array.isArray(channelDisplay)) {
+				setChannels(channelDisplay);
+			}
+		}
 	}, [channelState, currentUserId, channelsUsersState]);
 
 	return (

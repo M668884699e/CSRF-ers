@@ -177,7 +177,6 @@ export const thunkDeleteChannel = (id) => async (dispatch) => {
 	}
 };
 
-//
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllChannels = (state) => Object.values(state.channels);
 
@@ -206,12 +205,6 @@ export default function channelReducer(state = initialState, action) {
 			return deleteChannels;
 		// default case
 		default:
-			console.log(
-				'Object.assign',
-				Object.assign({}, newChannels, action.channels)
-			);
-			console.log('newChannels', newChannels);
-			console.log('action.channels', action.channels);
 			return Object.assign({}, newChannels, action.channels);
 	}
 }

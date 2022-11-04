@@ -36,7 +36,7 @@ const ShowMembersModal = ({ setShowMembersModal }) => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		console.log('userState', userState);
+		//! TODO
 	}, [userState]);
 
 	return <>Testing</>;

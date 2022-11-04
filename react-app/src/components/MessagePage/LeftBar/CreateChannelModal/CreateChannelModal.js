@@ -115,7 +115,8 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				: channelActions.thunkPostNewChannel(channelInfo)
 		)
 			.then((res) => {
-				if (!editChannel) {
+				console.log('res', res);
+				if (!editChannel && res) {
 					const currentCreatedChannelId = res.new_channel.id;
 					setCreatedChannelId(currentCreatedChannelId);
 				} else {
@@ -127,7 +128,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				// exit out the modal
 				setCreateChannelOpenModal(false);
 				setAddPeopleModal(true);
-			})
+			});
 	};
 
 	// function to update channel name
