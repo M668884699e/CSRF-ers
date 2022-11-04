@@ -77,6 +77,7 @@ const LeftBar = () => {
 	useEffect(() => {
 		// filter
 		setChannels(channelState);
+		console.log(channelState, "channelState")
 		if (channelState) {
 			const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
 				? channelsUsers.filter((cu) => currentUserId === cu.user_id)
@@ -96,10 +97,11 @@ const LeftBar = () => {
 				);
 
 			if (Array.isArray(channelDisplay)) {
+				console.log(channelDisplay, "channelDisplay")
 				setChannels(channelDisplay);
 			}
 		}
-	}, [channelState, currentChannelId, channelsUsersState, routeType]);
+	}, [channelState, currentChannelId, channelsUsersState]);
 
 	// per dmrState
 	useEffect(() => {
@@ -107,26 +109,27 @@ const LeftBar = () => {
 
 		// console.log('dmrState', dmrState);
 
-		// if (dmrState) {
-		// 	const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
-		// 		? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
-		// 		: '';
+		if (dmrState) {
+			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
+				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
+				: '';
 
-		// 	const currentDMRDetail = [];
+			const currentDMRDetail = [];
 
-		// 	Array.isArray(dmrUsers) &&
-		// 		currentDMRsUserBelongTo.forEach((dmru) => {
-		// 			currentDMRDetail.push(dmru.dmr_id);
-		// 		});
+			Array.isArray(dmrUsers) &&
+				currentDMRsUserBelongTo.forEach((dmru) => {
+					currentDMRDetail.push(dmru.dmr_id);
+				});
 
-		// 	const dmrDisplay =
-		// 		Array.isArray(dmrState) &&
-		// 		dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
+			const dmrDisplay =
+				Array.isArray(dmrState) &&
+				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
 
-		// 	if (Array.isArray(dmrDisplay)) {
-		// 		setDMRs(dmrDisplay);
-		// 	}
-		// }
+			if (Array.isArray(dmrDisplay)) {
+				console.log(dmrDisplay, "dmrDisplay")
+				setDMRs(dmrDisplay);
+			}
+		}
 	}, [dmrState, currentDMRId, dmrUsersState, routeType]);
 
 	// per channelsUsers state
