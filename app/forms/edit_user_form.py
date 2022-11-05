@@ -16,9 +16,6 @@ def user_exists(form, field):
     # Checking if user exists
     email = field.data
     user = User.query.filter(User.email == email).filter(current_user.get_id() != User.id).first()
-    print(" "*10)
-    print("user", user)
-    print(" "*10)
     if user:
       raise ValidationError('Email address is already in use.')
 

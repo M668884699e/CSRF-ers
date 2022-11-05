@@ -387,6 +387,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 	const [load, setLoad] = useState(0);
+	const [validationErrors, setValidationErrors] = useState([]);
 
 	let usersIndexes = [];
 
@@ -423,7 +424,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				Object.values(userState).filter((user) => user.id !== getCurrentUserId)
 			);
 		}
-	}, [userState]);
+	}, [userState, validationErrors]);
 
 	// per users
 	useEffect(() => {
@@ -541,16 +542,23 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				usersToAdd.unshift(getCurrentUserId);
 				// const newDMRName = usersToAdd
 				const userIds = usersToAdd.toString();
-				console.log(newDMRId, 'testtest');
 				return dispatch(usersDMRsActions.thunkGetAllDMRUsers())
 					.then(() => dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)))
-					.then(() => {
-						return dispatch(dmrActions.thunkGetAllDmrs()).then(() => {
-							dispatch(usersDMRsActions.thunkGetAllDMRUsers());
-							setLoad(0);
-							setAddPeopleModal(false);
-							return history.push(`/chat/dmr/${newDMRId.length + 1}`);
-						});
+					.then((res) => {
+						if (res.errors) {
+							// reset errors
+							setValidationErrors([]);
+
+							// show errors
+							setValidationErrors([res.errors]);
+						} else {
+							return dispatch(dmrActions.thunkGetAllDmrs()).then(() => {
+								dispatch(usersDMRsActions.thunkGetAllDMRUsers());
+								setLoad(0);
+								setAddPeopleModal(false);
+								return history.push(`/chat/dmr/${newDMRId.length + 1}`);
+							});
+						}
 					});
 			}
 		} else {
@@ -582,6 +590,13 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				{routeType === 'dmrs' ? (
 					<>
 						<h1>Start a conversation with:</h1>
+						{/* validation errors: catch channel creating errors */}
+						<div className='epm-error-container'>
+							{validationErrors &&
+								validationErrors.map((error, ind) => (
+									<div key={ind}>{error}</div>
+								))}
+						</div>
 						<p id='apm-form-dmr'>
 							Conversations are direct messages with other Slack users. These
 							messages cannot be seen by people outside of the conversation. If
