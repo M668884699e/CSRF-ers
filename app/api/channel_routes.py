@@ -272,6 +272,10 @@ def delete_channel(channel_id):
     # if channel does not exist, throw an error
     if(destroy_channel == None):
         return {'errors': [f"Channel {channel_id} does not exist"]}, 404
+    
+    # delete all messages with messeagle_type === channel and channel_id
+    current_channel_messages = Message.query.filter(channel_id == Message.messageable_id).filter("Channel" == Message.messageable_type)
+    current_channel_messages.delete(synchronize_session = False)
 
     # otherwise, return successful response and delete channel
     db.session.delete(destroy_channel)

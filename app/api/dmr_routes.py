@@ -209,6 +209,10 @@ def delete_dmr(dmr_id):
   # if dmr does not exist, throw an error
   if(dmr == None):
       return {'errors': [f"DMR {dmr_id} does not exist"]}, 404
+    
+  # delete all messages with messeagle_type === channel and channel_id
+  current_dmr_messages = Message.query.filter(dmr_id == Message.messageable_id).filter("DMR" == Message.messageable_type)
+  current_dmr_messages.delete(synchronize_session = False)
 
   # otherwise, return successful response and delete dmr
   db.session.delete(dmr)
