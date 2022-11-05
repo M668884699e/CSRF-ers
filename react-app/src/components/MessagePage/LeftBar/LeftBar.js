@@ -171,7 +171,7 @@ const LeftBar = () => {
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
-
+							setRouteType("channels")
 							history.push(`/chat/channels/${channel.id}`);
 
 							// turn modal on
@@ -206,29 +206,6 @@ const LeftBar = () => {
 	};
 
 	const loadDMRProfilePicture = (dmr) => {
-		// let userProfileToUse = dmr.dmr_name.split(", ")[0]
-		// // let userProfileToUse = dmrNameArray[0]
-		// let allUsersArray = Object.values(allUsers)
-		// console.log("test", allUsersArray)
-		// if (allUsersArray && allUsersArray.length > 0) {
-		// 	let test = allUsersArray.find(el => el.display_name === userProfileToUse)
-		// 	let profileLinkToUse = test.profile_image
-		// 	if (profileLinkToUse) {
-		// 		return (
-		// 			<figure id="dmr-profile-pic">
-		// 				<img src={profileLinkToUse} alt={userProfileToUse}></img>
-		// 			</figure>
-		// 		)
-		// 	} else {
-		// 		return (
-		// 			<figure id="dmr-profile-pic">
-		// 				<i id="dmr-icon" className="fa-brands fa-slack"></i>\
-		// 			</figure>
-		// 		)
-		// 	}
-		// } else {
-		// 	return
-		// }
 		return (
 			<figure id="dmr-profile-pic">
 				<i className="fa-brands fa-slack"></i>
@@ -253,7 +230,7 @@ const LeftBar = () => {
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
-
+							setRouteType("dmrs")
 							history.push(`/chat/dmr/${dmr.id}`);
 
 							// turn modal on
