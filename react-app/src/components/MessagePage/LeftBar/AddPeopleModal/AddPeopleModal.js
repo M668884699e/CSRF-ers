@@ -508,25 +508,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 		// //? call on thunk to edit current channel and add people
 
-<<<<<<< HEAD
-		if (inputLength > 0) {
-			console.log('currentChannelId', currentChannelId);
-
-			return dispatch(
-				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
-			)
-				.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
-				.then(() => {
-					return usersToAdd.map((user) => {
-						dispatch(
-							usersChannelsActions.thunkPutAddUserToChannel(
-								createdChannelId,
-								user
-							)
-						).then(() =>
-							dispatch(usersChannelsActions.thunkGetAllChannelsUsers())
-						);
-=======
 		if (usersToAdd.length > 0) {
 			if (routeType === 'channels') {
 				return dispatch(
@@ -549,7 +530,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 						setLoad(0);
 						setAddPeopleModal(false);
 						// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
->>>>>>> SAM-dmr-modal
 					});
 			} else {
 				// // if no input length, we remove all existing users except for owner
@@ -576,13 +556,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		} else {
 			// if no input length, we remove all existing users except for owner
 			// as no one is currently in channel
-<<<<<<< HEAD
-			console.log('currentChannelId', currentChannelId);
-
-			dispatch(
-				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
-			).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
-=======
 			if (routeType === 'channels') {
 				dispatch(
 					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
@@ -590,7 +563,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 			} else {
 				dispatch(usersDMRsActions.thunkGetAllDMRUsers());
 			}
->>>>>>> SAM-dmr-modal
 			setLoad(0);
 			setAddPeopleModal(false);
 		}
