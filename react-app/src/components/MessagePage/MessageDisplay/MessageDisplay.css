@@ -9,6 +9,22 @@
 	background-color: #1a1d21;
 }
 
+#mmh-span-404 {
+	display: flex;
+	align-items: center;
+}
+
+#mdm-span-404 {
+	margin-top: 1rem;
+	margin-left: 1rem;
+}
+
+#mmh-span-404,
+#mdm-span-404 {
+	color: white;
+	opacity: 0.65;
+}
+
 /* Message Main Header (Channel/DMR Name) */
 #message-main-header {
 	display: flex;
