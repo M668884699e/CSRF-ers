@@ -8,7 +8,7 @@ import { useChannel } from '../../../../context/ChannelContext';
 import { useParams } from 'react-router-dom';
 
 // import react
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 // import react-redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,81 +24,51 @@ const ShowMembersModal = ({ setMembersModal }) => {
 	const { channelId, dmrId } = useParams();
 	const dmrUsers = useSelector(state => Object.values(state.dmrUsers));
 	const channelsUsers = useSelector(state => Object.values(state.channelsUsers));
-	// console.log(channelsUsers)
+	const userState = useSelector(state => state.users? state.users: state);
+	const [users, setUsers] = useState([]);
+	const [chatUsers, setChatUsers] = useState([]);
+
+	console.log(userState);
 
 	let chatId = window.location.pathname.split('/')[2] === 'channels'? Number(channelId): Number(dmrId);
-	let chatUsers = [];
+	// let chatUsers = [];
 
-	if(window.location.pathname.split('/')[2] === 'channels'){
-		channelsUsers.forEach( (users) => {
-			users.forEach(user => {
-				if(user.channel_id === chatId){
-					chatUsers.push(user)
-				}
-			})
-		});
-	}else{
-		console.log('dmr here')
-		dmrUsers.forEach( (users) => {
-			users.forEach(user => {
-				if(user.dmr_id === chatId){
-					chatUsers.push(user)
-				}
-			})
-		});
-	}
+	// console.log(chatUsers)
 
-	// useEffect(() => {
-	// 	if(window.location.pathname.split('/')[2] === 'channels'){
-	// 		chatUsers = dispatch(userActions.thunkGetChannelUsers(chatId))
-	// 	}else{
-	// 		chatUsers = dispatch(userActions.thunkGetDMRUsers(chatId))
-	// 	}
+	useEffect(() => {
+		if(window.location.pathname.split('/')[2] === 'channels'){
+			channelsUsers.forEach( (users) => {
+				users.forEach(user => {
+					if(user.channel_id === chatId){
+						chatUsers.push(user.user_id)
+					}
+				})
+			});
+		}else{
+			dmrUsers.forEach( (users) => {
+				users.forEach(user => {
+					if(user.dmr_id === chatId){
+						chatUsers.push(user.user_id)
+					}
+				})
+			});
+		}
 
-	// }, [dispatch])
-	console.log(chatUsers);
 
-	// use context
-
-	// const [userList, setUserList] = useState([]);
-
+		setUsers(Object.values(userState).filter( user => {
+			if(chatUsers.includes(user.id)){
+				console.log('user', user)
+				return user
+			}
+			 
+			}))
+		console.log(chatUsers)
+	}, [userState, chatId])
 	
+	useEffect(() => {
+		console.log(users)
 
-	// selector functions
-	const userState = useSelector(state => state.users? state.users: state);
-	// console.log(userState);
-
-	// get list of all members that belong
-	// useEffect(() => {
-	// 	window.location.pathname.split('/')[2] === 'channels'
-	// 		? dispatch(
-	// 				userActions.thunkGetChannelUsers(
-	// 					Number(window.location.pathname.split('/')[3])
-	// 				)
-	// 		  )
-	// 		: dispatch(
-	// 				userActions.thunkGetDMRUsers(Number(window.location.pathname.split('/')[3]))
-	// 		  );
-	// }, [dispatch]);
-
-	// console.log(userState);
-
-	// useEffect(() => {
-	// 	//! TODO
-	// }, [userState]);
-	// console.log('In the members modal.')
-
-	// let users = 	window.location.pathname.split('/')[2] === 'channels'
-	// 		? dispatch(
-	// 				userActions.thunkGetChannelUsers(
-	// 					window.location.pathname.split('/')[3]
-	// 				)
-	// 		  )
-	// 		: dispatch(
-	// 				userActions.thunkGetDMRUsers(window.location.pathname.split('/')[3])
-	// 		  );
-
-	// 		  console.log(users);
+	}, [users])
 
 	return (
 		<section id='smm-container'>

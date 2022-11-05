@@ -108,13 +108,7 @@ const LeftBar = () => {
 
 	// per dmrState
 	useEffect(() => {
-<<<<<<< HEAD
-		// console.log(dmrs, "what is dmrs 1")
-		// setDMRs(dmrState);
-		// console.log(dmrs, "what is dmrs 2")
-=======
 		setDMRs(dmrState);
->>>>>>> dev
 
 		if (dmrState) {
 			// console.log('dmrState', dmrState);

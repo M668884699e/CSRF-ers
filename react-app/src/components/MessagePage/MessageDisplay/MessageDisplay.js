@@ -129,7 +129,7 @@ const MessageDisplay = () => {
 		<section id='message-display-main'>
 			<section id='message-main-header'>
 				<section id='message-main-header-left'>
-					{/* BJM todo: Implement a button add feature maintaining css */}
+					{/* Implement a button add feature maintaining css */}
 					<button id='message-main-header-name'>
 						{Object.values(currentChat).length > 0
 							? currentChat.channel_name
