@@ -93,7 +93,7 @@ export const thunkPutMessage = (message) => async (dispatch) => {
 	return null;
 };
 
-export const thunkDeleteMessage = (message, index) => async (dispatch) => {
+export const thunkDeleteMessage = (message) => async (dispatch) => {
 	// fetch route to delete message
 
 	const res = await fetch(`/api/messages/${message.id}`, {
@@ -102,7 +102,7 @@ export const thunkDeleteMessage = (message, index) => async (dispatch) => {
 
 	// if res is successfull, proceed to dispatch delete action
 	if (res.ok) {
-		dispatch(deleteMessage(index));
+		dispatch(deleteMessage(message.id));
 	}
 
 	return null;

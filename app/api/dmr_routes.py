@@ -80,7 +80,7 @@ def get_dmr_messages(dmr_id):
   # query for any existing messages in the given dmr id
   dmr_messages = Message.query.filter(Message.messageable_type == 'DMR', Message.messageable_id == dmr_id)
 
-  return {'dmr': dmr_id, 'dmr_messages':[dmr_message.to_dict() for dmr_message in dmr_messages]}
+  return {'dmr': dmr_id, 'dmr_messages':{dmr_message.id: dmr_message.to_dict() for dmr_message in dmr_messages}}
 
 #* POST - /dmrs
 # Create new DirectMessageRoom

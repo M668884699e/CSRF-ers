@@ -219,6 +219,11 @@
 	margin-bottom: 10px;
 }
 
+#dmr-header:hover,
+.dmr-list-option:hover {
+	cursor: pointer;
+}
+
 #dmr-list {
 	display: flex;
 	flex-direction: column;
@@ -287,6 +292,10 @@
 	height: 20px;
 
 	margin-right: 10px;
+}
+
+.exit-lb-icon:hover {
+	color: white;
 }
 
 #communication {

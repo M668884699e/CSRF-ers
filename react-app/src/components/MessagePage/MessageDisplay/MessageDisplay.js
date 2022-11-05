@@ -106,10 +106,10 @@ const MessageDisplay = () => {
 	}, [currentChat]);
 
 	// function to handle delete message
-	const handleDeleteMessage = (message, index) => {
+	const handleDeleteMessage = (message) => {
 		// if channel, delete channel message then get channel message
 		// vice versa for dmr
-		dispatch(messageActions.thunkDeleteMessage(message, index)).then(() => {
+		dispatch(messageActions.thunkDeleteMessage(message)).then(() => {
 			dispatch(
 				channelId
 					? messageActions.thunkGetChannelMessages(chatId)
@@ -134,6 +134,12 @@ const MessageDisplay = () => {
 					<button id='message-main-header-name'>
 						{Object.values(currentChat).length > 0
 							? currentChat.channel_name
+								? currentChat.channel_name.length > 40
+									? currentChat.channel_name.slice(0, 40) + '...'
+									: currentChat.channel_name.slice(0, 40)
+								: currentChat.dmr_name.length > 40
+								? currentChat.dmr_name.slice(0, 40) + '...'
+								: currentChat.dmr_name.slice(0, 40)
 							: ''}
 					</button>
 				</section>
@@ -192,12 +198,12 @@ const MessageDisplay = () => {
 									<figure
 										onClick={(e) => {
 											e.stopPropagation();
-											handleEditMessage(message, index);
+											handleEditMessage(message);
 										}}
 									>
 										<i className='fa-solid fa-pen-to-square edit-message'></i>
 									</figure>
-									<figure onClick={(_) => handleDeleteMessage(message, index)}>
+									<figure onClick={(_) => handleDeleteMessage(message)}>
 										<i className='fa-solid fa-trash delete-message'></i>
 									</figure>
 								</section>

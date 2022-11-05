@@ -321,7 +321,7 @@ const LeftBar = () => {
 			<footer id='footer' onClick={handleLogout}>
 				<section id='footer-name'>Leave Slackers</section>
 				<section id='footer-button'>
-					<i className='fa-solid fa-right-from-bracket'></i>
+					<i className='fa-solid fa-right-from-bracket exit-lb-icon'></i>
 				</section>
 			</footer>
 
