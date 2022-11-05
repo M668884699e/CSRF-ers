@@ -326,7 +326,6 @@
 // // export component
 // export default AddPeopleModal;
 
-
 // ____________________________________________________________________________________________________________________________________________
 
 // src/components/MessagePage/LeftBar/AddPeopleModal/AddPeopleModal.js

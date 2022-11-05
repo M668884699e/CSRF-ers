@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import DMR, DMRUser, Message, User, db
 from app.forms import DMRForm
 
@@ -213,3 +213,27 @@ def delete_dmr(dmr_id):
   db.session.commit()
 
   return {"message": f"Successfully deleted dmr {dmr_id}"}
+
+#* DELETE /dmrs/:dmrId/users/:userId
+@login_required
+@dmr_routes.route('/<int:dmr_id>/users/<int:user_id>', methods=['DELETE'])
+def remove_user_from_dmr(dmr_id, user_id):
+  """
+  Remove current user from dmr
+  """
+  # given dmr id, query through all dmr_users to find current dmr
+  current_dmr_user = DMRUser.query.filter(DMRUser.user_id == current_user.get_id()).filter(DMRUser.dmr_id == dmr_id).first()
+  
+  #check if user is a current member of given dmr, throw error if necessary
+  if current_dmr_user is None:
+    return {'message': f'User {current_user.get_id()} does not exist in dmr {dmr_id}'}, 404
+  
+  # delete user that's not current owner
+  db.session.delete(current_dmr_user)
+  db.session.commit()
+  
+  # return back successful response
+  return{
+    'message': f'Successfully deleted user {current_user.get_id()} from dmr {dmr_id}'
+  }
+                     

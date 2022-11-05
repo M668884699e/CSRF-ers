@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
+from flask_login import current_user
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import User
 import re
@@ -14,7 +15,10 @@ def check_valid_email(form, field):
 def user_exists(form, field):
     # Checking if user exists
     email = field.data
-    user = User.query.filter(User.email == email).first()
+    user = User.query.filter(User.email == email).filter(current_user.get_id() != User.id).first()
+    print(" "*10)
+    print("user", user)
+    print(" "*10)
     if user:
       raise ValidationError('Email address is already in use.')
 
