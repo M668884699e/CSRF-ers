@@ -542,6 +542,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				usersToAdd.unshift(getCurrentUserId);
 				// const newDMRName = usersToAdd
 				const userIds = usersToAdd.toString();
+				console.log(newDMRId, "testtest")
 				return dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)).then(
 					() => {
 						return dispatch(usersDMRsActions.thunkGetAllDMRUsers()).then(() => {
