@@ -20,6 +20,7 @@ import { useHistory, useParams } from 'react-router-dom';
 // import store
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
+import * as usersChannelsActions from '../../../../store/channels-users';
 
 //? CreateChannelModal component
 const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
@@ -125,6 +126,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				}
 			})
 			.then(() => dispatch(channelActions.thunkGetUserChannels()))
+			.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
 			.then(() => {
 				// exit out the modal
 				setCreateChannelOpenModal(false);

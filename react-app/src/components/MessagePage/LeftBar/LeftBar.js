@@ -192,7 +192,13 @@ const LeftBar = () => {
 								<i id="lock-test" className='fa-solid fa-lock lock-test'></i>
 							)}
 						</aside>
-						<aside>{channel.channel_name}</aside>
+						{
+							<>
+								<>{channel.channel_name.slice(0, 20)}</>
+
+								<>{channel.channel_name.length > 20 ? '...' : ''}</>
+							</>
+						}
 					</section>
 				);
 			})
@@ -264,7 +270,15 @@ const LeftBar = () => {
 						<aside>
 							{loadDMRProfilePicture(dmr)}
 						</aside>
-						<aside>{dmr.dmr_name}</aside>
+						<aside>
+							{
+								<>
+									<>{dmr.dmr_name.slice(0, 20)}</>
+
+									<>{dmr.dmr_name.length > 20 ? '...' : ''}</>
+								</>
+							}
+						</aside>
 					</section>
 				);
 			})

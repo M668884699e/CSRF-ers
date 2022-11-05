@@ -1,1 +1,76 @@
 /* src/components/MessagePage/MessageDisplay/ShowMembersModal/ShowMembersModal.css */
+
+#smm-container {
+	color: white;
+	opacity: 0.85;
+	margin: 1rem;
+}
+
+#smm-container > h2 {
+	margin: 0;
+	margin-bottom: 1rem;
+}
+
+#smm-members-ul {
+	max-height: 20rem;
+	height: fit-content;
+	width: 99.5%;
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+#smm-members-ul::-webkit-scrollbar {
+	width: 0.3em;
+	z-index: 2;
+}
+
+#smm-members-ul::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#smm-members-ul::-webkit-scrollbar-thumb {
+	background-color: #007a5a;
+	outline: 1px solid #17a47e;
+	border-radius: 1rem;
+}
+
+#smm-members-li-figure,
+#smm-members-li-img {
+	margin: 1rem 0;
+	padding: 0;
+}
+
+#smm-members-li {
+	width: 20rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#smm-members-li-figure {
+	width: 2rem;
+	height: 2rem;
+
+	display: flex;
+	align-items: center;
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+#smm-members-li-img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+#smm-span-fn,
+#smm-span-ln {
+	margin-right: 0.5rem;
+}

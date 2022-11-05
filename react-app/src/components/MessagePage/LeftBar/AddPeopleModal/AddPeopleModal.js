@@ -522,9 +522,10 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 									createdChannelId,
 									user
 								)
-							).then(() =>
-								dispatch(usersChannelsActions.thunkGetAllChannelsUsers())
-							);
+							).then(() => {
+								dispatch(channelActions.thunkGetUserChannels());
+								dispatch(usersChannelsActions.thunkGetAllChannelsUsers());
+							});
 						});
 					})
 					.then(() => {
