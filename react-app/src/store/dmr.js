@@ -150,7 +150,7 @@ export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
 	}
 };
 
-export const thunkSetNewDmr = (dmr) => async (dispatch) => {
+export const thunkPostNewDmr = (dmr) => async (dispatch) => {
 	const response = await fetch(`/api/dmr/`, {
 		method: 'POST',
 		headers: {

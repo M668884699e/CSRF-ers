@@ -21,8 +21,20 @@ export const addDmrUser = (dmrsUsers) => {
 	};
 };
 
+// action
+const REMOVE_DMR_FROM_CHANNEL = 'dmrsUsers/REMOVE_DMR_FROM_CHANNEL';
+
+// action creator: remove given user from given dmr
+export const removeUserFromDMR = (dmrId, userId) => {
+	return {
+		type: REMOVE_DMR_FROM_CHANNEL,
+		dmrId,
+		userId,
+	};
+};
+
 /* --------- THUNKS -------- */
-// thunk to get all channels users
+// thunk to get all dmr users
 export const thunkGetAllDMRUsers = () => async (dispatch) => {
 	const res = await fetch('/api/dmr/all/users');
 
@@ -44,7 +56,7 @@ export const thunkPutAddUserToDMR = (userIds) => async (dispatch) => {
 	// "user_ids":"1,2,3"
 	const usersToAdd = { user_ids: userIds.toString() };
 	// fetch the put data
-	const res = await fetch(`/api/dmrs/`, {
+	const res = await fetch(`/api/dmr/`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -62,6 +74,20 @@ export const thunkPutAddUserToDMR = (userIds) => async (dispatch) => {
 	}
 };
 
+// thunk to remove user from dmr
+export const thunkRemoveUserFromDMR = (dmrId, userId) => async (dispatch) => {
+	// delete users from given dmr's dmr id
+	const res = await fetch(`/api/dmr/${dmrId}/users/${userId}`, {
+		method: 'DELETE',
+	});
+
+	if (res.ok) {
+		return dispatch(removeUserFromDMR(dmrId, userId));
+	}
+
+	return res;
+};
+
 /* --------- SELECTOR FUNCTIONS -------- */
 export const getAllUserDMRs = (state) => state.dmrUsers.dmr_users;
 
@@ -73,7 +99,13 @@ export default function dmrUsersReducer(state = initialState, action) {
 
 	switch (action.type) {
 		// get channel case
+		case REMOVE_DMR_FROM_CHANNEL:
+			Object.values(newDMRUsers).forEach((du, index) => {
+				if (du.dmr_id === action.dmrId && du.user_id === action.userId)
+					delete newDMRUsers[index];
+			});
 
+			return newDMRUsers;
 		// default case
 		default:
 			return Object.assign({}, newDMRUsers, action.dmrUsers);

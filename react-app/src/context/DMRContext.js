@@ -10,6 +10,7 @@ export default function DMRProvider({ children }) {
 	// state for context
 	const [dmrs, setDMRs] = useState({});
 	const [createdDMRId, setCreatedDMRId] = useState(null);
+	const [currentDMR, setCurrentDMR] = useState(null);
 	const [currentDMRId, setCurrentDMRId] = useState(null);
 
 	// DMR Provider
@@ -21,6 +22,8 @@ export default function DMRProvider({ children }) {
 					setDMRs,
 					createdDMRId,
 					setCreatedDMRId,
+					currentDMR,
+					setCurrentDMR,
 					currentDMRId,
 					setCurrentDMRId,
 				}}

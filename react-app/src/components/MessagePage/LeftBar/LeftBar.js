@@ -1,6 +1,9 @@
 // import css
 import './LeftBar.css';
 
+// import component
+import AlwaysScrollToBottom from '../MessageDisplay/AlwaysScrollToBottom';
+
 // import context
 import { useChannel } from '../../../context/ChannelContext';
 import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
@@ -101,34 +104,13 @@ const LeftBar = () => {
 				setChannels(channelDisplay);
 			}
 		}
-
-		// _________________________
-
-		// if (channelState) {
-		// 	const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-		// 		? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-		// 		: '';
-
-		// 	const currentChannelDetail = [];
-
-		// 	Array.isArray(channelsUsers) &&
-		// 		currentChannelsUserBelongTo.forEach((cu) => {
-		// 			currentChannelDetail.push(cu.channel_id);
-		// 		});
-
-		// 	const channelDisplay =
-		// 		Array.isArray(channelState) &&
-		// 		channelState.filter((channel) => currentChannelDetail.includes(channel.id));
-
-		// 	if (Array.isArray(channelDisplay)) {
-		// 		setChannels(channelDisplay);
-		// 	}
-		// }
 	}, [channelState, currentChannelId]);
 
 	// per dmrState
 	useEffect(() => {
+		console.log(dmrs, "what is dmrs 1")
 		setDMRs(dmrState);
+		console.log(dmrs, "what is dmrs 2")
 
 		if (dmrState) {
 			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
@@ -279,7 +261,7 @@ const LeftBar = () => {
 								className='channel-list-option'
 								onClick={(e) => {
 									e.stopPropagation();
-									setRouteType('dmrs');
+									setRouteType('channels');
 									setEditChannel(false);
 									setCreateChannelOpenModal(true);
 								}}
@@ -287,7 +269,9 @@ const LeftBar = () => {
 								<aside>
 									<i className='fa-regular fa-plus'></i>
 								</aside>
-								<aside>Create A Channel</aside>
+								<aside>
+									<span>Create A Channel</span>
+								</aside>
 							</section>
 						</section>
 					</details>
@@ -346,6 +330,18 @@ const LeftBar = () => {
 					/>
 				</Modal>
 			)}
+			{/* {createDMROpenModal && (
+				<Modal
+					onClose={(_) => {
+						setCreateDMROpenModal(false);
+					}}
+					currentVisible={false}
+				>
+					<CreateDMRModal
+						setCreateDMROpenModal={setCreateDMROpenModal}
+					/>
+				</Modal>
+			)} */}
 			{addPeopleModal && (
 				<Modal onClose={(_) => setAddPeopleModal(false)} currentVisible={false}>
 					<AddPeopleModal setAddPeopleModal={setAddPeopleModal} />

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import DMR, DMRUser, Message, User, db
 from app.forms import DMRForm
 
@@ -82,7 +82,7 @@ def get_dmr_messages(dmr_id):
 
   return {'dmr': dmr_id, 'dmr_messages':{dmr_message.id: dmr_message.to_dict() for dmr_message in dmr_messages}}
 
-#* POST - /dmrs
+#* POST - /dmr
 # Create new DirectMessageRoom
 @login_required
 @dmr_routes.route('/', methods=['POST'])
@@ -96,23 +96,18 @@ def create_dmr():
   # get a list of user names from user_ids
   user_ids = form.data['user_ids'].split(',')
 
+
   # make an empty string to later store user name
-  user_names = ""
+  user_names = []
 
-  #* (1) create DMR
-  # for every user, get the display name and add it to user_names
-  for user_id_index in range(len(user_ids)):
-    # check if user exist and throw error if necessary
-    check_user = User.query.get(int(user_ids[user_id_index]))
-
+  for x in user_ids:
+    check_user = User.query.get(int(x))
     if(check_user is None):
-        return {'errors': [f"User {int(user_ids[user_id_index])} does not exist"]}, 404
+      return {'errors': [f"User {int(x)} does not exist"]}, 404
+    user_name = User.query.get(int(x)).to_dict()['display_name']
+    user_names.append(user_name)
 
-    user_name = User.query.get(int(user_ids[user_id_index])).to_dict()['display_name']
-
-    # if last index, don't add comma
-    # otherwise, add comma before user_name
-    user_names += f", {user_name}" if user_id_index == len(user_ids) - 1 else user_name
+  user_names = ", ".join(user_names)
 
   # create new dmr
   new_dmr = DMR(
@@ -176,7 +171,7 @@ def add_user_to_dmr(dmr_id, user_id):
     # if user does not exist in the given dmr, proceed to adding
     if(DMRUser.query.filter(DMRUser.dmr_id == dmr_id).filter_by(user_id = user_id).first() is None):
         # create new DmrUser seed
-        new_dmr_user = DmrUser(
+        new_dmr_user = DMRUser(
             dmr_id = dmr_id,
             user_id = user_id
         )
@@ -213,3 +208,26 @@ def delete_dmr(dmr_id):
   db.session.commit()
 
   return {"message": f"Successfully deleted dmr {dmr_id}"}
+
+#* DELETE /dmrs/:dmrId/users/:userId
+@login_required
+@dmr_routes.route('/<int:dmr_id>/users/<int:user_id>', methods=['DELETE'])
+def remove_user_from_dmr(dmr_id, user_id):
+  """
+  Remove current user from dmr
+  """
+  # given dmr id, query through all dmr_users to find current dmr
+  current_dmr_user = DMRUser.query.filter(DMRUser.user_id == current_user.get_id()).filter(DMRUser.dmr_id == dmr_id).first()
+
+  #check if user is a current member of given dmr, throw error if necessary
+  if current_dmr_user is None:
+    return {'message': f'User {current_user.get_id()} does not exist in dmr {dmr_id}'}, 404
+
+  # delete user that's not current owner
+  db.session.delete(current_dmr_user)
+  db.session.commit()
+
+  # return back successful response
+  return{
+    'message': f'Successfully deleted user {current_user.get_id()} from dmr {dmr_id}'
+  }
