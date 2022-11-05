@@ -49,10 +49,10 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 	useEffect(() => {
 		// currentChannel does not refer to a Channel. It refers to both Channel and DMR
-		if(currentChannel.channel_name) {
-			setCurrentChannelId(currentChannel.id)
-		} else if(currentChannel.dmr_name) {
-			setCurrentDMRId(currentChannel.di)
+		if (currentChannel.channel_name) {
+			setCurrentChannelId(currentChannel.id);
+		} else if (currentChannel.dmr_name) {
+			setCurrentDMRId(currentChannel.di);
 		}
 	}, [dispatch, channelState, dmrState, currentChannel]);
 
@@ -79,12 +79,15 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
-				dispatch(channelActions.thunkGetUserChannels());
-				setRightClickModal(false);
-				return history.push(
-					`/chat/channels/${channelState ? channelState[0].id : 0}`
-				);
+				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
+					.then(() => dispatch(channelActions.thunkGetUserChannels()))
+					.then(res => {
+						setChannels(res);
+						setRightClickModal(false);
+						return history.push(
+							`/chat/channels/${channelState ? channelState[0].id : 0}`
+						);
+					});
 			}
 		}
 	};
