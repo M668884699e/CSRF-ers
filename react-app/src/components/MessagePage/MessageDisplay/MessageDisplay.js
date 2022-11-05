@@ -118,9 +118,8 @@ const MessageDisplay = () => {
 		});
 	};
 
-	const handleEditMessage = (message, index) => {
+	const handleEditMessage = (index) => {
 		// turn current section into textarea
-
 		const newMessageBooleans = messageBooleans.slice();
 		newMessageBooleans[index] = !newMessageBooleans[index];
 		setMessageBooleans(newMessageBooleans);
@@ -198,7 +197,7 @@ const MessageDisplay = () => {
 									<figure
 										onClick={(e) => {
 											e.stopPropagation();
-											handleEditMessage(message);
+											handleEditMessage(index);
 										}}
 									>
 										<i className='fa-solid fa-pen-to-square edit-message'></i>
