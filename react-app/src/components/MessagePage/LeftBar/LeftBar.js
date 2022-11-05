@@ -101,29 +101,6 @@ const LeftBar = () => {
 				setChannels(channelDisplay);
 			}
 		}
-
-		// _________________________
-
-		// if (channelState) {
-		// 	const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-		// 		? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-		// 		: '';
-
-		// 	const currentChannelDetail = [];
-
-		// 	Array.isArray(channelsUsers) &&
-		// 		currentChannelsUserBelongTo.forEach((cu) => {
-		// 			currentChannelDetail.push(cu.channel_id);
-		// 		});
-
-		// 	const channelDisplay =
-		// 		Array.isArray(channelState) &&
-		// 		channelState.filter((channel) => currentChannelDetail.includes(channel.id));
-
-		// 	if (Array.isArray(channelDisplay)) {
-		// 		setChannels(channelDisplay);
-		// 	}
-		// }
 	}, [channelState, currentChannelId]);
 
 	// per dmrState
@@ -279,7 +256,7 @@ const LeftBar = () => {
 								className='channel-list-option'
 								onClick={(e) => {
 									e.stopPropagation();
-									setRouteType('dmrs');
+									setRouteType('channels');
 									setEditChannel(false);
 									setCreateChannelOpenModal(true);
 								}}
