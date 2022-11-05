@@ -515,6 +515,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				return dispatch(
 					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
 				)
+					.then(() => dispatch(channelActions.thunkDeleteChannel()))
 					.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
 					.then(() => {
 						return usersToAdd.map((user) => {
