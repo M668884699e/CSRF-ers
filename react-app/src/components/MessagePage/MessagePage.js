@@ -5,10 +5,9 @@ import MessageSender from './MessageSender';
 import MessageDisplay from './MessageDisplay';
 import SearchBar from './SearchBar';
 import { Editor } from '../Editor/Editor';
-import MessageForm from "./MessageForm"
+import MessageForm from './MessageForm';
 
 // import context
-import MessageProvider from '../../context/MessageContext';
 import { useProfile } from '../../context/ProfileContext';
 
 // import css
@@ -34,9 +33,7 @@ const MessagePage = () => {
 			>
 				{/* Left Bar */}
 				<aside id='left-bar'>
-					<MessageProvider>
-						<LeftBar />
-					</MessageProvider>
+					<LeftBar />
 				</aside>
 
 				{/* Message Display */}

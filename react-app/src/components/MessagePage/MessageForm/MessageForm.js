@@ -16,9 +16,16 @@ import { thunkGetAllDmrMessages } from '../../../store/dmr';
 // import context
 import { useChannel } from '../../../context/ChannelContext';
 
-const MessageForm = () => {
+const MessageForm = ({ edit = false, messageId }) => {
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.messages);
+
+	const [currentMessage, setCurrentMessage] = useState(
+		edit
+			? Object.values(messages).find((message) => message.id === messageId)
+			: ''
+	);
+
 	const { currentChannel, setCurrentChannel } = useChannel();
 	const [inputLength, setInputLength] = useState(0);
 
@@ -42,7 +49,17 @@ const MessageForm = () => {
 		} else if (messageableUrl === 'dmrs') {
 			setMesseageble_type(messageableUrl.slice(0, -1).toUpperCase());
 		}
-	}, [dispatch, messageableUrl]);
+
+		if (edit) {
+			setMessage(currentMessage.message);
+		} else {
+			setMessage('');
+		}
+	}, [dispatch, messageableUrl, edit]);
+
+	useEffect(() => {
+		// per current message
+	}, [currentMessage]);
 
 	useEffect(() => {
 		// nothing for now, just to update variables
@@ -68,6 +85,7 @@ const MessageForm = () => {
 		e.preventDefault();
 
 		const newMessage = {
+			...currentMessage,
 			message,
 			messageable_id: chatId,
 			messageable_type,
@@ -76,12 +94,21 @@ const MessageForm = () => {
 
 		setInputLength(0);
 
-		return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
-			() => {
-				setMessage('');
-				dispatch(thunkGetChannelMessages(chatId, messageableUrl));
-			}
-		);
+		if (!edit) {
+			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
+				() => {
+					setMessage('');
+					dispatch(thunkGetChannelMessages(chatId, messageableUrl));
+				}
+			);
+		} else {
+			return await dispatch(messageActions.thunkPutMessage(newMessage)).then(
+				() => {
+					setMessage('');
+					dispatch(thunkGetChannelMessages(chatId, messageableUrl));
+				}
+			);
+		}
 	};
 
 	// function to handle updating message
@@ -91,15 +118,15 @@ const MessageForm = () => {
 
 	// function to handle enter key for textareafield
 	const onEnterPress = (e) => {
-		console.log('here');
 		if (e.keyCode === 13 && e.shiftKey == false) {
 			e.preventDefault();
 			return messagePost(e);
 		}
 	};
 
-	return (
-		<section id='message-form-container'>
+	// load form to create message
+	const loadMessageForm = () => {
+		return (
 			<form onSubmit={messagePost} id='message-form'>
 				{/* <Editor /> */}
 				<figure id='message-textarea-figure'>
@@ -117,7 +144,8 @@ const MessageForm = () => {
 					/>
 				</figure>
 
-				{inputLength > 0 ? (
+				{inputLength > 0 ||
+				(edit && currentMessage.message.trim() === message.trim()) ? (
 					<figure
 						id='message-button-figure'
 						className='message-button-figure-true'
@@ -145,8 +173,10 @@ const MessageForm = () => {
 					</figure>
 				)}
 			</form>
-		</section>
-	);
+		);
+	};
+
+	return <section id='message-form-container'>{loadMessageForm()}</section>;
 };
 
 export default MessageForm;
