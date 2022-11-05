@@ -36,22 +36,28 @@ const ShowMembersModal = ({ setMembersModal }) => {
 	useEffect(() => {
 		const chatUsers = [];
 
-		if (window.location.pathname.split('/')[2] === 'channels') {
-			channelsUsers.forEach((users) => {
-				users.forEach((user) => {
-					if (user.channel_id === chatId) {
-						chatUsers.push(user.user_id);
+		if (Array.isArray(channelsUsers) && channelsUsers.length > 0) {
+			if (window.location.pathname.split('/')[2] === 'channels') {
+				channelsUsers.forEach((users) => {
+					if (Array.isArray(users)) {
+						users.forEach((user) => {
+							if (user.channel_id === chatId) {
+								chatUsers.push(user.user_id);
+							}
+						});
 					}
 				});
-			});
-		} else {
-			dmrUsers.forEach((users) => {
-				users.forEach((user) => {
-					if (user.dmr_id === chatId) {
-						chatUsers.push(user.user_id);
+			} else if (Array.isArray(dmrUsers) && dmrUsers.length > 0) {
+				dmrUsers.forEach((users) => {
+					if (Array.isArray(users)) {
+						users.forEach((user) => {
+							if (user.dmr_id === chatId) {
+								chatUsers.push(user.user_id);
+							}
+						});
 					}
 				});
-			});
+			}
 		}
 
 		setUsers(
