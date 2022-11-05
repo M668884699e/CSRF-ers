@@ -22,9 +22,31 @@ const ShowMembersModal = ({ setMembersModal }) => {
 	// invoke dispatch
 	const dispatch = useDispatch();
 	const { channelId, dmrId } = useParams();
+	const dmrUsers = useSelector(state => Object.values(state.dmrUsers));
+	const channelsUsers = useSelector(state => Object.values(state.channelsUsers));
+	// console.log(channelsUsers)
 
-	let chatId = window.location.pathname.split('/')[2] === 'channels'? channelId: dmrId;
-	let chatUsers;
+	let chatId = window.location.pathname.split('/')[2] === 'channels'? Number(channelId): Number(dmrId);
+	let chatUsers = [];
+
+	if(window.location.pathname.split('/')[2] === 'channels'){
+		channelsUsers.forEach( (users) => {
+			users.forEach(user => {
+				if(user.channel_id === chatId){
+					chatUsers.push(user)
+				}
+			})
+		});
+	}else{
+		console.log('dmr here')
+		dmrUsers.forEach( (users) => {
+			users.forEach(user => {
+				if(user.dmr_id === chatId){
+					chatUsers.push(user)
+				}
+			})
+		});
+	}
 
 	// useEffect(() => {
 	// 	if(window.location.pathname.split('/')[2] === 'channels'){
@@ -44,7 +66,7 @@ const ShowMembersModal = ({ setMembersModal }) => {
 
 	// selector functions
 	const userState = useSelector(state => state.users? state.users: state);
-	console.log(userState);
+	// console.log(userState);
 
 	// get list of all members that belong
 	// useEffect(() => {
