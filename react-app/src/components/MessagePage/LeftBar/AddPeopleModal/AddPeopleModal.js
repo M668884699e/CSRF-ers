@@ -1,4 +1,4 @@
-// SAVE FOR CHAWIN
+// // SAVE FOR CHAWIN
 // // src/components/MessagePage/LeftBar/AddPeopleModal/AddPeopleModal.js
 
 // // import css
@@ -338,6 +338,7 @@ import { useMessage } from '../../../../context/MessageContext';
 import { useUsers } from '../../../../context/UserContext';
 import { useStarter } from '../../../../context/StarterContext';
 import { useChannel } from '../../../../context/ChannelContext';
+import { useDMR } from "../../../../context/DMRContext";
 
 // import react
 import { useEffect, useState } from 'react';
@@ -353,21 +354,38 @@ import * as userActions from '../../../../store/users';
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
 import * as usersChannelsActions from '../../../../store/channels-users';
+import * as dmrActions from "../../../../store/dmr";
+import * as usersDMRsActions from "../../../../store/dmr-users";
 
 //? AddPeopleModal component
 const AddPeopleModal = ({ setAddPeopleModal }) => {
 	/**
 	 * Controlled inputs
-	 */
-	const { channelName, setChannelName } = useMessage();
-	const { users, setUsers } = useUsers();
+	**/
+	//? channel inputs
+	const { channels, setChannels } = useChannel();
+	const { createdChannelId, setCreatedChannelId } = useChannel();
 	const { inputLength, setInputLength } = useChannel();
+	const { editChannel, setEditChannel } = useChannel();
+	const { currentChannelId, setCurrentChannelId } = useChannel();
+	const [usersChannels, setUsersChannels] = useState([]);
+	const [newDMRId, setNewDMRID] = useState();
+
+	// DMR inputs
+	const { dmrs, setDMRs } = useDMR();
+	const { createdDMRId, setCreatedDMRId } = useDMR();
+	const { currentDMRId, setCurrentDMRId } = useDMR();
+	const [usersDMRs, setUsersDMRs] = useState([])
+
+	// message inputs
+	const { dmrName, setDMRName } = useMessage();
+	const { channelName, setChannelName } = useMessage();
+	const { routeType, setRouteType } = useMessage();
+
+	//? user inputs
+	const { users, setUsers } = useUsers();
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
-	const { createdChannelId, setCreatedChannelId } = useChannel();
-	const [usersChannels, setUsersChannels] = useState([]);
-	const { currentChannelId, setCurrentChannelId } = useChannel();
-	const { editChannel, setEditChannel } = useChannel();
 	const [load, setLoad] = useState(0);
 
 	let usersIndexes = [];
@@ -377,6 +395,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const usersChannelsState = useSelector(
 		usersChannelsActions.getAllUsersChannels
 	);
+	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs)
+	const dmrState = useSelector(dmrActions.getAllDMRs)
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -428,6 +448,12 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		}
 	}, [users, load, usersBoolean, usersChannels, usersChannelsState]);
 
+	// per dmrState
+	useEffect(() => {
+		dispatch(dmrActions.thunkGetAllDmrs())
+		setNewDMRID(dmrState)
+	}, [dispatch, dmrState])
+
 	// per usersBoolean
 	useEffect(() => {
 		// nothing for now
@@ -440,19 +466,23 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		);
 	}, [usersChannelsState]);
 
+	// added this in -sam, this is pointless? - sam
+	// ---------------------------------------------
+	// useEffect per usersDMRsState
+	// useEffect(() => {
+	// 	setUsersDMRs(usersDMRsState.filter((ud) => ud.dmr_id === currentDMRId));
+	// }, [usersDMRsState])
+	// ---------------------------------------------
+
 	// function to handle add members
 	const addMembers = (e) => {
 		// prevent page from refreshing
 		e.preventDefault();
 
 		// reset input length
+		setInputLength(0);
 
 		// if input length is greater than 0, proceed to posting new channel
-
-		// get all users who is in current channels
-
-		// reset userToAdd
-		setInputLength(0);
 		usersIndexes = [];
 
 		// select all list that are selected
@@ -478,45 +508,90 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 		// //? call on thunk to edit current channel and add people
 
-		if (inputLength > 0) {
-			return dispatch(
-				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
-			)
-				.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
-				.then(() => {
-					return usersToAdd.map((user) => {
-						dispatch(
-							usersChannelsActions.thunkPutAddUserToChannel(
-								createdChannelId,
-								user
-							)
-						).then(() =>
-							dispatch(usersChannelsActions.thunkGetAllChannelsUsers())
-						);
+		if (usersToAdd.length > 0) {
+			if (routeType === 'channels') {
+				return dispatch(
+					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+				)
+					.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
+					.then(() => {
+						return usersToAdd.map((user) => {
+							dispatch(
+								usersChannelsActions.thunkPutAddUserToChannel(
+									createdChannelId,
+									user
+								)
+							).then(() =>
+								dispatch(usersChannelsActions.thunkGetAllChannelsUsers())
+							);
+						});
+					})
+					.then(() => {
+						setLoad(0);
+						setAddPeopleModal(false);
+						// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
 					});
-				})
-				.then(() => {
-					setLoad(0);
-					setAddPeopleModal(false);
-				});
+			} else {
+				// // if no input length, we remove all existing users except for owner
+				// // as no one is currently in channel
+				// dispatch(
+				// 	usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+				// ).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
+				// setLoad(0);
+				// setAddPeopleModal(false);
+				usersToAdd.unshift(getCurrentUserId);
+				// const newDMRName = usersToAdd
+				const userIds = usersToAdd.toString();
+				return dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)).then(
+					() => {
+						return dispatch(usersDMRsActions.thunkGetAllDMRUsers()).then(() => {
+							setLoad(0);
+							setAddPeopleModal(false);
+							history.push(`/chat/dmr/${newDMRId.length + 1}`)
+							// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
+						});
+					}
+				);
+			}
 		} else {
 			// if no input length, we remove all existing users except for owner
 			// as no one is currently in channel
-			dispatch(
-				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
-			).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
+			if (routeType === 'channels') {
+				dispatch(
+					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+				).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
+			} else {
+				dispatch(usersDMRsActions.thunkGetAllDMRUsers());
+			}
 			setLoad(0);
 			setAddPeopleModal(false);
 		}
 
 		//? After getting channel page in chat page, navigate to specific channel
 		// navigate to channel page
-		return history.push(`/chat/channels/${createdChannelId}`);
+		if (routeType === 'channels') {
+			return history.push(`/chat/channels/${createdChannelId}`);
+		} else {
+			return history.push(`/chat/dmrs/${createdDMRId}`);
+		}
 	};
 
 	return (
 		<section id='apm-container'>
 			<form id='apm-form' onSubmit={addMembers}>
+				{routeType === 'dmrs' ? (
+					<>
+						<h1>Start a conversation with:</h1>
+						<p>
+							Conversations are direct messages with other Slack users. These
+							messages cannot be seen by people outside of the conversation. If
+							you would like to add a new person to an existing conversation, a
+							new conversation must be created.
+						</p>
+					</>
+				) : (
+					<></>
+				)}
 				<h2>Add people</h2>
 				<p># {channelName}</p>
 				{/* container for choosing user */}

@@ -45,7 +45,7 @@ export const thunkGetAllUsers = () => async (dispatch) => {
 //? Thunk action to get all users
 export const thunkGetChannelUsers = (channelId) => async (dispatch) => {
 	// fetch all users
-	const res = await fetch(`/api/channels/${channelId}/`);
+	const res = await fetch(`/api/channels/${channelId}/users/`);
 
 	if (res.ok) {
 		// parse res to users data
