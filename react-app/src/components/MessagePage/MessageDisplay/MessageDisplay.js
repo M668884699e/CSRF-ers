@@ -2,7 +2,7 @@
 import './MessageDisplay.css';
 
 // import component
-// import ShowMembersModal from './ShowMembersModal';
+import ShowMembersModal from './ShowMembersModal';
 import AlwaysScrollToBottom from './AlwaysScrollToBottom';
 
 // import context
@@ -38,7 +38,7 @@ const MessageDisplay = () => {
 	const [messages, setMessages] = useState([]);
 	const { rightClickModal, setRightClickModal } = useMessage();
 	const { currentChannel, setCurrentChannel } = useChannel();
-	const [showMembersModal, setShowMembersModal] = useState(false);
+	const [membersModal, setMembersModal] = useState(false);
 	const messagesEndRef = useRef(null);
 	const [delayHandler, setDelayHandler] = useState(null);
 	const [messageBooleans, setMessageBooleans] = useState([]);
@@ -129,7 +129,7 @@ const MessageDisplay = () => {
 		<section id='message-display-main'>
 			<section id='message-main-header'>
 				<section id='message-main-header-left'>
-					{/* BJM todo: Implement a button add feature maintaining css */}
+					{/* Implement a button add feature maintaining css */}
 					<button id='message-main-header-name'>
 						{Object.values(currentChat).length > 0
 							? currentChat.channel_name
@@ -137,17 +137,17 @@ const MessageDisplay = () => {
 									? currentChat.channel_name.slice(0, 40) + '...'
 									: currentChat.channel_name.slice(0, 40)
 								: currentChat.dmr_name.length > 40
-								? currentChat.dmr_name.slice(0, 40) + '...'
-								: currentChat.dmr_name.slice(0, 40)
+									? currentChat.dmr_name.slice(0, 40) + '...'
+									: currentChat.dmr_name.slice(0, 40)
 							: ''}
 					</button>
 				</section>
 				<section id='message-main-header-right'>
 					{/* BJM: todo on click display modal of members, incorporate centralized slack modal */}
-					<button onClick={(_) => setShowMembersModal(true)}>Members</button>
+					<button onClick={(_) => setMembersModal(true)}>Members</button>
 				</section>
 			</section>
-			{/* BJM: todo create loop of messages grabbing all messages in channel */}
+			{/* Create loop of messages grabbing all messages in channel */}
 			<section id='message-display-container'>
 				{typeof messageState === 'object' &&
 					messageState &&
@@ -217,6 +217,11 @@ const MessageDisplay = () => {
 					<ShowMembersModal setShowMembersModal={setShowMembersModal} />
 				</Modal>
 			)} */}
+			{membersModal && (
+				<Modal onClose={(_) => setMembersModal(false)} currentVisible={false}>
+					<ShowMembersModal setMembersModal={setMembersModal} />
+				</Modal>
+			)}
 		</section>
 	) : (
 		<section id='message-display-main'>Message not available. TBD</section>
