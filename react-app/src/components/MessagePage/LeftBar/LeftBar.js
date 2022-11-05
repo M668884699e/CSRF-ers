@@ -108,11 +108,12 @@ const LeftBar = () => {
 
 	// per dmrState
 	useEffect(() => {
-		console.log(dmrs, "what is dmrs 1")
-		setDMRs(dmrState);
-		console.log(dmrs, "what is dmrs 2")
+		// console.log(dmrs, "what is dmrs 1")
+		// console.log(dmrs, "what is dmrs 2")
 
-		if (dmrState) {
+		setDMRs(dmrState);
+
+		if (dmrState && dmrState.length <= 0) {
 			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
 				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
 				: '';

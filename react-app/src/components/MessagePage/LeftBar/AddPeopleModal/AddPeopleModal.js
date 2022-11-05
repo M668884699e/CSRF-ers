@@ -583,7 +583,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				{routeType === 'dmrs' ? (
 					<>
 						<h1>Start a conversation with:</h1>
-						<p>
+						<p id="apm-form-dmr">
 							Conversations are direct messages with other Slack users. These
 							messages cannot be seen by people outside of the conversation. If
 							you would like to add a new person to an existing conversation, a

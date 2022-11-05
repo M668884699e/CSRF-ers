@@ -19,6 +19,13 @@
 	font-size: small;
 }
 
+#apm-form-dmr {
+	flex-wrap: wrap;
+	width: 35rem;
+	margin-top: 1rem;
+	padding-bottom: 1rem;
+}
+
 /* APM Members */
 #apm-members-section {
 	margin-top: 1rem;
