@@ -1,6 +1,9 @@
 // import css
 import './LeftBar.css';
 
+// import component
+import AlwaysScrollToBottom from '../MessageDisplay/AlwaysScrollToBottom';
+
 // import context
 import { useChannel } from '../../../context/ChannelContext';
 import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
@@ -287,7 +290,9 @@ const LeftBar = () => {
 								<aside>
 									<i className='fa-regular fa-plus'></i>
 								</aside>
-								<aside>Create A Channel</aside>
+								<aside>
+									<span>Create A Channel</span>
+								</aside>
 							</section>
 						</section>
 					</details>

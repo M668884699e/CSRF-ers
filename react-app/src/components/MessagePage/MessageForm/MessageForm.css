@@ -48,7 +48,7 @@
 }
 
 #message-field:focus {
-	outline: none;
+	border: 1px solid white;
 }
 
 #message-button-figure {

@@ -479,6 +479,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		// //? call on thunk to edit current channel and add people
 
 		if (inputLength > 0) {
+			console.log('currentChannelId', currentChannelId);
+
 			return dispatch(
 				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
 			)
@@ -502,6 +504,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		} else {
 			// if no input length, we remove all existing users except for owner
 			// as no one is currently in channel
+			console.log('currentChannelId', currentChannelId);
+
 			dispatch(
 				usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
 			).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));

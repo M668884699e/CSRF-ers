@@ -161,8 +161,31 @@
 #section-three {
 	display: flex;
 	flex-direction: column;
+	margin-right: .2rem;
+}
 
-	height: fit-content;
+#channel-list,
+#dmr-list {
+	max-height: 23rem;
+	overflow: auto;
+}
+
+#channel-list::-webkit-scrollbar,
+#dmr-list::-webkit-scrollbar {
+	width: 0.1em;
+	z-index: 2;
+}
+
+#channel-list::-webkit-scrollbar-track,
+#dmr-list::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#channel-list::-webkit-scrollbar-thumb,
+#dmr-list::-webkit-scrollbar-thumb {
+	background-color: #007a5a;
+	outline: 1px solid #17a47e;
+	border-radius: 1rem;
 }
 
 #channel-section {
@@ -188,19 +211,31 @@
 	padding: 0;
 }
 
-.channel-list-option {
+.channel-list-option,
+.dmr-list-option {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
 
 	margin-top: 5px;
 	margin-bottom: 5px;
 	padding-bottom: 5px;
+	padding-top: 5px;
+	padding-left: 5px;
 }
 
 .channel-list-option:hover {
 	background-color: #27242c;
 	cursor: pointer;
+}
+
+.channel-list-option > aside > span {
+	display: flex;
+	align-items: center;
+}
+
+.channel-list-option,
+.dmr-list-option {
+	width: 98%;
 }
 
 /* ______________________________________________________________ */
@@ -234,15 +269,6 @@
 
 	margin: 0;
 	padding: 0;
-}
-
-.dmr-list-option {
-	display: flex;
-	flex-direction: row;
-
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding-bottom: 5px;
 }
 
 .dmr-list-option:hover {

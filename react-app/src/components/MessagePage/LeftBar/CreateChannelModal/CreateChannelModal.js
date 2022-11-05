@@ -114,7 +114,6 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				? channelActions.thunkPutChannel(channelInfo, currentChannel.id)
 				: channelActions.thunkPostNewChannel(channelInfo)
 		)
-			.then(() => dispatch(channelActions.thunkGetUserChannels()))
 			.then((res) => {
 				if (!editChannel && res) {
 					const currentCreatedChannelId = res.new_channel.id;

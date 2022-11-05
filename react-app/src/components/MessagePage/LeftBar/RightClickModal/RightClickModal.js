@@ -53,7 +53,8 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// updating current channel id here
 		if (currentDMR) setCurrentDMRId(currentDMR.id);
 		if (currentChannel) setCurrentChannelId(currentChannel.id);
-	}, [dispatch, channelState, dmrState]);
+		console.log('currentChannel', currentChannel);
+	}, [dispatch, channelState, dmrState, currentDMR, currentChannel]);
 
 	// per channels
 	useEffect(() => {
