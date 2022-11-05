@@ -85,8 +85,6 @@ export const thunkPutAddUserToChannel =
 	};
 
 export const thunkDeleteChannelUsers = (channelId) => async (dispatch) => {
-	console.log('channelId', channelId);
-
 	// delete users from given channel's channel id
 	const res = await fetch(`/api/channels/${channelId}/users`, {
 		method: 'DELETE',

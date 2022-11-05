@@ -124,8 +124,6 @@ export const thunkGetChannelUsers = (channel) => async (dispatch) => {
 
 export const thunkPostNewChannel = (new_channel_info) => async (dispatch) => {
 	// fetch post new channel
-	console.log('new_channel_info', new_channel_info);
-
 	const res = await fetch(`/api/channels/`, {
 		method: 'POST',
 		headers: {

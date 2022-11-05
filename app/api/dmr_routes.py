@@ -112,7 +112,7 @@ def create_dmr():
   allDMRs = DMR.query.all()
   for x in allDMRs:
     if user_names == x.dmr_name:
-      return {'errors': "A Direct Message Room with these members already exists"}
+      return {'errors': "A Direct Message Room with these members already exists"}, 400
 
 
   # create new dmr

@@ -338,7 +338,7 @@ import { useMessage } from '../../../../context/MessageContext';
 import { useUsers } from '../../../../context/UserContext';
 import { useStarter } from '../../../../context/StarterContext';
 import { useChannel } from '../../../../context/ChannelContext';
-import { useDMR } from "../../../../context/DMRContext";
+import { useDMR } from '../../../../context/DMRContext';
 
 // import react
 import { useEffect, useState } from 'react';
@@ -354,14 +354,14 @@ import * as userActions from '../../../../store/users';
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
 import * as usersChannelsActions from '../../../../store/channels-users';
-import * as dmrActions from "../../../../store/dmr";
-import * as usersDMRsActions from "../../../../store/dmr-users";
+import * as dmrActions from '../../../../store/dmr';
+import * as usersDMRsActions from '../../../../store/dmr-users';
 
 //? AddPeopleModal component
 const AddPeopleModal = ({ setAddPeopleModal }) => {
 	/**
 	 * Controlled inputs
-	**/
+	 **/
 	//? channel inputs
 	const { channels, setChannels } = useChannel();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
@@ -372,13 +372,13 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const [newDMRId, setNewDMRID] = useState();
 
 	// DMR inputs
-	const { dmrs, setDMRs } = useDMR();
+	// const { dmrs, setDMRs } = useDMR();
 	const { createdDMRId, setCreatedDMRId } = useDMR();
-	const { currentDMRId, setCurrentDMRId } = useDMR();
-	const [usersDMRs, setUsersDMRs] = useState([])
+	// const { currentDMRId, setCurrentDMRId } = useDMR();
+	// const [usersDMRs, setUsersDMRs] = useState([]);
 
 	// message inputs
-	const { dmrName, setDMRName } = useMessage();
+	// const { dmrName, setDMRName } = useMessage();
 	const { channelName, setChannelName } = useMessage();
 	const { routeType, setRouteType } = useMessage();
 
@@ -387,6 +387,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 	const [load, setLoad] = useState(0);
+	const [validationErrors, setValidationErrors] = useState([]);
 
 	let usersIndexes = [];
 
@@ -395,8 +396,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const usersChannelsState = useSelector(
 		usersChannelsActions.getAllUsersChannels
 	);
-	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs)
-	const dmrState = useSelector(dmrActions.getAllDMRs)
+	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs);
+	const dmrState = useSelector(dmrActions.getAllDMRs);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -423,7 +424,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				Object.values(userState).filter((user) => user.id !== getCurrentUserId)
 			);
 		}
-	}, [userState]);
+	}, [userState, validationErrors]);
 
 	// per users
 	useEffect(() => {
@@ -450,14 +451,14 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 	// per dmrState
 	useEffect(() => {
-		dispatch(dmrActions.thunkGetAllDmrs())
-		setNewDMRID(dmrState)
-	}, [dispatch, dmrState])
+		dispatch(dmrActions.thunkGetAllDmrs());
+	}, [dispatch]);
 
 	// per usersBoolean
 	useEffect(() => {
 		// nothing for now
-	}, [usersBoolean]);
+		setNewDMRID(dmrState);
+	}, [usersBoolean, dmrState]);
 
 	// useEffect per usersChannelsState
 	useEffect(() => {
@@ -529,7 +530,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					.then(() => {
 						setLoad(0);
 						setAddPeopleModal(false);
-						// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
 					});
 			} else {
 				// // if no input length, we remove all existing users except for owner
@@ -542,17 +542,24 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				usersToAdd.unshift(getCurrentUserId);
 				// const newDMRName = usersToAdd
 				const userIds = usersToAdd.toString();
-				console.log(newDMRId, "testtest")
-				return dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)).then(
-					() => {
-						return dispatch(usersDMRsActions.thunkGetAllDMRUsers()).then(() => {
-							setLoad(0);
-							setAddPeopleModal(false);
-							history.push(`/chat/dmr/${newDMRId.length + 1}`)
-							// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
-						});
-					}
-				);
+				return dispatch(usersDMRsActions.thunkGetAllDMRUsers())
+					.then(() => dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)))
+					.then((res) => {
+						if (res.errors) {
+							// reset errors
+							setValidationErrors([]);
+
+							// show errors
+							setValidationErrors([res.errors]);
+						} else {
+							return dispatch(dmrActions.thunkGetAllDmrs()).then(() => {
+								dispatch(usersDMRsActions.thunkGetAllDMRUsers());
+								setLoad(0);
+								setAddPeopleModal(false);
+								return history.push(`/chat/dmr/${newDMRId.length + 1}`);
+							});
+						}
+					});
 			}
 		} else {
 			// if no input length, we remove all existing users except for owner
@@ -583,7 +590,14 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				{routeType === 'dmrs' ? (
 					<>
 						<h1>Start a conversation with:</h1>
-						<p>
+						{/* validation errors: catch channel creating errors */}
+						<div className='epm-error-container'>
+							{validationErrors &&
+								validationErrors.map((error, ind) => (
+									<div key={ind}>{error}</div>
+								))}
+						</div>
+						<p id='apm-form-dmr'>
 							Conversations are direct messages with other Slack users. These
 							messages cannot be seen by people outside of the conversation. If
 							you would like to add a new person to an existing conversation, a
@@ -594,7 +608,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					<></>
 				)}
 				<h2>Add people</h2>
-				<p># {channelName}</p>
+				<p>{routeType === 'channels' ? <># {channelName}</> : <></>}</p>
 				{/* container for choosing user */}
 				<section id='apm-members-section'>
 					{/* get list of all available users */}

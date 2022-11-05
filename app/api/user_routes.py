@@ -208,10 +208,6 @@ def post_image_sample():
 
     image = request.files["image_sample"]
 
-    # print("                       ")
-    # print("        HERE           ")
-    # print("                       ")
-
     if not allowed_file(image.filename):
         return {"errors": "file type not permitted"}, 400
 
@@ -249,10 +245,6 @@ def update_user():
     upload_profile_image = form.data['profile_image']
 
     #? For help with debugging form
-    if(len(form.errors) > 1):
-        print("          ")
-        print(form.errors)
-        print("          ")
 
     #? check if there are image file uploaded
     if "profile_image" in request.files:

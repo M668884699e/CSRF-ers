@@ -108,27 +108,33 @@ const LeftBar = () => {
 
 	// per dmrState
 	useEffect(() => {
+<<<<<<< HEAD
 		// console.log(dmrs, "what is dmrs 1")
 		// setDMRs(dmrState);
 		// console.log(dmrs, "what is dmrs 2")
+=======
+		setDMRs(dmrState);
+>>>>>>> dev
 
 		if (dmrState) {
-			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
-				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
-				: '';
+			// console.log('dmrState', dmrState);
+			let currentDMRDetail = [];
 
-			const currentDMRDetail = [];
-
-			Array.isArray(dmrUsers) &&
-				currentDMRsUserBelongTo.forEach((dmru) => {
-					currentDMRDetail.push(dmru.dmr_id);
+			if (Array.isArray(dmrUsers)) {
+				dmrUsers.forEach((el) => {
+					if (currentUserId === el.user_id) {
+						currentDMRDetail.push(el.dmr_id);
+					}
 				});
+			}
+			let dmrDisplay = [];
+			dmrState.forEach((el) => {
+				if (currentDMRDetail.includes(el.id)) {
+					dmrDisplay.push(el);
+				}
+			});
 
-			const dmrDisplay =
-				Array.isArray(dmrState) &&
-				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
-
-			if (Array.isArray(dmrDisplay)) {
+			if (dmrDisplay) {
 				setDMRs(dmrDisplay);
 			}
 		}
@@ -287,8 +293,9 @@ const LeftBar = () => {
 									className='dmr-list-option'
 									onClick={(e) => {
 										e.stopPropagation();
-										setAddPeopleModal(true);
 										setRouteType('dmrs');
+										setEditChannel(false);
+										setAddPeopleModal(true);
 									}}
 								>
 									<aside>

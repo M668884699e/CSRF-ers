@@ -54,6 +54,7 @@ export const thunkGetAllDMRUsers = () => async (dispatch) => {
 export const thunkPutAddUserToDMR = (userIds) => async (dispatch) => {
 	// 1,2,3
 	// "user_ids":"1,2,3"
+
 	const usersToAdd = { user_ids: userIds.toString() };
 	// fetch the put data
 	const res = await fetch(`/api/dmr/`, {
@@ -70,7 +71,9 @@ export const thunkPutAddUserToDMR = (userIds) => async (dispatch) => {
 
 		return dmrData;
 	} else {
-		return null;
+		const data = await res.json();
+
+		return data;
 	}
 };
 
