@@ -1,1 +1,23 @@
 /* src/components/MessagePage/MessageDisplay/ShowMembersModal/ShowMembersModal.css */
+
+#smm-container {
+    color: white;
+	opacity: 0.85;
+    margin: 1rem; 
+}
+
+#smm-container > h2 {
+    margin: 0;
+}
+
+#smm-members-ul {
+	height: fit-content;
+	width: 99.5%;
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	background-color: #1e1f21;
+	margin: 0;
+	padding: 0;
+}
