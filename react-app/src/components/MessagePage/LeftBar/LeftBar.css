@@ -94,6 +94,10 @@
 	border-radius: 50%;
 }
 
+#new-message-button > i:hover {
+	color: white;
+}
+
 .fa-pen-to-square {
 	display: flex;
 	align-items: center;
