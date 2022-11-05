@@ -163,4 +163,4 @@ cython_debug/
 node_modules
 
 # Database
-app/dev.db
+# app/dev.db
