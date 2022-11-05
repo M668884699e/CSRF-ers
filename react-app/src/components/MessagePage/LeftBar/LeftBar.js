@@ -231,7 +231,7 @@ const LeftBar = () => {
 		// }
 		return (
 			<figure id="dmr-profile-pic">
-				<i class="fa-brands fa-slack"></i>
+				<i className="fa-brands fa-slack"></i>
 			</figure>
 		)
 	}
