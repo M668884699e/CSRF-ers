@@ -69,6 +69,7 @@ const LeftBar = () => {
 	const dmrState = useSelector(dmrActions.getAllDMRs);
 	const dmrUsersState = useSelector(dmrUsersActions.getAllUserDMRs);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
+	const allUsers = useSelector(userActions.getAllUsers);
 
 	// load channels
 	useEffect(() => {
@@ -145,7 +146,7 @@ const LeftBar = () => {
 	}, [dmrUsersState]);
 
 	const setChannelPrivacy = (channel) => {
-		if(channel.public) {
+		if (channel.public) {
 			return true
 		} else {
 			return false
@@ -198,6 +199,37 @@ const LeftBar = () => {
 		);
 	};
 
+	const loadDMRProfilePicture = (dmr) => {
+		// let userProfileToUse = dmr.dmr_name.split(", ")[0]
+		// // let userProfileToUse = dmrNameArray[0]
+		// let allUsersArray = Object.values(allUsers)
+		// console.log("test", allUsersArray)
+		// if (allUsersArray && allUsersArray.length > 0) {
+		// 	let test = allUsersArray.find(el => el.display_name === userProfileToUse)
+		// 	let profileLinkToUse = test.profile_image
+		// 	if (profileLinkToUse) {
+		// 		return (
+		// 			<figure id="dmr-profile-pic">
+		// 				<img src={profileLinkToUse} alt={userProfileToUse}></img>
+		// 			</figure>
+		// 		)
+		// 	} else {
+		// 		return (
+		// 			<figure id="dmr-profile-pic">
+		// 				<i id="dmr-icon" className="fa-brands fa-slack"></i>\
+		// 			</figure>
+		// 		)
+		// 	}
+		// } else {
+		// 	return
+		// }
+		return (
+			<figure id="dmr-profile-pic">
+				<i class="fa-brands fa-slack"></i>
+			</figure>
+		)
+	}
+
 	const loadAllDMRs = () => {
 		const dmrsArray = Object.values(dmrs);
 
@@ -230,7 +262,7 @@ const LeftBar = () => {
 						key={i}
 					>
 						<aside>
-							<i className='fa-regular fa-hashtag'></i>
+							{loadDMRProfilePicture(dmr)}
 						</aside>
 						<aside>{dmr.dmr_name}</aside>
 					</section>
@@ -344,18 +376,6 @@ const LeftBar = () => {
 					/>
 				</Modal>
 			)}
-			{/* {createDMROpenModal && (
-				<Modal
-					onClose={(_) => {
-						setCreateDMROpenModal(false);
-					}}
-					currentVisible={false}
-				>
-					<CreateDMRModal
-						setCreateDMROpenModal={setCreateDMROpenModal}
-					/>
-				</Modal>
-			)} */}
 			{addPeopleModal && (
 				<Modal onClose={(_) => setAddPeopleModal(false)} currentVisible={false}>
 					<AddPeopleModal setAddPeopleModal={setAddPeopleModal} />
