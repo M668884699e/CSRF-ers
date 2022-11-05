@@ -118,8 +118,10 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				if (!editChannel && res) {
 					const currentCreatedChannelId = res.new_channel.id;
 					setCreatedChannelId(currentCreatedChannelId);
-				} else {
+				} else if (res) {
 					setCreatedChannelId(res.id);
+				} else {
+					throw new Error();
 				}
 			})
 			.then(() => dispatch(channelActions.thunkGetUserChannels()))
@@ -127,6 +129,11 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				// exit out the modal
 				setCreateChannelOpenModal(false);
 				setAddPeopleModal(true);
+			})
+			.catch(() => {
+				setValidationErrors([
+					'Channel name already exists. Please try again with different name.',
+				]);
 			});
 	};
 
@@ -139,11 +146,6 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 	return onLoad ? (
 		<section id='ccm-container'>
 			<form id='ccm-form' onSubmit={onCreateChannel}>
-				<div className='epm-error-container'>
-					{validationErrors &&
-						validationErrors.map((error, ind) => <div key={ind}>{error}</div>)}
-				</div>
-
 				{/* form header */}
 				{!editChannel ? (
 					privateChannel ? (
@@ -162,6 +164,12 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 				>
 					<i className='fa-solid fa-x ccm-form-exit'></i>
 				</figure>
+
+				{/* validation errors: catch channel creating errors */}
+				<div className='epm-error-container'>
+					{validationErrors &&
+						validationErrors.map((error, ind) => <div key={ind}>{error}</div>)}
+				</div>
 
 				{/* channel name */}
 				<p>
