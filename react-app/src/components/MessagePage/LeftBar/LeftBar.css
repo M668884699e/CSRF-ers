@@ -238,6 +238,11 @@
 	width: 98%;
 }
 
+#lock-test {
+	color: #79777c;
+	/* opacity: 50%; */
+}
+
 /* ______________________________________________________________ */
 /* Section Four (DMR List) */
 #section-four {
@@ -301,7 +306,7 @@
 	cursor: pointer;
 }
 
-#footer:hover > * {
+#footer:hover * {
 	color: #d1d2d3;
 }
 
@@ -324,8 +329,9 @@
 	margin-right: 10px;
 }
 
-.exit-lb-icon:hover {
-	color: white;
+
+#exit-lb-icon {
+	color: #79777c;
 }
 
 #communication {

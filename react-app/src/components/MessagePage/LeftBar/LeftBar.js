@@ -144,8 +144,17 @@ const LeftBar = () => {
 		setDMRUsers(dmrUsersState);
 	}, [dmrUsersState]);
 
+	const setChannelPrivacy = (channel) => {
+		if(channel.public) {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	const loadAllChannels = () => {
 		const channelsArray = Object.values(channels);
+		let privacy = false;
 
 		return (
 			Array.isArray(channelsArray) &&
@@ -176,7 +185,11 @@ const LeftBar = () => {
 						key={i}
 					>
 						<aside>
-							<i className='fa-regular fa-hashtag'></i>
+							{setChannelPrivacy(channel) ? (
+								<i className='fa-regular fa-hashtag' />
+							) : (
+								<i id="lock-test" className='fa-solid fa-lock lock-test'></i>
+							)}
 						</aside>
 						<aside>{channel.channel_name}</aside>
 					</section>
@@ -306,7 +319,7 @@ const LeftBar = () => {
 			<footer id='footer' onClick={handleLogout}>
 				<section id='footer-name'>Leave Slackers</section>
 				<section id='footer-button'>
-					<i className='fa-solid fa-right-from-bracket exit-lb-icon'></i>
+					<i id="exit-lb-icon" className='fa-solid fa-right-from-bracket exit-lb-icon'></i>
 				</section>
 			</footer>
 
