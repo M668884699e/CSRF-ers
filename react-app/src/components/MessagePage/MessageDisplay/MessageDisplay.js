@@ -194,7 +194,7 @@ const MessageDisplay = () => {
 										}
 									</aside>
 									<aside className='message-text'>
-										{message.message.slice(0, 300)}
+										{message.message.slice(0, 500)}
 									</aside>
 								</aside>
 								<section id='mhm-section'>

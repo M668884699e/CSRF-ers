@@ -87,7 +87,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 		const newMessage = {
 			...currentMessage,
-			message: message.slice(0, 300),
+			message: message.slice(0, 500),
 			messageable_id: chatId,
 			messageable_type,
 			sender_id: userId,
@@ -153,7 +153,14 @@ const MessageForm = ({ edit = false, messageId }) => {
 					/>
 				</figure>
 
-				{inputLength > 0 ||
+				<p
+					id='input-length-message'
+					className={`input-length-message-${500 - inputLength >= 0}`}
+				>
+					{500 - inputLength + ' '}
+					characters left
+				</p>
+				{(inputLength > 0 && 500 - inputLength >= 0) ||
 				(edit && currentMessage.message.trim() === message.trim()) ? (
 					<figure
 						id='message-button-figure'
