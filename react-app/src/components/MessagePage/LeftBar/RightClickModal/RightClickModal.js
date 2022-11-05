@@ -48,21 +48,12 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		// nothing for now, just to update channel state
-
-		// updating current channel id here
-		// console.log(dmrState, "dmrState")
-		// if (currentDMR) setCurrentDMRId(currentDMR.id);
-		// if (currentChannel) setCurrentChannelId(currentChannel.id);
-
+		// currentChannel does not refer to a Channel. It refers to both Channel and DMR
 		if(currentChannel.channel_name) {
 			setCurrentChannelId(currentChannel.id)
 		} else if(currentChannel.dmr_name) {
 			setCurrentDMRId(currentChannel.di)
 		}
-		console.log(currentChannel, "currentChannel test")
-
-
 	}, [dispatch, channelState, dmrState, currentChannel]);
 
 	// per channels
@@ -118,6 +109,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				if (currentChannel.channel_name) {
 					dispatch(
 						channelsUsersActions.thunkRemoveUserFromChannel(
+							// currentChannel does not refer to a Channel. It refers to both Channel and DMR
 							currentChannel.id,
 							currentUserId
 						)
@@ -138,6 +130,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 					// else, dmr
 					dispatch(
 						dmrsUsersActions.thunkRemoveUserFromDMR(
+							// currentChannel does not refer to a Channel. It refers to both Channel and DMR
 							currentChannel.id,
 							currentUserId
 						)
