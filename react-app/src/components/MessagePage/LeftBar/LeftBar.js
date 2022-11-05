@@ -108,29 +108,27 @@ const LeftBar = () => {
 
 	// per dmrState
 	useEffect(() => {
-		// console.log(dmrs, "what is dmrs 1")
-		// console.log(dmrs, "what is dmrs 2")
-
 		setDMRs(dmrState);
 
-		if (dmrState && dmrState.length <= 0) {
-			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
-				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
-				: '';
+		if (dmrState) {
+			let currentDMRDetail = [];
 
-			const currentDMRDetail = [];
+			if (Array.isArray(dmrUsers)) {
+				dmrUsers.forEach(el => {
+					if (currentUserId === el.user_id) {
+						currentDMRDetail.push(el.dmr_id)
+					}
+				})
+			}
+			let dmrDisplay = [];
+			dmrState.forEach(el => {
+				if (currentDMRDetail.includes(el.id)) {
+					dmrDisplay.push(el)
+				}
+			})
 
-			Array.isArray(dmrUsers) &&
-				currentDMRsUserBelongTo.forEach((dmru) => {
-					currentDMRDetail.push(dmru.dmr_id);
-				});
-
-			const dmrDisplay =
-				Array.isArray(dmrState) &&
-				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
-
-			if (Array.isArray(dmrDisplay)) {
-				setDMRs(dmrDisplay);
+			if (dmrDisplay) {
+				setDMRs(dmrDisplay)
 			}
 		}
 	}, [dmrState, currentDMRId]);
