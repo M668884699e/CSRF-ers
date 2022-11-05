@@ -135,18 +135,16 @@ export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
 	// const { id } = dmr;
 
-	const response = await fetch(`/api/dmr/${id}/messages/`, {
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
+	const response = await fetch(`/api/dmr/${id}/messages/`);
 
 	if (response.ok) {
 		const data = await response.json();
-		if (data.errors) {
-			return;
-		}
+		// if (data.errors) {
+		// 	return;
+		// }
 		dispatch(getDmrMessages(data.id.dmr_messages));
+
+		return data;
 	}
 };
 
@@ -161,12 +159,15 @@ export const thunkPostNewDmr = (dmr) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		if (data.errors) {
-			return;
-		}
+		// if (data.errors) {
+		// 	return;
+		// }
 		dispatch(setDmr(data));
 		return response;
 	}
+
+	console.log('catch here');
+	return null;
 };
 
 export const thunkDeleteDmr = (id) => async (dispatch) => {

@@ -395,7 +395,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const usersChannelsState = useSelector(
 		usersChannelsActions.getAllUsersChannels
 	);
-	// const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs);
+	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs);
 	const dmrState = useSelector(dmrActions.getAllDMRs);
 
 	// invoke dispatch
@@ -529,7 +529,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					.then(() => {
 						setLoad(0);
 						setAddPeopleModal(false);
-						// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
 					});
 			} else {
 				// // if no input length, we remove all existing users except for owner
@@ -543,16 +542,16 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				// const newDMRName = usersToAdd
 				const userIds = usersToAdd.toString();
 				console.log(newDMRId, 'testtest');
-				return dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)).then(
-					() => {
-						return dispatch(usersDMRsActions.thunkGetAllDMRUsers()).then(() => {
+				return dispatch(usersDMRsActions.thunkGetAllDMRUsers())
+					.then(() => dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)))
+					.then(() => {
+						return dispatch(dmrActions.thunkGetAllDmrs()).then(() => {
+							dispatch(usersDMRsActions.thunkGetAllDMRUsers());
 							setLoad(0);
 							setAddPeopleModal(false);
-							history.push(`/chat/dmr/${newDMRId.length + 1}`);
-							// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
+							return history.push(`/chat/dmr/${newDMRId.length + 1}`);
 						});
-					}
-				);
+					});
 			}
 		} else {
 			// if no input length, we remove all existing users except for owner

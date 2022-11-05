@@ -111,24 +111,25 @@ const LeftBar = () => {
 		setDMRs(dmrState);
 
 		if (dmrState) {
+			// console.log('dmrState', dmrState);
 			let currentDMRDetail = [];
 
 			if (Array.isArray(dmrUsers)) {
-				dmrUsers.forEach(el => {
+				dmrUsers.forEach((el) => {
 					if (currentUserId === el.user_id) {
-						currentDMRDetail.push(el.dmr_id)
+						currentDMRDetail.push(el.dmr_id);
 					}
-				})
+				});
 			}
 			let dmrDisplay = [];
-			dmrState.forEach(el => {
+			dmrState.forEach((el) => {
 				if (currentDMRDetail.includes(el.id)) {
-					dmrDisplay.push(el)
+					dmrDisplay.push(el);
 				}
-			})
+			});
 
 			if (dmrDisplay) {
-				setDMRs(dmrDisplay)
+				setDMRs(dmrDisplay);
 			}
 		}
 	}, [dmrState, currentDMRId]);
