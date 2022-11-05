@@ -23,9 +23,24 @@ const ShowMembersModal = ({ setMembersModal }) => {
 	const dispatch = useDispatch();
 	const { channelId, dmrId } = useParams();
 
+	let chatId = window.location.pathname.split('/')[2] === 'channels'? channelId: dmrId;
+	let chatUsers;
+
+	// useEffect(() => {
+	// 	if(window.location.pathname.split('/')[2] === 'channels'){
+	// 		chatUsers = dispatch(userActions.thunkGetChannelUsers(chatId))
+	// 	}else{
+	// 		chatUsers = dispatch(userActions.thunkGetDMRUsers(chatId))
+	// 	}
+
+	// }, [dispatch])
+	console.log(chatUsers);
+
 	// use context
 
 	// const [userList, setUserList] = useState([]);
+
+	
 
 	// selector functions
 	const userState = useSelector(state => state.users? state.users: state);
