@@ -135,12 +135,14 @@ const MessageForm = ({ edit = false, messageId }) => {
 						name='message'
 						type='text'
 						placeholder={`Message #${
-							currentChannel && currentChannel.channel_name
-								? currentChannel.channel_name.slice(0, 20) 
-								+ '...'
-								: currentChannel && currentChannel.dmr_name
-								? currentChannel.dmr_name.slice(0, 20) &&
-									currentChannel.dmr_name.length > 20 ? '...' : ""
+							currentChannel &&
+							currentChannel.channel_name &&
+							currentChannel.channel_name.length > 0
+								? currentChannel.channel_name.slice(0, 20) + '...'
+								: currentChannel &&
+								  currentChannel.dmr_name &&
+								  currentChannel.dmr_name.length > 0
+								? currentChannel.dmr_name.slice(0, 20) + '...'
 								: ''
 						}`}
 						onKeyDown={onEnterPress}
