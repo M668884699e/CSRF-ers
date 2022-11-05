@@ -51,10 +51,19 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// nothing for now, just to update channel state
 
 		// updating current channel id here
-		if (currentDMR) setCurrentDMRId(currentDMR.id);
-		if (currentChannel) setCurrentChannelId(currentChannel.id);
-		console.log('currentChannel', currentChannel);
-	}, [dispatch, channelState, dmrState, currentDMR, currentChannel]);
+		// console.log(dmrState, "dmrState")
+		// if (currentDMR) setCurrentDMRId(currentDMR.id);
+		// if (currentChannel) setCurrentChannelId(currentChannel.id);
+
+		if(currentChannel.channel_name) {
+			setCurrentChannelId(currentChannel.id)
+		} else if(currentChannel.dmr_name) {
+			setCurrentDMRId(currentChannel.di)
+		}
+		console.log(currentChannel, "currentChannel test")
+
+
+	}, [dispatch, channelState, dmrState, currentChannel]);
 
 	// per channels
 	useEffect(() => {
@@ -65,10 +74,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// for dmr, just hide it
 		// console.log('checkRouteProperlyOwned', checkRouteProperlyOwned);
 	}, [channels, checkRouteProperlyOwned, channelState]);
-
-	// useEffect(() => {
-	// 	setCurrentDMRId(currentDMR.id)
-	// }, [dmrState, currentDMRId])
 
 	// function to handle delete user for channel
 	const handleDeleteChannel = async () => {

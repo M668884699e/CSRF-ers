@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import db, User, Message, DMRUser, ChannelUser, Channel, Notification
+from app.models import db, User, Message, DMR, DMRUser, ChannelUser, Channel, Notification
 from app.forms import LoginForm, SignUpForm, EditUserForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.s3_helpers import (
@@ -88,10 +88,16 @@ def logout():
 @login_required
 def get_user_dmrs():
     # query DMR and find any dmr that current user belongs to
-    belongs_dmrs = DMRUser.query.filter(DMRUser.user_id == current_user.get_id())
+    belongs_dmrs_users = DMRUser.query.filter(DMRUser.user_id == current_user.get_id())
+    belongs_dmrs_id = []
+
+    for key in [belongs_dmrs_users.to_dict() for belongs_dmrs_users in belongs_dmrs_users]:
+        if(key['user_id'] == int(current_user.get_id())):
+            belongs_dmrs_id.append(key['dmr_id'])
+
+    belongs_dmrs = DMR.query.filter(DMR.id.in_(belongs_dmrs_id))
 
     return {"dmrs": {belongs_dmr.id: belongs_dmr.to_dict() for belongs_dmr in belongs_dmrs}}
-
 
 #* GET - /users/messages
 # Get all user messages
@@ -163,7 +169,7 @@ def sign_up():
     form = SignUpForm()
 
     form['csrf_token'].data = request.cookies['csrf_token']
-    
+
     if form.validate_on_submit():
         # if username does not exist...
         display_name = form.data['username']
