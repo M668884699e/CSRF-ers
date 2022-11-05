@@ -137,7 +137,9 @@ const MessageForm = ({ edit = false, messageId }) => {
 						placeholder={`Message #${
 							currentChannel && currentChannel.channel_name
 								? currentChannel.channel_name
-								: currentChannel.dmr_name
+								: currentChannel && currentChannel.dmr_name
+								? currentChannel.dmr_name
+								: ''
 						}`}
 						onKeyDown={onEnterPress}
 						onInput={checkInputLength}
