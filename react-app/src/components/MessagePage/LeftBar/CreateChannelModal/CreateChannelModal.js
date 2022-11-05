@@ -119,7 +119,6 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 					const currentCreatedChannelId = res.new_channel.id;
 					setCreatedChannelId(currentCreatedChannelId);
 				} else {
-					console.log('res', res);
 					setCreatedChannelId(res.id);
 				}
 			})
