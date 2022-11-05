@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import * as messageActions from '../../../store/message';
+import * as sessionActions from '../../../store/session';
 
 // import Lexical field
 import { Editor } from '../../Editor/Editor';
@@ -71,7 +72,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 	};
 
 	// userId
-	const userId = useSelector((state) => state.session.user.id);
+	const userId = useSelector(sessionActions.getCurrentUserId);
 
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
