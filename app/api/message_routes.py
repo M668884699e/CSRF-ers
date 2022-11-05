@@ -18,7 +18,7 @@ def get_messages():
     messages = Message.query.all() if request.args.get('search') is None else Message.query.filter(Message.message.ilike(f"%{request.args.get('search')}%")).all()
     
     # return successful response
-    return {'messages':[message.to_dict() for message in messages]}
+    return {'messages':{message.id: message.to_dict() for message in messages}}
 
 #* POST - /messages
 # Create new message

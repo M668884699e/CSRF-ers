@@ -30,6 +30,10 @@
 	opacity: 0.95;
 }
 
+.home-button-icon:hover {
+	color: white;
+}
+
 .rs-profile-button {
 	position: relative;
 }

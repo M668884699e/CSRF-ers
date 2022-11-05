@@ -61,10 +61,6 @@
 	padding-bottom: 10px;
 }
 
-#section-one:hover {
-	background-color: #27242c;
-}
-
 #server-name {
 	display: flex;
 	flex-direction: row;
@@ -93,6 +89,7 @@
 	border: none;
 	border-radius: 50%;
 }
+
 
 .fa-pen-to-square {
 	display: flex;
@@ -157,8 +154,31 @@
 #section-three {
 	display: flex;
 	flex-direction: column;
+	margin-right: .2rem;
+}
 
-	height: fit-content;
+#channel-list,
+#dmr-list {
+	max-height: 23rem;
+	overflow: auto;
+}
+
+#channel-list::-webkit-scrollbar,
+#dmr-list::-webkit-scrollbar {
+	width: 0.1em;
+	z-index: 2;
+}
+
+#channel-list::-webkit-scrollbar-track,
+#dmr-list::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#channel-list::-webkit-scrollbar-thumb,
+#dmr-list::-webkit-scrollbar-thumb {
+	background-color: #007a5a;
+	outline: 1px solid #17a47e;
+	border-radius: 1rem;
 }
 
 #channel-section {
@@ -184,19 +204,36 @@
 	padding: 0;
 }
 
-.channel-list-option {
+.channel-list-option,
+.dmr-list-option {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
 
 	margin-top: 5px;
 	margin-bottom: 5px;
 	padding-bottom: 5px;
+	padding-top: 5px;
+	padding-left: 5px;
 }
 
 .channel-list-option:hover {
 	background-color: #27242c;
 	cursor: pointer;
+}
+
+.channel-list-option > aside > span {
+	display: flex;
+	align-items: center;
+}
+
+.channel-list-option,
+.dmr-list-option {
+	width: 98%;
+}
+
+#lock-test {
+	color: #79777c;
+	/* opacity: 50%; */
 }
 
 /* ______________________________________________________________ */
@@ -219,6 +256,11 @@
 	margin-bottom: 10px;
 }
 
+#dmr-header:hover,
+.dmr-list-option:hover {
+	cursor: pointer;
+}
+
 #dmr-list {
 	display: flex;
 	flex-direction: column;
@@ -227,18 +269,31 @@
 	padding: 0;
 }
 
-.dmr-list-option {
-	display: flex;
-	flex-direction: row;
-
-	margin-top: 5px;
-	margin-bottom: 5px;
-	padding-bottom: 5px;
-}
-
 .dmr-list-option:hover {
 	background-color: #27242c;
 }
+
+#dmr-icon {
+	margin-left: 3px;
+	margin-right: 15px;
+}
+
+#dmr-profile-pic {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	margin-left: 3px;
+	margin-right: 5px;
+	padding: 0;
+}
+
+#dmr-profile-pic > * {
+	height: 20px;
+	width: 20px;
+	border-radius: 0.25rem;
+}
+
 
 /* ______________________________________________________________ */
 /* Footer */
@@ -266,7 +321,7 @@
 	cursor: pointer;
 }
 
-#footer:hover > * {
+#footer:hover * {
 	color: #d1d2d3;
 }
 
@@ -287,6 +342,11 @@
 	height: 20px;
 
 	margin-right: 10px;
+}
+
+
+#exit-lb-icon {
+	color: #79777c;
 }
 
 #communication {

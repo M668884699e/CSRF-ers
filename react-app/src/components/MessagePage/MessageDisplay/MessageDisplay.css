@@ -9,6 +9,22 @@
 	background-color: #1a1d21;
 }
 
+#mmh-span-404 {
+	display: flex;
+	align-items: center;
+}
+
+#mdm-span-404 {
+	margin-top: 1rem;
+	margin-left: 1rem;
+}
+
+#mmh-span-404,
+#mdm-span-404 {
+	color: white;
+	opacity: 0.65;
+}
+
 /* Message Main Header (Channel/DMR Name) */
 #message-main-header {
 	display: flex;
@@ -128,7 +144,7 @@
 	border-radius: 1rem;
 }
 
-.message {
+#message {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -137,9 +153,10 @@
 	padding-left: 20px;
 
 	color: #d1d2d3;
+	position: relative;
 }
 
-.message:hover {
+.mdc-message-false:hover {
 	background-color: #2a2d30;
 }
 
@@ -164,4 +181,52 @@
 .message-text {
 	font-weight: 300;
 	margin-top: 5px;
+}
+
+/* Message Edit/Delete Container */
+#mhm-section {
+	position: absolute;
+	border: 1px solid #35373b;
+	border-radius: 0.25rem;
+	background-color: #1a1d21;
+	display: flex;
+	justify-content: space-between;
+	width: 3.5rem;
+	height: 1.75rem;
+	right: 1rem;
+	top: 1rem;
+}
+
+#mhm-section * {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#mhm-section > figure {
+	width: 100%;
+}
+
+#mhm-section:first-child {
+	padding-left: 1rem;
+}
+
+#mhm-section > figure > i {
+	height: 100%;
+	width: 100%;
+}
+
+#mhm-section > figure > i:hover {
+	cursor: pointer;
+	background-color: #2a2d30;
+}
+
+.edit-message:hover {
+	color: #1d87b5;
+}
+
+.delete-message:hover {
+	color: rgb(248, 59, 59);
 }

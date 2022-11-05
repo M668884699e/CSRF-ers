@@ -66,6 +66,7 @@ export const thunkGetAllChannelsUsers = () => async (dispatch) => {
 export const thunkPutAddUserToChannel =
 	(channelId, userId) => async (dispatch) => {
 		// fetch the put data
+
 		const res = await fetch(`/api/channels/${channelId}/users/${userId}`, {
 			method: 'PUT',
 			headers: {

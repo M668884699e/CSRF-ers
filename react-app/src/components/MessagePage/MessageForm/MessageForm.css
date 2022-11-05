@@ -48,7 +48,7 @@
 }
 
 #message-field:focus {
-	outline: none;
+	border: 1px solid white;
 }
 
 #message-button-figure {
@@ -86,9 +86,6 @@
 
 .message-button-true:hover {
 	background-color: #298f74;
-}
-
-.message-button-true:hover {
 	cursor: pointer;
 }
 

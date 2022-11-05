@@ -22,6 +22,7 @@ import * as channelActions from '../../../../store/channel';
 import * as dmrActions from '../../../../store/dmr';
 import * as sessionActions from '../../../../store/session';
 import * as channelsUsersActions from '../../../../store/channels-users';
+import * as dmrsUsersActions from '../../../../store/dmr-users';
 
 //? RightClickModal component
 const RightClickModal = ({ setRightClickModal, rect }) => {
@@ -47,17 +48,17 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	const history = useHistory();
 
 	useEffect(() => {
-		// nothing for now, just to update channel state
-
-		// updating current channel id here
-		if (currentDMR) setCurrentDMRId(currentDMR.id);
-		if (currentChannel) setCurrentChannelId(currentChannel.id);
-	}, [dispatch, channelState, dmrState]);
+		// currentChannel does not refer to a Channel. It refers to both Channel and DMR
+		if (currentChannel.channel_name) {
+			setCurrentChannelId(currentChannel.id);
+		} else if (currentChannel.dmr_name) {
+			setCurrentDMRId(currentChannel.di);
+		}
+	}, [dispatch, channelState, dmrState, currentChannel]);
 
 	// per channels
 	useEffect(() => {
 		// nothing for now
-
 		// if routeType is channel, check channel via channels by id,
 		// see if current channel is owned by current session user
 		// otherwise, hide it
@@ -65,13 +66,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// console.log('checkRouteProperlyOwned', checkRouteProperlyOwned);
 	}, [channels, checkRouteProperlyOwned, channelState]);
 
-	// useEffect(() => {
-	// 	setCurrentDMRId(currentDMR.id)
-	// }, [dmrState, currentDMRId])
-
 	// function to handle delete user for channel
 	const handleDeleteChannel = async () => {
-		var confirmDelete = prompt(
+		const confirmDelete = prompt(
 			`Are you sure you want to delete channel ${currentChannel.channel_name}? Type 'delete' to confirm`
 		);
 
@@ -82,41 +79,11 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				dispatch(channelActions.thunkDeleteChannel(currentChannel.id));
-				dispatch(channelActions.thunkGetUserChannels());
-				setRightClickModal(false);
-				return history.push(
-					`/chat/channels/${channelState ? channelState[0].id : 0}`
-				);
-			}
-		}
-	};
-
-	// function to handle delete user for channel
-	const handleLeaveChannel = async () => {
-		var confirmDelete = prompt(
-			`Are you sure you want to leave channel ${currentChannel.channel_name}? Type 'leave' to confirm`
-		);
-
-		// if 'delete' is the input, proceed to delete account
-		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'leave') {
-			// alert to user, successful deletion
-			alert(`You have left channel ${currentChannel.channel_name}`);
-
-			if (currentChannel.id && currentUserId) {
-				// call on thunk to delete current user from current channel
-				dispatch(
-					channelsUsersActions.thunkRemoveUserFromChannel(
-						currentChannel.id,
-						currentUserId
-					)
-				)
-					.then(() => dispatch(channelsUsersActions.thunkGetAllChannelsUsers()))
-					.then(() => {
-						dispatch(channelActions.thunkGetUserChannels());
-
+				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
+					.then(() => dispatch(channelActions.thunkGetUserChannels()))
+					.then(res => {
+						setChannels(res);
 						setRightClickModal(false);
-
 						return history.push(
 							`/chat/channels/${channelState ? channelState[0].id : 0}`
 						);
@@ -125,21 +92,62 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		}
 	};
 
-	// similarly, a function to handle delete user for DMR
-	const handleDeleteDMR = async () => {
-		var confirmDelete = prompt(
-			`Are you sure you want to delete direct message room ${currentDMR.dmr_name}? Type 'delete' to confirm`
+	// function to handle delete user for channel
+	const handleLeaveChannel = async () => {
+		const confirmDelete = prompt(
+			currentChannel.channel_name
+				? `Are you sure you want to leave channel ${currentChannel.channel_name}? Type 'leave' to confirm`
+				: `Are you sure you want to leave dmr ${currentChannel.dmr_name}? Type 'leave' to confirm`
 		);
 
-		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'delete') {
-			alert(`Direct Message Room ${currentDMR.dmr_name} has been deleted`);
-		}
+		// if 'delete' is the input, proceed to delete account
+		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'leave') {
+			// alert to user, successful deletion
+			currentChannel.channel_name
+				? alert(`You have left channel ${currentChannel.channel_name}`)
+				: alert(`You have left dmr ${currentChannel.dmr_name}`);
 
-		if (currentDMR.id) {
-			dispatch(dmrActions.thunkDeleteDmr(currentDMR.id));
-			dispatch(dmrActions.thunkGetAllUserDmrs());
-			setRightClickModal(false);
-			return history.push(`/chat/dmrs/${dmrState ? dmrState[0].id : 0}`);
+			if (currentChannel.id && currentUserId) {
+				// call on thunk to delete current user from current channel
+				if (currentChannel.channel_name) {
+					dispatch(
+						channelsUsersActions.thunkRemoveUserFromChannel(
+							// currentChannel does not refer to a Channel. It refers to both Channel and DMR
+							currentChannel.id,
+							currentUserId
+						)
+					)
+						.then(() =>
+							dispatch(channelsUsersActions.thunkGetAllChannelsUsers())
+						)
+						.then(() => {
+							dispatch(channelActions.thunkGetUserChannels());
+
+							setRightClickModal(false);
+
+							return history.push(
+								`/chat/channels/${channelState ? channelState[0].id : 0}`
+							);
+						});
+				} else {
+					// else, dmr
+					dispatch(
+						dmrsUsersActions.thunkRemoveUserFromDMR(
+							// currentChannel does not refer to a Channel. It refers to both Channel and DMR
+							currentChannel.id,
+							currentUserId
+						)
+					)
+						.then(() => dispatch(dmrsUsersActions.thunkGetAllDMRUsers()))
+						.then(() => {
+							dispatch(dmrActions.thunkGetAllUserDmrs());
+
+							setRightClickModal(false);
+
+							return history.push(`/chat/dmr/${dmrState ? dmrState[0].id : 0}`);
+						});
+				}
+			}
 		}
 	};
 

@@ -1,6 +1,9 @@
 // import css
 import './LeftBar.css';
 
+// import component
+import AlwaysScrollToBottom from '../MessageDisplay/AlwaysScrollToBottom';
+
 // import context
 import { useChannel } from '../../../context/ChannelContext';
 import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
@@ -66,6 +69,7 @@ const LeftBar = () => {
 	const dmrState = useSelector(dmrActions.getAllDMRs);
 	const dmrUsersState = useSelector(dmrUsersActions.getAllUserDMRs);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
+	const allUsers = useSelector(userActions.getAllUsers);
 
 	// load channels
 	useEffect(() => {
@@ -101,29 +105,6 @@ const LeftBar = () => {
 				setChannels(channelDisplay);
 			}
 		}
-
-		// _________________________
-
-		// if (channelState) {
-		// 	const currentChannelsUserBelongTo = Array.isArray(channelsUsers)
-		// 		? channelsUsers.filter((cu) => currentUserId === cu.user_id)
-		// 		: '';
-
-		// 	const currentChannelDetail = [];
-
-		// 	Array.isArray(channelsUsers) &&
-		// 		currentChannelsUserBelongTo.forEach((cu) => {
-		// 			currentChannelDetail.push(cu.channel_id);
-		// 		});
-
-		// 	const channelDisplay =
-		// 		Array.isArray(channelState) &&
-		// 		channelState.filter((channel) => currentChannelDetail.includes(channel.id));
-
-		// 	if (Array.isArray(channelDisplay)) {
-		// 		setChannels(channelDisplay);
-		// 	}
-		// }
 	}, [channelState, currentChannelId]);
 
 	// per dmrState
@@ -131,22 +112,24 @@ const LeftBar = () => {
 		setDMRs(dmrState);
 
 		if (dmrState) {
-			const currentDMRsUserBelongTo = Array.isArray(dmrUsers)
-				? dmrUsers.filter((dmru) => currentUserId === dmru.user_id)
-				: '';
+			// console.log('dmrState', dmrState);
+			let currentDMRDetail = [];
 
-			const currentDMRDetail = [];
-
-			Array.isArray(dmrUsers) &&
-				currentDMRsUserBelongTo.forEach((dmru) => {
-					currentDMRDetail.push(dmru.dmr_id);
+			if (Array.isArray(dmrUsers)) {
+				dmrUsers.forEach((el) => {
+					if (currentUserId === el.user_id) {
+						currentDMRDetail.push(el.dmr_id);
+					}
 				});
+			}
+			let dmrDisplay = [];
+			dmrState.forEach((el) => {
+				if (currentDMRDetail.includes(el.id)) {
+					dmrDisplay.push(el);
+				}
+			});
 
-			const dmrDisplay =
-				Array.isArray(dmrState) &&
-				dmrState.filter((dmr) => currentDMRDetail.includes(dmr.id));
-
-			if (Array.isArray(dmrDisplay)) {
+			if (dmrDisplay) {
 				setDMRs(dmrDisplay);
 			}
 		}
@@ -162,8 +145,17 @@ const LeftBar = () => {
 		setDMRUsers(dmrUsersState);
 	}, [dmrUsersState]);
 
+	const setChannelPrivacy = (channel) => {
+		if (channel.public) {
+			return true
+		} else {
+			return false
+		}
+	}
+
 	const loadAllChannels = () => {
 		const channelsArray = Object.values(channels);
+		let privacy = false;
 
 		return (
 			Array.isArray(channelsArray) &&
@@ -194,14 +186,55 @@ const LeftBar = () => {
 						key={i}
 					>
 						<aside>
-							<i className='fa-regular fa-hashtag'></i>
+							{setChannelPrivacy(channel) ? (
+								<i className='fa-regular fa-hashtag' />
+							) : (
+								<i id="lock-test" className='fa-solid fa-lock lock-test'></i>
+							)}
 						</aside>
-						<aside>{channel.channel_name}</aside>
+						{
+							<>
+								<>{channel.channel_name.slice(0, 20)}</>
+
+								<>{channel.channel_name.length > 20 ? '...' : ''}</>
+							</>
+						}
 					</section>
 				);
 			})
 		);
 	};
+
+	const loadDMRProfilePicture = (dmr) => {
+		// let userProfileToUse = dmr.dmr_name.split(", ")[0]
+		// // let userProfileToUse = dmrNameArray[0]
+		// let allUsersArray = Object.values(allUsers)
+		// console.log("test", allUsersArray)
+		// if (allUsersArray && allUsersArray.length > 0) {
+		// 	let test = allUsersArray.find(el => el.display_name === userProfileToUse)
+		// 	let profileLinkToUse = test.profile_image
+		// 	if (profileLinkToUse) {
+		// 		return (
+		// 			<figure id="dmr-profile-pic">
+		// 				<img src={profileLinkToUse} alt={userProfileToUse}></img>
+		// 			</figure>
+		// 		)
+		// 	} else {
+		// 		return (
+		// 			<figure id="dmr-profile-pic">
+		// 				<i id="dmr-icon" className="fa-brands fa-slack"></i>\
+		// 			</figure>
+		// 		)
+		// 	}
+		// } else {
+		// 	return
+		// }
+		return (
+			<figure id="dmr-profile-pic">
+				<i className="fa-brands fa-slack"></i>
+			</figure>
+		)
+	}
 
 	const loadAllDMRs = () => {
 		const dmrsArray = Object.values(dmrs);
@@ -235,9 +268,17 @@ const LeftBar = () => {
 						key={i}
 					>
 						<aside>
-							<i className='fa-regular fa-hashtag'></i>
+							{loadDMRProfilePicture(dmr)}
 						</aside>
-						<aside>{dmr.dmr_name}</aside>
+						<aside>
+							{
+								<>
+									<>{dmr.dmr_name.slice(0, 20)}</>
+
+									<>{dmr.dmr_name.length > 20 ? '...' : ''}</>
+								</>
+							}
+						</aside>
 					</section>
 				);
 			})
@@ -279,7 +320,7 @@ const LeftBar = () => {
 								className='channel-list-option'
 								onClick={(e) => {
 									e.stopPropagation();
-									setRouteType('dmrs');
+									setRouteType('channels');
 									setEditChannel(false);
 									setCreateChannelOpenModal(true);
 								}}
@@ -287,7 +328,9 @@ const LeftBar = () => {
 								<aside>
 									<i className='fa-regular fa-plus'></i>
 								</aside>
-								<aside>Create A Channel</aside>
+								<aside>
+									<span>Create A Channel</span>
+								</aside>
 							</section>
 						</section>
 					</details>
@@ -303,8 +346,9 @@ const LeftBar = () => {
 									className='dmr-list-option'
 									onClick={(e) => {
 										e.stopPropagation();
-										setAddPeopleModal(true);
 										setRouteType('dmrs');
+										setEditChannel(false);
+										setAddPeopleModal(true);
 									}}
 								>
 									<aside>
@@ -321,7 +365,7 @@ const LeftBar = () => {
 			<footer id='footer' onClick={handleLogout}>
 				<section id='footer-name'>Leave Slackers</section>
 				<section id='footer-button'>
-					<i className='fa-solid fa-right-from-bracket'></i>
+					<i id="exit-lb-icon" className='fa-solid fa-right-from-bracket exit-lb-icon'></i>
 				</section>
 			</footer>
 

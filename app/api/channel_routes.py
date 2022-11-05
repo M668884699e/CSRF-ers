@@ -120,7 +120,7 @@ def get_channel_messages(channel_id):
     # query for any existing messages in the given channel id
     channel_messages = Message.query.filter(Message.messageable_type == 'Channel', Message.messageable_id == int(channel_id))
 
-    return {'channel': channel_id, 'channel_messages':[channel_message.to_dict() for channel_message in channel_messages]}
+    return {'channel': channel_id, 'channel_messages':{channel_message.id: channel_message.to_dict() for channel_message in channel_messages}}
 
 #* POST - /channels
 # Create a new channel

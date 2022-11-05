@@ -15,8 +15,8 @@ export default function MessageProvider({ children }) {
 	const [channelName, setChannelName] = useState([]);
 	const [dmrName, setDMRName] = useState([]);
 	const [routeType, setRouteType] = useState('dmrs');
-	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] =
-		useState(false);
+	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] = useState(false);
+	const [messageHoverModal, setMessageHoverModal] = useState(false);
 
 	// Message Provider
 	return (
@@ -39,6 +39,8 @@ export default function MessageProvider({ children }) {
 					setRouteType,
 					checkRouteProperlyOwned,
 					setCheckRouteProperlyOwned,
+					messageHoverModal,
+					setMessageHoverModal,
 				}}
 			>
 				{children}
