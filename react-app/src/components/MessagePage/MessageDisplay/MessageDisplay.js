@@ -185,13 +185,17 @@ const MessageDisplay = () => {
 										}
 									/>
 								</aside>
-								<aside className='profile-name'>
-									{
-										Object.values(usersState).find(
-											(user) => user.id === message.sender_id
-										).display_name
-									}
-									<aside className='message-text'>{message.message}</aside>
+								<aside className='profile-message-container'>
+									<aside className='profile-name'>
+										{
+											Object.values(usersState).find(
+												(user) => user.id === message.sender_id
+											).display_name
+										}
+									</aside>
+									<aside className='message-text'>
+										{message.message.slice(0, 300)}
+									</aside>
 								</aside>
 								<section id='mhm-section'>
 									<figure
@@ -226,7 +230,7 @@ const MessageDisplay = () => {
 	) : (
 		<section id='message-display-main'>
 			<section id='message-main-header'>
-				<span id="mmh-span-404">TBD</span>
+				<span id='mmh-span-404'>TBD</span>
 			</section>
 			<span id='mdm-span-404'>Message not available. TBD</span>
 		</section>

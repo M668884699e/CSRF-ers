@@ -87,7 +87,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 		const newMessage = {
 			...currentMessage,
-			message,
+			message: message.slice(0, 300),
 			messageable_id: chatId,
 			messageable_type,
 			sender_id: userId,
