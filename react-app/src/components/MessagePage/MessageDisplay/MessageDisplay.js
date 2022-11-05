@@ -137,8 +137,8 @@ const MessageDisplay = () => {
 									? currentChat.channel_name.slice(0, 40) + '...'
 									: currentChat.channel_name.slice(0, 40)
 								: currentChat.dmr_name.length > 40
-									? currentChat.dmr_name.slice(0, 40) + '...'
-									: currentChat.dmr_name.slice(0, 40)
+								? currentChat.dmr_name.slice(0, 40) + '...'
+								: currentChat.dmr_name.slice(0, 40)
 							: ''}
 					</button>
 				</section>
@@ -224,7 +224,12 @@ const MessageDisplay = () => {
 			)}
 		</section>
 	) : (
-		<section id='message-display-main'>Message not available. TBD</section>
+		<section id='message-display-main'>
+			<section id='message-main-header'>
+				<span id="mmh-span-404">TBD</span>
+			</section>
+			<span id='mdm-span-404'>Message not available. TBD</span>
+		</section>
 	);
 };
 
