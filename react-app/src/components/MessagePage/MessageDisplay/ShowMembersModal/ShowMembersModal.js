@@ -5,6 +5,7 @@ import './ShowMembersModal.css'
 
 // import context
 import { useChannel } from '../../../../context/ChannelContext';
+import { useParams } from 'react-router-dom';
 
 // import react
 import { useEffect } from 'react';
@@ -20,6 +21,7 @@ import * as userActions from '../../../../store/users';
 const ShowMembersModal = ({ setMembersModal }) => {
 	// invoke dispatch
 	const dispatch = useDispatch();
+	const { channelId, dmrId } = useParams();
 
 	// use context
 
@@ -49,17 +51,17 @@ const ShowMembersModal = ({ setMembersModal }) => {
 	// }, [userState]);
 	// console.log('In the members modal.')
 
-	let users = 	window.location.pathname.split('/')[2] === 'channels'
-			? dispatch(
-					userActions.thunkGetChannelUsers(
-						window.location.pathname.split('/')[3]
-					)
-			  )
-			: dispatch(
-					userActions.thunkGetDMRUsers(window.location.pathname.split('/')[3])
-			  );
+	// let users = 	window.location.pathname.split('/')[2] === 'channels'
+	// 		? dispatch(
+	// 				userActions.thunkGetChannelUsers(
+	// 					window.location.pathname.split('/')[3]
+	// 				)
+	// 		  )
+	// 		: dispatch(
+	// 				userActions.thunkGetDMRUsers(window.location.pathname.split('/')[3])
+	// 		  );
 
-			  console.log(users);
+	// 		  console.log(users);
 
 	return (
 		<section id='smm-container'>
