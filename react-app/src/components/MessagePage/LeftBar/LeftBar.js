@@ -286,8 +286,9 @@ const LeftBar = () => {
 									className='dmr-list-option'
 									onClick={(e) => {
 										e.stopPropagation();
-										setAddPeopleModal(true);
 										setRouteType('dmrs');
+										setEditChannel(false);
+										setAddPeopleModal(true);
 									}}
 								>
 									<aside>

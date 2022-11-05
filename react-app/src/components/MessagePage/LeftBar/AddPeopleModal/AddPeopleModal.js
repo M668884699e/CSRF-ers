@@ -372,13 +372,13 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const [newDMRId, setNewDMRID] = useState();
 
 	// DMR inputs
-	const { dmrs, setDMRs } = useDMR();
+	// const { dmrs, setDMRs } = useDMR();
 	const { createdDMRId, setCreatedDMRId } = useDMR();
-	const { currentDMRId, setCurrentDMRId } = useDMR();
-	const [usersDMRs, setUsersDMRs] = useState([]);
+	// const { currentDMRId, setCurrentDMRId } = useDMR();
+	// const [usersDMRs, setUsersDMRs] = useState([]);
 
 	// message inputs
-	const { dmrName, setDMRName } = useMessage();
+	// const { dmrName, setDMRName } = useMessage();
 	const { channelName, setChannelName } = useMessage();
 	const { routeType, setRouteType } = useMessage();
 
@@ -395,7 +395,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const usersChannelsState = useSelector(
 		usersChannelsActions.getAllUsersChannels
 	);
-	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs);
+	// const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs);
 	const dmrState = useSelector(dmrActions.getAllDMRs);
 
 	// invoke dispatch
@@ -451,13 +451,13 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	// per dmrState
 	useEffect(() => {
 		dispatch(dmrActions.thunkGetAllDmrs());
-		setNewDMRID(dmrState);
-	}, [dispatch, dmrState]);
+	}, [dispatch]);
 
 	// per usersBoolean
 	useEffect(() => {
 		// nothing for now
-	}, [usersBoolean]);
+		setNewDMRID(dmrState);
+	}, [usersBoolean, dmrState]);
 
 	// useEffect per usersChannelsState
 	useEffect(() => {
