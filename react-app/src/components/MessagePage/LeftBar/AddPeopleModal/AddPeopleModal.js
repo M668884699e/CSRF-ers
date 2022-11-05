@@ -338,7 +338,7 @@ import { useMessage } from '../../../../context/MessageContext';
 import { useUsers } from '../../../../context/UserContext';
 import { useStarter } from '../../../../context/StarterContext';
 import { useChannel } from '../../../../context/ChannelContext';
-import { useDMR } from "../../../../context/DMRContext";
+import { useDMR } from '../../../../context/DMRContext';
 
 // import react
 import { useEffect, useState } from 'react';
@@ -354,14 +354,14 @@ import * as userActions from '../../../../store/users';
 import * as sessionActions from '../../../../store/session';
 import * as channelActions from '../../../../store/channel';
 import * as usersChannelsActions from '../../../../store/channels-users';
-import * as dmrActions from "../../../../store/dmr";
-import * as usersDMRsActions from "../../../../store/dmr-users";
+import * as dmrActions from '../../../../store/dmr';
+import * as usersDMRsActions from '../../../../store/dmr-users';
 
 //? AddPeopleModal component
 const AddPeopleModal = ({ setAddPeopleModal }) => {
 	/**
 	 * Controlled inputs
-	**/
+	 **/
 	//? channel inputs
 	const { channels, setChannels } = useChannel();
 	const { createdChannelId, setCreatedChannelId } = useChannel();
@@ -375,7 +375,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const { dmrs, setDMRs } = useDMR();
 	const { createdDMRId, setCreatedDMRId } = useDMR();
 	const { currentDMRId, setCurrentDMRId } = useDMR();
-	const [usersDMRs, setUsersDMRs] = useState([])
+	const [usersDMRs, setUsersDMRs] = useState([]);
 
 	// message inputs
 	const { dmrName, setDMRName } = useMessage();
@@ -395,8 +395,8 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	const usersChannelsState = useSelector(
 		usersChannelsActions.getAllUsersChannels
 	);
-	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs)
-	const dmrState = useSelector(dmrActions.getAllDMRs)
+	const usersDMRsState = useSelector(usersDMRsActions.getAllUserDMRs);
+	const dmrState = useSelector(dmrActions.getAllDMRs);
 
 	// invoke dispatch
 	const dispatch = useDispatch();
@@ -450,9 +450,9 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 
 	// per dmrState
 	useEffect(() => {
-		dispatch(dmrActions.thunkGetAllDmrs())
-		setNewDMRID(dmrState)
-	}, [dispatch, dmrState])
+		dispatch(dmrActions.thunkGetAllDmrs());
+		setNewDMRID(dmrState);
+	}, [dispatch, dmrState]);
 
 	// per usersBoolean
 	useEffect(() => {
@@ -542,13 +542,13 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				usersToAdd.unshift(getCurrentUserId);
 				// const newDMRName = usersToAdd
 				const userIds = usersToAdd.toString();
-				console.log(newDMRId, "testtest")
+				console.log(newDMRId, 'testtest');
 				return dispatch(usersDMRsActions.thunkPutAddUserToDMR(userIds)).then(
 					() => {
 						return dispatch(usersDMRsActions.thunkGetAllDMRUsers()).then(() => {
 							setLoad(0);
 							setAddPeopleModal(false);
-							history.push(`/chat/dmr/${newDMRId.length + 1}`)
+							history.push(`/chat/dmr/${newDMRId.length + 1}`);
 							// window.location.reload(); // This is to reload the page due to the channelusers state not properly fetching from back end
 						});
 					}
@@ -583,7 +583,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				{routeType === 'dmrs' ? (
 					<>
 						<h1>Start a conversation with:</h1>
-						<p id="apm-form-dmr">
+						<p id='apm-form-dmr'>
 							Conversations are direct messages with other Slack users. These
 							messages cannot be seen by people outside of the conversation. If
 							you would like to add a new person to an existing conversation, a
@@ -594,7 +594,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					<></>
 				)}
 				<h2>Add people</h2>
-				<p># {channelName}</p>
+				<p>{routeType === 'channels' ? <># {channelName}</> : <></>}</p>
 				{/* container for choosing user */}
 				<section id='apm-members-section'>
 					{/* get list of all available users */}
