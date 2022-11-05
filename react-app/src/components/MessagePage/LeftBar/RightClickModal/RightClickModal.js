@@ -57,7 +57,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 	// per channels
 	useEffect(() => {
 		// nothing for now
-
 		// if routeType is channel, check channel via channels by id,
 		// see if current channel is owned by current session user
 		// otherwise, hide it
@@ -71,7 +70,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 	// function to handle delete user for channel
 	const handleDeleteChannel = async () => {
-		var confirmDelete = prompt(
+		const confirmDelete = prompt(
 			`Are you sure you want to delete channel ${currentChannel.channel_name}? Type 'delete' to confirm`
 		);
 
@@ -94,14 +93,18 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 	// function to handle delete user for channel
 	const handleLeaveChannel = async () => {
-		var confirmDelete = prompt(
-			`Are you sure you want to leave channel ${currentChannel.channel_name}? Type 'leave' to confirm`
+		const confirmDelete = prompt(
+			currentChannel.channel_name
+				? `Are you sure you want to leave channel ${currentChannel.channel_name}? Type 'leave' to confirm`
+				: `Are you sure you want to leave dmr ${currentChannel.dmr_name}? Type 'leave' to confirm`
 		);
 
 		// if 'delete' is the input, proceed to delete account
 		if (confirmDelete && confirmDelete.toLowerCase().trim() === 'leave') {
 			// alert to user, successful deletion
-			alert(`You have left channel ${currentChannel.channel_name}`);
+			currentChannel.channel_name
+				? alert(`You have left channel ${currentChannel.channel_name}`)
+				: alert(`You have left dmr ${currentChannel.dmr_name}`);
 
 			if (currentChannel.id && currentUserId) {
 				// call on thunk to delete current user from current channel
