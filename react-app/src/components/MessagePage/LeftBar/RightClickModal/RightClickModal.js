@@ -76,10 +76,22 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 			// alert to user, successful deletion
 			alert(`Channel ${currentChannel.channel_name} has been deleted`);
 
+			console.log('currentChannel', currentChannel);
+			console.log('channelState', channelState);
+
 			if (currentChannel.id) {
 				// call on thunk to delete current user
 				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-					.then(() => dispatch(channelActions.thunkGetUserChannels()))
+					.then(() =>
+						dispatch(channelActions.thunkGetUserChannels()).then((res) => {
+							// console.log('res', Object.values(res.channels)[0]);
+							console.log('res', Object.values(res.channels));
+							// console.log('res', res);
+							const test1 = Object.values(res.channels)[0];
+							const test2 = Object.values(res.channels)[0].id;
+							setCurrentChannel(Object.values(res.channels)[0]);
+						})
+					)
 					.then((res) => {
 						setChannels(res);
 						setRightClickModal(false);
