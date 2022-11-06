@@ -163,9 +163,6 @@ export const thunkPostNewDmr = (dmr) => async (dispatch) => {
 };
 
 export const thunkDeleteDmr = (id) => async (dispatch) => {
-	console.log('');
-	console.log('id here', id);
-	console.log('');
 	const response = await fetch(`/api/dmr/${id}`, {
 		method: 'DELETE',
 	});

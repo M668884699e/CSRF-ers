@@ -140,12 +140,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 						)
 					)
 						.then(() => {
-							console.log(
-								'currentDMRId',
-								currentDMRId,
-								' | type: ',
-								typeof currentDMRId
-							);
 							dispatch(dmrActions.thunkDeleteDmr(currentDMRId));
 						})
 						.then(() => dispatch(dmrsUsersActions.thunkGetAllDMRUsers()))
