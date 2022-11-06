@@ -89,11 +89,13 @@ export const thunkGetAllDmrs = () => async (dispatch) => {
 };
 
 export const thunkGetAllUserDmrs = () => async (dispatch) => {
-	const res = await fetch(`/api/users/dmr/`);
+	const response = await fetch(`/api/users/dmr`);
 
-	if (res.ok) {
-		const userDMRData = await res.json();
+	if (response.ok) {
+		const userDMRData = await response.json();
+
 		dispatch(getDmrs(userDMRData.dmrs));
+
 		return userDMRData;
 	}
 };
@@ -125,10 +127,8 @@ export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		if (data.errors) {
-			return;
-		}
 		dispatch(getDmrUsers(data.id.dmr_users));
+		return data;
 	}
 };
 
