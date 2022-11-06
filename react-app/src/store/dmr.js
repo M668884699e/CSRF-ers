@@ -155,12 +155,8 @@ export const thunkPostNewDmr = (dmr) => async (dispatch) => {
 		body: JSON.stringify(dmr),
 	});
 
-
 	if (response.ok) {
 		const data = await response.json();
-		// if (data.errors) {
-		// 	return;
-		// }
 		dispatch(setDmr(data));
 		return response;
 	}
