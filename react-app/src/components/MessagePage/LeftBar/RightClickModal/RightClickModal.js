@@ -126,7 +126,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							setRightClickModal(false);
 
 							return history.push(
-								`/chat/channels/${channelState ? channelState[0].id : 0}`
+								`/chat/channels/${channelState && channelState[0].id}`
 							);
 						});
 				} else {
@@ -147,7 +147,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 							setRightClickModal(false);
 
-							return history.push(`/chat/dmr/${dmrState ? dmrState[0].id : 0}`);
+							return history.push(`/chat/dmr/${dmrState && dmrState[0].id}`);
 						});
 				}
 			}
