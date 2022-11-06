@@ -180,7 +180,6 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		// //? call on thunk to edit current channel and add people
 
 		if (usersToAdd.length > 0) {
-			console.log(routeType, 'routeType');
 			if (routeType === 'channels') {
 				return dispatch(
 					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)

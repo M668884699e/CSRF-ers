@@ -52,7 +52,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		if (currentChannel.channel_name) {
 			setCurrentChannelId(currentChannel.id);
 		} else if (currentChannel.dmr_name) {
-			setCurrentDMRId(currentChannel.di);
+			setCurrentDMRId(currentChannel.id);
 		}
 	}, [dispatch, channelState, dmrState, currentChannel]);
 
@@ -81,7 +81,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				// call on thunk to delete current user
 				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
 					.then(() => dispatch(channelActions.thunkGetUserChannels()))
-					.then(res => {
+					.then((res) => {
 						setChannels(res);
 						setRightClickModal(false);
 						return history.push(
@@ -117,6 +117,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							currentUserId
 						)
 					)
+						.then(() => channelActions.thunkDeleteChannel(currentChannel.id))
 						.then(() =>
 							dispatch(channelsUsersActions.thunkGetAllChannelsUsers())
 						)
@@ -138,6 +139,15 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							currentUserId
 						)
 					)
+						.then(() => {
+							console.log(
+								'currentDMRId',
+								currentDMRId,
+								' | type: ',
+								typeof currentDMRId
+							);
+							dispatch(dmrActions.thunkDeleteDmr(currentDMRId));
+						})
 						.then(() => dispatch(dmrsUsersActions.thunkGetAllDMRUsers()))
 						.then(() => {
 							dispatch(dmrActions.thunkGetAllUserDmrs());
