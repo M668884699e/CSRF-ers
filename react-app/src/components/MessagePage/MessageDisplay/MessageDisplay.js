@@ -43,6 +43,7 @@ const MessageDisplay = () => {
 	const [delayHandler, setDelayHandler] = useState(null);
 	const [messageBooleans, setMessageBooleans] = useState([]);
 	const { routeType, setRouteType } = useMessage();
+	const [load, setLoad] = useState(0);
 
 	// get current user id
 	const getCurrentUserId = useSelector(sessionActions.getCurrentUserId);
@@ -81,6 +82,11 @@ const MessageDisplay = () => {
 
 	// per messageState
 	useEffect(() => {
+		console.log('load', load);
+		console.log('messageState', messageState);
+		console.log('Object.values(messageState)', Object.values(messageState));
+		console.log('messages', messages);
+
 		if (Object.values(messageState).length > 0) {
 			const currentMessages = Object.values(messageState).filter((message) => {
 				return (
@@ -93,7 +99,11 @@ const MessageDisplay = () => {
 
 			setMessages(currentMessages);
 		}
-	}, [messageState, usersState]);
+
+		if (load < 5) {
+			setLoad(load + 1);
+		}
+	}, [messageState, usersState, load]);
 
 	// per message
 	useEffect(() => {

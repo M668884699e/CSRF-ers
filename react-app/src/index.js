@@ -11,6 +11,7 @@ import UserProvider from './context/UserContext';
 import ChannelsUsersProvider from './context/ChannelsUsersContext';
 import DMRUsersProvider from './context/DMRUsersContext';
 import ProfileProvider from './context/ProfileContext';
+import MessageProvider from './context/MessageContext';
 
 const store = configureStore();
 
@@ -24,7 +25,9 @@ ReactDOM.render(
 							<ChannelsUsersProvider>
 								<DMRUsersProvider>
 									<ProfileProvider>
-										<App />
+										<MessageProvider>
+											<App />
+										</MessageProvider>
 									</ProfileProvider>
 								</DMRUsersProvider>
 							</ChannelsUsersProvider>

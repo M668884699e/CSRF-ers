@@ -23,7 +23,6 @@ import { authenticate } from './store/session';
 import StartPage from './components/StartPage';
 import StarterProvider from './context/StarterContext';
 import ProfileProvider from './context/ProfileContext';
-import MessageProvider from './context/MessageContext';
 
 //? App Component
 function App() {
@@ -78,16 +77,12 @@ function App() {
 
 				{/* //? Chatroom Route */}
 				<Route path='/chat/channels/:channelId' exact={true}>
-					<MessageProvider>
 						<MessagePage />
-					</MessageProvider>
 				</Route>
 
 				{/* //? DMR Route */}
 				<Route path='/chat/dmr/:dmrId' exact={true}>
-					<MessageProvider>
 						<MessagePage />
-					</MessageProvider>
 				</Route>
 
 				{/* //? 404 Route */}
