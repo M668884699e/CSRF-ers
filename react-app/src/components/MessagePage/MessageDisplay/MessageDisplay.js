@@ -44,6 +44,9 @@ const MessageDisplay = () => {
 	const [messageBooleans, setMessageBooleans] = useState([]);
 	const { routeType, setRouteType } = useMessage();
 
+	// get current user id
+	const getCurrentUserId = useSelector(sessionActions.getCurrentUserId);
+
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
 
@@ -203,19 +206,23 @@ const MessageDisplay = () => {
 										{message.message.slice(0, 500)}
 									</aside>
 								</aside>
-								<section id='mhm-section'>
-									<figure
-										onClick={(e) => {
-											e.stopPropagation();
-											handleEditMessage(index);
-										}}
-									>
-										<i className='fa-solid fa-pen-to-square edit-message'></i>
-									</figure>
-									<figure onClick={(_) => handleDeleteMessage(message)}>
-										<i className='fa-solid fa-trash delete-message'></i>
-									</figure>
-								</section>
+								{getCurrentUserId === message.sender_id ? (
+									<section id='mhm-section'>
+										<figure
+											onClick={(e) => {
+												e.stopPropagation();
+												handleEditMessage(index);
+											}}
+										>
+											<i className='fa-solid fa-pen-to-square edit-message'></i>
+										</figure>
+										<figure onClick={(_) => handleDeleteMessage(message)}>
+											<i className='fa-solid fa-trash delete-message'></i>
+										</figure>
+									</section>
+								) : (
+									<></>
+								)}
 							</section>
 						)
 					)}
