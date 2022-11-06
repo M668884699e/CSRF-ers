@@ -82,23 +82,15 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 			if (currentChannel.id) {
 				// call on thunk to delete current user
 				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-					.then(() =>
-						dispatch(channelActions.thunkGetUserChannels()).then((res) => {
-							// console.log('res', Object.values(res.channels)[0]);
-							console.log('res', Object.values(res.channels));
-							// console.log('res', res);
-							const test1 = Object.values(res.channels)[0];
-							const test2 = Object.values(res.channels)[0].id;
-							setCurrentChannel(Object.values(res.channels)[0]);
-						})
-					)
+					.then(() => dispatch(channelActions.thunkGetUserChannels())
 					.then((res) => {
 						setChannels(res);
-						setRightClickModal(false);
+						setRightClickModal(false)
+						const redirectTo = Object.values(res.channels)[0]
 						return history.push(
-							`/chat/channels/${channelState ? channelState[0].id : 0}`
+							`/chat/channels/${redirectTo ? redirectTo.id : true}`
 						);
-					});
+					}));
 			}
 		}
 	};
@@ -128,10 +120,8 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							currentUserId
 						)
 					)
-						.then(() => channelActions.thunkDeleteChannel(currentChannel.id))
-						.then(() =>
-							dispatch(channelsUsersActions.thunkGetAllChannelsUsers())
-						)
+						.then(() => dispatch(channelActions.thunkDeleteChannel(currentChannel.id)))
+						.then(() => dispatch(channelsUsersActions.thunkGetAllChannelsUsers()))
 						.then(() => {
 							dispatch(channelActions.thunkGetUserChannels());
 
