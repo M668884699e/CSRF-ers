@@ -128,6 +128,7 @@
 	overflow: auto;
 
 	background-color: #1a1d21;
+	overflow-x: hidden;
 }
 
 #message-display-container::-webkit-scrollbar {
@@ -149,6 +150,7 @@
 	flex-direction: row;
 	align-items: center;
 
+	width: 98%;
 	min-height: 100px;
 	padding-left: 20px;
 
@@ -172,15 +174,21 @@
 	height: 30px;
 }
 
+.profile-message-container {
+	margin-left: 1rem;
+}
+
 .profile-name {
-	margin-top: 5px;
-	margin-left: 5px;
 	font-weight: bold;
 }
 
 .message-text {
 	font-weight: 300;
 	margin-top: 5px;
+
+	max-width: 70vw;
+	width: inherit;
+	word-wrap: break-word;
 }
 
 /* Message Edit/Delete Container */

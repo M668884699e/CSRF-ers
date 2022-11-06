@@ -14,7 +14,7 @@ export default function MessageProvider({ children }) {
 	const [rightClickModal, setRightClickModal] = useState(false);
 	const [channelName, setChannelName] = useState([]);
 	const [dmrName, setDMRName] = useState([]);
-	const [routeType, setRouteType] = useState('dmrs');
+	const [routeType, setRouteType] = useState('dmr');
 	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] = useState(false);
 	const [messageHoverModal, setMessageHoverModal] = useState(false);
 

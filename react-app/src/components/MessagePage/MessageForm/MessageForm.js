@@ -16,6 +16,7 @@ import { thunkGetAllDmrMessages } from '../../../store/dmr';
 
 // import context
 import { useChannel } from '../../../context/ChannelContext';
+import { useMessage } from '../../../context/MessageContext';
 
 const MessageForm = ({ edit = false, messageId }) => {
 	const dispatch = useDispatch();
@@ -33,22 +34,18 @@ const MessageForm = ({ edit = false, messageId }) => {
 	// message post details
 	const [message, setMessage] = useState('');
 	const [messageable_type, setMesseageble_type] = useState('channels');
-	const [messageableUrl, setMessageableUrl] = useState(
-		window.location.href.split('/')[4]
-	);
+	const { routeType, setRouteType } = useMessage();
 
 	// grab type of message from url then convert it into proper value
-	// let messageableUrl = window.location.href.split('/')[4];
+	// let routeType = window.location.href.split('/')[4];
 
-	// convert messageableUrl val into messeagable_type val
+	// convert routeType val into messeagable_type val
 	// let messageable_type
 	useEffect(() => {
-		if (messageableUrl === 'channels') {
-			setMesseageble_type(
-				messageableUrl[0].toUpperCase() + messageableUrl.slice(1, -1)
-			);
-		} else if (messageableUrl === 'dmrs') {
-			setMesseageble_type(messageableUrl.slice(0, -1).toUpperCase());
+		if (routeType === 'channels') {
+			setMesseageble_type('Channel');
+		} else if (routeType === 'dmr') {
+			setMesseageble_type(routeType.toUpperCase());
 		}
 
 		if (edit) {
@@ -56,7 +53,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 		} else {
 			setMessage('');
 		}
-	}, [dispatch, messageableUrl, edit]);
+	}, [dispatch, routeType, edit, routeType]);
 
 	useEffect(() => {
 		// per current message
@@ -87,7 +84,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 		const newMessage = {
 			...currentMessage,
-			message,
+			message: message.slice(0, 500),
 			messageable_id: chatId,
 			messageable_type,
 			sender_id: userId,
@@ -99,14 +96,14 @@ const MessageForm = ({ edit = false, messageId }) => {
 			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
 				() => {
 					setMessage('');
-					dispatch(thunkGetChannelMessages(chatId, messageableUrl));
+					dispatch(thunkGetChannelMessages(chatId, routeType));
 				}
 			);
 		} else {
 			return await dispatch(messageActions.thunkPutMessage(newMessage)).then(
 				() => {
 					setMessage('');
-					dispatch(thunkGetChannelMessages(chatId, messageableUrl));
+					dispatch(thunkGetChannelMessages(chatId, routeType));
 				}
 			);
 		}
@@ -153,7 +150,14 @@ const MessageForm = ({ edit = false, messageId }) => {
 					/>
 				</figure>
 
-				{inputLength > 0 ||
+				<p
+					id='input-length-message'
+					className={`input-length-message-${500 - inputLength >= 0}`}
+				>
+					{500 - inputLength + ' '}
+					characters left
+				</p>
+				{(inputLength > 0 && 500 - inputLength >= 0) ||
 				(edit && currentMessage.message.trim() === message.trim()) ? (
 					<figure
 						id='message-button-figure'
