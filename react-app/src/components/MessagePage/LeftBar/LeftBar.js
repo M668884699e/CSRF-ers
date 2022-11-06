@@ -147,11 +147,11 @@ const LeftBar = () => {
 
 	const setChannelPrivacy = (channel) => {
 		if (channel.public) {
-			return true
+			return true;
 		} else {
-			return false
+			return false;
 		}
-	}
+	};
 
 	const loadAllChannels = () => {
 		const channelsArray = Object.values(channels);
@@ -165,13 +165,14 @@ const LeftBar = () => {
 						onClick={(e) => {
 							e.stopPropagation();
 							e.preventDefault();
+							setRouteType('channels');
 
 							return history.push(`/chat/channels/${channel.id}`);
 						}}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
-							setRouteType("channels")
+							setRouteType('channels');
 							history.push(`/chat/channels/${channel.id}`);
 
 							// turn modal on
@@ -189,7 +190,7 @@ const LeftBar = () => {
 							{setChannelPrivacy(channel) ? (
 								<i className='fa-regular fa-hashtag' />
 							) : (
-								<i id="lock-test" className='fa-solid fa-lock lock-test'></i>
+								<i id='lock-test' className='fa-solid fa-lock lock-test'></i>
 							)}
 						</aside>
 						{
@@ -207,11 +208,11 @@ const LeftBar = () => {
 
 	const loadDMRProfilePicture = (dmr) => {
 		return (
-			<figure id="dmr-profile-pic">
-				<i className="fa-brands fa-slack"></i>
+			<figure id='dmr-profile-pic'>
+				<i className='fa-brands fa-slack'></i>
 			</figure>
-		)
-	}
+		);
+	};
 
 	const loadAllDMRs = () => {
 		const dmrsArray = Object.values(dmrs);
@@ -224,13 +225,14 @@ const LeftBar = () => {
 						onClick={(e) => {
 							e.stopPropagation();
 							e.preventDefault();
+							setRouteType('dmr');
 
 							return history.push(`/chat/dmr/${dmr.id}`);
 						}}
 						onContextMenu={(e) => {
 							// prevent default right click
 							e.preventDefault();
-							setRouteType("dmrs")
+							setRouteType('dmr');
 							history.push(`/chat/dmr/${dmr.id}`);
 
 							// turn modal on
@@ -244,9 +246,7 @@ const LeftBar = () => {
 						className='dmr-list-option'
 						key={i}
 					>
-						<aside>
-							{loadDMRProfilePicture(dmr)}
-						</aside>
+						<aside>{loadDMRProfilePicture(dmr)}</aside>
 						<aside>
 							{
 								<>
@@ -323,7 +323,7 @@ const LeftBar = () => {
 									className='dmr-list-option'
 									onClick={(e) => {
 										e.stopPropagation();
-										setRouteType('dmrs');
+										setRouteType('dmr');
 										setEditChannel(false);
 										setAddPeopleModal(true);
 									}}
@@ -342,7 +342,10 @@ const LeftBar = () => {
 			<footer id='footer' onClick={handleLogout}>
 				<section id='footer-name'>Leave Slackers</section>
 				<section id='footer-button'>
-					<i id="exit-lb-icon" className='fa-solid fa-right-from-bracket exit-lb-icon'></i>
+					<i
+						id='exit-lb-icon'
+						className='fa-solid fa-right-from-bracket exit-lb-icon'
+					></i>
 				</section>
 			</footer>
 

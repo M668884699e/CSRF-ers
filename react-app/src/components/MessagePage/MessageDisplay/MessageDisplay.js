@@ -42,6 +42,7 @@ const MessageDisplay = () => {
 	const messagesEndRef = useRef(null);
 	const [delayHandler, setDelayHandler] = useState(null);
 	const [messageBooleans, setMessageBooleans] = useState([]);
+	const { routeType, setRouteType } = useMessage();
 
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
@@ -79,7 +80,12 @@ const MessageDisplay = () => {
 	useEffect(() => {
 		if (Object.values(messageState).length > 0) {
 			const currentMessages = Object.values(messageState).filter((message) => {
-				return message.messageable_id === chatId;
+				return (
+					message.messageable_id === chatId &&
+					(routeType === 'channels'
+						? message.messageable_type === 'Channel'
+						: message.messageable_type === 'DMR')
+				);
 			});
 
 			setMessages(currentMessages);
