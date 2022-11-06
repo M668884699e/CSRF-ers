@@ -82,11 +82,6 @@ const MessageDisplay = () => {
 
 	// per messageState
 	useEffect(() => {
-		console.log('load', load);
-		console.log('messageState', messageState);
-		console.log('Object.values(messageState)', Object.values(messageState));
-		console.log('messages', messages);
-
 		if (Object.values(messageState).length > 0) {
 			const currentMessages = Object.values(messageState).filter((message) => {
 				return (

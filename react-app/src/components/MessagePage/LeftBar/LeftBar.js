@@ -112,7 +112,6 @@ const LeftBar = () => {
 		setDMRs(dmrState);
 
 		if (dmrState) {
-			// console.log('dmrState', dmrState);
 			let currentDMRDetail = [];
 
 			if (Array.isArray(dmrUsers)) {

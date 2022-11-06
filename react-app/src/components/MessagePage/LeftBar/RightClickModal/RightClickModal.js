@@ -63,7 +63,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// see if current channel is owned by current session user
 		// otherwise, hide it
 		// for dmr, just hide it
-		// console.log('checkRouteProperlyOwned', checkRouteProperlyOwned);
 	}, [channels, checkRouteProperlyOwned, channelState]);
 
 	// function to handle delete user for channel
