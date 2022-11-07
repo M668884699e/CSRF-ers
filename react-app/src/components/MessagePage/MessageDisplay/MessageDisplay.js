@@ -45,6 +45,7 @@ const MessageDisplay = () => {
 
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
+	let chatType = window.location.href.split('/')[4];
 
 	channelId = Number(channelId);
 	dmrId = Number(dmrId);
@@ -73,7 +74,7 @@ const MessageDisplay = () => {
 				: messageActions.thunkGetChannelMessages(chatId, 'dmr')
 		);
 		dispatch(userActions.thunkGetAllUsers());
-	}, [dispatch, chatId]);
+	}, [dispatch, chatId, chatType]);
 
 	// per messageState
 	useEffect(() => {
