@@ -3,6 +3,10 @@ import './LeftBar.css';
 
 // import component
 import AlwaysScrollToBottom from '../MessageDisplay/AlwaysScrollToBottom';
+import CreateChannelModal from './CreateChannelModal';
+import CreateDMRModal from './CreateDMRModal';
+import AddPeopleModal from './AddPeopleModal';
+import RightClickModal from './RightClickModal';
 
 // import context
 import { useChannel } from '../../../context/ChannelContext';
@@ -10,6 +14,7 @@ import { useChannelsUsers } from '../../../context/ChannelsUsersContext';
 import { useMessage } from '../../../context/MessageContext';
 import { useDMR } from '../../../context/DMRContext';
 import { useDMRUsers } from '../../../context/DMRUsersContext';
+import { Modal } from '../../../context/Modal';
 
 // import react
 import { useEffect, useState } from 'react';
@@ -27,11 +32,7 @@ import * as dmrActions from '../../../store/dmr';
 import * as dmrUsersActions from '../../../store/dmr-users';
 import * as sessionActions from '../../../store/session';
 import * as userActions from '../../../store/users';
-import { Modal } from '../../../context/Modal';
-import CreateChannelModal from './CreateChannelModal';
-import CreateDMRModal from './CreateDMRModal';
-import AddPeopleModal from './AddPeopleModal';
-import RightClickModal from './RightClickModal';
+import * as messageActions from '../../../store/message';
 
 const LeftBar = () => {
 	/**
@@ -166,6 +167,7 @@ const LeftBar = () => {
 							e.preventDefault();
 							setRouteType('channels');
 
+							dispatch(messageActions.thunkGetChannelMessages(channel.id));
 							return history.push(`/chat/channels/${channel.id}`);
 						}}
 						onContextMenu={(e) => {
@@ -226,6 +228,8 @@ const LeftBar = () => {
 							e.preventDefault();
 							setRouteType('dmr');
 
+							console.log('dmr.id', dmr.id);
+							dispatch(messageActions.thunkGetChannelMessages(dmr.id, 'dmr'));
 							return history.push(`/chat/dmr/${dmr.id}`);
 						}}
 						onContextMenu={(e) => {
