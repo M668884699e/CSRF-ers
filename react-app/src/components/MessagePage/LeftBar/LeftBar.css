@@ -6,7 +6,7 @@
 #left-bar-main {
 	display: grid;
 	grid-template-columns: 100%;
-	grid-template-rows: 3.1rem 12rem auto auto;
+	grid-template-rows: 3.12rem 12rem auto auto;
 	width: 100%;
 	resize: horizontal;
 
@@ -90,7 +90,6 @@
 	border-radius: 50%;
 }
 
-
 .fa-pen-to-square {
 	display: flex;
 	align-items: center;
@@ -154,7 +153,7 @@
 #section-three {
 	display: flex;
 	flex-direction: column;
-	margin-right: .2rem;
+	margin-right: 0.2rem;
 }
 
 #channel-list,
@@ -294,7 +293,6 @@
 	border-radius: 0.25rem;
 }
 
-
 /* ______________________________________________________________ */
 /* Footer */
 #footer {
@@ -343,7 +341,6 @@
 
 	margin-right: 10px;
 }
-
 
 #exit-lb-icon {
 	color: #79777c;

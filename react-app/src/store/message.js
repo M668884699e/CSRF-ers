@@ -50,6 +50,8 @@ export const thunkGetChannelMessages =
 
 			return channelMessages;
 		}
+
+		return null;
 	};
 
 export const thunkCreateMessage = (message) => async (dispatch) => {
