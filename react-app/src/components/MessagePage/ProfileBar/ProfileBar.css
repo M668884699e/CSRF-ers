@@ -51,7 +51,7 @@
 	display: grid;
 	justify-items: flex-start;
 	align-items: center;
-	grid-template-rows: 44vh 1px 11em;
+	grid-auto-rows: max-content;
 	overflow: auto;
 	height: 100%;
 	width: 99%;

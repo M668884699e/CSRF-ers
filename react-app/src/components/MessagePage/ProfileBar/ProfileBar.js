@@ -26,8 +26,8 @@ const ProfileBar = () => {
 	const lastName = useSelector(sessionActions.getUserLastName);
 	const username = useSelector(sessionActions.getUserDisplayName);
 	const emailAddress = useSelector(sessionActions.getUserEmail);
-    
-    // use context
+
+	// use context
 	const { showEditProfileModal, setShowEditProfileModal } = useProfile();
 	const { profileBarActive, setProfileBarActive } = useProfile();
 
@@ -80,7 +80,7 @@ const ProfileBar = () => {
 
 					{/* Aside 1 Container 2 */}
 					<section id='pbac-a1-c2'>
-						<p>{firstName + ' ' + lastName}</p>
+						<p>{(firstName + ' ' + lastName).slice(0, 20)}</p>
 						<p onClick={(_) => setShowEditProfileModal(true)}>Edit</p>
 					</section>
 
