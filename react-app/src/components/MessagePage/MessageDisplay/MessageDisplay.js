@@ -39,8 +39,6 @@ const MessageDisplay = () => {
 	const { rightClickModal, setRightClickModal } = useMessage();
 	const { currentChannel, setCurrentChannel } = useChannel();
 	const [membersModal, setMembersModal] = useState(false);
-	const messagesEndRef = useRef(null);
-	const [delayHandler, setDelayHandler] = useState(null);
 	const [messageBooleans, setMessageBooleans] = useState([]);
 	const { routeType, setRouteType } = useMessage();
 	const [load, setLoad] = useState(0);
@@ -138,6 +136,18 @@ const MessageDisplay = () => {
 		// if channel, delete channel message then get channel message
 		// vice versa for dmr
 		dispatch(messageActions.thunkDeleteMessage(message)).then(() => {
+			if (chatId) {
+				dispatch(
+					channelId
+						? messageActions.thunkGetChannelMessages(chatId)
+						: messageActions.thunkGetChannelMessages(
+								chatId === 1 ? chatId + 1 : chatId - 1,
+								'dmr'
+						  )
+				);
+				dispatch(userActions.thunkGetAllUsers());
+			}
+
 			dispatch(
 				channelId
 					? messageActions.thunkGetChannelMessages(chatId)
