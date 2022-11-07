@@ -44,6 +44,7 @@ const MessageDisplay = () => {
 	const [messageBooleans, setMessageBooleans] = useState([]);
 	const { routeType, setRouteType } = useMessage();
 	const [load, setLoad] = useState(0);
+	const [senderAuth, setSenderAuth] = useState(false);
 
 	// get current user id
 	const getCurrentUserId = useSelector(sessionActions.getCurrentUserId);
@@ -84,6 +85,10 @@ const MessageDisplay = () => {
 	useEffect(() => {
 		if (Object.values(messageState).length > 0) {
 			const currentMessages = Object.values(messageState).filter((message) => {
+				// if message sender id is not found within current session user, keep as false
+				// otherwise, change sender_auth to true
+				console.log('message', message);
+				if (message.sender_id == getCurrentUserId) setSenderAuth(true);
 				return (
 					message.messageable_id === chatId &&
 					(routeType === 'channels'
@@ -164,8 +169,9 @@ const MessageDisplay = () => {
 			{/* Create loop of messages grabbing all messages in channel */}
 			<section id='message-display-container'>
 				{typeof messageState === 'object' &&
-					messageState &&
-					Object.values(messageState).length > 0 &&
+				messageState &&
+				Object.values(messageState).length > 0 &&
+				senderAuth ? (
 					messages.map((message, index) =>
 						messageBooleans[index] === true ? (
 							<section
@@ -230,7 +236,16 @@ const MessageDisplay = () => {
 								)}
 							</section>
 						)
-					)}
+					)
+				) : (
+					<section id='not-auth-message-display'>
+						<p>
+							You are not authorized to view this message or the chat you are
+							trying to access is not available. Click on the dmr or channel (if
+							available) to view your authorized chat.
+						</p>
+					</section>
+				)}
 				{/* allow for always scroll to bottom */}
 				<AlwaysScrollToBottom />
 			</section>
@@ -248,9 +263,15 @@ const MessageDisplay = () => {
 	) : (
 		<section id='message-display-main'>
 			<section id='message-main-header'>
-				<span id='mmh-span-404'>TBD</span>
+				<span id='mmh-span-404'>404</span>
 			</section>
-			<span id='mdm-span-404'>Message not available. TBD</span>
+			<section id='not-auth-message-display'>
+				<p>
+					You are not authorized to view this message or the chat you are trying
+					to access is not available. Click on the dmr or channel (if available)
+					to view your authorized chat.
+				</p>
+			</section>
 		</section>
 	);
 };
