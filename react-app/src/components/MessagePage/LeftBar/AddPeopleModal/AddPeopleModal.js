@@ -182,7 +182,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		if (usersToAdd.length > 0) {
 			if (routeType === 'channels') {
 				return dispatch(
-					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+					usersChannelsActions.thunkDeleteChannelUsers(createdChannelId)
 				)
 					.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
 					.then(() => {
@@ -201,7 +201,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					.then(() => {
 						setLoad(0);
 						setAddPeopleModal(false);
-					});
+					})
 			} else {
 				// // if no input length, we remove all existing users except for owner
 				// // as no one is currently in channel
@@ -237,8 +237,11 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 			// as no one is currently in channel
 			if (routeType === 'channels') {
 				dispatch(
-					usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
-				).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
+					editChannel
+						? usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
+						: usersChannelsActions.thunkDeleteChannelUsers(createdChannelId)
+				)
+					.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
 			} else {
 				dispatch(usersDMRsActions.thunkGetAllDMRUsers());
 			}

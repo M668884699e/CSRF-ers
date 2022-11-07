@@ -121,11 +121,17 @@ const MembersStarterForm = ({ privateChannel }) => {
 				public: !privateChannel,
 				user_ids: `${usersToAdd}`,
 			})
-		).then((res) => {
-			//? After getting channel page in chat page, navigate to specific channel
-			const newChannelId = res.new_channel.id;
-			return history.push(`/chat/channels/${newChannelId}`);
-		});
+		)
+			.then((res) => {
+				//? After getting channel page in chat page, navigate to specific channel
+				if (res) {
+					const newChannelId = res.new_channel.id;
+					return history.push(`/chat/channels/${newChannelId}`);
+				} else {
+					throw new Error();
+				}
+			})
+			.catch(() => {});
 	};
 
 	return (

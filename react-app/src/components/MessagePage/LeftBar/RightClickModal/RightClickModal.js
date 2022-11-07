@@ -87,7 +87,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
 					.then(() => dispatch(channelActions.thunkGetUserChannels())
 						.then((res) => {
-							console.log(res, "is channels working?")
 							setChannels(res);
 							setRightClickModal(false)
 							const redirectTo = Object.values(res.channels)[0]

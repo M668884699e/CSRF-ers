@@ -166,7 +166,7 @@ const GalleryMain = () => {
 									channels.map(
 										(channel, index) =>
 											(mainOpen ? index <= 100 : index <= 1) && (
-												<li key={index} className='workspace-li'>
+												<li key={'channel ' + index} className='workspace-li'>
 													<section className='workspace-li-s1'>
 														<figure className='workspace-li-figure'>
 															<img
