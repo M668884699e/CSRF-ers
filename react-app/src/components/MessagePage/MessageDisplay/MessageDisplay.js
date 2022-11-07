@@ -77,7 +77,7 @@ const MessageDisplay = () => {
 			dispatch(
 				channelId
 					? messageActions.thunkGetChannelMessages(chatId)
-					: messageActions.thunkGetChannelMessages(chatId - 1, 'dmr')
+					: messageActions.thunkGetChannelMessages(chatId, 'dmr')
 			);
 			dispatch(userActions.thunkGetAllUsers());
 		}
