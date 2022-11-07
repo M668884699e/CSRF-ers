@@ -110,7 +110,6 @@ const MessageDisplay = () => {
 		messages.map((_) => newMessageBooleans.push(false));
 		setMessageBooleans(newMessageBooleans);
 
-		console.log('messages', messages);
 		// check if length is not more than 0, and return true if message state does not have any length
 		if (messages.length < 1) {
 			setSenderAuth(true);

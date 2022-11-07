@@ -135,7 +135,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 		setUsersChannels(
 			usersChannelsState.filter((uc) => uc.channel_id === currentChannelId)
 		);
-	}, [usersChannelsState]);
+	}, [usersChannelsState, newDMRId]);
 
 	// added this in -sam, this is pointless? - sam
 	// ---------------------------------------------
@@ -201,7 +201,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					.then(() => {
 						setLoad(0);
 						setAddPeopleModal(false);
-					})
+					});
 			} else {
 				// // if no input length, we remove all existing users except for owner
 				// // as no one is currently in channel
@@ -223,11 +223,20 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 							// show errors
 							setValidationErrors([res.errors]);
 						} else {
-							return dispatch(dmrActions.thunkGetAllDmrs()).then(() => {
+							return dispatch(dmrActions.thunkGetAllDmrs()).then((res) => {
 								dispatch(usersDMRsActions.thunkGetAllDMRUsers());
 								setLoad(0);
 								setAddPeopleModal(false);
-								return history.push(`/chat/dmr/${newDMRId.length + 1}`);
+								if (
+									Object.values(res.dmrs) &&
+									Object.values(res.dmrs).length + 1
+								) {
+									return history.push(
+										`/chat/dmr/${Object.values(res.dmrs).length + 1}`
+									);
+								} else {
+									return history.push(`/chat`);
+								}
 							});
 						}
 					});
@@ -240,8 +249,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 					editChannel
 						? usersChannelsActions.thunkDeleteChannelUsers(currentChannelId)
 						: usersChannelsActions.thunkDeleteChannelUsers(createdChannelId)
-				)
-					.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
+				).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
 			} else {
 				dispatch(usersDMRsActions.thunkGetAllDMRUsers());
 			}
