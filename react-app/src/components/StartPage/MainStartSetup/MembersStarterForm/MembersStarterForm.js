@@ -32,6 +32,7 @@ const MembersStarterForm = ({ privateChannel }) => {
 	const { users, setUsers } = useUsers();
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
+	const [validationErrors, setValidationErrors] = useState([]);
 
 	let usersIndexes = [];
 
@@ -122,21 +123,30 @@ const MembersStarterForm = ({ privateChannel }) => {
 				user_ids: `${usersToAdd}`,
 			})
 		)
-			.then((res) => {
+			.then(async (res) => {
 				//? After getting channel page in chat page, navigate to specific channel
-				if (res) {
+				// console.log('res before if/else errors', await res.json());
+				if (!res.errors) {
 					const newChannelId = res.new_channel.id;
 					return history.push(`/chat/channels/${newChannelId}`);
 				} else {
 					throw new Error();
 				}
 			})
-			.catch(() => {});
+			.catch(() => {
+				setValidationErrors([
+					'Channel name already exists. Go back and retry with different name.',
+				]);
+			});
 	};
 
 	return (
 		<form className='sp-main-section-form'>
 			<p id='spmsf-p-step'>Step 2 of 2</p>
+			<div className='epm-error-container'>
+				{validationErrors &&
+					validationErrors.map((error, ind) => <div key={ind}>{error}</div>)}
+			</div>
 			<h2 id='spmsf-h2'>Who else is on the {channelNameInputted} team?</h2>
 			{/* container for choosing user */}
 			<section id='spmsf-members-section'>
