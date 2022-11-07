@@ -4,6 +4,7 @@
 import { useChannel } from '../../../../context/ChannelContext';
 import { useLanding } from '../../../../context/LandingContext';
 import { useChannelsUsers } from '../../../../context/ChannelsUsersContext';
+import { useMessage } from '../../../../context/MessageContext';
 
 // import css
 import './GalleryMain.css';
@@ -23,7 +24,6 @@ import * as sessionActions from '../../../../store/session';
 import * as channelsUsersActions from '../../../../store/channels-users';
 import * as userActions from '../../../../store/users';
 import * as messageActions from '../../../../store/message';
-import { useMessage } from '../../../../context/MessageContext';
 //? Main component
 const GalleryMain = () => {
 	/**
@@ -33,6 +33,7 @@ const GalleryMain = () => {
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
 	const { mainOpen, setMainOpen } = useLanding();
 	const { routeType, setRouteType } = useMessage();
+	const { senderAuth, setSenderAuth } = useMessage();
 	// const { onLoad, setOnLoad } =
 
 	// invoke dispatch
@@ -228,6 +229,7 @@ const GalleryMain = () => {
 															<button
 																onClick={(_) => {
 																	setRouteType('channels');
+																	setSenderAuth(true);
 																	dispatch(
 																		messageActions.thunkGetChannelMessages(
 																			channel.id

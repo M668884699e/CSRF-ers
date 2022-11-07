@@ -44,7 +44,7 @@ const MessageDisplay = () => {
 	const [messageBooleans, setMessageBooleans] = useState([]);
 	const { routeType, setRouteType } = useMessage();
 	const [load, setLoad] = useState(0);
-	const [senderAuth, setSenderAuth] = useState(false);
+	const { senderAuth, setSenderAuth } = useMessage();
 
 	// get current user id
 	const getCurrentUserId = useSelector(sessionActions.getCurrentUserId);
@@ -102,14 +102,20 @@ const MessageDisplay = () => {
 		if (load < 5) {
 			setLoad(load + 1);
 		}
-	}, [messageState, usersState, load]);
+	}, [messageState, usersState, load, senderAuth]);
 
 	// per message
 	useEffect(() => {
 		const newMessageBooleans = [];
 		messages.map((_) => newMessageBooleans.push(false));
 		setMessageBooleans(newMessageBooleans);
-	}, [messages]);
+
+		console.log('messages', messages);
+		// check if length is not more than 0, and return true if message state does not have any length
+		if (messages.length < 1) {
+			setSenderAuth(true);
+		}
+	}, [messages, senderAuth]);
 
 	// per message booleans
 	useEffect(() => {
@@ -171,69 +177,79 @@ const MessageDisplay = () => {
 				messageState &&
 				Object.values(messageState).length > 0 &&
 				senderAuth ? (
-					messages.map((message, index) =>
-						messageBooleans[index] === true ? (
-							<section
-								id='message'
-								className={`mdc-message-${messageBooleans[index]}`}
-								key={message.id}
-							>
-								<aside className='profile-pic'>
-									<img
-										src={
-											Object.values(usersState).find(
-												(user) => user.id === message.sender_id
-											).profile_image
-										}
-									/>
-								</aside>
-								<MessageForm edit={true} messageId={message.id} />
-							</section>
-						) : (
-							<section
-								id='message'
-								className={`mdc-message-${messageBooleans[index]}`}
-								key={message.id}
-							>
-								<aside className='profile-pic'>
-									<img
-										src={
-											Object.values(usersState).find(
-												(user) => user.id === message.sender_id
-											).profile_image
-										}
-									/>
-								</aside>
-								<aside className='profile-message-container'>
-									<aside className='profile-name'>
-										{
-											Object.values(usersState).find(
-												(user) => user.id === message.sender_id
-											).display_name
-										}
+					messages.length < 1 ? (
+						<section id='not-auth-message-display'>
+							<p>
+								Welcome to Slack! Click on a Channel or Direct Message Room to
+								start conversing with your friends/team. Alternatively, send a
+								message here to start conversing! :D
+							</p>
+						</section>
+					) : (
+						messages.map((message, index) =>
+							messageBooleans[index] === true ? (
+								<section
+									id='message'
+									className={`mdc-message-${messageBooleans[index]}`}
+									key={message.id}
+								>
+									<aside className='profile-pic'>
+										<img
+											src={
+												Object.values(usersState).find(
+													(user) => user.id === message.sender_id
+												).profile_image
+											}
+										/>
 									</aside>
-									<aside className='message-text'>
-										{message.message.slice(0, 500)}
+									<MessageForm edit={true} messageId={message.id} />
+								</section>
+							) : (
+								<section
+									id='message'
+									className={`mdc-message-${messageBooleans[index]}`}
+									key={message.id}
+								>
+									<aside className='profile-pic'>
+										<img
+											src={
+												Object.values(usersState).find(
+													(user) => user.id === message.sender_id
+												).profile_image
+											}
+										/>
 									</aside>
-								</aside>
-								{getCurrentUserId === message.sender_id ? (
-									<section id='mhm-section'>
-										<figure
-											onClick={(e) => {
-												e.stopPropagation();
-												handleEditMessage(index);
-											}}
-										>
-											<i className='fa-solid fa-pen-to-square edit-message'></i>
-										</figure>
-										<figure onClick={(_) => handleDeleteMessage(message)}>
-											<i className='fa-solid fa-trash delete-message'></i>
-										</figure>
-									</section>
-								) : (
-									<></>
-								)}
-							</section>
+									<aside className='profile-message-container'>
+										<aside className='profile-name'>
+											{
+												Object.values(usersState).find(
+													(user) => user.id === message.sender_id
+												).display_name
+											}
+										</aside>
+										<aside className='message-text'>
+											{message.message.slice(0, 500)}
+										</aside>
+									</aside>
+									{getCurrentUserId === message.sender_id ? (
+										<section id='mhm-section'>
+											<figure
+												onClick={(e) => {
+													e.stopPropagation();
+													handleEditMessage(index);
+												}}
+											>
+												<i className='fa-solid fa-pen-to-square edit-message'></i>
+											</figure>
+											<figure onClick={(_) => handleDeleteMessage(message)}>
+												<i className='fa-solid fa-trash delete-message'></i>
+											</figure>
+										</section>
+									) : (
+										<></>
+									)}
+								</section>
+							)
 						)
 					)
 				) : (
