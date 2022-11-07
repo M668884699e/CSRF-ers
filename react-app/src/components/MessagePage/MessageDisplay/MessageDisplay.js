@@ -74,7 +74,6 @@ const MessageDisplay = () => {
 	// per message state
 	useEffect(() => {
 		if (chatId) {
-			console.log('chatId', chatId);
 			dispatch(
 				channelId
 					? messageActions.thunkGetChannelMessages(chatId)
