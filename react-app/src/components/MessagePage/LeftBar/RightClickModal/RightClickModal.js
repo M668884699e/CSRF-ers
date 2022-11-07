@@ -178,9 +178,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 							return history.push(`/chat`);
 						})
-						.catch((res) => {
-							console.log('res errors', res);
-						});
+						.catch((res) => {});
 				}
 			}
 		}
