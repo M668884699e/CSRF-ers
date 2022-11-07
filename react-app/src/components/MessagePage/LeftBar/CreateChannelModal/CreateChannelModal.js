@@ -65,7 +65,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 		}
 
 		if (currentChannelId) {
-			history.push(`/chat/channels/${currentChannelId}`);
+			history.push(`/chat/channels/${currentChannel.id}`);
 		}
 	}, [
 		channelName,
