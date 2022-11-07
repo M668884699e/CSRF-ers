@@ -75,6 +75,11 @@ function App() {
 					</LandingProvider>
 				</ProtectedRoute>
 
+				{/* //? Chatroom Route 404*/}
+				<Route path='/chat' exact={true}>
+					<MessagePage />
+				</Route>
+
 				{/* //? Chatroom Route */}
 				<Route path='/chat/channels/:channelId' exact={true}>
 					<MessagePage />

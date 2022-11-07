@@ -54,7 +54,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		} else if (currentChannel.dmr_name) {
 			setCurrentDMRId(currentChannel.id);
 		}
-
 	}, [dispatch, channelState, currentChannel]);
 
 	// useEffect(() => {
@@ -84,20 +83,20 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-					.then(() => dispatch(channelActions.thunkGetUserChannels())
-						.then((res) => {
+				dispatch(channelActions.thunkDeleteChannel(currentChannel.id)).then(
+					() =>
+						dispatch(channelActions.thunkGetUserChannels()).then((res) => {
 							setChannels(res);
-							setRightClickModal(false)
-							const redirectTo = Object.values(res.channels)[0]
+							setRightClickModal(false);
+							const redirectTo = Object.values(res.channels)[0];
 							return history.push(
 								`/chat/channels/${redirectTo ? redirectTo.id : true}`
 							);
-						}));
+						})
+				);
 			}
 		}
 	};
-
 
 	// function to handle delete user for channel
 	const handleLeaveChannel = async () => {
@@ -124,16 +123,18 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							currentUserId
 						)
 					)
-						.then(() => dispatch(channelActions.thunkDeleteChannel(currentChannel.id)))
-						.then(() => dispatch(channelsUsersActions.thunkGetAllChannelsUsers()))
+						.then(() =>
+							dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
+						)
+						.then(() =>
+							dispatch(channelsUsersActions.thunkGetAllChannelsUsers())
+						)
 						.then(() => {
 							dispatch(channelActions.thunkGetUserChannels());
 
 							setRightClickModal(false);
 
-							return history.push(
-								`/chat/channels/${channelState && channelState[0].id}`
-							);
+							return history.push(`/chat`);
 						});
 				} else {
 					// leaving a DMR, which will also delete the DMR
@@ -143,14 +144,12 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 					// 	console.log(res, "asdf res")
 					// 	console.log(allUsersDMRs, "asdf allusersdmrs")
 
-
 					// 	// setRightClickModal(false)
 					// 	// const redirectTo = Object.values(res.dmrs)[0]
 					// 	// return history.push(`/chat/dmr/${redirectTo ? redirectTo.id : true}`)
 
 					// 	return history.push(`/chat/channels/1`)
 					// })
-
 
 					// dispatch(dmrActions.thunkDeleteDmr(currentChannel.id))
 					// 	.then(() => dispatch(dmrActions.thunkGetAllUserDmrs()))
@@ -170,12 +169,14 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							currentUserId
 						)
 					)
+						.then(() => dispatch(dmrActions.thunkGetAllDmrs()))
 						.then(() => dispatch(dmrActions.thunkDeleteDmr(currentDMRId)))
+						.then(() => dispatch(dmrActions.thunkGetAllDmrs()))
 						.then(() => dispatch(dmrsUsersActions.thunkGetAllDMRUsers()))
 						.then((res) => {
 							setRightClickModal(false);
 
-							return history.push(`/chat/dmr/${allUsersDMRs && allUsersDMRs[0].id}`);
+							return history.push(`/chat`);
 						});
 				}
 			}

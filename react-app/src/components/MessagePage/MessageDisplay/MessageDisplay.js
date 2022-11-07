@@ -87,7 +87,6 @@ const MessageDisplay = () => {
 			const currentMessages = Object.values(messageState).filter((message) => {
 				// if message sender id is not found within current session user, keep as false
 				// otherwise, change sender_auth to true
-				console.log('message', message);
 				if (message.sender_id == getCurrentUserId) setSenderAuth(true);
 				return (
 					message.messageable_id === chatId &&
@@ -262,14 +261,12 @@ const MessageDisplay = () => {
 		</section>
 	) : (
 		<section id='message-display-main'>
-			<section id='message-main-header'>
-				<span id='mmh-span-404'>404</span>
-			</section>
+			<section id='message-main-header'></section>
 			<section id='not-auth-message-display'>
 				<p>
-					You are not authorized to view this message or the chat you are trying
-					to access is not available. Click on the dmr or channel (if available)
-					to view your authorized chat.
+					Welcome to Slack! Click on a Channel or Direct Message Room to start
+					conversing with your friends/team. Alternatively, create a new Channel
+					or Direct Message Room :D
 				</p>
 			</section>
 		</section>

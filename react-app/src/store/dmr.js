@@ -163,6 +163,8 @@ export const thunkPostNewDmr = (dmr) => async (dispatch) => {
 };
 
 export const thunkDeleteDmr = (id) => async (dispatch) => {
+	console.log('id in thunk to delete:', id);
+
 	const response = await fetch(`/api/dmr/${id}`, {
 		method: 'DELETE',
 	});
@@ -204,13 +206,10 @@ export default function dmrReducer(state = initialState, action) {
 		//     return { ...state,
 		//         [action.dmr.id] : action.dmr
 		//     }
-		// case REMOVE_DMR:
-		//     newState = { ...state };
-		//     delete newState[action.id]
-		//     return newState;
-		// default:
-		//     return state;
-
+		case REMOVE_DMR:
+			newState = { ...state };
+			delete newState[action.id];
+			return newState;
 		default:
 			return Object.assign({}, newState, action.dmrs);
 	}
