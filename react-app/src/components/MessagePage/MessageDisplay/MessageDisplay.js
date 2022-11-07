@@ -73,12 +73,15 @@ const MessageDisplay = () => {
 
 	// per message state
 	useEffect(() => {
-		dispatch(
-			channelId
-				? messageActions.thunkGetChannelMessages(chatId)
-				: messageActions.thunkGetChannelMessages(chatId, 'dmr')
-		);
-		dispatch(userActions.thunkGetAllUsers());
+		if (chatId) {
+			console.log('chatId', chatId);
+			dispatch(
+				channelId
+					? messageActions.thunkGetChannelMessages(chatId)
+					: messageActions.thunkGetChannelMessages(chatId - 1, 'dmr')
+			);
+			dispatch(userActions.thunkGetAllUsers());
+		}
 	}, [dispatch, chatId]);
 
 	// per messageState

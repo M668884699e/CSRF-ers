@@ -49,9 +49,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 	useEffect(() => {
 		// currentChannel does not refer to a Channel. It refers to both Channel and DMR
-		if (currentChannel.channel_name) {
+		if (currentChannel && currentChannel.channel_name) {
 			setCurrentChannelId(currentChannel.id);
-		} else if (currentChannel.dmr_name) {
+		} else if (currentChannel && currentChannel.dmr_name) {
 			setCurrentDMRId(currentChannel.id);
 		}
 	}, [dispatch, channelState, currentChannel]);
@@ -177,6 +177,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							setRightClickModal(false);
 
 							return history.push(`/chat`);
+						})
+						.catch((res) => {
+							console.log('res errors', res);
 						});
 				}
 			}

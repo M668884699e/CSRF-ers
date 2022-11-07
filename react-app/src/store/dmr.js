@@ -133,6 +133,7 @@ export const thunkGetAllDmrUsers = (dmr) => async (dispatch) => {
 };
 
 export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
+
 	const response = await fetch(`/api/dmr/${id}/messages/`);
 
 	if (response.ok) {
@@ -144,6 +145,8 @@ export const thunkGetAllDmrMessages = (id) => async (dispatch) => {
 
 		return data;
 	}
+
+	return null;
 };
 
 export const thunkPostNewDmr = (dmr) => async (dispatch) => {
@@ -163,7 +166,6 @@ export const thunkPostNewDmr = (dmr) => async (dispatch) => {
 };
 
 export const thunkDeleteDmr = (id) => async (dispatch) => {
-
 	const response = await fetch(`/api/dmr/${id}`, {
 		method: 'DELETE',
 	});
@@ -173,6 +175,8 @@ export const thunkDeleteDmr = (id) => async (dispatch) => {
 		dispatch(removeDmr(id));
 		return response;
 	}
+
+	return null;
 };
 
 /* --------- SELECTOR FUNCTIONS -------- */
