@@ -77,6 +77,10 @@ const ShowMembersModal = ({ setMembersModal }) => {
 	return (
 		<section id='smm-container'>
 			<h2>Members</h2>
+			<i
+				onClick={(_) => setMembersModal(false)}
+				className='fa-solid fa-x smm-exit-icon'
+			/>
 			{/* Get channel name */}
 			<ul id='smm-members-ul'>
 				{users &&

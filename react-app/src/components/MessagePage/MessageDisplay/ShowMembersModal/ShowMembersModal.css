@@ -4,6 +4,18 @@
 	color: white;
 	opacity: 0.85;
 	margin: 1rem;
+
+	position: relative;
+}
+
+.smm-exit-icon {
+	position: absolute;
+	top: 0.5rem;
+	right: 0;
+}
+
+.smm-exit-icon:hover {
+	cursor: pointer;
 }
 
 #smm-container > h2 {
