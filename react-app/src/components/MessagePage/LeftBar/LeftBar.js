@@ -228,6 +228,7 @@ const LeftBar = () => {
 							e.preventDefault();
 							setRouteType('dmr');
 
+							console.log('dmr.id', dmr.id);
 							dispatch(messageActions.thunkGetChannelMessages(dmr.id, 'dmr'));
 							return history.push(`/chat/dmr/${dmr.id}`);
 						}}
