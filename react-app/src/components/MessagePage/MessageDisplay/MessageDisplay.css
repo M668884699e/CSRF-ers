@@ -238,3 +238,10 @@
 .delete-message:hover {
 	color: rgb(248, 59, 59);
 }
+
+#not-auth-message-display {
+	color: white;
+	margin-left: 1.5rem;
+	margin-top: 1rem;
+	opacity: 0.65;
+}

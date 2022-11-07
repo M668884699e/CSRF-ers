@@ -37,7 +37,7 @@ export default function ChannelProvider({ children }) {
 					editChannel,
 					setEditChannel,
 					currentChannelId,
-					setCurrentChannelId
+					setCurrentChannelId,
 				}}
 			>
 				{children}

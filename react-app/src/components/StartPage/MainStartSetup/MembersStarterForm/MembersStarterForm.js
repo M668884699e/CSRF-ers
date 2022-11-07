@@ -2,6 +2,7 @@
 import { useStarter } from '../../../../context/StarterContext';
 import { useUsers } from '../../../../context/UserContext';
 import { useChannel } from '../../../../context/ChannelContext';
+import { useMessage } from '../../../../context/MessageContext';
 
 // import react
 import { useEffect, useState } from 'react';
@@ -32,6 +33,8 @@ const MembersStarterForm = ({ privateChannel }) => {
 	const { users, setUsers } = useUsers();
 	const { usersBoolean, setUsersBoolean } = useUsers();
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
+	const [validationErrors, setValidationErrors] = useState([]);
+	const { routeType, setRouteType } = useMessage();
 
 	let usersIndexes = [];
 
@@ -121,16 +124,32 @@ const MembersStarterForm = ({ privateChannel }) => {
 				public: !privateChannel,
 				user_ids: `${usersToAdd}`,
 			})
-		).then((res) => {
-			//? After getting channel page in chat page, navigate to specific channel
-			const newChannelId = res.new_channel.id;
-			return history.push(`/chat/channels/${newChannelId}`);
-		});
+		)
+			.then(async (res) => {
+				//? After getting channel page in chat page, navigate to specific channel
+				// console.log('res before if/else errors', await res.json());
+				if (!res.errors) {
+					const newChannelId = res.new_channel.id;
+					setRouteType('channels');
+					return history.push(`/chat/channels/${newChannelId}`);
+				} else {
+					throw new Error();
+				}
+			})
+			.catch(() => {
+				setValidationErrors([
+					'Channel name already exists. Go back and retry with different name.',
+				]);
+			});
 	};
 
 	return (
 		<form className='sp-main-section-form'>
 			<p id='spmsf-p-step'>Step 2 of 2</p>
+			<div className='epm-error-container'>
+				{validationErrors &&
+					validationErrors.map((error, ind) => <div key={ind}>{error}</div>)}
+			</div>
 			<h2 id='spmsf-h2'>Who else is on the {channelNameInputted} team?</h2>
 			{/* container for choosing user */}
 			<section id='spmsf-members-section'>

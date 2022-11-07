@@ -15,7 +15,7 @@ def get_dmrs():
   Get all Direct Message Rooms
   """
   dmrs = DMR.query.all()
-  return {'dmrs':[dmr.to_dict() for dmr in dmrs]}
+  return {'dmrs':{dmr.id: dmr.to_dict() for dmr in dmrs}}
 
 #* GET - /dmr/:dmrId
 # Get DMR by id
@@ -211,6 +211,33 @@ def delete_dmr(dmr_id):
       return {'errors': [f"DMR {dmr_id} does not exist"]}, 404
     
   # delete all messages with messeagle_type === channel and channel_id
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('') 
+  print('')
+  print('dmr_id', dmr_id)
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('')
+  print('') 
+  print('')
   current_dmr_messages = Message.query.filter(dmr_id == Message.messageable_id).filter("DMR" == Message.messageable_type)
   current_dmr_messages.delete(synchronize_session = False)
 

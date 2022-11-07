@@ -28,6 +28,11 @@
 	margin-right: 1rem;
 }
 
+.rnb-user-icon:hover {
+	color: white;
+	opacity: 1;
+}
+
 /**********************
       Buttons
 *********************/

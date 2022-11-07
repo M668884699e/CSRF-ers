@@ -4,6 +4,7 @@
 import { useChannel } from '../../../../context/ChannelContext';
 import { useLanding } from '../../../../context/LandingContext';
 import { useChannelsUsers } from '../../../../context/ChannelsUsersContext';
+import { useMessage } from '../../../../context/MessageContext';
 
 // import css
 import './GalleryMain.css';
@@ -22,7 +23,7 @@ import * as channelActions from '../../../../store/channel';
 import * as sessionActions from '../../../../store/session';
 import * as channelsUsersActions from '../../../../store/channels-users';
 import * as userActions from '../../../../store/users';
-
+import * as messageActions from '../../../../store/message';
 //? Main component
 const GalleryMain = () => {
 	/**
@@ -31,6 +32,8 @@ const GalleryMain = () => {
 	const { channels, setChannels } = useChannel();
 	const { channelsUsers, setChannelsUsers } = useChannelsUsers();
 	const { mainOpen, setMainOpen } = useLanding();
+	const { routeType, setRouteType } = useMessage();
+	const { senderAuth, setSenderAuth } = useMessage();
 	// const { onLoad, setOnLoad } =
 
 	// invoke dispatch
@@ -164,7 +167,7 @@ const GalleryMain = () => {
 									channels.map(
 										(channel, index) =>
 											(mainOpen ? index <= 100 : index <= 1) && (
-												<li key={index} className='workspace-li'>
+												<li key={'channel ' + index} className='workspace-li'>
 													<section className='workspace-li-s1'>
 														<figure className='workspace-li-figure'>
 															<img
@@ -223,7 +226,18 @@ const GalleryMain = () => {
 													</section>
 													<section className='workspace-li-s2'>
 														<NavLink to={`/chat/channels/${channel.id}`}>
-															<button className='workspace-li-s2-button'>
+															<button
+																onClick={(_) => {
+																	setRouteType('channels');
+																	setSenderAuth(true);
+																	dispatch(
+																		messageActions.thunkGetChannelMessages(
+																			channel.id
+																		)
+																	);
+																}}
+																className='workspace-li-s2-button'
+															>
 																Launch Slack
 															</button>
 														</NavLink>

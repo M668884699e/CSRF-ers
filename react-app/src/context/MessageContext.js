@@ -17,6 +17,7 @@ export default function MessageProvider({ children }) {
 	const [routeType, setRouteType] = useState('dmr');
 	const [checkRouteProperlyOwned, setCheckRouteProperlyOwned] = useState(false);
 	const [messageHoverModal, setMessageHoverModal] = useState(false);
+	const [senderAuth, setSenderAuth] = useState(false);
 
 	// Message Provider
 	return (
@@ -41,6 +42,8 @@ export default function MessageProvider({ children }) {
 					setCheckRouteProperlyOwned,
 					messageHoverModal,
 					setMessageHoverModal,
+					senderAuth,
+					setSenderAuth,
 				}}
 			>
 				{children}

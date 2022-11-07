@@ -1,18 +1,20 @@
-#landing-page-container{
-  background-color: #4A154B;
-  
-  height: 100%;
-  width: 100vw;
-  
-  display: grid;
-  position: fixed;
-  overflow-y: auto;
+#landing-page-container {
+	background-color: #4a154b;
+
+	height: 100%;
+	width: 100vw;
+
+	display: grid;
+	position: fixed;
+	overflow-y: auto;
 }
 
-.landing-page-container-false{
-  grid-template-rows: 7.5rem 55rem 33rem 8rem;  
+.landing-page-container-false {
+	grid-template-rows: 7.5rem 55rem 33rem 8rem;
+	grid-auto-rows: max-content;
 }
 
-.landing-page-container-true{
-  grid-template-rows: 7.5rem 70rem 33rem 8rem;
+.landing-page-container-true {
+	grid-template-rows: 7.5rem 70rem 33rem 8rem;
+	grid-auto-rows: max-content;
 }

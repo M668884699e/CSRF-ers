@@ -38,7 +38,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 	// selector function
 	const channelState = useSelector(channelActions.getAllChannels);
-	const dmrState = useSelector(dmrActions.getAllDMRs);
+	const allUsersDMRs = useSelector(dmrActions.getAllDMRs);
 	const currentUserId = useSelector(sessionActions.getCurrentUserId);
 
 	// invoke dispatch
@@ -54,7 +54,12 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		} else if (currentChannel.dmr_name) {
 			setCurrentDMRId(currentChannel.id);
 		}
-	}, [dispatch, channelState, dmrState, currentChannel]);
+	}, [dispatch, channelState, currentChannel]);
+
+	// useEffect(() => {
+	// 	console.log('use effect')
+	// 	dispatch(dmrActions.thunkGetAllUserDmrs())
+	// }, [dispatch])
 
 	// per channels
 	useEffect(() => {
@@ -63,7 +68,6 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 		// see if current channel is owned by current session user
 		// otherwise, hide it
 		// for dmr, just hide it
-		// console.log('checkRouteProperlyOwned', checkRouteProperlyOwned);
 	}, [channels, checkRouteProperlyOwned, channelState]);
 
 	// function to handle delete user for channel
@@ -79,15 +83,17 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 			if (currentChannel.id) {
 				// call on thunk to delete current user
-				dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
-					.then(() => dispatch(channelActions.thunkGetUserChannels()))
-					.then((res) => {
-						setChannels(res);
-						setRightClickModal(false);
-						return history.push(
-							`/chat/channels/${channelState ? channelState[0].id : 0}`
-						);
-					});
+				dispatch(channelActions.thunkDeleteChannel(currentChannel.id)).then(
+					() =>
+						dispatch(channelActions.thunkGetUserChannels()).then((res) => {
+							setChannels(res);
+							setRightClickModal(false);
+							const redirectTo = Object.values(res.channels)[0];
+							return history.push(
+								`/chat/channels/${redirectTo ? redirectTo.id : true}`
+							);
+						})
+				);
 			}
 		}
 	};
@@ -117,7 +123,9 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							currentUserId
 						)
 					)
-						.then(() => channelActions.thunkDeleteChannel(currentChannel.id))
+						.then(() =>
+							dispatch(channelActions.thunkDeleteChannel(currentChannel.id))
+						)
 						.then(() =>
 							dispatch(channelsUsersActions.thunkGetAllChannelsUsers())
 						)
@@ -126,29 +134,49 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 
 							setRightClickModal(false);
 
-							return history.push(
-								`/chat/channels/${channelState ? channelState[0].id : 0}`
-							);
+							return history.push(`/chat`);
 						});
 				} else {
-					// else, dmr
+					// leaving a DMR, which will also delete the DMR
+					// dispatch(dmrActions.thunkDeleteDmr(currentChannel.id))
+					// .then(dmrActions.thunkGetAllUserDmrs())
+					// .then((res) => {
+					// 	console.log(res, "asdf res")
+					// 	console.log(allUsersDMRs, "asdf allusersdmrs")
+
+					// 	// setRightClickModal(false)
+					// 	// const redirectTo = Object.values(res.dmrs)[0]
+					// 	// return history.push(`/chat/dmr/${redirectTo ? redirectTo.id : true}`)
+
+					// 	return history.push(`/chat/channels/1`)
+					// })
+
+					// dispatch(dmrActions.thunkDeleteDmr(currentChannel.id))
+					// 	.then(() => dispatch(dmrActions.thunkGetAllUserDmrs()))
+					// 	.then((res) => {
+					// 		console.log(res, "please work")
+					// 		setRightClickModal(false)
+					// 		const redirectTo = Object.values(res.dmrs)[0]
+					// 		console.log(redirectTo, "redirectTo")
+
+					// 	})
+					// 	.then(() => {
+					// 	})
+
 					dispatch(
 						dmrsUsersActions.thunkRemoveUserFromDMR(
-							// currentChannel does not refer to a Channel. It refers to both Channel and DMR
-							currentChannel.id,
+							currentChannel.id, // currentChannel does not refer to a Channel. It refers to both Channel and DMR
 							currentUserId
 						)
 					)
-						.then(() => {
-							dispatch(dmrActions.thunkDeleteDmr(currentDMRId));
-						})
+						.then(() => dispatch(dmrActions.thunkGetAllDmrs()))
+						.then(() => dispatch(dmrActions.thunkDeleteDmr(currentDMRId)))
+						.then(() => dispatch(dmrActions.thunkGetAllDmrs()))
 						.then(() => dispatch(dmrsUsersActions.thunkGetAllDMRUsers()))
-						.then(() => {
-							dispatch(dmrActions.thunkGetAllUserDmrs());
-
+						.then((res) => {
 							setRightClickModal(false);
 
-							return history.push(`/chat/dmr/${dmrState ? dmrState[0].id : 0}`);
+							return history.push(`/chat`);
 						});
 				}
 			}
