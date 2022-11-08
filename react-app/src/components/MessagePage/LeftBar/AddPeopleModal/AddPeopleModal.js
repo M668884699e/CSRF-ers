@@ -80,7 +80,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	// on load
 	useEffect(() => {
 		// get users
-		dispatch(userActions.thunkGetAllUsers());
+		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
 	}, [dispatch]);
 
 	// per userState
@@ -193,7 +193,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 									user
 								)
 							).then(() => {
-								dispatch(channelActions.thunkGetUserChannels());
+								dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
 								dispatch(usersChannelsActions.thunkGetAllChannelsUsers());
 							});
 						});

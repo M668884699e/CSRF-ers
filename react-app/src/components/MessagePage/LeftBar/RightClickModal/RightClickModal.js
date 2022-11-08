@@ -90,7 +90,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							setChannels(res);
 							setRightClickModal(false);
 							const redirectTo = Object.values(res.channels)[0];
-							
+
 							return history.push(
 								`/chat/channels/${redirectTo ? redirectTo.id : true}`
 							);
@@ -132,7 +132,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							dispatch(channelsUsersActions.thunkGetAllChannelsUsers())
 						)
 						.then(() => {
-							dispatch(channelActions.thunkGetUserChannels());
+							dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
 
 							setRightClickModal(false);
 

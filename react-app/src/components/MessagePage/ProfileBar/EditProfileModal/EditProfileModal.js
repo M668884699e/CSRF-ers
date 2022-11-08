@@ -56,7 +56,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
 		if (!formReady) {
 			setFormReady(true);
 		}
-		dispatch(userActions.thunkGetAllUsers());
+		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
 	}, [
 		currentUserInfo,
 		editProfileImage,

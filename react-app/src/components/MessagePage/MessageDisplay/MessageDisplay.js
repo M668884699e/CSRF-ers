@@ -80,7 +80,7 @@ const MessageDisplay = () => {
 							'dmr'
 					  )
 			);
-			dispatch(userActions.thunkGetAllUsers());
+			dispatch(userActions.thunkGetAllUsers()).catch(() => {});
 		}
 	}, [dispatch, chatId]);
 
@@ -145,7 +145,7 @@ const MessageDisplay = () => {
 								'dmr'
 						  )
 				);
-				dispatch(userActions.thunkGetAllUsers());
+				dispatch(userActions.thunkGetAllUsers()).catch(() => {});
 			}
 
 			dispatch(

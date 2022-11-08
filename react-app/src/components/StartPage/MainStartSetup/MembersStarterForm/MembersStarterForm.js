@@ -60,7 +60,7 @@ const MembersStarterForm = ({ privateChannel }) => {
 		setInputLength(0);
 
 		// get users
-		dispatch(userActions.thunkGetAllUsers());
+		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
 
 		// set secondActive as true (for Direct messages)
 		setFirstActive(false);

@@ -74,7 +74,7 @@ const LeftBar = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetUserChannels());
+		dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
 		dispatch(dmrActions.thunkGetAllDmrs());
 		dispatch(dmrUsersActions.thunkGetAllDMRUsers());
