@@ -210,6 +210,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				// ).then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()));
 				// setLoad(0);
 				// setAddPeopleModal(false);
+				console.log(getCurrentUserId);
 				usersToAdd.unshift(getCurrentUserId);
 				// const newDMRName = usersToAdd
 				const userIds = usersToAdd.toString();

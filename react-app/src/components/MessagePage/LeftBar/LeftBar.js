@@ -221,6 +221,7 @@ const LeftBar = () => {
 		return (
 			Array.isArray(dmrsArray) &&
 			dmrsArray.map((dmr, i) => {
+				let dmrName = dmr.dmr_name.indexOf(',');
 				return (
 					<section
 						onClick={(e) => {
@@ -252,7 +253,7 @@ const LeftBar = () => {
 						<aside>
 							{
 								<>
-									<>{dmr.dmr_name.slice(0, 20)}</>
+									<>{dmr.dmr_name.slice(dmrName + 2)}</>
 
 									<>{dmr.dmr_name.length > 20 ? '...' : ''}</>
 								</>

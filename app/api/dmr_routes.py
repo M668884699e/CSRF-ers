@@ -106,8 +106,9 @@ def create_dmr():
       return {'errors': [f"User {int(x)} does not exist"]}, 404
     user_name = User.query.get(int(x)).to_dict()['display_name']
     user_names.append(user_name)
+    
 
-  user_names.pop(0)
+  # user_names.pop(0)
   user_names = ", ".join(user_names)
 
   allDMRs = DMR.query.all()
