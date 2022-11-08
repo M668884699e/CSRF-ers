@@ -23,6 +23,7 @@ import * as dmrActions from '../../../../store/dmr';
 import * as sessionActions from '../../../../store/session';
 import * as channelsUsersActions from '../../../../store/channels-users';
 import * as dmrsUsersActions from '../../../../store/dmr-users';
+import * as messageActions from '../../../../store/message';
 
 //? RightClickModal component
 const RightClickModal = ({ setRightClickModal, rect }) => {
@@ -89,6 +90,7 @@ const RightClickModal = ({ setRightClickModal, rect }) => {
 							setChannels(res);
 							setRightClickModal(false);
 							const redirectTo = Object.values(res.channels)[0];
+							
 							return history.push(
 								`/chat/channels/${redirectTo ? redirectTo.id : true}`
 							);

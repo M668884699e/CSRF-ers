@@ -35,6 +35,7 @@ const MembersStarterForm = ({ privateChannel }) => {
 	const { loadedSelectUser, setLoadedSelectUser } = useUsers();
 	const [validationErrors, setValidationErrors] = useState([]);
 	const { routeType, setRouteType } = useMessage();
+	const { senderAuth, setSenderAuth } = useMessage();
 
 	let usersIndexes = [];
 
@@ -130,6 +131,7 @@ const MembersStarterForm = ({ privateChannel }) => {
 				// console.log('res before if/else errors', await res.json());
 				if (!res.errors) {
 					const newChannelId = res.new_channel.id;
+					setSenderAuth(true);
 					setRouteType('channels');
 					return history.push(`/chat/channels/${newChannelId}`);
 				} else {
