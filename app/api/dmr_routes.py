@@ -106,15 +106,15 @@ def create_dmr():
       return {'errors': [f"User {int(x)} does not exist"]}, 404
     user_name = User.query.get(int(x)).to_dict()['display_name']
     user_names.append(user_name)
+    
 
-  user_names.pop(0)
+  # user_names.pop(0)
   user_names = ", ".join(user_names)
 
   allDMRs = DMR.query.all()
   for x in allDMRs:
     if user_names == x.dmr_name:
       return {'errors': "A Direct Message Room with these members already exists"}, 400
-
 
   # create new dmr
   new_dmr = DMR(

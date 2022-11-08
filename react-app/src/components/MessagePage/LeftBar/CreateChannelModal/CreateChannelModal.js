@@ -38,6 +38,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 	const [validationErrors, setValidationErrors] = useState([]);
 	const [onLoad, setOnLoad] = useState(false);
 	const { currentChannelId, setCurrentChannelId } = useChannel();
+	const { senderAuth, setSenderAuth } = useMessage();
 
 	// deconstruct channelId
 	let { channelId, dmrId } = useParams();
@@ -129,6 +130,7 @@ const CreateChannelModal = ({ setCreateChannelOpenModal }) => {
 			.then(() => dispatch(usersChannelsActions.thunkGetAllChannelsUsers()))
 			.then(() => {
 				// exit out the modal
+				setSenderAuth(true);
 				setCreateChannelOpenModal(false);
 				setAddPeopleModal(true);
 			})

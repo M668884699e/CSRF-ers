@@ -175,8 +175,8 @@ const MessageDisplay = () => {
 									? currentChat.channel_name.slice(0, 40) + '...'
 									: currentChat.channel_name.slice(0, 40)
 								: currentChat.dmr_name.length > 40
-								? currentChat.dmr_name.slice(0, 40) + '...'
-								: currentChat.dmr_name.slice(0, 40)
+								? currentChat.dmr_name.slice(currentChat.dmr_name.indexOf(',') + 2).slice(0, 40) + '...'
+								: currentChat.dmr_name.slice(currentChat.dmr_name.indexOf(',') + 2).slice(0, 40)
 							: ''}
 					</button>
 				</section>
@@ -187,11 +187,8 @@ const MessageDisplay = () => {
 			</section>
 			{/* Create loop of messages grabbing all messages in channel */}
 			<section id='message-display-container'>
-				{typeof messageState === 'object' &&
-				messageState &&
-				Object.values(messageState).length > 0 &&
-				senderAuth ? (
-					messages.length < 1 ? (
+				{typeof messageState === 'object' && messageState && senderAuth ? (
+					Object.values(messageState).length <= 0 && messages.length < 1 ? (
 						<section id='not-auth-message-display'>
 							<p>
 								Welcome to Slack! Click on a Channel or Direct Message Room to
@@ -268,10 +265,20 @@ const MessageDisplay = () => {
 					)
 				) : (
 					<section id='not-auth-message-display'>
+						{console.log(
+							"typeof messageState === 'object'",
+							typeof messageState === 'object'
+						) ||
+							console.log('messageState', messageState) ||
+							console.log(
+								'Object.values(messageState).length > 0',
+								Object.values(messageState).length > 0
+							) ||
+							console.log('senderAuth', senderAuth)}
 						<p>
-							You are not authorized to view this message or the chat you are
-							trying to access is not available. Click on the dmr or channel (if
-							available) to view your authorized chat.
+							Oops looks like this chatroom is not found or you do not have
+							access to. Either click on an active channel or dmr or create a
+							channel and/or dmr.
 						</p>
 					</section>
 				)}
