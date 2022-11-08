@@ -176,10 +176,10 @@ const MessageDisplay = () => {
 									: currentChat.channel_name.slice(0, 40)
 								: currentChat.dmr_name.length > 40
 								? currentChat.dmr_name
-										.slice(currentChat.dmr_name.indexOf(',') + 2)
+										.slice(currentChat.dmr_name.indexOf(',') + 1)
 										.slice(0, 40) + '...'
 								: currentChat.dmr_name
-										.slice(currentChat.dmr_name.indexOf(',') + 2)
+										.slice(currentChat.dmr_name.indexOf(',') + 1)
 										.slice(0, 40)
 							: ''}
 					</button>

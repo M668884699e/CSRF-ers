@@ -253,7 +253,7 @@ const LeftBar = () => {
 						<aside>
 							{
 								<>
-									<>{dmr.dmr_name.slice(dmrName + 2)}</>
+									<>{dmr.dmr_name.slice(dmrName + 1)}</>
 
 									<>{dmr.dmr_name.length > 20 ? '...' : ''}</>
 								</>
