@@ -187,11 +187,8 @@ const MessageDisplay = () => {
 			</section>
 			{/* Create loop of messages grabbing all messages in channel */}
 			<section id='message-display-container'>
-				{typeof messageState === 'object' &&
-				messageState &&
-				Object.values(messageState).length > 0 &&
-				senderAuth ? (
-					messages.length < 1 ? (
+				{typeof messageState === 'object' && messageState && senderAuth ? (
+					messages.length < 1 && Object.values(messageState).length <= 0 ? (
 						<section id='not-auth-message-display'>
 							<p>
 								Welcome to Slack! Click on a Channel or Direct Message Room to
