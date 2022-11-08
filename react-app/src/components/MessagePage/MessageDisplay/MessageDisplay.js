@@ -175,8 +175,12 @@ const MessageDisplay = () => {
 									? currentChat.channel_name.slice(0, 40) + '...'
 									: currentChat.channel_name.slice(0, 40)
 								: currentChat.dmr_name.length > 40
-								? currentChat.dmr_name.slice(currentChat.dmr_name.indexOf(',') + 2).slice(0, 40) + '...'
-								: currentChat.dmr_name.slice(currentChat.dmr_name.indexOf(',') + 2).slice(0, 40)
+								? currentChat.dmr_name
+										.slice(currentChat.dmr_name.indexOf(',') + 2)
+										.slice(0, 40) + '...'
+								: currentChat.dmr_name
+										.slice(currentChat.dmr_name.indexOf(',') + 2)
+										.slice(0, 40)
 							: ''}
 					</button>
 				</section>
@@ -265,16 +269,6 @@ const MessageDisplay = () => {
 					)
 				) : (
 					<section id='not-auth-message-display'>
-						{console.log(
-							"typeof messageState === 'object'",
-							typeof messageState === 'object'
-						) ||
-							console.log('messageState', messageState) ||
-							console.log(
-								'Object.values(messageState).length > 0',
-								Object.values(messageState).length > 0
-							) ||
-							console.log('senderAuth', senderAuth)}
 						<p>
 							Oops looks like this chatroom is not found or you do not have
 							access to. Either click on an active channel or dmr or create a
