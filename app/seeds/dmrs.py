@@ -3,19 +3,19 @@ from app.models import db, DMR
 # Add dmr seeders
 def seed_dmrs():
     
-    demo_dmr = DMR(
-        dmr_name = 'Test Demo'
-    )
-    csrfers = DMR(
-        dmr_name = 'CSRFers'
-    )
-    third_dmr = DMR(
-        dmr_name = 'Third dmr'
-    )
+    # demo_dmr = DMR(
+    #     dmr_name = 'Test Demo'
+    # )
+    # csrfers = DMR(
+    #     dmr_name = 'CSRFers'
+    # )
+    # third_dmr = DMR(
+    #     dmr_name = 'Third dmr'
+    # )
     
-    db.session.add(demo_dmr)
-    db.session.add(csrfers)
-    db.session.add(third_dmr)
+    # db.session.add(demo_dmr)
+    # db.session.add(csrfers)
+    # db.session.add(third_dmr)
     
     db.session.commit()
     

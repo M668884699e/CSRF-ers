@@ -38,13 +38,13 @@ def seed_dmr_users():
         user_id = 3
     )
 
-    db.session.add(dmr_one_user_one)
-    db.session.add(dmr_one_user_two)
-    db.session.add(dmr_two_user_one)
-    db.session.add(dmr_two_user_two)
-    db.session.add(dmr_three_user_one)
-    db.session.add(dmr_three_user_two)
-    db.session.add(dmr_three_user_three)
+    # db.session.add(dmr_one_user_one)
+    # db.session.add(dmr_one_user_two)
+    # db.session.add(dmr_two_user_one)
+    # db.session.add(dmr_two_user_two)
+    # db.session.add(dmr_three_user_one)
+    # db.session.add(dmr_three_user_two)
+    # db.session.add(dmr_three_user_three)
 
     db.session.commit()
 
