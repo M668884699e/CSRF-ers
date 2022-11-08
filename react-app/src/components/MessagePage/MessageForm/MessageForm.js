@@ -140,7 +140,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 								: currentChannel &&
 								  currentChannel.dmr_name &&
 								  currentChannel.dmr_name.length > 0
-								? currentChannel.dmr_name.slice(0, 20) + '...'
+								? currentChannel.dmr_name.slice(currentChannel.dmr_name.indexOf(',') + 2).slice(0, 20) + '...'
 								: ''
 						}`}
 						onKeyDown={onEnterPress}
