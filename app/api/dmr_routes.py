@@ -115,7 +115,6 @@ def create_dmr():
     if user_names == x.dmr_name:
       return {'errors': "A Direct Message Room with these members already exists"}, 400
 
-
   # create new dmr
   new_dmr = DMR(
     dmr_name = user_names
