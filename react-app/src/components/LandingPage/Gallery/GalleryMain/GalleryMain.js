@@ -49,9 +49,9 @@ const GalleryMain = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetUserChannels());
-		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
-		dispatch(userActions.thunkGetAllUsers());
+		dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
+		dispatch(channelsUsersActions.thunkGetAllChannelsUsers()).catch(() => {});
+		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
 	}, [dispatch]);
 
 	// per channelState, currentUserId, channelsUsersState
