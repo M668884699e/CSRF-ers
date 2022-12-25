@@ -79,6 +79,22 @@ li[class*='apm-members-li-'][class$='-true'] {
 	background-color: #393b3f;
 }
 
+ul:has(li.no-members){
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+li.no-members{
+	display: flex;
+	align-items: center;
+	height: 100%;
+	width: 99%;
+	padding-left: 12px;
+	padding-top: 12px;
+	background-color: #242629;
+}
+
 .apm-members-img-container {
 	display: flex;
 	height: 2rem;

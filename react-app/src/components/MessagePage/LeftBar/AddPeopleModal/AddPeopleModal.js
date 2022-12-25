@@ -80,7 +80,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 	// on load
 	useEffect(() => {
 		// get users
-		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
+		dispatch(userActions.thunkGetAllUsers()).catch(() => { });
 	}, [dispatch]);
 
 	// per userState
@@ -193,7 +193,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 									user
 								)
 							).then(() => {
-								dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
+								dispatch(channelActions.thunkGetUserChannels()).catch(() => { });
 								dispatch(usersChannelsActions.thunkGetAllChannelsUsers());
 							});
 						});
@@ -295,54 +295,68 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				<section id='apm-members-section'>
 					{/* get list of all available users */}
 					<ul id='apm-members-ul'>
-						{users.map((user, index) => {
-							return (
+						{
+							users.length > 0 ?
+								users.map((user, index) => {
+									return (
+										<li
+											key={user.id}
+											value={user.id}
+											id={`apm-members-li-${index}`}
+											className={`apm-members-li-${index}-${usersBoolean[index]}`}
+											onClick={(_) => {
+												// set user boolean on click
+												const newUserBooleans = usersBoolean;
+												newUserBooleans[index] = !newUserBooleans[index];
+												setUsersBoolean(newUserBooleans);
+
+												// find a way to get previous usersboolean
+
+												// could load up all the old users boolean and update it
+
+												// update class name
+												document.querySelector(
+													`#apm-members-li-${index}`
+												).className = `apm-members-li-${index}-${usersBoolean[index]}`;
+
+												// select all list that are selected
+												const allTrue = document.querySelectorAll(
+													"li[class*='apm-members-li-'][class$='-true']"
+												);
+
+												setInputLength(allTrue.length);
+												setLoadedSelectUser(loadedSelectUser + 1);
+											}}
+										>
+											<figure className='apm-members-img-container'>
+												<img
+													className='apm-members-img'
+													src={user.profile_image}
+													alt={user.display_name}
+												/>
+											</figure>
+											<span className='apm-members-dn'>{user.display_name}</span>
+											<span className='apm-members-user-status'>
+												<i className='fa-regular fa-circle fa-xs'></i>
+											</span>
+											<span className='apm-members-fn'>{user.first_name}</span>
+											<span className='apm-members-ln'>{user.last_name}</span>
+											<span className='apm-members-email'>{user.email}</span>
+										</li>
+									);
+								})
+								:
 								<li
-									key={user.id}
-									value={user.id}
-									id={`apm-members-li-${index}`}
-									className={`apm-members-li-${index}-${usersBoolean[index]}`}
-									onClick={(_) => {
-										// set user boolean on click
-										const newUserBooleans = usersBoolean;
-										newUserBooleans[index] = !newUserBooleans[index];
-										setUsersBoolean(newUserBooleans);
-
-										// find a way to get previous usersboolean
-
-										// could load up all the old users boolean and update it
-
-										// update class name
-										document.querySelector(
-											`#apm-members-li-${index}`
-										).className = `apm-members-li-${index}-${usersBoolean[index]}`;
-
-										// select all list that are selected
-										const allTrue = document.querySelectorAll(
-											"li[class*='apm-members-li-'][class$='-true']"
-										);
-
-										setInputLength(allTrue.length);
-										setLoadedSelectUser(loadedSelectUser + 1);
-									}}
+									className="no-members"
 								>
-									<figure className='apm-members-img-container'>
-										<img
-											className='apm-members-img'
-											src={user.profile_image}
-											alt={user.display_name}
-										/>
-									</figure>
-									<span className='apm-members-dn'>{user.display_name}</span>
-									<span className='apm-members-user-status'>
-										<i className='fa-regular fa-circle fa-xs'></i>
-									</span>
-									<span className='apm-members-fn'>{user.first_name}</span>
-									<span className='apm-members-ln'>{user.last_name}</span>
-									<span className='apm-members-email'>{user.email}</span>
+									No Members Available To Add.
+									Click&nbsp;
+									{
+										editChannel ? "edit" : "add"
+									}
+									&nbsp;to make a self channel
 								</li>
-							);
-						})}
+						}
 					</ul>
 				</section>
 
@@ -350,7 +364,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 				<figure id='ccm-button-container'>
 					{/* if dmr and user to add length is 1 or less than 1, disable the button */}
 					{usersBoolean.filter((ub) => ub).length === 0 &&
-					routeType === 'dmr' ? (
+						routeType === 'dmr' ? (
 						<button
 							id='ccmf-submit-button'
 							type='button'
