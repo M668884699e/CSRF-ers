@@ -36,16 +36,44 @@ def seed_channels():
     #     channel_name = "Channel 6",
     #     public = True
     # )
+    
+    channel_1207 = Channel(
+        owner_id = 1,
+        channel_name = "1207",
+        public = True
+    )
+    
+    channel_1208 = Channel(
+        owner_id = 1,
+        channel_name = "1208",
+        public = True
+    )
+    
+    channel_1213 = Channel(
+        owner_id = 1,
+        channel_name = "1213",
+        public = True
+    )
 
-    # db.session.add(channel_1)
-    # db.session.add(channel_2)
-    # db.session.add(channel_3)
-    # db.session.add(channel_4)
-    # db.session.add(channel_5)
-    # db.session.add(channel_6)
+    channel_1226 = Channel(
+        owner_id = 1,
+        channel_name = "1226",
+        public = True
+    )
+
+    channel_124 = Channel(
+        owner_id = 1,
+        channel_name = "124",
+        public = True
+    )
+
+    db.session.add(channel_1207)
+    db.session.add(channel_1208)
+    db.session.add(channel_1213)
+    db.session.add(channel_1226)
+    db.session.add(channel_124)
 
     db.session.commit()
-
 
 # undo seed channel
 def undo_channels():

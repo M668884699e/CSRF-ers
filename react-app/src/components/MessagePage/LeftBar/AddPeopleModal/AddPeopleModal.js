@@ -349,12 +349,7 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 								<li
 									className="no-members"
 								>
-									No Members Available To Add.
-									Click&nbsp;
-									{
-										editChannel ? "edit" : "add"
-									}
-									&nbsp;to make a self channel
+									No Members Available To Add
 								</li>
 						}
 					</ul>
