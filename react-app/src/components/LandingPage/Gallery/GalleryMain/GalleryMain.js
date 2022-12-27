@@ -49,9 +49,9 @@ const GalleryMain = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
-		dispatch(channelsUsersActions.thunkGetAllChannelsUsers()).catch(() => {});
-		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
+		dispatch(channelActions.thunkGetUserChannels()).catch(() => { });
+		dispatch(channelsUsersActions.thunkGetAllChannelsUsers()).catch(() => { });
+		dispatch(userActions.thunkGetAllUsers()).catch(() => { });
 	}, [dispatch]);
 
 	// per channelState, currentUserId, channelsUsersState
@@ -109,30 +109,31 @@ const GalleryMain = () => {
 													<p id='wlf2-p1'>{channels[0].channel_name}</p>
 													<section className='wlf2-section'>
 														<figure className='wlf2-section-figure'>
-															{channelsUsers.map((user, index) => {
-																const currentUser = Object.values(
-																	usersState
-																).find(
-																	(userState) => userState.id === user.user_id
-																);
-
-																// filter channel users with channel_id that belong to current channel
-																return (
-																	currentUser &&
-																	index < 4 && (
-																		<figure
-																			className='channel-user-img-container'
-																			key={currentUser.id}
-																		>
-																			<img
-																				className='channel-user-img'
-																				src={currentUser.profile_image}
-																				alt={currentUser.display_name}
-																			/>
-																		</figure>
-																	)
-																);
-															})}
+															{channelsUsers
+																.filter(user => user.channel_id === channels[0].id)
+																.map((user, index) => {
+																	const currentUser = Object.values(
+																		usersState
+																	).find(
+																		(userState) => userState.id === user.user_id
+																	);
+																	// filter channel users with channel_id that belong to current channel
+																	return (
+																		currentUser &&
+																		index < 4 && (
+																			<figure
+																				className='channel-user-img-container'
+																				key={currentUser.id}
+																			>
+																				<img
+																					className='channel-user-img'
+																					src={currentUser.profile_image}
+																					alt={currentUser.display_name}
+																				/>
+																			</figure>
+																		)
+																	);
+																})}
 														</figure>
 														<p id='wlf2-p2'>
 															{/* query for members count */}
