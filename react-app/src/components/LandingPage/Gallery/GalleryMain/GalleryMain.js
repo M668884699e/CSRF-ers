@@ -117,6 +117,7 @@ const GalleryMain = () => {
 																	).find(
 																		(userState) => userState.id === user.user_id
 																	);
+
 																	// filter channel users with channel_id that belong to current channel
 																	return (
 																		currentUser &&
