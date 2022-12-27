@@ -350,11 +350,20 @@ const AddPeopleModal = ({ setAddPeopleModal }) => {
 									className="no-members"
 								>
 									No Members Available To Add.
-									Click&nbsp;
 									{
-										editChannel ? "edit" : "add"
+										routeType !== 'dmr'
+											?
+											<>
+												Click&nbsp;
+												{
+													editChannel ? "edit" : "add"
+												}
+												&nbsp;to make a self channel
+											</>
+											:
+											<>
+											</>
 									}
-									&nbsp;to make a self channel
 								</li>
 						}
 					</ul>
