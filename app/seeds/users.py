@@ -15,7 +15,7 @@ def seed_users():
         first_name = "Test",
         last_name = "User",
         username="Test User",
-        email="test@user.co\index.htmlm",
+        email="test@user.com",
         hashed_password=generate_password_hash('password')
     )
     
