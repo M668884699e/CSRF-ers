@@ -76,11 +76,11 @@ const MessageDisplay = () => {
 				channelId
 					? messageActions.thunkGetChannelMessages(chatId)
 					: messageActions.thunkGetChannelMessages(
-							chatId === 1 ? chatId + 1 : chatId - 1,
-							'dmr'
-					  )
+						chatId === 1 ? chatId + 1 : chatId - 1,
+						'dmr'
+					)
 			);
-			dispatch(userActions.thunkGetAllUsers()).catch(() => {});
+			dispatch(userActions.thunkGetAllUsers()).catch(() => { });
 		}
 	}, [dispatch, chatId]);
 
@@ -132,20 +132,24 @@ const MessageDisplay = () => {
 	}, [currentChat]);
 
 	// function to handle delete message
-	const handleDeleteMessage = (message) => {
+	const handleDeleteMessage = (deleteMessage) => {
 		// if channel, delete channel message then get channel message
 		// vice versa for dmr
-		dispatch(messageActions.thunkDeleteMessage(message)).then(() => {
+		dispatch(messageActions.thunkDeleteMessage(deleteMessage)).then(() => {
+			// get new messages
 			if (chatId) {
 				dispatch(
 					channelId
 						? messageActions.thunkGetChannelMessages(chatId)
 						: messageActions.thunkGetChannelMessages(
-								chatId === 1 ? chatId + 1 : chatId - 1,
-								'dmr'
-						  )
+							chatId === 1 ? chatId + 1 : chatId - 1,
+							'dmr'
+						)
 				);
-				dispatch(userActions.thunkGetAllUsers()).catch(() => {});
+				dispatch(userActions.thunkGetAllUsers()).catch(() => { });
+
+				// set messages
+				setMessages(messages => messages.filter(message => message.id !== deleteMessage.id));
 			}
 
 			dispatch(
@@ -175,10 +179,10 @@ const MessageDisplay = () => {
 									? currentChat.channel_name.slice(0, 40) + '...'
 									: currentChat.channel_name.slice(0, 40)
 								: currentChat.dmr_name.length > 40
-								? currentChat.dmr_name
+									? currentChat.dmr_name
 										.slice(currentChat.dmr_name.indexOf(',') + 1)
 										.slice(0, 40) + '...'
-								: currentChat.dmr_name
+									: currentChat.dmr_name
 										.slice(currentChat.dmr_name.indexOf(',') + 1)
 										.slice(0, 40)
 							: ''}
