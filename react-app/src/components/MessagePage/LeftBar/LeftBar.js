@@ -211,7 +211,7 @@ const LeftBar = () => {
 		console.log("you found me")
 		return (
 			<figure id='dmr-profile-pic'>
-				<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674181546/CSRF-ers/Logo_wo_text_kwprvs.png" alt="slackers-logo" />
+				<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674183692/CSRF-ers/Logo_wo_text_grayscale_px5vtp.png" alt="slackers-logo" />
 			</figure>
 		);
 	};
@@ -286,7 +286,7 @@ const LeftBar = () => {
 				<section id='server-name'>
 					<h4>Slackers</h4>
 					<figure id='new-message-button'>
-					<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674181546/CSRF-ers/Logo_wo_text_kwprvs.png" alt="slackers-logo" />
+						<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674183692/CSRF-ers/Logo_wo_text_grayscale_px5vtp.png" alt="slackers-logo" />
 					</figure>
 				</section>
 			</section>
