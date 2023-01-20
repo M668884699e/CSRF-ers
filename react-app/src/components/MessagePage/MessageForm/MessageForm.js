@@ -56,9 +56,11 @@ const MessageForm = ({ edit = false, messageId }) => {
         // create websocket
         socket = io();
 
+		console.log("socket here")
+
         socket.on("message", (message) => {
             setSocketMessages(socketMessages => [...socketMessages, message])
-			
+
         })
         // when component unmounts, disconnect
         return (() => {
@@ -120,14 +122,14 @@ const MessageForm = ({ edit = false, messageId }) => {
 		setInputLength(0);
 
 		// socket.emit("chat", { user: user.username, msg: chatInput });
-		socket.emit("message", { 
+		socket.emit("message", {
 			// ...currentMessage, // I blame irelius
 			message: socketMessages.slice(0, 500),
 			messageable_id: chatId,
 			messageable_type,
 			sender_id: userId,
 		});
-		
+
 		if (!edit) {
 			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
 				() => {
