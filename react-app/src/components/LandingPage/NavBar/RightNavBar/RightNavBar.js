@@ -42,9 +42,7 @@ const RightNavBar = () => {
 
 			{/* create a new workspace */}
 			<span>
-				{/* <NavLink to='/start/setup'> */}
-					<button onClick={() => history.push("/start/setup")} id='create-workspace-button'>Create A New Workspace</button>
-				{/* </NavLink> */}
+				<button onClick={() => history.push("/start/setup")} id='create-workspace-button'>Create A New Workspace</button>
 			</span>
 			{/* Edit Profile Modal */}
 			{showEditProfileModal && (
