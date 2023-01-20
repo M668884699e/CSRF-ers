@@ -7,13 +7,14 @@ import './RightNavBar.css';
 import { useProfile } from '../../../../context/ProfileContext';
 
 // import react-router-dom
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Modal } from '../../../../context/Modal';
 import EditProfileModal from '../../../MessagePage/ProfileBar/EditProfileModal/EditProfileModal';
 
 //? RightNavBar component
 const RightNavBar = () => {
 	const { showEditProfileModal, setShowEditProfileModal } = useProfile();
+	const history = useHistory()
 
 	return (
 		<section id='rnb-container'>
@@ -41,9 +42,9 @@ const RightNavBar = () => {
 
 			{/* create a new workspace */}
 			<span>
-				<NavLink to='/start/setup'>
-					<button id='create-workspace-button'>Create A New Workspace</button>
-				</NavLink>
+				{/* <NavLink to='/start/setup'> */}
+					<button onClick={() => history.push("/start/setup")} id='create-workspace-button'>Create A New Workspace</button>
+				{/* </NavLink> */}
 			</span>
 			{/* Edit Profile Modal */}
 			{showEditProfileModal && (
