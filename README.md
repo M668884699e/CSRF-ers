@@ -1,4 +1,4 @@
-# Slack Clone Project
+# Slackers Project
 
 Heroku Link: https://csrf-ers.herokuapp.com/
 
@@ -18,7 +18,7 @@ GitHub Link: https://github.com/pchawin40/CSRF-ers
 ___
 
 ## Description:
-This is a repository of a Slack clone by Chawin (Ham) Pathompornvivat, Brian Moore, and Kihong (Samuel) Bae.
+This is a repository of a Slackers by Chawin (Ham) Pathompornvivat, Brian Moore, and Kihong (Samuel) Bae.
 <br>
 This project implements 4 features. Two features, Channels and Channel Messages, are full CRUD features. The two other features, Direct Message Rooms and Direct Message Room Messages are CRD features (without an Update functionality).
 <br>
