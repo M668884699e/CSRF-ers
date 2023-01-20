@@ -18,7 +18,7 @@ const ChannelStarterForm = () => {
   const [ privateChannel, setPrivateChannel ] = useState(false);
   const { channelNameInputted, setChannelNameInputted } = useStarter();
   const { inputLength, setInputLength } = useStarter();
-  const { starterForm, setStarterForm } = useStarter(); 
+  const { starterForm, setStarterForm } = useStarter();
 
   // checking input length of channel
   const checkInputLength = e => {
@@ -51,7 +51,7 @@ const ChannelStarterForm = () => {
         What's the name of your channel?
       </h2>
       <p id="spmsf-p-description">
-        This will be the name of your Slack channel — choose something that your team will recognize.
+        This will be the name of your Slackers channel — choose something that your team will recognize.
       </p>
       <figure id="spmsf-input-container">
         <input
