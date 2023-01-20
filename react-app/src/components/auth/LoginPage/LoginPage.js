@@ -3,6 +3,7 @@
 // import component
 import SignUpForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import Footer from "../../LandingPage/Footer/Footer";
 
 // import css
 import './LoginPage.css';
@@ -53,12 +54,17 @@ const LoginPage = () => {
         {/* Login Form component */}
         {
           window.location.pathname === "/login" ?
-          // if path is login, open login form component
+            // if path is login, open login form component
             <LoginForm />
             :
             // else open signup form
-            <SignUpForm/>
+            <SignUpForm />
         }
+      </section>
+
+      {/* Footer Login Page Section */}
+      <section id="lp-footer-section">
+        {Footer()}
       </section>
     </section>
   );
