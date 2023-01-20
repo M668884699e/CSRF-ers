@@ -1,47 +1,47 @@
 /* Login Page section */
 #lp-section {
-	height: 100vh;
-	width: 100vw;
-	position: fixed;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
 
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 5vh 10vh auto;
-	justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5vh 10vh auto;
+  justify-content: center;
 
   overflow-y: auto;
 }
 
 /* Top Login Page section */
 #lp-top-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#lp-top-section > h2 {
-	font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
-	font-size: 15px;
-	line-height: 1.46668;
+#lp-top-section>h2 {
+  font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
+  font-size: 15px;
+  line-height: 1.46668;
 }
 
 /* Header Login Page section */
 
 #lp-header-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#lp-header-section > header {
-	width: 10rem;
-	height: auto;
+#lp-header-section>header {
+  width: 10rem;
+  height: auto;
 }
 
-#lp-header-section > header > img {
-	object-fit: cover;
-	height: 100%;
-	width: 100%;
+#lp-header-section>header>img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 
 figure.slackers-with-text.login{
@@ -58,8 +58,8 @@ figure.slackers-with-text.login{
   align-items: center;
 }
 
-#lp-main-section > h1{
-  font-family: Slack-Larsseit,Helvetica Neue,Helvetica,Segoe UI,Tahoma,Arial,sans-serif;
+#lp-main-section>h1 {
+  font-family: Slack-Larsseit, Helvetica Neue, Helvetica, Segoe UI, Tahoma, Arial, sans-serif;
   font-size: 48px;
   font-weight: 700;
   letter-spacing: -.75px;
@@ -69,12 +69,12 @@ figure.slackers-with-text.login{
   text-align: center;
 }
 
-#lp-main-section > h1 > span{
+#lp-main-section>h1>span {
   color: #4a154b;
 }
 
-#lp-main-section > h2{
-  font-family: Slack-Lato,Slack-Fractions,appleLogo,sans-serif;
+#lp-main-section>h2 {
+  font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
   color: #454245;
   font-size: 18px;
   line-height: 27px;
@@ -84,7 +84,7 @@ figure.slackers-with-text.login{
   font-weight: lighter;
 }
 
-#lp-main-section > h2 > span{
+#lp-main-section>h2>span {
   font-weight: bold;
 }
 
@@ -95,3 +95,10 @@ section#lower-footer-container.log-in{
   position: absolute;
   bottom: 0;
 }
+
+/* #lp-footer-section {
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
+  height: fit-content;
+} */

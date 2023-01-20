@@ -3,6 +3,7 @@
 // import component
 import SignUpForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import Footer from "../../LandingPage/Footer/Footer";
 
 // import css
 import './LoginPage.css';
