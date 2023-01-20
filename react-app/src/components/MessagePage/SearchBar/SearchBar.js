@@ -17,12 +17,8 @@ const SearchBar = () => {
 				<section id='left-section'></section>
 			</section>
 			<section id='center-bar-section'>
-				<figure>
-					<img
-						src='https://i.ibb.co/17QcrJw/slack-logo.png'
-						id='nav-logo'
-						alt='slack-logo'
-					/>
+				<figure className='slackers-with-text'>
+					<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674183359/CSRF-ers/Logo_w_text_evbrbv.png" id="nav-logo" alt="slackers-logo" />
 				</figure>
 			</section>
 

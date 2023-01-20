@@ -1,47 +1,52 @@
 /* Login Page section */
 #lp-section {
-	height: 100vh;
-	width: 100vw;
-	position: fixed;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
 
-	display: grid;
-	grid-template-columns: 1fr;
-	grid-template-rows: 5vh 10vh auto;
-	justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5% 10% 70% auto;
+  justify-content: center;
 
   overflow-y: auto;
 }
 
 /* Top Login Page section */
 #lp-top-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#lp-top-section > h2 {
-	font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
-	font-size: 15px;
-	line-height: 1.46668;
+#lp-top-section>h2 {
+  font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
+  font-size: 15px;
+  line-height: 1.46668;
 }
 
 /* Header Login Page section */
 
 #lp-header-section {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#lp-header-section > header {
-	width: 10rem;
-	height: auto;
+#lp-header-section>header {
+  width: 10rem;
+  height: auto;
 }
 
-#lp-header-section > header > img {
-	object-fit: cover;
-	height: 100%;
-	width: 100%;
+#lp-header-section>header>img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+figure.slackers-with-text.login{
+  height: 50px;
+  width: auto;
 }
 
 /* Main Login Page Section */
@@ -51,10 +56,28 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
+  overflow-y: auto;
+  margin-bottom: 2%;
 }
 
-#lp-main-section > h1{
-  font-family: Slack-Larsseit,Helvetica Neue,Helvetica,Segoe UI,Tahoma,Arial,sans-serif;
+#lp-main-section::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+#lp-main-section::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+#lp-main-section::-webkit-scrollbar-thumb {
+	background-color: #611f69;
+	outline: 1px solid #9d65a3;
+	border-radius: 1rem;
+}
+
+
+#lp-main-section>h1 {
+  font-family: Slack-Larsseit, Helvetica Neue, Helvetica, Segoe UI, Tahoma, Arial, sans-serif;
   font-size: 48px;
   font-weight: 700;
   letter-spacing: -.75px;
@@ -64,12 +87,12 @@
   text-align: center;
 }
 
-#lp-main-section > h1 > span{
+#lp-main-section>h1>span {
   color: #4a154b;
 }
 
-#lp-main-section > h2{
-  font-family: Slack-Lato,Slack-Fractions,appleLogo,sans-serif;
+#lp-main-section>h2 {
+  font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif;
   color: #454245;
   font-size: 18px;
   line-height: 27px;
@@ -79,6 +102,13 @@
   font-weight: lighter;
 }
 
-#lp-main-section > h2 > span{
+#lp-main-section>h2>span {
   font-weight: bold;
+}
+
+/* Lower-Footer-Container Log In */
+section#lower-footer-container.log-in{
+  width: 100%;
+  height: 95%;
+  bottom: 0;
 }

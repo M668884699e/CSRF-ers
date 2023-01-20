@@ -1,4 +1,4 @@
-# User’s Stories (Slack)
+# User’s Stories (Slackers)
 ## 1. Channels
 * CREATE
     * As a logged in user, I would like to be able to create a channel and invite others to join

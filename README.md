@@ -18,7 +18,7 @@ GitHub Link: https://github.com/pchawin40/CSRF-ers
 ___
 
 ## Description:
-This is a repository of a Slackers by Chawin (Ham) Pathompornvivat, Brian Moore, and Kihong (Samuel) Bae.
+This is a repository of Slackers by Chawin (Ham) Pathompornvivat, Brian Moore, and Kihong (Samuel) Bae.
 <br>
 This project implements 4 features. Two features, Channels and Channel Messages, are full CRUD features. The two other features, Direct Message Rooms and Direct Message Room Messages are CRD features (without an Update functionality).
 <br>
@@ -84,7 +84,7 @@ Users are able to update their sent messages in Channels and Direct Message Room
 ___
 
 ## Technologies Used:
-This Slack Clone utilizes:
+Slackers utilizes:
    1. React and Redux to manage reducers, actions, and the store to reduce the amount of times the webpage must be refreshed
    2. Flask, SQLAlchemy, and FlaskForm to manage the database and allow users to interact with the web application
 <br>

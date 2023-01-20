@@ -10,11 +10,11 @@
 }
 
 .landing-page-container-false {
-	grid-template-rows: 7.5rem 55rem 33rem 8rem;
+	grid-template-rows: 7.5rem 55rem 50rem 8rem;
 	grid-auto-rows: max-content;
 }
 
 .landing-page-container-true {
-	grid-template-rows: 7.5rem 70rem 33rem 8rem;
+	grid-template-rows: 7.5rem 70rem 50rem 8rem;
 	grid-auto-rows: max-content;
 }

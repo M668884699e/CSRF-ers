@@ -56,7 +56,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
 		if (!formReady) {
 			setFormReady(true);
 		}
-		dispatch(userActions.thunkGetAllUsers()).catch(() => {});
+		dispatch(userActions.thunkGetAllUsers()).catch(() => { });
 	}, [
 		currentUserInfo,
 		editProfileImage,
@@ -222,6 +222,15 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
 		}
 	};
 
+	//? function for logging out current user
+	const handleLogout = async e => {
+		await dispatch(sessionActions.logout())
+			.then(() => {
+				setShowEditProfileModal(false);
+				return history.push('/login');
+			});
+	}
+
 	return (
 		<section id='epm-container'>
 			<h2>Edit your profile</h2>
@@ -300,6 +309,11 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
 						)}
 					</figure>
 
+					{/* Log out current user */}
+					<figure className='epmfupc-logout-user' onClick={handleLogout}>
+						Log Out
+					</figure>
+
 					{/* Edit Profile Picture */}
 					<figure className='epmfupc-delete-user' onClick={handleDeleteUser}>
 						Delete User
@@ -318,6 +332,7 @@ const EditProfileModal = ({ setShowEditProfileModal }) => {
 						/>
 						Upload Photo
 					</figure>
+
 
 					<figure className='epmfupc-remove-image'>
 						<p

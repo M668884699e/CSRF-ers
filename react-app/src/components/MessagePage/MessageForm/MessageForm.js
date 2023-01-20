@@ -18,7 +18,18 @@ import { thunkGetAllDmrMessages } from '../../../store/dmr';
 import { useChannel } from '../../../context/ChannelContext';
 import { useMessage } from '../../../context/MessageContext';
 
+// import socketio
+import { io } from "socket.io-client";
+
+// socket variable
+let socket
+
 const MessageForm = ({ edit = false, messageId }) => {
+	// socket component input
+	const [ messageInput, setMessageInput ] = useState('');
+	const [ socketMessages, setSocketMessages ] = useState([]);
+	// const [ currentSocketMessage, setCurrentSocketMessage ] = useState('')
+
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.messages);
 
@@ -38,6 +49,24 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 	// grab type of message from url then convert it into proper value
 	// let routeType = window.location.href.split('/')[4];
+
+	// socket initilization
+	useEffect(() => {
+        // open socket connection
+        // create websocket
+        socket = io();
+
+		console.log("socket here")
+
+        socket.on("message", (message) => {
+            setSocketMessages(socketMessages => [...socketMessages, message])
+
+        })
+        // when component unmounts, disconnect
+        return (() => {
+            socket.disconnect()
+        })
+    }, [])
 
 	// convert routeType val into messeagable_type val
 	// let messageable_type
@@ -92,6 +121,15 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 		setInputLength(0);
 
+		// socket.emit("chat", { user: user.username, msg: chatInput });
+		socket.emit("message", {
+			// ...currentMessage, // I blame irelius
+			message: socketMessages.slice(0, 500),
+			messageable_id: chatId,
+			messageable_type,
+			sender_id: userId,
+		});
+
 		if (!edit) {
 			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
 				() => {
@@ -111,6 +149,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 	// function to handle updating message
 	const updateMessage = (e) => {
+		setSocketMessages(e.target.value);
 		setMessage(e.target.value);
 	};
 

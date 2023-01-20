@@ -3,9 +3,11 @@
 // import component
 import SignUpForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import Footer from "../../LandingPage/Footer/Footer";
 
 // import css
 import './LoginPage.css';
+import { NavLink } from "react-router-dom";
 
 //? Login Page component
 const LoginPage = () => {
@@ -19,11 +21,10 @@ const LoginPage = () => {
       <section id="lp-header-section">
         {/* Header */}
         <header>
-          {/* Slack Logo */}
-          <img
-            src="https://1000logos.net/wp-content/uploads/2021/06/Slack-logo.png"
-            alt="Slack Logo"
-          />
+          {/* Slackers Logo */}
+          <figure className='slackers-with-text login'>
+            <img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674185261/CSRF-ers/Logo_w_text_black_b3kuq3.png" id="nav-logo" alt="slackers-logo" />
+          </figure>
         </header>
       </section>
 
@@ -52,13 +53,102 @@ const LoginPage = () => {
 
         {/* Login Form component */}
         {
-          window.location.pathname === "/login" ? 
-          // if path is login, open login form component
-            <LoginForm /> 
+          window.location.pathname === "/login" ?
+            // if path is login, open login form component
+            <LoginForm />
             :
             // else open signup form
-            <SignUpForm/>
+            <SignUpForm />
         }
+      </section>
+
+      <section id="lower-footer-container" className="log-in">
+        {/* Left Footer */}
+        <section id="ll-footer">
+          <figure>
+            <NavLink
+              to="/"
+              onClick={_ => {
+                return window.open('https://github.com/RuneDelamont', '_blank')
+              }}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                alt="Brian Moore's LinkedIn"
+              />
+            </NavLink>
+            <NavLink
+              to="/"
+              onClick={_ => {
+                return window.open('https://www.linkedin.com/in/brian-moore-2829b496/', '_blank')
+              }}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/49/49068.png"
+                alt="Brian Moore's Github"
+              />
+            </NavLink>
+          </figure>
+          <p>Brian Moore</p>
+        </section>
+
+        {/* Middle Footer */}
+        <section id="lm-footer">
+          <figure>
+            <NavLink
+              to="/"
+              onClick={_ => {
+                return window.open('https://github.com/pchawin40', '_blank')
+              }}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                alt="Chawin Pathompornvivat's Github"
+              />
+            </NavLink>
+            <NavLink
+              to="/"
+              onClick={_ => {
+                return window.open('https://www.linkedin.com/in/chawin-pathompornvivat/', '_blank')
+              }}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/49/49068.png"
+                alt="Chawin Pathompornvivat's LinkedIn"
+              />
+            </NavLink>
+          </figure>
+          <p>Chawin (Ham) Pathompornvivat</p>
+        </section>
+
+        {/* Right Footer */}
+        <section id="lr-footer">
+          <figure>
+            <NavLink
+              to="/"
+              onClick={_ => {
+                return window.open('https://github.com/irelius', '_blank')
+              }}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                alt="Ki Hong's Github"
+              />
+            </NavLink>
+            <NavLink
+              to="/"
+              onClick={_ => {
+                return window.open('https://www.linkedin.com/in/sbkihongbae/', '_blank')
+              }}
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/49/49068.png"
+                alt="Ki Hong's LinkedIn"
+              />
+            </NavLink>
+          </figure>
+          <p>Ki Hong (Samuel) Bae</p>
+        </section>
       </section>
     </section>
   );

@@ -1,4 +1,5 @@
-from flask_socketio import SocketIO, emit, send
+from flask_socketio import SocketIO, emit, send, join_room, leave_room
+from flask import session
 from app.models import Message, db
 from flask_login import login_required, current_user
 from app.forms import MessageForm
@@ -24,4 +25,19 @@ def handle_chat_sent(data):
     Fetch message
     """        
 
-    send({'message': data['message']})
+    send({
+        'message': data['message'],
+        'messageable_id': data['messageable_id'],
+        'messageable_type': data['messageable_type'],
+        'sender_id': current_user['id']
+        })
+    
+#? Join channel
+@socketio.on('joinChannel', namespace='/channels')
+def joinChannel(message):
+    # grab the channel
+    channel = session.get(channel)
+    
+    # 
+    join_room(channel)
+    emit('status', {'message': 'Successfully joined the channel'})

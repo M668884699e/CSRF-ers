@@ -152,7 +152,7 @@ const GalleryMain = () => {
 											<section className='workspace-li-s2'>
 												<NavLink to={`/chat/channels/${channels[0].id}`}>
 													<button className='workspace-li-s2-button'>
-														Launch Slack
+														Launch Slackers
 													</button>
 												</NavLink>
 											</section>
@@ -240,7 +240,7 @@ const GalleryMain = () => {
 																}}
 																className='workspace-li-s2-button'
 															>
-																Launch Slack
+																Launch Slackers
 															</button>
 														</NavLink>
 													</section>

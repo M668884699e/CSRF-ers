@@ -32,7 +32,7 @@
 	position: relative;
 }
 
-#right-section > * {
+#right-section>* {
 	display: flex;
 	margin-right: 10px;
 }
@@ -65,12 +65,28 @@
 	justify-content: center;
 	align-items: center;
 
+	margin-top: 7px;
+
 	height: 30px;
 	width: 800px;
 }
 
-#center-bar-section > figure {
-	width: 100px;
+#center-bar-section>figure {
+	width: 150px;
+	height: auto;
+}
+
+figure.slackers-with-text {
+	height: 2vh;
+	width: 2vw;
+	margin: 0;
+	padding: 0;
+}
+
+figure.slackers-with-text>img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
 }
 
 #clock-button {
@@ -150,7 +166,7 @@
 	display: flex;
 }
 
-#search-buttons > * {
+#search-buttons>* {
 	margin-right: 5px;
 
 	border: none;
