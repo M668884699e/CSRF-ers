@@ -147,14 +147,12 @@
 	border-radius: 0.15rem;
 }
 
-.epmfupc-delete-user {
-	background-color: pink;
-}
-
+.epmfupc-logout-user,
 .epmfupc-delete-user {
 	margin-top: 1rem;
 }
 
+.epmfupc-logout-user,
 .epmfupc-delete-user,
 .epmfupc-image-input-figure,
 .epmfupc-remove-image {
@@ -191,6 +189,7 @@
 
 #epm-form-buttons-container > button,
 .epmfupc-image-input-figure,
+.epmfupc-logout-user,
 .epmfupc-delete-user {
 	height: 36px;
 	font-weight: bold;
@@ -200,6 +199,7 @@
 
 #epm-form-buttons-container > button:hover,
 .epmfupc-image-input-figure:hover,
+.epmfupc-logout-user:hover,
 .epmfupc-delete-user:hover {
 	cursor: pointer;
 }
@@ -210,6 +210,7 @@
 
 #epm-form-buttons-container > button:first-child,
 .epmfupc-image-input-figure,
+.epmfupc-logout-user,
 .epmfupc-delete-user {
 	background-color: #1a1d21;
 	border: 1px solid #505256;
