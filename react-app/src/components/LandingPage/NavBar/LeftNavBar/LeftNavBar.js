@@ -16,7 +16,7 @@ const LeftNavBar = () => {
               <img
                 src="https://i.ibb.co/17QcrJw/slack-logo.png"
                 id="nav-logo"
-                alt="slack-logo"
+                alt="slackers-logo"
               />
             </figure>
           </NavLink>

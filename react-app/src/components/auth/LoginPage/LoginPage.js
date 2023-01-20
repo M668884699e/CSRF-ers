@@ -19,10 +19,10 @@ const LoginPage = () => {
       <section id="lp-header-section">
         {/* Header */}
         <header>
-          {/* Slack Logo */}
+          {/* Slackers Logo */}
           <img
             src="https://1000logos.net/wp-content/uploads/2021/06/Slack-logo.png"
-            alt="Slack Logo"
+            alt="Slackers Logo"
           />
         </header>
       </section>
@@ -52,9 +52,9 @@ const LoginPage = () => {
 
         {/* Login Form component */}
         {
-          window.location.pathname === "/login" ? 
+          window.location.pathname === "/login" ?
           // if path is login, open login form component
-            <LoginForm /> 
+            <LoginForm />
             :
             // else open signup form
             <SignUpForm/>

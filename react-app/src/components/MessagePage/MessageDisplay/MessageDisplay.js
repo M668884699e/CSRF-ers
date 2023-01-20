@@ -185,7 +185,7 @@ const MessageDisplay = () => {
 					</button>
 				</section>
 				<section id='message-main-header-right'>
-					{/* BJM: todo on click display modal of members, incorporate centralized slack modal */}
+					{/* BJM: todo on click display modal of members, incorporate centralized Slackers modal */}
 					<button onClick={(_) => setMembersModal(true)}>Members</button>
 				</section>
 			</section>
@@ -195,7 +195,7 @@ const MessageDisplay = () => {
 					Object.values(messageState).length <= 0 && messages.length < 1 ? (
 						<section id='not-auth-message-display'>
 							<p>
-								Welcome to Slack! Click on a Channel or Direct Message Room to
+								Welcome to Slackers! Click on a Channel or Direct Message Room to
 								start conversing with your friends/team. Alternatively, send a
 								message here to start conversing! :D
 							</p>
@@ -295,7 +295,7 @@ const MessageDisplay = () => {
 			<section id='message-main-header'></section>
 			<section id='not-auth-message-display'>
 				<p>
-					Welcome to Slack! Click on a Channel or Direct Message Room to start
+					Welcome to Slackers! Click on a Channel or Direct Message Room to start
 					conversing with your friends/team. Alternatively, create a new Channel
 					or Direct Message Room :D
 				</p>

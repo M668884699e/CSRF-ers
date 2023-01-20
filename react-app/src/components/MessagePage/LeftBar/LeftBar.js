@@ -74,7 +74,7 @@ const LeftBar = () => {
 
 	// load channels
 	useEffect(() => {
-		dispatch(channelActions.thunkGetUserChannels()).catch(() => {});
+		dispatch(channelActions.thunkGetUserChannels()).catch(() => { });
 		dispatch(channelsUsersActions.thunkGetAllChannelsUsers());
 		dispatch(dmrActions.thunkGetAllDmrs());
 		dispatch(dmrUsersActions.thunkGetAllDMRUsers());
@@ -208,9 +208,10 @@ const LeftBar = () => {
 	};
 
 	const loadDMRProfilePicture = (dmr) => {
+		console.log("you found me")
 		return (
 			<figure id='dmr-profile-pic'>
-				<i className='fa-brands fa-slack'></i>
+				<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674181546/CSRF-ers/Logo_wo_text_kwprvs.png" alt="slackers-logo" />
 			</figure>
 		);
 	};
@@ -285,7 +286,7 @@ const LeftBar = () => {
 				<section id='server-name'>
 					<h4>Slackers</h4>
 					<figure id='new-message-button'>
-						<i className='fa-brands fa-slack'></i>
+					<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674181546/CSRF-ers/Logo_wo_text_kwprvs.png" alt="slackers-logo" />
 					</figure>
 				</section>
 			</section>

@@ -18,11 +18,12 @@ const SearchBar = () => {
 			</section>
 			<section id='center-bar-section'>
 				<figure>
-					<img
+					{/* <img
 						src='https://i.ibb.co/17QcrJw/slack-logo.png'
 						id='nav-logo'
 						alt='slack-logo'
-					/>
+					/> */}
+					<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674181546/CSRF-ers/Logo_w_text_hyvdmw.png" id="nav-logo" alt="slackers-logo" />
 				</figure>
 			</section>
 
