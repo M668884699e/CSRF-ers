@@ -44,6 +44,11 @@
 	width: 100%;
 }
 
+figure.slackers-with-text.login{
+  height: 50px;
+  width: auto;
+}
+
 /* Main Login Page Section */
 #lp-main-section {
   display: flex;
@@ -81,4 +86,12 @@
 
 #lp-main-section > h2 > span{
   font-weight: bold;
+}
+
+/* Lower-Footer-Container Log In */
+section#lower-footer-container.log-in{
+  width: 100%;
+  height: 15%;
+  position: absolute;
+  bottom: 0;
 }

@@ -13,7 +13,7 @@ const GalleryLowerMain = () => {
       <img
         src="https://a.slack-edge.com/613463e/marketing/img/homepage/bold-existing-users/create-new-workspace-module/woman-with-laptop-color-background.png"
         alt="slackers-user"
-        id="slackers-user-img"
+        id="slack-user-img"
       />
       <h2>Want to use Slackers with a different team?</h2>
       <figure id="glm-section-figure">

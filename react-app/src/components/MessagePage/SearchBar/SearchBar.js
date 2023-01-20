@@ -18,11 +18,6 @@ const SearchBar = () => {
 			</section>
 			<section id='center-bar-section'>
 				<figure className='slackers-with-text'>
-					{/* <img
-						src='https://i.ibb.co/17QcrJw/slack-logo.png'
-						id='nav-logo'
-						alt='slack-logo'
-					/> */}
 					<img src="https://res.cloudinary.com/dfz7bzhoi/image/upload/v1674183359/CSRF-ers/Logo_w_text_evbrbv.png" id="nav-logo" alt="slackers-logo" />
 				</figure>
 			</section>
