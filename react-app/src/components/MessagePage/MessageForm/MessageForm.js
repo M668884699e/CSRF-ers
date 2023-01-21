@@ -30,6 +30,8 @@ const MessageForm = ({ edit = false, messageId }) => {
 	const [ socketMessages, setSocketMessages ] = useState([]);
 	// const [ currentSocketMessage, setCurrentSocketMessage ] = useState('')
 
+	socket = io();
+
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.messages);
 
@@ -54,7 +56,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 	useEffect(() => {
         // open socket connection
         // create websocket
-        socket = io();
+        // socket = io('http://localhost:3000');
 
 		console.log("socket here")
 

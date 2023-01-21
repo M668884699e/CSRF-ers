@@ -9,6 +9,11 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 
+
+// import test component
+import SocketTest from './components/SocketTest';
+
+
 // import react-redux
 import { useDispatch } from 'react-redux';
 
@@ -89,6 +94,12 @@ function App() {
 				<Route path='/chat/dmr/:dmrId' exact={true}>
 					<MessagePage />
 				</Route>
+
+				{/* Test component route */}
+				<Route path="/test">
+					<SocketTest />
+				</Route>
+
 
 				{/* //? 404 Route */}
 				<Route>404 Page Not Found</Route>

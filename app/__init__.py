@@ -12,6 +12,7 @@ from .api.message_routes import message_routes
 from .api.channel_routes import channel_routes
 from .api.dmr_routes import dmr_routes
 from .api.notification_routes import notification_routes
+from .socket import socketio
 
 from .seeds import seed_commands
 
@@ -56,10 +57,10 @@ socketio.init_app(app)
 # Application Security
 CORS(app)
 
-@socketio.on("connect")
-def test():
-    print('test connection',)
-    emit('Success', {'data', 'Connected'})
+# @socketio.on("connect")
+# def test():
+#     print('test connection',)
+#     emit('Success', {'data', 'Connected'})
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
