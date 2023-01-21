@@ -25,12 +25,7 @@ import { io } from "socket.io-client";
 let socket
 
 const MessageForm = ({ edit = false, messageId }) => {
-	// socket component input
-	const [ messageInput, setMessageInput ] = useState('');
-	const [ socketMessages, setSocketMessages ] = useState([]);
-	// const [ currentSocketMessage, setCurrentSocketMessage ] = useState('')
-
-	socket = io();
+	const [messageInput, setMessageInput] = useState('');
 
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.messages);
@@ -51,24 +46,6 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 	// grab type of message from url then convert it into proper value
 	// let routeType = window.location.href.split('/')[4];
-
-	// socket initilization
-	useEffect(() => {
-        // open socket connection
-        // create websocket
-        // socket = io('http://localhost:3000');
-
-		console.log("socket here")
-
-        socket.on("message", (message) => {
-            setSocketMessages(socketMessages => [...socketMessages, message])
-
-        })
-        // when component unmounts, disconnect
-        return (() => {
-            socket.disconnect()
-        })
-    }, [])
 
 	// convert routeType val into messeagable_type val
 	// let messageable_type
@@ -123,15 +100,6 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 		setInputLength(0);
 
-		// socket.emit("chat", { user: user.username, msg: chatInput });
-		socket.emit("message", {
-			// ...currentMessage, // I blame irelius
-			message: socketMessages.slice(0, 500),
-			messageable_id: chatId,
-			messageable_type,
-			sender_id: userId,
-		});
-
 		if (!edit) {
 			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
 				() => {
@@ -151,7 +119,6 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 	// function to handle updating message
 	const updateMessage = (e) => {
-		setSocketMessages(e.target.value);
 		setMessage(e.target.value);
 	};
 
@@ -173,19 +140,18 @@ const MessageForm = ({ edit = false, messageId }) => {
 						id='message-field'
 						name='message'
 						type='text'
-						placeholder={`Message #${
-							currentChannel &&
+						placeholder={`Message #${currentChannel &&
 							currentChannel.channel_name &&
 							currentChannel.channel_name.length > 0
-								? currentChannel.channel_name.slice(0, 20) + '...'
-								: currentChannel &&
-								  currentChannel.dmr_name &&
-								  currentChannel.dmr_name.length > 0
+							? currentChannel.channel_name.slice(0, 20) + '...'
+							: currentChannel &&
+								currentChannel.dmr_name &&
+								currentChannel.dmr_name.length > 0
 								? currentChannel.dmr_name
-										.slice(currentChannel.dmr_name.indexOf(',') + 1)
-										.slice(0, 20) + '...'
+									.slice(currentChannel.dmr_name.indexOf(',') + 1)
+									.slice(0, 20) + '...'
 								: ''
-						}`}
+							}`}
 						onKeyDown={onEnterPress}
 						onInput={checkInputLength}
 						value={message}
@@ -201,7 +167,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 					characters left
 				</p>
 				{(inputLength > 0 && 500 - inputLength >= 0) ||
-				(edit && currentMessage.message.trim() === message.trim()) ? (
+					(edit && currentMessage.message.trim() === message.trim()) ? (
 					<figure
 						id='message-button-figure'
 						className='message-button-figure-true'
