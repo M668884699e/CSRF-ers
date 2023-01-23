@@ -32,7 +32,7 @@ RUN pip install -r requirements.txt && pip install psycopg2
 
 # Start the flask environment by setting our
 # closing command to gunicorn app:app
-CMD gunicorn app:app
+# CMD gunicorn app:app
 
 # socket CMD
-# CMD gunicorn --worker-class eventlet -w 1 app:app
+CMD gunicorn --worker-class eventlet -w 1 app:app
