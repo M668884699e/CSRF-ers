@@ -22,8 +22,8 @@ app = Flask(__name__)
 
 if os.environ.get("FLASK_ENV") == "production":
     origins = [
-        "http://actual-app-url.herokuapp.com",
-        "https://actual-app-url.herokuapp.com"
+        os.environ.get("LIVE_SITE_HTTP"),
+        os.environ.get("LIVE_SITE_HTTPS")
     ]
 else:
     origins = "*"
