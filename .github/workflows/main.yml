@@ -56,4 +56,4 @@ jobs:
       - name: Enable Session Affinity for SocketIO on Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku features:enable http-session-affinity
+        run: heroku features:enable http-session-affinity -a csrf-ers
