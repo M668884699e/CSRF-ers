@@ -16,7 +16,10 @@ else:
 
 # create SocketIO instance
 socketio = SocketIO(cors_allowed_origins=origins, logger=True, engineio_logger=True)
+<<<<<<< HEAD
+=======
 
+>>>>>>> sockets-for-message-form
 
 #? Handling create chat message
 @socketio.on("message")
@@ -26,6 +29,17 @@ def handle_chat_sent(data):
     Fetch message
     """
 
+<<<<<<< HEAD
+    print("socket data", data)
+
+    send({
+        'message': data['message'],
+        'messageable_id': data['messageable_id'],
+        'messageable_type': data['messageable_type'],
+        'sender_id': current_user['id']
+    })
+
+=======
     print("backend socket data", data)
 
     # USER BEWARE, this doesn't work
@@ -39,6 +53,7 @@ def handle_chat_sent(data):
     emit("message", data, broadcast=True)
 
 
+>>>>>>> sockets-for-message-form
 #? Join channel
 @socketio.on('joinChannel', namespace='/channels')
 def joinChannel(message):
@@ -51,11 +66,20 @@ def joinChannel(message):
 
 
 # test
+<<<<<<< HEAD
+@socketio.on("chat")
+def chat(data):
+=======
 @socketio.on("socket_test")
 def socket_test(data):
+>>>>>>> sockets-for-message-form
     print("")
     print("socket test function has been entered")
     print(data)
     print("")
     # send(data, broadcast=True)
+<<<<<<< HEAD
+    emit("chat", data, broadcast=True)
+=======
     emit("socket_test", data, broadcast=True)
+>>>>>>> sockets-for-message-form
