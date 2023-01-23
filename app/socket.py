@@ -28,12 +28,13 @@ def handle_chat_sent(data):
 
     print("backend socket data", data)
 
-    # emit({
-    #     'message': data['message'],
-    #     'messageable_id': data['messageable_id'],
-    #     'messageable_type': data['messageable_type'],
-    #     'sender_id': current_user['id']
-    # }, broadcast=True)
+    # USER BEWARE, this doesn't work
+        # emit({
+        #     'message': data['message'],
+        #     'messageable_id': data['messageable_id'],
+        #     'messageable_type': data['messageable_type'],
+        #     'sender_id': current_user['id']
+        # }, broadcast=True)
 
     emit("message", data, broadcast=True)
 

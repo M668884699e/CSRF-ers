@@ -127,6 +127,8 @@ const MessageForm = ({ edit = false, messageId }) => {
 			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
 				(data) => {
 					// to do, try adding in a key with data["id"]
+					newMessage["id"] = data["id"]
+
 					socket.send(newMessage)
 
 					setMessage('');
