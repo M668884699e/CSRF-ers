@@ -52,3 +52,8 @@ jobs:
       env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} flask db upgrade
+
+    - name: Enable Session Affinity for SocketIO on Heroku
+      env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku features:enable http-session-affinity
