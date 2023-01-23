@@ -133,7 +133,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 					setMessage('');
 
-					// dispatch(thunkGetChannelMessages(chatId, routeType));
+					dispatch(thunkGetChannelMessages(chatId, routeType));
 				}
 			);
 		} else {
