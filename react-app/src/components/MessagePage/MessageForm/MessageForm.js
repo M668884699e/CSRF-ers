@@ -105,13 +105,13 @@ const MessageForm = ({ edit = false, messageId }) => {
 		e.preventDefault();
 
 		// Good for update message in socket.io maybe?
-		// const newMessage = {
-		// 	...currentMessage,
-		// 	message: message.slice(0, 500),
-		// 	messageable_id: chatId,
-		// 	messageable_type,
-		// 	sender_id: userId,
-		// };
+		const editedMessage = {
+			...currentMessage,
+			message: message.slice(0, 500),
+			messageable_id: chatId,
+			messageable_type,
+			sender_id: userId,
+		};
 
 		// socket io message
 		const newMessage = {
@@ -129,7 +129,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 					// to do, try adding in a key with data["id"]
 					newMessage["id"] = data["id"]
 
-					socket.send(newMessage)
+					socket.send('message', newMessage)
 
 					setMessage('');
 
@@ -137,8 +137,10 @@ const MessageForm = ({ edit = false, messageId }) => {
 				}
 			);
 		} else {
-			return await dispatch(messageActions.thunkPutMessage(newMessage)).then(
-				() => {
+			return await dispatch(messageActions.thunkPutMessage(editedMessage)).then(
+				(data) => {
+					editedMessage['id'] = data['id']
+					socket.send('edit_message', editedMessage)
 					setMessage('');
 					dispatch(thunkGetChannelMessages(chatId, routeType));
 				}

@@ -80,10 +80,18 @@ const MessageDisplay = () => {
 	useEffect(() => {
 		socket = io()
 
-		console.log("hello prep")
+		// console.log("hello prep")
 
 		socket.on("message", (data) => {
-			console.log("hello front end data", data)
+			// console.log("hello front end data", data)
+
+			setSocketMessage(socketMessage => [...socketMessage, data])
+
+			setMessages(messages => [...messages, data])
+		})
+
+		socket.on("edit_message", (data) => {
+			console.log("edit message socket", data)
 
 			setSocketMessage(socketMessage => [...socketMessage, data])
 
@@ -94,6 +102,7 @@ const MessageDisplay = () => {
 			socket.disconnect()
 		})
 	}, [])
+
 
 
 
@@ -195,8 +204,8 @@ const MessageDisplay = () => {
 		setMessageBooleans(newMessageBooleans);
 	};
 
-	console.log('hello socketMessages', socketMessage)
-	console.log("hello message", messages)
+	// console.log('hello socketMessages', socketMessage)
+	// console.log("hello message", messages)
 
 	return Object.values(usersState).length > 0 && currentChat ? (
 		<section id='message-display-main'>

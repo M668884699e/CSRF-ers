@@ -37,6 +37,16 @@ def handle_chat_sent(data):
         # }, broadcast=True)
 
     emit("message", data, broadcast=True)
+    
+@socketio.on('edit_message')
+def handle_edit_chat(data):
+    """
+    Update messsage
+    """
+    
+    print("Edited socket message", data)
+    
+    emit("edit-message", data, broadcast=True)
 
 
 #? Join channel
@@ -50,12 +60,4 @@ def joinChannel(message):
     emit('status', {'message': 'Successfully joined the channel'})
 
 
-# test
-@socketio.on("socket_test")
-def socket_test(data):
-    print("")
-    print("socket test function has been entered")
-    print(data)
-    print("")
-    # send(data, broadcast=True)
-    emit("socket_test", data, broadcast=True)
+
