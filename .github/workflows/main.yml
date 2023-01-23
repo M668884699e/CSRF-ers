@@ -28,7 +28,7 @@ jobs:
         with:
           python-version: "3.9"
           cache: "pip"
-      - run: pip install pipenv
+      - run: pip install pipenv && pip install -r requirements.txt && pip install psycopg2
 
       - name: Update requirements.txt for container install
         run: pipenv requirements > requirements.txt

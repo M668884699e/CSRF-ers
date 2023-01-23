@@ -54,13 +54,6 @@ socketio.init_app(app)
 # Application Security
 CORS(app)
 
-<<<<<<< HEAD
-# @socketio.on("connect")
-# def test():
-#     print('test connection',)
-#     emit('Success', {'data', 'Connected'})
-=======
->>>>>>> sockets-for-message-form
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.
