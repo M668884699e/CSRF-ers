@@ -29,6 +29,10 @@ import * as channelActions from '../../../store/channel';
 import * as dmrActions from '../../../store/dmr';
 import MessageForm from '../MessageForm';
 
+import { io } from "socket.io-client";
+
+let socket;
+
 const MessageDisplay = () => {
 	/**
 	 *  Controlled Inputs
@@ -68,6 +72,30 @@ const MessageDisplay = () => {
 	// redux state
 	const messageState = useSelector(messageActions.getAllMessages);
 	const usersState = useSelector(userActions.getAllUsers);
+
+	// message useState for socket.io
+	const [socketMessage, setSocketMessage] = useState([])
+
+	// useEffect for socket.io
+	useEffect(() => {
+		socket = io()
+
+		console.log("hello prep")
+
+		socket.on("message", (data) => {
+			console.log("hello front end data", data)
+
+			setSocketMessage(socketMessage => [...socketMessage, data])
+
+			setMessages(messages => [...messages, data])
+		})
+
+		return (() => {
+			socket.disconnect()
+		})
+	}, [])
+
+
 
 	// per message state
 	useEffect(() => {
@@ -166,6 +194,9 @@ const MessageDisplay = () => {
 		newMessageBooleans[index] = !newMessageBooleans[index];
 		setMessageBooleans(newMessageBooleans);
 	};
+
+	console.log('hello socketMessages', socketMessage)
+	console.log("hello message", messages)
 
 	return Object.values(usersState).length > 0 && currentChat ? (
 		<section id='message-display-main'>
