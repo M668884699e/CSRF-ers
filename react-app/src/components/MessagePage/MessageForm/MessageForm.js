@@ -30,7 +30,7 @@ const MessageForm = ({ edit = false, messageId }) => {
 	const [ socketMessages, setSocketMessages ] = useState([]);
 	// const [ currentSocketMessage, setCurrentSocketMessage ] = useState('')
 
-	socket = io();
+	// socket = io();
 
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.messages);
@@ -53,22 +53,20 @@ const MessageForm = ({ edit = false, messageId }) => {
 	// let routeType = window.location.href.split('/')[4];
 
 	// socket initilization
-	useEffect(() => {
-        // open socket connection
-        // create websocket
-        // socket = io('http://localhost:3000');
+	// useEffect(() => {
+    //     // open socket connection
 
-		console.log("socket here")
+	// 	console.log("socket here")
 
-        socket.on("message", (message) => {
-            setSocketMessages(socketMessages => [...socketMessages, message])
+    //     socket.on("message", (message) => {
+    //         setSocketMessages(socketMessages => [...socketMessages, message])
 
-        })
-        // when component unmounts, disconnect
-        return (() => {
-            socket.disconnect()
-        })
-    }, [])
+    //     })
+    //     // when component unmounts, disconnect
+    //     return (() => {
+    //         socket.disconnect()
+    //     })
+    // }, [])
 
 	// convert routeType val into messeagable_type val
 	// let messageable_type
