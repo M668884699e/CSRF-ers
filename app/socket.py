@@ -15,7 +15,8 @@ else:
     origins = "*"
 
 # create SocketIO instance
-socketio = SocketIO(cors_allowed_origins=origins)
+socketio = SocketIO(cors_allowed_origins=origins, logger=True, engineio_logger=True)
+
 
 #? Handling create chat message
 @socketio.on("message")
@@ -25,12 +26,17 @@ def handle_chat_sent(data):
     Fetch message
     """
 
-    send({
-        'message': data['message'],
-        'messageable_id': data['messageable_id'],
-        'messageable_type': data['messageable_type'],
-        'sender_id': current_user['id']
-    })
+    print("backend socket data", data)
+
+    # emit({
+    #     'message': data['message'],
+    #     'messageable_id': data['messageable_id'],
+    #     'messageable_type': data['messageable_type'],
+    #     'sender_id': current_user['id']
+    # }, broadcast=True)
+
+    emit("message", data, broadcast=True)
+
 
 #? Join channel
 @socketio.on('joinChannel', namespace='/channels')
@@ -41,3 +47,14 @@ def joinChannel(message):
     #
     join_room(channel)
     emit('status', {'message': 'Successfully joined the channel'})
+
+
+# test
+@socketio.on("socket_test")
+def socket_test(data):
+    print("")
+    print("socket test function has been entered")
+    print(data)
+    print("")
+    # send(data, broadcast=True)
+    emit("socket_test", data, broadcast=True)

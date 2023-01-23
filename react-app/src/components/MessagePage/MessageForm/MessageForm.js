@@ -125,8 +125,12 @@ const MessageForm = ({ edit = false, messageId }) => {
 
 		if (!edit) {
 			return await dispatch(messageActions.thunkCreateMessage(newMessage)).then(
-				() => {
+				(data) => {
+					// to do, try adding in a key with data["id"]
+					socket.send(newMessage)
+
 					setMessage('');
+
 					dispatch(thunkGetChannelMessages(chatId, routeType));
 				}
 			);
