@@ -23,16 +23,6 @@ import { useMessage } from '../../../context/MessageContext';
 let socket;
 
 const MessageForm = ({ edit = false, messageId }) => {
-<<<<<<< HEAD
-	// socket component input
-	const [ messageInput, setMessageInput ] = useState('');
-	const [ socketMessages, setSocketMessages ] = useState([]);
-	// const [ currentSocketMessage, setCurrentSocketMessage ] = useState('')
-
-	socket = io();
-
-=======
->>>>>>> sockets-for-message-form
 	const dispatch = useDispatch();
 	const messages = useSelector((state) => state.messages);
 
@@ -57,27 +47,6 @@ const MessageForm = ({ edit = false, messageId }) => {
 	// grab type of message from url then convert it into proper value
 	// let routeType = window.location.href.split('/')[4];
 
-<<<<<<< HEAD
-	// socket initilization
-	useEffect(() => {
-        // open socket connection
-        // create websocket
-        // socket = io('http://localhost:3000');
-
-		console.log("socket here")
-
-        socket.on("message", (message) => {
-            setSocketMessages(socketMessages => [...socketMessages, message])
-
-        })
-        // when component unmounts, disconnect
-        return (() => {
-            socket.disconnect()
-        })
-    }, [])
-
-=======
->>>>>>> sockets-for-message-form
 	// convert routeType val into messeagable_type val
 	// let messageable_type
 	useEffect(() => {
